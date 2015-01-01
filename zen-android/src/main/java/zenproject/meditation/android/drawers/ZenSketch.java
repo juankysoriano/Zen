@@ -7,32 +7,40 @@ import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
 import com.juankysoriano.rainbow.core.event.RainbowEvent;
 import com.juankysoriano.rainbow.core.event.RainbowInputController;
 
+import zenproject.meditation.android.model.InkDropSizeLimiter;
+
 public class ZenSketch extends Rainbow implements RainbowInputController.RainbowInteractionListener {
 
-    private StepDrawer inkDrawer;
-    private StepDrawer eraserDrawer;
     private final RainbowInputController rainbowInputController;
     private final RainbowDrawer rainbowDrawer;
-    private SketchTouchesListener sketchTouchesListener;
+    private final BranchesList branchesList;
+    private final InkDropSizeLimiter inkDropSizeLimiter;
+    private OnPaintingListener onPaintingListener;
+    private StepDrawer inkDrawer;
+    private StepDrawer eraserDrawer;
+    private StepDrawer branchDrawer;
+
+    ZenSketch(ViewGroup viewGroup,
+              RainbowDrawer rainbowDrawer,
+              RainbowInputController rainbowInputController, BranchesList branches, InkDropSizeLimiter inkDropSizeLimiter) {
+        super(viewGroup, rainbowDrawer, rainbowInputController);
+        this.rainbowDrawer = rainbowDrawer;
+        this.rainbowInputController = rainbowInputController;
+        this.branchesList = branches;
+        this.inkDropSizeLimiter = inkDropSizeLimiter;
+    }
 
     public static ZenSketch newInstance(ViewGroup viewGroup) {
         RainbowDrawer rainbowDrawer = new RainbowDrawer();
         RainbowInputController rainbowInputController = new RainbowInputController();
-        return new ZenSketch(viewGroup, rainbowDrawer, rainbowInputController);
-    }
-
-    ZenSketch(ViewGroup viewGroup,
-              RainbowDrawer rainbowDrawer,
-              RainbowInputController rainbowInputController) {
-        super(viewGroup, rainbowDrawer, rainbowInputController);
-        this.rainbowDrawer = rainbowDrawer;
-        this.rainbowInputController = rainbowInputController;
+        return new ZenSketch(viewGroup, rainbowDrawer, rainbowInputController, BranchesList.newInstance(), new InkDropSizeLimiter());
     }
 
     @Override
     public void onSketchSetup() {
-        this.inkDrawer = InkDrawer.newInstance(rainbowDrawer, rainbowInputController);
+        this.inkDrawer = InkDrawer.newInstance(branchesList, inkDropSizeLimiter, rainbowDrawer, rainbowInputController);
         this.eraserDrawer = EraserDrawer.newInstance(rainbowDrawer, rainbowInputController);
+        this.branchDrawer = BranchesDrawer.newInstance(branchesList, rainbowDrawer);
         rainbowInputController.setRainbowInteractionListener(this);
     }
 
@@ -43,8 +51,7 @@ public class ZenSketch extends Rainbow implements RainbowInputController.Rainbow
 
     @Override
     public void onDrawingStep() {
-        inkDrawer.paintStep();
-        eraserDrawer.paintStep();
+        branchDrawer.paintStep();
     }
 
     @Override
@@ -58,16 +65,20 @@ public class ZenSketch extends Rainbow implements RainbowInputController.Rainbow
 
     @Override
     public void onSketchTouched(RainbowEvent event, RainbowDrawer rainbowDrawer) {
-        if (hasListener()) {
-            sketchTouchesListener.onSketchTouched(event, rainbowDrawer);
+        if (hasOnPaintingListener()) {
+            onPaintingListener.onPaintingStart();
         }
-        inkDrawer.initDrawingAt(event.getX(), event.getY());
+        inkDrawer.reset();
+    }
+
+    private boolean hasOnPaintingListener() {
+        return this.onPaintingListener != null;
     }
 
     @Override
     public void onSketchReleased(RainbowEvent event, RainbowDrawer rainbowDrawer) {
-        if (hasListener()) {
-            sketchTouchesListener.onSketchReleased(event, rainbowDrawer);
+        if (hasOnPaintingListener()) {
+            onPaintingListener.onPaintingEnd();
         }
     }
 
@@ -88,6 +99,7 @@ public class ZenSketch extends Rainbow implements RainbowInputController.Rainbow
 
     public void enablePainting() {
         inkDrawer.enable();
+        branchDrawer.enable();
     }
 
     public void enableErasing() {
@@ -96,19 +108,16 @@ public class ZenSketch extends Rainbow implements RainbowInputController.Rainbow
 
     public void disablePainting() {
         inkDrawer.disable();
+        branchDrawer.disable();
     }
 
-    public void setSketchTouchesListener(SketchTouchesListener sketchTouchesListener) {
-        this.sketchTouchesListener = sketchTouchesListener;
+    public void setOnPaintingListener(OnPaintingListener onPaintingListener) {
+        this.onPaintingListener = onPaintingListener;
     }
 
-    private boolean hasListener() {
-        return sketchTouchesListener != null;
-    }
+    public interface OnPaintingListener {
+        void onPaintingStart();
 
-    public interface SketchTouchesListener {
-        void onSketchTouched(RainbowEvent event, RainbowDrawer rainbowDrawer);
-
-        void onSketchReleased(RainbowEvent event, RainbowDrawer rainbowDrawer);
+        void onPaintingEnd();
     }
 }
