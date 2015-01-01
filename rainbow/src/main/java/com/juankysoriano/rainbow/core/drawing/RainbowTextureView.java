@@ -35,7 +35,7 @@ public class RainbowTextureView extends TextureView implements SurfaceTextureLis
         if (rainbowInputController != null) {
             float px = rainbowInputController.getPreviousX();
             float py = rainbowInputController.getPreviousY();
-            rainbowInputController.postEvent(RainbowEvent.from(event, px, py), mRainbow.getRainbowDrawer(), mRainbow.isRunning());
+            rainbowInputController.postEvent(RainbowEvent.from(event, px, py), mRainbow.getRainbowDrawer());
         }
 
         return true;

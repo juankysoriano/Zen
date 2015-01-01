@@ -23,6 +23,7 @@ public class RainbowDrawer {
     private int[] pixels; // this value will be null until loadPixels() has been called.
     private int width;
     private int height;
+    private boolean drawing;
 
     public RainbowDrawer() {
     }
@@ -394,9 +395,14 @@ public class RainbowDrawer {
      * Prepares rainbow sketch for draw.
      */
     public void beginDraw() {
+        drawing = true;
         if (graphics != null) {
             graphics.beginDraw();
         }
+    }
+
+    public boolean isDrawing() {
+        return drawing;
     }
 
     /**
@@ -406,6 +412,7 @@ public class RainbowDrawer {
         if (graphics != null) {
             graphics.endDraw();
         }
+        drawing = false;
     }
 
     /**

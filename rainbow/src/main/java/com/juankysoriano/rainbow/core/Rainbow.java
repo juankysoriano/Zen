@@ -17,15 +17,47 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class Rainbow {
+public class Rainbow implements PaintStepListener {
     private static final int DEFAULT_FRAME_RATE = 120;
+    private float frameRate = DEFAULT_FRAME_RATE;
     private boolean surfaceReady;
     private int width;
     private int height;
     private int frameCount;
-    private float frameRate = DEFAULT_FRAME_RATE;
     private boolean paused = true;
     private boolean isSetup = false;
+    private AsyncTask<Void, Void, Void> setupSketchTask = new AsyncTask<Void, Void, Void>() {
+        @Override
+        protected void onPreExecute() {
+            width = drawingView.getMeasuredWidth();
+            height = drawingView.getMeasuredHeight();
+            initGraphics(width, height);
+        }
+
+        private void initGraphics(int width, int height) {
+            RainbowGraphics graphics = new RainbowGraphics2D();
+            graphics.setParent(Rainbow.this);
+            graphics.setPrimary(true);
+            if (width > 0 && height > 0) {
+                graphics.setSize(width, height);
+                rainbowDrawer.setGraphics(graphics);
+            }
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            rainbowDrawer.beginDraw();
+            Rainbow.this.onSketchSetup();
+            rainbowDrawer.endDraw();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void param) {
+            isSetup = true;
+            surfaceReady = true;
+        }
+    };
     private ScheduledExecutorService drawingScheduler;
     private RainbowInputController rainbowInputController;
     private DrawingTask drawingTask;
@@ -55,6 +87,7 @@ public class Rainbow {
         this.drawingTask = new DrawingTask();
 
         addOnPreDrawListener();
+        rainbowInputController.setPaintStepListener(this);
     }
 
     private void addOnPreDrawListener() {
@@ -68,39 +101,6 @@ public class Rainbow {
     private void setupSketch() {
         setupSketchTask.execute();
     }
-
-    private AsyncTask<Void, Void, Void> setupSketchTask = new AsyncTask<Void, Void, Void>() {
-        @Override
-        protected void onPreExecute() {
-            width = drawingView.getMeasuredWidth();
-            height = drawingView.getMeasuredHeight();
-            initGraphics(width, height);
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            rainbowDrawer.beginDraw();
-            Rainbow.this.onSketchSetup();
-            rainbowDrawer.endDraw();
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void param) {
-            isSetup = true;
-            surfaceReady = true;
-        }
-
-        private void initGraphics(int width, int height) {
-            RainbowGraphics graphics = new RainbowGraphics2D();
-            graphics.setParent(Rainbow.this);
-            graphics.setPrimary(true);
-            if (width > 0 && height > 0) {
-                graphics.setSize(width, height);
-                rainbowDrawer.setGraphics(graphics);
-            }
-        }
-    };
 
     public void onSketchSetup() {
         //no-op
@@ -125,7 +125,7 @@ public class Rainbow {
         onDrawingResume();
         paused = false;
         if (drawingScheduler == null || drawingScheduler.isTerminated()) {
-            drawingScheduler = Executors.newSingleThreadScheduledExecutor();
+            drawingScheduler = Executors.newScheduledThreadPool(10);
             drawingScheduler.scheduleAtFixedRate(drawingTask, 0, drawingTask.getDelay(), TimeUnit.MILLISECONDS);
         }
     }
@@ -141,17 +141,6 @@ public class Rainbow {
         }
     }
 
-    private void setupDrawingSurface(RainbowGraphics graphics) {
-        final int newWidth = drawingView.getWidth();
-        final int newHeight = drawingView.getHeight();
-        if ((newWidth != width) || (newHeight != height)) {
-            width = newWidth;
-            height = newHeight;
-            graphics.setSize(width, height);
-        }
-        surfaceReady = true;
-    }
-
     private boolean canDraw() {
         return rainbowDrawer != null
                 && rainbowDrawer.hasGraphics()
@@ -160,44 +149,15 @@ public class Rainbow {
     }
 
     private void fireDrawStep() {
-        synchronized (this) {
-            frameCount++;
-            rainbowDrawer.beginDraw();
+        frameCount++;
+        rainbowDrawer.beginDraw();
+        if (!rainbowInputController.isScreenTouched()) {
             onDrawingStep();
-            rainbowInputController.dequeueEvents(rainbowDrawer);
-            rainbowDrawer.endDraw();
         }
+        rainbowDrawer.endDraw();
     }
 
     public void onDrawingStep() {
-        //no-op
-    }
-
-    public void pause() {
-        paused = true;
-        onDrawingPause();
-    }
-
-    public void onDrawingPause() {
-        //no-op
-    }
-
-    public void stop() {
-        pause();
-        shutDownExecutioner();
-        onDrawingStop();
-    }
-
-    private void shutDownExecutioner() {
-        try {
-            drawingScheduler.shutdownNow();
-            drawingScheduler.awaitTermination(DrawingTask.TIMEOUT, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void onDrawingStop() {
         //no-op
     }
 
@@ -215,7 +175,35 @@ public class Rainbow {
         drawingTask = null;
     }
 
+    public void stop() {
+        pause();
+        shutDownExecutioner();
+        onDrawingStop();
+    }
+
     public void onSketchDestroy() {
+        //no-op
+    }
+
+    public void pause() {
+        paused = true;
+        onDrawingPause();
+    }
+
+    private void shutDownExecutioner() {
+        try {
+            drawingScheduler.shutdownNow();
+            drawingScheduler.awaitTermination(DrawingTask.TIMEOUT, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void onDrawingStop() {
+        //no-op
+    }
+
+    public void onDrawingPause() {
         //no-op
     }
 
@@ -281,6 +269,17 @@ public class Rainbow {
 
     public void invalidate() {
         setupDrawingSurface(rainbowDrawer.getGraphics());
+    }
+
+    private void setupDrawingSurface(RainbowGraphics graphics) {
+        final int newWidth = drawingView.getWidth();
+        final int newHeight = drawingView.getHeight();
+        if ((newWidth != width) || (newHeight != height)) {
+            width = newWidth;
+            height = newHeight;
+            graphics.setSize(width, height);
+        }
+        surfaceReady = true;
     }
 
     class DrawingTask extends TimerTask {

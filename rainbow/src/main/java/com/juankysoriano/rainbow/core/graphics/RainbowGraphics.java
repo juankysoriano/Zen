@@ -2434,6 +2434,13 @@ public abstract class RainbowGraphics extends RainbowImage {
     }
 
     /**
+     * Set the current transformation to the contents of the specified source.
+     */
+    public void setMatrix(RMatrix3D source) {
+        showMissingWarning("setMatrix");
+    }
+
+    /**
      * Set the current transformation matrix to the contents of another.
      */
     public void setMatrix(RMatrix source) {
@@ -2448,13 +2455,6 @@ public abstract class RainbowGraphics extends RainbowImage {
      * Set the current transformation to the contents of the specified source.
      */
     public void setMatrix(RMatrix2D source) {
-        showMissingWarning("setMatrix");
-    }
-
-    /**
-     * Set the current transformation to the contents of the specified source.
-     */
-    public void setMatrix(RMatrix3D source) {
         showMissingWarning("setMatrix");
     }
 

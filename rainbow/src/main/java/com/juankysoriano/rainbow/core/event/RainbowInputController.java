@@ -1,38 +1,50 @@
 package com.juankysoriano.rainbow.core.event;
 
+import android.os.AsyncTask;
 import android.view.MotionEvent;
 
+import com.juankysoriano.rainbow.core.PaintStepListener;
 import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
 
 public class RainbowInputController {
-    private final EventDispatcher eventDispatcher;
-    private final FingerPositionPredictor fingerPositionPredictor;
+    private final FingerPositionSmoother fingerPositionPredictor;
+    private PaintStepListener paintStepListener;
     private RainbowInteractionListener rainbowInteractionListener;
     private float x, y;
     private float px, py;
     private boolean screenTouched;
 
     public RainbowInputController() {
-        fingerPositionPredictor = new FingerPositionPredictor();
-        eventDispatcher = new EventDispatcher();
+        fingerPositionPredictor = new FingerPositionSmoother();
         x = y = px = py = -1;
     }
 
-    public void postEvent(final RainbowEvent motionEvent, final RainbowDrawer rainbowDrawer, final boolean looping) {
-        eventDispatcher.setEvent(motionEvent);
-        if (!looping) {
-            rainbowDrawer.beginDraw();
-            dequeueEvents(rainbowDrawer);
-            rainbowDrawer.endDraw();
-        }
+    public void postEvent(final RainbowEvent motionEvent, final RainbowDrawer rainbowDrawer) {
+        AsyncTask<Void, Void, Void> postTask = new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                preHandleEvent(motionEvent);
+                handleSketchEvent(motionEvent, rainbowDrawer);
+                if (isScreenTouched()) {
+                    paintStepListener.onDrawingStep();
+                }
+                postHandleEvent(motionEvent);
+                return null;
+            }
+        };
+
+        postTask.execute();
+
     }
 
-    public void dequeueEvents(final RainbowDrawer rainbowDrawer) {
-        if (eventDispatcher.hasEvent()) {
-            final RainbowEvent motionEvent = eventDispatcher.getEvent();
-            preHandleEvent(motionEvent);
-            handleSketchEvent(motionEvent, rainbowDrawer);
-            postHandleEvent(motionEvent);
+    private void preHandleEvent(RainbowEvent event) {
+        if ((event.getAction() == MotionEvent.ACTION_DOWN)
+                || (event.getAction() == MotionEvent.ACTION_UP)
+                || event.getAction() == MotionEvent.ACTION_MOVE) {
+            px = x;
+            py = y;
+            x = event.getX();
+            y = event.getY();
         }
     }
 
@@ -66,28 +78,26 @@ public class RainbowInputController {
         }
     }
 
-    private synchronized void preHandleEvent(RainbowEvent event) {
+    public boolean isScreenTouched() {
+        return screenTouched;
+    }
+
+    private void postHandleEvent(RainbowEvent event) {
         if ((event.getAction() == MotionEvent.ACTION_DOWN)
                 || (event.getAction() == MotionEvent.ACTION_UP)
                 || event.getAction() == MotionEvent.ACTION_MOVE) {
             px = x;
             py = y;
-            x = event.getX();
-            y = event.getY();
         }
     }
 
-    private synchronized void postHandleEvent(RainbowEvent event) {
-        if ((event.getAction() == MotionEvent.ACTION_DOWN)
-                || (event.getAction() == MotionEvent.ACTION_UP)
-                || event.getAction() == MotionEvent.ACTION_MOVE) {
-            px = x;
-            py = y;
-        }
+    private boolean hasInteractionListener() {
+        return rainbowInteractionListener != null;
     }
 
     /**
      * Used to set a RainbowInteractionListener which will listen for different interaction events
+     *
      * @param rainbowInteractionListener
      */
     public void setRainbowInteractionListener(RainbowInteractionListener rainbowInteractionListener) {
@@ -101,8 +111,16 @@ public class RainbowInputController {
         this.rainbowInteractionListener = null;
     }
 
-    private boolean hasInteractionListener() {
-        return rainbowInteractionListener != null;
+    public boolean hasPaintStepListener() {
+        return this.paintStepListener != null;
+    }
+
+    public void setPaintStepListener(PaintStepListener paintStepListener) {
+        this.paintStepListener = paintStepListener;
+    }
+
+    public void removePaintStepListener() {
+        this.paintStepListener = null;
     }
 
     public float getX() {
@@ -129,6 +147,22 @@ public class RainbowInputController {
         }
     }
 
+    public MovementDirection getVerticalDirection() {
+        if (fingerPositionPredictor.getY() > fingerPositionPredictor.getOldY()) {
+            return MovementDirection.DOWN;
+        } else {
+            return MovementDirection.UP;
+        }
+    }
+
+    public MovementDirection getHorizontalDirection() {
+        if (fingerPositionPredictor.getX() > fingerPositionPredictor.getOldX()) {
+            return MovementDirection.RIGHT;
+        } else {
+            return MovementDirection.LEFT;
+        }
+    }
+
     public float getSmoothX() {
         return fingerPositionPredictor.getX();
     }
@@ -145,8 +179,12 @@ public class RainbowInputController {
         return fingerPositionPredictor.getOldY();
     }
 
-    public boolean isScreenTouched() {
-        return screenTouched;
+    public float getFingerVelocity() {
+        return fingerPositionPredictor.getFingerVelocity();
+    }
+
+    public enum MovementDirection {
+        UP, DOWN, LEFT, RIGHT;
     }
 
     public static interface RainbowInteractionListener {

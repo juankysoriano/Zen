@@ -1,6 +1,8 @@
 package com.juankysoriano.rainbow.core.event;
 
-class FingerPositionPredictor {
+import com.juankysoriano.rainbow.utils.RainbowMath;
+
+class FingerPositionSmoother {
     private static final float SPRING = 0.1f;
     private static final float DAMP = 0.6f;
     private float x;
@@ -55,5 +57,9 @@ class FingerPositionPredictor {
         this.y = y;
         this.xOld = x;
         this.yOld = y;
+    }
+
+    public float getFingerVelocity() {
+        return RainbowMath.dist(0, 0, xVel, yVel);
     }
 }
