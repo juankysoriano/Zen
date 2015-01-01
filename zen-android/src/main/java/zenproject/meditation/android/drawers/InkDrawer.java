@@ -8,10 +8,13 @@ import com.juankysoriano.rainbow.utils.RainbowMath;
 
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.model.InkDrop;
+import zenproject.meditation.android.model.InkDropSizeLimiter;
+
+import static com.juankysoriano.rainbow.core.event.RainbowInputController.MovementDirection;
 
 public class InkDrawer implements StepDrawer, RainbowImage.LoadPictureListener {
     private static final RainbowImage NO_IMAGE = null;
-    private static final int INK_ISSUE_THRESHOLD = 97;
+    private static final int INK_ISSUE_THRESHOLD = 99;
     private static final int ALPHA = 180;
     private static final int BLACK = 0;
     private static final int WHITE = 255;
@@ -19,11 +22,19 @@ public class InkDrawer implements StepDrawer, RainbowImage.LoadPictureListener {
     private final RainbowDrawer rainbowDrawer;
     private final RainbowInputController rainbowInputController;
     private final InkDrop inkDrop;
+    private final BranchesList branches;
     private RainbowImage image;
     private boolean enabled = true;
 
-    public static InkDrawer newInstance(RainbowDrawer rainbowDrawer, RainbowInputController rainbowInputController) {
-        InkDrawer inkDrawer = new InkDrawer(new InkDrop(), rainbowDrawer, rainbowInputController);
+    private InkDrawer(InkDrop inkDrop, BranchesList branches, RainbowDrawer rainbowDrawer, RainbowInputController rainbowInputController) {
+        this.inkDrop = inkDrop;
+        this.branches = branches;
+        this.rainbowDrawer = rainbowDrawer;
+        this.rainbowInputController = rainbowInputController;
+    }
+
+    public static InkDrawer newInstance(BranchesList branches, InkDropSizeLimiter inkDropSizeLimiter, RainbowDrawer rainbowDrawer, RainbowInputController rainbowInputController) {
+        InkDrawer inkDrawer = new InkDrawer(new InkDrop(inkDropSizeLimiter), branches, rainbowDrawer, rainbowInputController);
         configureDrawer(rainbowDrawer);
         rainbowDrawer.loadImage(R.drawable.brush_ink, RainbowImage.LOAD_ORIGINAL_SIZE, inkDrawer);
         return inkDrawer;
@@ -32,12 +43,6 @@ public class InkDrawer implements StepDrawer, RainbowImage.LoadPictureListener {
     private static void configureDrawer(RainbowDrawer rainbowDrawer) {
         rainbowDrawer.noStroke();
         rainbowDrawer.smooth();
-    }
-
-    private InkDrawer(InkDrop inkDrop, RainbowDrawer rainbowDrawer, RainbowInputController rainbowInputController) {
-        this.inkDrop = inkDrop;
-        this.rainbowDrawer = rainbowDrawer;
-        this.rainbowInputController = rainbowInputController;
     }
 
     @Override
@@ -58,23 +63,35 @@ public class InkDrawer implements StepDrawer, RainbowImage.LoadPictureListener {
     }
 
     private void moveAndPaintInkDrop(final RainbowInputController rainbowInputController) {
-        inkDrop.moveTo(rainbowInputController.getX(), rainbowInputController.getY());
-        rainbowDrawer.exploreLine(inkDrop.getX(), inkDrop.getY(), inkDrop.getOldX(), inkDrop.getOldY(), new RainbowDrawer.PointDetectedListener() {
+        rainbowDrawer.exploreLine(rainbowInputController.getSmoothX(),
+                rainbowInputController.getSmoothY(),
+                rainbowInputController.getPreviousSmoothX(),
+                rainbowInputController.getPreviousSmoothY(),
+                new RainbowDrawer.PointDetectedListener() {
 
-            @Override
-            public void onPointDetected(float x, float y, RainbowDrawer rainbowDrawer) {
-                inkDrop.updateInkRadius(rainbowInputController.isScreenTouched());
-                if (inkDrop.isMoving()) {
-                    drawInk(x, y);
-                }
-            }
-        });
+                    @Override
+                    public void onPointDetected(float x, float y, RainbowDrawer rainbowDrawer) {
+                        inkDrop.updateInkRadiusFor(rainbowInputController);
+                        drawInk(x, y);
+                        attempToCreateBranchAt(x, y);
+                    }
+                });
     }
 
-    @Override
-    public void initDrawingAt(float x, float y) {
-        inkDrop.resetTo(x, y);
-        inkDrop.resetRadius();
+    private void attempToCreateBranchAt(float x, float y) {
+        if (RainbowMath.random(100) > 95 && !hasToPaintDropImage()) {
+            createBranchAt(x, y);
+        }
+    }
+
+    private void createBranchAt(float x, float y) {
+        MovementDirection verticalMovement = rainbowInputController.getVerticalDirection();
+        MovementDirection horizontalMovement = rainbowInputController.getHorizontalDirection();
+        float radius = inkDrop.getRadius() / 4;
+        float verticalOffset = verticalMovement == MovementDirection.DOWN ? radius : -radius;
+        float horizontalOffset = horizontalMovement == MovementDirection.RIGHT ? radius : -radius;
+
+        branches.sproudFrom(Branch.createAt(x + horizontalOffset, y + verticalOffset));
     }
 
     private void drawInk(float x, float y) {
@@ -85,10 +102,8 @@ public class InkDrawer implements StepDrawer, RainbowImage.LoadPictureListener {
         }
     }
 
-    private void paintDropWithoutImage(float x, float y) {
-        rainbowDrawer.fill(BLACK, ALPHA);
-        rainbowDrawer.ellipseMode(RainbowGraphics.CENTER);
-        rainbowDrawer.ellipse(x, y, inkDrop.getRadius() * INK_DROP_IMAGE_SCALE, inkDrop.getRadius() * INK_DROP_IMAGE_SCALE);
+    private boolean hasToPaintDropImage() {
+        return RainbowMath.random(100) > INK_ISSUE_THRESHOLD && hasImage();
     }
 
     private void paintDropWithImage(float x, float y) {
@@ -101,12 +116,20 @@ public class InkDrawer implements StepDrawer, RainbowImage.LoadPictureListener {
         rainbowDrawer.popMatrix();
     }
 
-    private boolean hasToPaintDropImage() {
-        return RainbowMath.random(100) > INK_ISSUE_THRESHOLD && hasImage();
+    private void paintDropWithoutImage(float x, float y) {
+        rainbowDrawer.noStroke();
+        rainbowDrawer.fill(BLACK, ALPHA);
+        rainbowDrawer.ellipseMode(RainbowGraphics.CENTER);
+        rainbowDrawer.ellipse(x, y, inkDrop.getRadius() * INK_DROP_IMAGE_SCALE, inkDrop.getRadius() * INK_DROP_IMAGE_SCALE);
     }
 
     private boolean hasImage() {
         return image != NO_IMAGE;
+    }
+
+    @Override
+    public void reset() {
+        inkDrop.resetRadius();
     }
 
     public void enable() {

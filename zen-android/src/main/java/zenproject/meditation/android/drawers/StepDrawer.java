@@ -4,7 +4,7 @@ public interface StepDrawer {
 
     void paintStep();
 
-    void initDrawingAt(float x, float y);
+    void reset();
 
     void disable();
 

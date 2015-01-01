@@ -27,23 +27,23 @@ public class EraserDrawer implements StepDrawer {
 
     @Override
     public void paintStep() {
-        final float x = rainbowInputController.getX();
-        final float y = rainbowInputController.getY();
-        final float px = rainbowInputController.getPreviousX();
-        final float py = rainbowInputController.getPreviousY();
+        final float x = rainbowInputController.getSmoothX();
+        final float y = rainbowInputController.getSmoothY();
+        final float px = rainbowInputController.getPreviousSmoothX();
+        final float py = rainbowInputController.getPreviousSmoothY();
 
         rainbowDrawer.exploreLine(x, y, px, py, new RainbowDrawer.PointDetectedListener() {
 
             @Override
             public void onPointDetected(float x, float y, RainbowDrawer rainbowDrawer) {
-
-                drawScratch(x, y);
+                drawErase(x, y);
             }
         });
     }
 
-    private void drawScratch(float x, float y) {
+    private void drawErase(float x, float y) {
         if (enabled) {
+            rainbowDrawer.noStroke();
             rainbowDrawer.fill(RainbowGraphics.CLEAR, 30);
             rainbowDrawer.ellipseMode(RainbowGraphics.CENTER);
             rainbowDrawer.ellipse(x, y, 60, 60);
@@ -51,7 +51,7 @@ public class EraserDrawer implements StepDrawer {
     }
 
     @Override
-    public void initDrawingAt(float x, float y) {
+    public void reset() {
         //no-op
     }
 
