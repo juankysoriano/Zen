@@ -1,0 +1,34 @@
+apply plugin: 'robolectric'
+
+robolectric {
+    // configure the set of classes for JUnit tests
+    include '**/*Test.class'
+    exclude '**/espresso/**/*.class'
+
+    // configure max heap size of the test JVM
+    maxHeapSize = '2048m'
+
+    // configure the test JVM arguments
+    jvmArgs '-XX:MaxPermSize=512m', '-XX:-UseSplitVerifier'
+
+    // configure whether failing tests should fail the build
+    ignoreFailures true
+
+    // use afterTest to listen to the test execution results
+    afterTest { descriptor, result ->
+        println "Executing test for ${descriptor.name} with result: ${result.resultType}"
+    }
+
+    dependencies {
+        androidTestCompile 'com.squareup:fest-android:1.0.8'
+        androidTestCompile('com.google.dexmaker:dexmaker-mockito:1.1') {
+            exclude module: 'hamcrest-core'
+        }
+
+        androidTestCompile 'org.robolectric:robolectric:2.3'
+        androidTestCompile 'junit:junit:4.11'
+        androidTestCompile 'com.squareup:fest-android:1.0.7'
+        androidTestCompile 'org.mockito:mockito-all:1.9.0'
+        androidTestCompile 'com.squareup.okhttp:mockwebserver:1.5.4'
+    }
+}

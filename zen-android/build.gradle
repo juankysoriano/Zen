@@ -1,0 +1,95 @@
+buildscript {
+    dependencies {
+        classpath 'org.robolectric:robolectric-gradle-plugin:0.13.2'
+    }
+}
+
+apply plugin: 'com.android.application'
+
+android {
+    def datestamp = new Date().format("yyyy-MM-dd", TimeZone.default)
+    def underscore = '_'
+    project.archivesBaseName = "$rootProject.name$underscore$datestamp";
+
+    compileSdkVersion rootProject.ext.compileVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        applicationId 'zenproject.meditation.android'
+        testApplicationId 'zenproject.meditation.android.tests'
+
+        minSdkVersion rootProject.ext.minVersion
+        targetSdkVersion rootProject.ext.targetVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+        testInstrumentationRunner "com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner"
+    }
+
+    signingConfigs {
+        release {
+            storePassword "mypassword"
+            keyAlias "KeyAlias"
+            keyPassword "mypassword"
+        }
+    }
+
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            shrinkResources false
+        }
+        release {
+            jniDebuggable false
+            minifyEnabled true
+            shrinkResources true
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    dependencies {
+        compile 'com.android.support:appcompat-v7:21.0.0'
+        compile ('com.rengwuxian.materialedittext:library:1.7.1') {
+            exclude module: 'appcompat-v7'
+        }
+        compile 'com.melnykov:floatingactionbutton:1.0.6'
+        compile 'de.hdodenhof:circleimageview:1.2.0'
+        compile('com.novoda:notils:2.2.11') {
+            exclude module: 'support-v4'
+        }
+        compile('com.novoda:sqliteprovider-core:1.0.3') {
+            exclude module: 'support-v4'
+        }
+        compile project(":rainbow")
+    }
+}
+
+ext {
+    REPORT_LOCATIONS = ""
+}
+
+def buildTimeFormatted() {
+    Calendar instance = Calendar.getInstance()
+    instance.setTimeInMillis(System.currentTimeMillis())
+    instance.getTime()
+}
+
+
+apply from: "$project.rootDir/analysis-tools/android-robolectric.gradle"
+apply from: "$project.rootDir/analysis-tools/android-jacoco.gradle"
+apply from: "$project.rootDir/analysis-tools/android-checkstyle.gradle"
+apply from: "$project.rootDir/analysis-tools/android-pmd.gradle"
+apply from: "$project.rootDir/analysis-tools/android-findbugs.gradle"
+
+task zen dependsOn("build"){
+
+    println "Finished at: " + new Date();
+
+    println "\n"
+    println REPORT_LOCATIONS
+}
+
+

@@ -1,0 +1,31 @@
+subprojects {
+    buildscript {
+        repositories {
+            mavenCentral()
+            maven {
+                url "https://oss.sonatype.org/content/repositories/snapshots"
+            }
+        }
+        dependencies {
+            classpath 'com.android.tools.build:gradle:1.0.0-rc4'
+        }
+    }
+
+    repositories {
+        jcenter()
+    }
+}
+
+ext {
+    zenProject = project(':zen-android')
+    androidDebugClassesFolder = "intermediates/classes/debug"
+    javaTestClassesFolder = "classes/test"
+
+    minVersion = 17
+    targetVersion = 21
+    compileVersion = 21
+    buildToolsVersion = "21.0.1"
+
+    versionCode = 1644010
+    versionName = "0.1.0"
+}

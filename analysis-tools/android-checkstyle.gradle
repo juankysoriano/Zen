@@ -1,0 +1,96 @@
+configurations {
+    codequality
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    codequality 'com.puppycrawl.tools:checkstyle:6.0'
+}
+
+task checkstyle(type: AndroidCheckstyleTask) {
+    ignoreFailures true
+    showViolations false
+}
+
+check.dependsOn(checkstyle)
+
+///////////////////////////////////////////////
+////////////// Groovy Task Class //////////////
+///////////////////////////////////////////////
+import org.gradle.api.internal.project.IsolatedAntBuilder
+
+/**
+ * See parameters at http://checkstyle.sourceforge.net/anttask.html
+ */
+class AndroidCheckstyleTask extends DefaultTask {
+    @InputFile
+    @Optional
+    File configFile = new File("$project.rootDir/analysis-tools/checkstyle/checkstyle.xml")
+    @InputFile
+    @Optional
+    File xslFile = new File("$project.rootDir/analysis-tools/checkstyle/checkstyle-noframes-sorted.xsl")
+    @OutputFile
+    @Optional
+    File outputFile = new File("$project.buildDir/reports/checkstyle/checkstyle-${project.name}.xml")
+    def outputHtmlFile = outputFile.absolutePath.replaceFirst(~/\.[^\.]+$/, ".html")
+    FileCollection checkstyleClasspath = project.configurations.codequality
+    Boolean ignoreFailures = false
+    Boolean showViolations = true
+    Project gradleProject = project
+
+    def AndroidCheckstyleTask() {
+        description = 'Runs checkstyle against Android sourcesets.'
+        group = 'Code Quality'
+        println("$project.rootDir/analysis-tools/checkstyle/checkstyle.xml")
+    }
+
+    @TaskAction
+    def runCheckstyle() {
+        outputFile.parentFile.mkdirs()
+
+        def antBuilder = services.get(IsolatedAntBuilder)
+        antBuilder.withClasspath(checkstyleClasspath).execute {
+            ant.taskdef(name: 'checkstyle', classname: 'com.puppycrawl.tools.checkstyle.CheckStyleTask')
+            ant.checkstyle(config: configFile, failOnViolation: !ignoreFailures) {
+                gradleProject.each { submodule ->
+                    if (!isAndroidLibrary(submodule) && !isAndroidApp(submodule)) {
+                        return;
+                    }
+
+                    submodule.android.sourceSets.each { sourceSet ->
+                        sourceSet.java.each { file ->
+                            file.getSrcDirs().each {
+                                if (it.exists() && !it.path.contains("androidTest")) {
+                                    fileset(dir: it)
+                                }
+                            }
+                        }
+                    }
+                }
+                if (showViolations) {
+                    formatter(type: 'plain', useFile: false)
+                }
+                formatter(type: 'xml', toFile: outputFile)
+            }
+
+            if (outputFile.exists()) {
+                ant.xslt(in: outputFile,
+                        style: xslFile,
+                        out: outputHtmlFile
+                )
+                gradleProject.REPORT_LOCATIONS += "Checkstyle wrote HTML report to " + "file://${outputHtmlFile} \n"
+            }
+        }
+    }
+
+    def isAndroidLibrary(Project module) {
+        return  module.plugins.hasPlugin("com.android.library")
+    }
+
+    def isAndroidApp(Project module) {
+        return module.plugins.hasPlugin("com.android.application")
+    }
+}

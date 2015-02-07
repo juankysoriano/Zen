@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <dimen name="floatting_button_margin">16dp</dimen>
+  <dimen name="ink_drop_min_radius">10dp</dimen>
+  <dimen name="ink_drop_max_radius">120dp</dimen>
+  <dimen name="ink_drop_step">0.25dp</dimen>
+</resources>

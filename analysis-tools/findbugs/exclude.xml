@@ -1,0 +1,12 @@
+<FindBugsFilter>
+  <Match>
+    <Or>
+      <Package name="~.*com\.etsy\..*" />
+      <Class name="~.*\.R\$.*" />
+      <Class name="~.*Test" />
+      <Class name="~.*Spec" />
+      <Class name="~.*\.Manifest\$.*" />
+    </Or>
+    <Bug category="PERFORMANCE,MALICIOUS_CODE,STYLE,SECURITY,CORRECTNESS,MT_CORRECTNESS,BAD_PRACTICE,I18N" />
+  </Match>
+</FindBugsFilter>

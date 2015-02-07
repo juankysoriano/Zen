@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ruleset xmlns="http://pmd.sf.net/ruleset/1.0.0" name="ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd"
+  xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd">
+  <description>My very own special PMD ruleset.</description>
+  <exclude-pattern>.*android/util/.*</exclude-pattern>
+  <exclude-pattern>.*com/etsy/.*</exclude-pattern>
+  <exclude-pattern>.*com/guava/.*</exclude-pattern>
+  <exclude-pattern>.*com/android/gallery3d/.*</exclude-pattern>
+  <exclude-pattern>.*com/android/internal/.*</exclude-pattern>
+  <exclude-pattern>.*com/android/photos/.*</exclude-pattern>
+  <exclude-pattern>.*com/android/launcher3/backup/.*</exclude-pattern>
+  <exclude-pattern>.*com/android/launcher3/config/.*</exclude-pattern>
+  <exclude-pattern>.*com/android/launcher3/.*</exclude-pattern>
+  <exclude-pattern>.*com/novoda/imageloader/.*</exclude-pattern>
+  <exclude-pattern>.*com/novoda/imageloader20/.*</exclude-pattern>
+  <exclude-pattern>.*com/guava/common/base/.*</exclude-pattern>
+  <exclude-pattern>.*com/tesco/cards/sync/RestartingCountDownTimer.java</exclude-pattern>
+  <include-pattern>.*com/android/launcher3/tesco/.*</include-pattern>
+  <include-pattern>.*com/android/launcher3/Tesco.*</include-pattern>
+  <rule ref="rulesets/java/typeresolution.xml" />
+  <rule ref="rulesets/java/braces.xml" />
+  <rule ref="rulesets/java/design.xml">
+    <exclude name="TooFewBranchesForASwitchStatement" />
+    <exclude name="EmptyMethodInAbstractClassShouldBeAbstract" />
+  </rule>
+  <rule ref="rulesets/java/strictexception.xml" />
+  <rule ref="rulesets/java/unusedcode.xml" />
+  <rule ref="rulesets/java/logging-java.xml" />
+  <rule ref="rulesets/java/strings.xml" />
+  <rule ref="rulesets/java/migrating.xml" />
+  <rule ref="rulesets/java/optimizations.xml">
+    <exclude name="LocalVariableCouldBeFinal" />
+    <exclude name="MethodArgumentCouldBeFinal" />
+    <exclude name="AvoidInstantiatingObjectsInLoops" />
+    <exclude-pattern>.*com/tesco/cards/*/*Storage.*</exclude-pattern>
+    <exclude />
+  </rule>
+  <rule ref="rulesets/java/basic.xml" />
+  <rule ref="rulesets/java/sunsecure.xml" />
+  <rule ref="rulesets/java/coupling.xml">
+    <exclude name="LoosePackageCoupling" />
+    <!-- LawOfDemeter seems to be bugged -->
+    <exclude name="LawOfDemeter" />
+  </rule>
+  <rule ref="rulesets/java/imports.xml" />
+  <rule ref="rulesets/java/junit.xml" />
+  <rule ref="rulesets/java/controversial.xml">
+    <exclude name="OnlyOneReturn" />
+    <!-- DataflowAnomalyAnalysis we don't understand this rule enough to make the best useage of it -->
+    <exclude name="DataflowAnomalyAnalysis" />
+    <exclude name="UseConcurrentHashMap" />
+    <exclude name="AtLeastOneConstructor" />
+    <exclude name="CallSuperInConstructor" />
+    <!-- Callbacks in Android have vars named with "in","out" prefixes -->
+    <exclude name="AvoidPrefixingMethodParameters" />
+  </rule>
+  <rule ref="rulesets/java/naming.xml">
+    <exclude name="LongVariable" />
+    <exclude name="ShortVariable" />
+    <exclude name="AbstractNaming" />
+    <exclude name="ShortClassName">
+      <exclude-pattern>.*com/tesco/cards/*/Card.*</exclude-pattern>
+      <exclude-pattern>.*com/tesco/cards/*/Isbn.*</exclude-pattern>
+    </exclude>
+  </rule>
+  <rule ref="rulesets/java/codesize.xml" />
+  <rule ref="rulesets/java/finalizers.xml" />
+  <rule ref="rulesets/java/logging-jakarta-commons.xml" />
+  <rule ref="rulesets/java/clone.xml" />
+  <rule ref="rulesets/java/android.xml">
+    <exclude name="ProtectLogD" />
+    <exclude name="ProtectLogV" />
+  </rule>
+</ruleset>
