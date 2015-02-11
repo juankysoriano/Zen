@@ -79,7 +79,7 @@ public class InkDrawer implements StepDrawer, RainbowImage.LoadPictureListener {
     }
 
     private void attempToCreateBranchAt(float x, float y) {
-        if (RainbowMath.random(100) > 95 && !hasToPaintDropImage()) {
+        if (RainbowMath.random(100) > 99 && !hasToPaintDropImage()) {
             createBranchAt(x, y);
         }
     }

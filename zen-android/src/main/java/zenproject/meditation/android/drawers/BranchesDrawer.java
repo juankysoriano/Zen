@@ -33,7 +33,7 @@ public class BranchesDrawer implements StepDrawer {
     @Override
     public void paintStep() {
         if (enabled) {
-            if(!paintStepSkipper.hasToSkipStep()) {
+            if (!paintStepSkipper.hasToSkipStep()) {
                 paintAndUpdateBranches();
             }
             paintStepSkipper.recordStep();
@@ -64,7 +64,7 @@ public class BranchesDrawer implements StepDrawer {
     }
 
     private void sproudBranchIfLuck(Branch branch) {
-        if (RainbowMath.random(100) > 94) {
+        if (RainbowMath.random(100) > 80) {
             branchesList.sproudFrom(branch);
         }
     }
