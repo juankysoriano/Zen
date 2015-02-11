@@ -20,13 +20,19 @@ android {
         versionName rootProject.ext.versionName
     }
     buildTypes {
-        release {
+        debug {
             minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 }
 
 dependencies {
-    compile group: 'com.squareup.picasso', name: 'picasso', version: '2.2.+'
+    compile group: 'com.squareup.picasso', name: 'picasso', version: '2.5.0'
 }
