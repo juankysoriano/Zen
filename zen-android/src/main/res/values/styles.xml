@@ -4,7 +4,7 @@
   <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
     <item name="android:windowFullscreen">true</item>
     <item name="android:windowNoTitle">true</item>
-    <item name="android:background">@drawable/background_tile</item>
+    <item name="android:background">@color/defaultBackground</item>
   </style>
 
 </resources>

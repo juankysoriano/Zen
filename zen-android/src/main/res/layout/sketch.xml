@@ -7,6 +7,20 @@
   android:orientation="horizontal">
 
   <com.melnykov.fab.FloatingActionButton
+    android:id="@+id/reset_button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/floatting_button_margin"
+    android:layout_marginEnd="@dimen/floatting_button_margin"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentEnd="true"
+    android:src="@drawable/restart"
+    fab:fab_colorNormal="@color/colorPrimary"
+    fab:fab_colorPressed="@color/colorPrimary"
+    fab:fab_colorRipple="@color/colorNeutral"
+    fab:fab_type="mini" />
+
+  <com.melnykov.fab.FloatingActionButton
     android:id="@+id/brush_button"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"

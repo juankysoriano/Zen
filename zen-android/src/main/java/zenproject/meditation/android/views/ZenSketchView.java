@@ -12,9 +12,10 @@ import zenproject.meditation.android.drawers.ZenSketch;
 
 public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintingListener {
 
-    private static final int MILLISECONDS_TO_HIDE = 250;
-    private static final int MILLISECONDS_TO_SHOW = 250;
+    private static final int MILLISECONDS_TO_HIDE = 150;
+    private static final int MILLISECONDS_TO_SHOW = 150;
     private ZenSketch zenSketch;
+    private SequentialButtonAnimator sequentialButtonAnimator;
     private FloatingActionButton brushButton;
     private FloatingActionButton eraseButton;
     private FloatingActionButton flowersButton;
@@ -22,6 +23,50 @@ public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintin
     private FloatingActionButton musicButton;
     private FloatingActionButton shareButton;
     private FloatingActionButton saveButton;
+    private TopFloatingActionButton restartButton;
+
+    public ZenSketchView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public ZenSketchView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
+
+    @Override
+    protected void onFinishInflate() {
+        zenSketch = ZenSketch.newInstance(this);
+        sequentialButtonAnimator = SequentialButtonAnimator.newInstance();
+        brushButton = (FloatingActionButton) findViewById(R.id.brush_button);
+        eraseButton = (FloatingActionButton) findViewById(R.id.erase_button);
+        flowersButton = (FloatingActionButton) findViewById(R.id.flowers_button);
+        canvasButton = (FloatingActionButton) findViewById(R.id.canvas_button);
+        musicButton = (FloatingActionButton) findViewById(R.id.music_button);
+        shareButton = (FloatingActionButton) findViewById(R.id.share_button);
+        saveButton = (FloatingActionButton) findViewById(R.id.save_button);
+        restartButton = TopFloatingActionButton.from((FloatingActionButton) findViewById(R.id.reset_button));
+
+        sequentialButtonAnimator.add(brushButton, eraseButton, flowersButton, canvasButton, musicButton, shareButton, saveButton);
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        attachListeners();
+    }
+
+    private void attachListeners() {
+        brushButton.setOnClickListener(onBrushSelectedListener);
+        eraseButton.setOnClickListener(onEraseSelectedListener);
+        flowersButton.setOnClickListener(onFlowersSelectedListener);
+        canvasButton.setOnClickListener(onCanvasSelectedListener);
+        musicButton.setOnClickListener(onMusicSelectedListener);
+        shareButton.setOnClickListener(onShareSelectedListener);
+        saveButton.setOnClickListener(onSaveSelectedListener);
+        restartButton.setOnClickListener(onRestartSelectedListener);
+        zenSketch.setOnPaintingListener(this);
+    }
+
     private View.OnClickListener onBrushSelectedListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -66,43 +111,12 @@ public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintin
             //no-op
         }
     };
-
-    public ZenSketchView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
-
-    public ZenSketchView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-    }
-
-    @Override
-    protected void onFinishInflate() {
-        zenSketch = ZenSketch.newInstance(this);
-        brushButton = (FloatingActionButton) findViewById(R.id.brush_button);
-        eraseButton = (FloatingActionButton) findViewById(R.id.erase_button);
-        flowersButton = (FloatingActionButton) findViewById(R.id.flowers_button);
-        canvasButton = (FloatingActionButton) findViewById(R.id.canvas_button);
-        musicButton = (FloatingActionButton) findViewById(R.id.music_button);
-        shareButton = (FloatingActionButton) findViewById(R.id.share_button);
-        saveButton = (FloatingActionButton) findViewById(R.id.save_button);
-    }
-
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        attachListeners();
-    }
-
-    private void attachListeners() {
-        brushButton.setOnClickListener(onBrushSelectedListener);
-        eraseButton.setOnClickListener(onEraseSelectedListener);
-        flowersButton.setOnClickListener(onFlowersSelectedListener);
-        canvasButton.setOnClickListener(onCanvasSelectedListener);
-        musicButton.setOnClickListener(onMusicSelectedListener);
-        shareButton.setOnClickListener(onShareSelectedListener);
-        saveButton.setOnClickListener(onSaveSelectedListener);
-        zenSketch.setOnPaintingListener(this);
-    }
+    private View.OnClickListener onRestartSelectedListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            zenSketch.clear();
+        }
+    };
 
     public void startSketch() {
         zenSketch.start();
@@ -123,6 +137,7 @@ public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintin
     @Override
     protected void onDetachedFromWindow() {
         detachListeners();
+        sequentialButtonAnimator.clear();
         super.onDetachedFromWindow();
     }
 
@@ -134,6 +149,7 @@ public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintin
         musicButton.setOnClickListener(null);
         shareButton.setOnClickListener(null);
         saveButton.setOnClickListener(null);
+        restartButton.setOnClickListener(null);
         zenSketch.setOnPaintingListener(null);
     }
 
@@ -166,22 +182,12 @@ public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintin
     }
 
     private void hideControls() {
-        brushButton.hide();
-        eraseButton.hide();
-        flowersButton.hide();
-        canvasButton.hide();
-        musicButton.hide();
-        shareButton.hide();
-        saveButton.hide();
+        sequentialButtonAnimator.hide();
+        restartButton.hide();
     }
 
     private void showControls() {
-        brushButton.show();
-        eraseButton.show();
-        flowersButton.show();
-        canvasButton.show();
-        musicButton.show();
-        shareButton.show();
-        saveButton.show();
+        sequentialButtonAnimator.show();
+        restartButton.show();
     }
 }
