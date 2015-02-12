@@ -51,11 +51,7 @@ android {
 
     dependencies {
         compile 'com.android.support:appcompat-v7:21.0.0'
-        compile ('com.rengwuxian.materialedittext:library:1.7.1') {
-            exclude module: 'appcompat-v7'
-        }
         compile 'com.melnykov:floatingactionbutton:1.0.6'
-        compile 'de.hdodenhof:circleimageview:1.2.0'
         compile('com.novoda:notils:2.2.11') {
             exclude module: 'support-v4'
         }
@@ -83,7 +79,7 @@ apply from: "$project.rootDir/analysis-tools/android-checkstyle.gradle"
 apply from: "$project.rootDir/analysis-tools/android-pmd.gradle"
 apply from: "$project.rootDir/analysis-tools/android-findbugs.gradle"
 
-task zen dependsOn("build"){
+task zen dependsOn("build") {
 
     println "Finished at: " + new Date();
 

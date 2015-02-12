@@ -22,7 +22,7 @@ ext {
     javaTestClassesFolder = "classes/test"
 
     minVersion = 17
-    targetVersion = 21
+    targetVersion = 20
     compileVersion = 21
     buildToolsVersion = "21.0.1"
 
