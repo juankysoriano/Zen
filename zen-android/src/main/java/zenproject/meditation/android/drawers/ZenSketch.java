@@ -7,10 +7,13 @@ import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
 import com.juankysoriano.rainbow.core.event.RainbowEvent;
 import com.juankysoriano.rainbow.core.event.RainbowInputController;
 
+import zenproject.meditation.android.ContextRetriever;
+import zenproject.meditation.android.R;
 import zenproject.meditation.android.model.InkDropSizeLimiter;
 
 public class ZenSketch extends Rainbow implements RainbowInputController.RainbowInteractionListener {
 
+    private static final int DEFAULT_COLOR = ContextRetriever.INSTANCE.getContext().getResources().getColor(R.color.defaultBackground);
     private final RainbowInputController rainbowInputController;
     private final RainbowDrawer rainbowDrawer;
     private final BranchesList branchesList;
@@ -109,6 +112,10 @@ public class ZenSketch extends Rainbow implements RainbowInputController.Rainbow
     public void disablePainting() {
         inkDrawer.disable();
         branchDrawer.disable();
+    }
+
+    public void clear() {
+        rainbowDrawer.background(DEFAULT_COLOR);
     }
 
     public void setOnPaintingListener(OnPaintingListener onPaintingListener) {
