@@ -76,12 +76,12 @@ public class InkDrawer implements StepDrawer, RainbowImage.LoadPictureListener {
                     public void onPointDetected(float x, float y, RainbowDrawer rainbowDrawer) {
                         inkDrop.updateInkRadiusFor(rainbowInputController);
                         drawInk(x, y);
-                        attempToCreateBranchAt(x, y);
+                        attemptToCreateBranchAt(x, y);
                     }
                 });
     }
 
-    private void attempToCreateBranchAt(float x, float y) {
+    private void attemptToCreateBranchAt(float x, float y) {
         if (RainbowMath.random(100) > 99 && !hasToPaintDropImage()) {
             createBranchAt(x, y);
         }
