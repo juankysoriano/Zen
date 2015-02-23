@@ -11,7 +11,7 @@ import zenproject.meditation.android.dialogs.BrushOptionsDialog;
 import zenproject.meditation.android.drawers.ZenSketch;
 import zenproject.meditation.android.views.ZenSketchView;
 
-public class SketchActivity extends FragmentActivity implements ZenSketch.OnPaintingListener, ZenSketchView.OnRevealListener {
+public class SketchActivity extends FragmentActivity implements ZenSketchView.OnRevealListener {
 
     private ZenSketch zenSketch;
     private ZenSketchView zenSketchView;
@@ -52,7 +52,7 @@ public class SketchActivity extends FragmentActivity implements ZenSketch.OnPain
 
     private void attachListeners() {
         zenSketchView.setOnRevealListener(this);
-        zenSketch.setOnPaintingListener(this);
+        zenSketch.setOnPaintingListener(zenSketchView);
     }
 
     @Override
@@ -77,16 +77,6 @@ public class SketchActivity extends FragmentActivity implements ZenSketch.OnPain
         ContextRetriever.INSTANCE.inject(null);
         zenSketch.destroy();
         super.onDestroy();
-    }
-
-    @Override
-    public void onPaintingStart() {
-        zenSketchView.hideControlsWithDelay();
-    }
-
-    @Override
-    public void onPaintingEnd() {
-        zenSketchView.showControlsWithDelay();
     }
 
     private final View.OnClickListener onRestartListener = new View.OnClickListener() {
