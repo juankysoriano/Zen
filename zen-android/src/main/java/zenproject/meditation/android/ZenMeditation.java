@@ -381,7 +381,7 @@ public class ZenMeditation extends Activity//extends PApplet
 		drawHandler = new DrawingHandler(this);
 		try
 		{
-			mp = MediaPlayer.create(getApplicationContext(), R.raw.zen);
+			mp = MediaPlayer.create(getCurrentContext(), R.raw.zen);
 			mp.start();
 			mp.setLooping(true);
 			mp.setVolume(volumeCounter, volumeCounter);

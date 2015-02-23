@@ -33,7 +33,10 @@ public class InkDrawer implements StepDrawer, RainbowImage.LoadPictureListener {
         this.rainbowInputController = rainbowInputController;
     }
 
-    public static InkDrawer newInstance(BranchesList branches, InkDropSizeLimiter inkDropSizeLimiter, RainbowDrawer rainbowDrawer, RainbowInputController rainbowInputController) {
+    public static InkDrawer newInstance(BranchesList branches,
+                                        InkDropSizeLimiter inkDropSizeLimiter,
+                                        RainbowDrawer rainbowDrawer,
+                                        RainbowInputController rainbowInputController) {
         InkDrawer inkDrawer = new InkDrawer(new InkDrop(inkDropSizeLimiter), branches, rainbowDrawer, rainbowInputController);
         configureDrawer(rainbowDrawer);
         rainbowDrawer.loadImage(R.drawable.brush_ink, RainbowImage.LOAD_ORIGINAL_SIZE, inkDrawer);
@@ -63,10 +66,10 @@ public class InkDrawer implements StepDrawer, RainbowImage.LoadPictureListener {
     }
 
     private void moveAndPaintInkDrop(final RainbowInputController rainbowInputController) {
-        rainbowDrawer.exploreLine(rainbowInputController.getSmoothX(),
-                rainbowInputController.getSmoothY(),
-                rainbowInputController.getPreviousSmoothX(),
+        rainbowDrawer.exploreLine(rainbowInputController.getPreviousSmoothX(),
                 rainbowInputController.getPreviousSmoothY(),
+                rainbowInputController.getSmoothX(),
+                rainbowInputController.getSmoothY(),
                 new RainbowDrawer.PointDetectedListener() {
 
                     @Override

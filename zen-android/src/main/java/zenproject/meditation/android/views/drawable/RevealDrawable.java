@@ -1,72 +1,53 @@
 package zenproject.meditation.android.views.drawable;
 
 import android.animation.Animator;
-import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
-import android.graphics.Rect;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
+import android.view.animation.AccelerateDecelerateInterpolator;
+
+import zenproject.meditation.android.R;
 
 public class RevealDrawable extends Drawable {
 
-    private Paint revealPaint;
-    private int color;
-    private int radius;
-    private long animationTime = 2000;
-
+    private static final float CONCEALED = 0f;
+    private static final float REVEALED = 1f;
+    private static final int OPAQUE = 255;
+    private static final int TRANSPARENT = 0;
+    private static final int REVEAL_DURATION = 500;
+    private final Paint revealPaint;
+    private float radius;
+    private Point origin;
     protected float revealScale;
-    protected int alpha;
+    protected int revealAlpha;
 
-    private Animator animator;
-    private AnimatorSet animatorSet;
-
-    /**
-     * @param color         color
-     * @param radius        radius
-     * @param animationTime time
-     */
-    public RevealDrawable(int color, int radius, long animationTime) {
-        this(color, radius);
-        this.animationTime = animationTime;
+    public static RevealDrawable newInstance(Context context) {
+        Paint revealPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        int color = context.getResources().getColor(R.color.colorPrimary);
+        revealPaint.setColor(color);
+        revealPaint.setStyle(Paint.Style.FILL);
+        return new RevealDrawable(revealPaint);
     }
 
-    /**
-     * @param color  colro
-     * @param radius radius
-     */
-    public RevealDrawable(int color, int radius) {
-        this.color = color;
-        this.radius = radius;
-        this.revealScale = 0f;
-        this.alpha = 255;
-
-        revealPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        animatorSet = new AnimatorSet();
+    private RevealDrawable(Paint paint) {
+        this.revealPaint = paint;
 
     }
 
     @Override
     public void draw(Canvas canvas) {
-
-        final Rect bounds = getBounds();
-
-        // circle
-        revealPaint.setStyle(Paint.Style.FILL);
-        revealPaint.setColor(color);
-        canvas.drawCircle(bounds.width(), 0, radius * revealScale, revealPaint);
-
-    }
-
-    public void startAnimation() {
-        generateAnimation().start();
+        revealPaint.setAlpha(revealAlpha);
+        canvas.drawCircle(origin.x, origin.y, radius * revealScale, revealPaint);
     }
 
     @Override
     public void setAlpha(int alpha) {
-        this.alpha = alpha;
-        invalidateSelf();
+        revealAlpha = alpha;
+        revealPaint.setAlpha(alpha);
     }
 
     @Override
@@ -74,14 +55,59 @@ public class RevealDrawable extends Drawable {
         revealPaint.setColorFilter(cf);
     }
 
+    public void setRadius(float radius) {
+        this.radius = radius;
+    }
+
+    public void setOrigin(Point origin) {
+        this.origin = origin;
+    }
+
     @Override
     public int getOpacity() {
         return revealPaint.getAlpha();
     }
 
-    private Animator generateAnimation() {
-        ObjectAnimator revealAnimator = ObjectAnimator.ofFloat(this, "revealScale", 0f, 1f);
-        revealAnimator.setDuration(animationTime);
-        return revealAnimator;
+    protected float getRevealScale() {
+        return revealScale;
+    }
+
+    protected void setRevealScale(float revealScale) {
+        this.revealScale = revealScale;
+        invalidateSelf();
+    }
+
+    protected int getRevealAlpha() {
+        return revealAlpha;
+    }
+
+    protected void setRevealAlpha(int revealAlpha) {
+        this.revealAlpha = revealAlpha;
+        invalidateSelf();
+    }
+
+    public void startRadiusAnimation(Animator.AnimatorListener animatorListener) {
+        setAlpha(OPAQUE);
+
+        Animator animator = generateRadiusAnimation();
+        animator.addListener(animatorListener);
+        animator.setDuration(REVEAL_DURATION);
+        animator.setInterpolator(new AccelerateDecelerateInterpolator());
+        animator.start();
+    }
+
+    public void startAlphaAnimation(Animator.AnimatorListener animatorListener) {
+        Animator animator = generateAlphaAnimation();
+        animator.addListener(animatorListener);
+        animator.setInterpolator(new AccelerateDecelerateInterpolator());
+        animator.start();
+    }
+
+    private Animator generateRadiusAnimation() {
+        return ObjectAnimator.ofFloat(this, "revealScale", CONCEALED, REVEALED);
+    }
+
+    private Animator generateAlphaAnimation() {
+        return ObjectAnimator.ofInt(this, "revealAlpha", OPAQUE, TRANSPARENT);
     }
 }

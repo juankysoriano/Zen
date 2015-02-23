@@ -1,120 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <zenproject.meditation.android.views.ZenSketchView xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:fab="http://schemas.android.com/apk/res-auto"
   android:id="@+id/sketch"
   android:layout_width="fill_parent"
   android:layout_height="fill_parent"
   android:orientation="horizontal">
 
-  <com.melnykov.fab.FloatingActionButton
-    android:id="@+id/reset_button"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/floatting_button_margin"
-    android:layout_marginEnd="@dimen/floatting_button_margin"
-    android:layout_alignParentTop="true"
-    android:layout_alignParentEnd="true"
-    android:src="@drawable/restart"
-    fab:fab_colorNormal="@color/colorPrimary"
-    fab:fab_colorPressed="@color/colorPrimary"
-    fab:fab_colorRipple="@color/colorNeutral"
-    fab:fab_type="mini" />
-
-  <com.melnykov.fab.FloatingActionButton
-    android:id="@+id/brush_button"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/floatting_button_margin"
-    android:layout_marginStart="@dimen/floatting_button_margin"
-    android:layout_alignParentBottom="true"
-    android:layout_alignParentStart="true"
-    android:src="@drawable/brush"
-    fab:fab_colorNormal="@color/colorPrimary"
-    fab:fab_colorPressed="@color/colorPrimary"
-    fab:fab_colorRipple="@color/colorNeutral"
-    fab:fab_type="mini" />
-
-  <com.melnykov.fab.FloatingActionButton
-    android:id="@+id/erase_button"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/floatting_button_margin"
-    android:layout_marginStart="@dimen/floatting_button_margin"
-    android:layout_alignParentBottom="true"
-    android:layout_toEndOf="@+id/brush_button"
-    android:src="@drawable/eraser"
-    fab:fab_colorNormal="@color/colorPrimary"
-    fab:fab_colorPressed="@color/colorPrimary"
-    fab:fab_colorRipple="@color/colorNeutral"
-    fab:fab_type="mini" />
-
-  <com.melnykov.fab.FloatingActionButton
-    android:id="@+id/flowers_button"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:layout_toStartOf="@+id/canvas_button"
-    android:layout_marginBottom="@dimen/floatting_button_margin"
-    android:layout_marginEnd="@dimen/floatting_button_margin"
-    android:src="@drawable/bunch_flowers"
-    fab:fab_colorNormal="@color/colorPrimary"
-    fab:fab_colorPressed="@color/colorPrimary"
-    fab:fab_colorRipple="@color/colorNeutral"
-    fab:fab_type="mini" />
-
-  <com.melnykov.fab.FloatingActionButton
-    android:id="@+id/canvas_button"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/floatting_button_margin"
-    android:layout_alignParentBottom="true"
-    android:layout_centerHorizontal="true"
-    android:src="@drawable/canvas"
-    fab:fab_colorNormal="@color/colorPrimary"
-    fab:fab_colorPressed="@color/colorPrimary"
-    fab:fab_colorRipple="@color/colorNeutral"
-    fab:fab_type="mini" />
-
-  <com.melnykov.fab.FloatingActionButton
-    android:id="@+id/music_button"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/floatting_button_margin"
-    android:layout_marginStart="@dimen/floatting_button_margin"
-    android:layout_alignParentBottom="true"
-    android:layout_toEndOf="@+id/canvas_button"
-    android:src="@drawable/music"
-    fab:fab_colorNormal="@color/colorPrimary"
-    fab:fab_colorPressed="@color/colorPrimary"
-    fab:fab_colorRipple="@color/colorNeutral"
-    fab:fab_type="mini" />
-
-  <com.melnykov.fab.FloatingActionButton
-    android:id="@+id/share_button"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="@dimen/floatting_button_margin"
-    android:layout_marginEnd="@dimen/floatting_button_margin"
-    android:layout_alignParentBottom="true"
-    android:layout_toStartOf="@+id/save_button"
-    android:src="@drawable/share"
-    fab:fab_colorNormal="@color/colorPrimary"
-    fab:fab_colorPressed="@color/colorPrimary"
-    fab:fab_colorRipple="@color/colorNeutral"
-    fab:fab_type="mini" />
-
-  <com.melnykov.fab.FloatingActionButton
-    android:id="@+id/save_button"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:layout_alignParentEnd="true"
-    android:layout_marginBottom="@dimen/floatting_button_margin"
-    android:layout_marginEnd="@dimen/floatting_button_margin"
-    android:src="@drawable/save"
-    fab:fab_colorNormal="@color/colorPrimary"
-    fab:fab_colorPressed="@color/colorPrimary"
-    fab:fab_colorRipple="@color/colorNeutral"
-    fab:fab_type="mini" />
+  <zenproject.meditation.android.views.RevealView
+    android:id="@+id/reveal_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:visibility="gone" />
 
 </zenproject.meditation.android.views.ZenSketchView>
+

@@ -7,13 +7,13 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.View;
 
-public class MenuBackground extends View {
+public class MenuBackgroundView extends View {
 
     Context context;
     Paint mButtonPaint;
     Paint mDrawablePaint;
 
-    public MenuBackground(Context context) {
+    public MenuBackgroundView(Context context) {
         super(context);
         this.context = context;
         init(Color.WHITE);
@@ -59,8 +59,8 @@ public class MenuBackground extends View {
             return this;
         }
 
-        public MenuBackground create() {
-            final MenuBackground button = new MenuBackground(activity);
+        public MenuBackgroundView create() {
+            final MenuBackgroundView button = new MenuBackgroundView(activity);
             button.setFloatingActionButtonColor(this.color);
             return button;
         }

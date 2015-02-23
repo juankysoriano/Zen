@@ -1,29 +1,25 @@
 package zenproject.meditation.android.views;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.RelativeLayout;
 
-import com.melnykov.fab.FloatingActionButton;
+import com.juankysoriano.rainbow.utils.RainbowMath;
+import com.oguzdev.circularfloatingactionmenu.library.CircularMenu;
 
+import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
-import zenproject.meditation.android.drawers.ZenSketch;
+import zenproject.meditation.android.views.creators.FloatingActionButtonMenuCreator;
 
-public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintingListener {
-
+public class ZenSketchView extends RelativeLayout {
     private static final int MILLISECONDS_TO_HIDE = 150;
     private static final int MILLISECONDS_TO_SHOW = 150;
-    private ZenSketch zenSketch;
-    private SequentialButtonAnimator sequentialButtonAnimator;
-    private FloatingActionButton brushButton;
-    private FloatingActionButton eraseButton;
-    private FloatingActionButton flowersButton;
-    private FloatingActionButton canvasButton;
-    private FloatingActionButton musicButton;
-    private FloatingActionButton shareButton;
-    private FloatingActionButton saveButton;
-    private TopFloatingActionButton restartButton;
+    private RevealView revealView;
+    private OnRevealListener onRevealListener;
+    private CircularMenu circularMenu;
+    private FloatingActionButton menuButton;
 
     public ZenSketchView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -35,135 +31,27 @@ public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintin
 
     @Override
     protected void onFinishInflate() {
-        zenSketch = ZenSketch.newInstance(this);
-        sequentialButtonAnimator = SequentialButtonAnimator.newInstance();
-        brushButton = (FloatingActionButton) findViewById(R.id.brush_button);
-        eraseButton = (FloatingActionButton) findViewById(R.id.erase_button);
-        flowersButton = (FloatingActionButton) findViewById(R.id.flowers_button);
-        canvasButton = (FloatingActionButton) findViewById(R.id.canvas_button);
-        musicButton = (FloatingActionButton) findViewById(R.id.music_button);
-        shareButton = (FloatingActionButton) findViewById(R.id.share_button);
-        saveButton = (FloatingActionButton) findViewById(R.id.save_button);
-        restartButton = TopFloatingActionButton.from((FloatingActionButton) findViewById(R.id.reset_button));
-
-        sequentialButtonAnimator.add(brushButton, eraseButton, flowersButton, canvasButton, musicButton, shareButton, saveButton);
+        revealView = (RevealView) findViewById(R.id.reveal_view);
     }
 
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        attachListeners();
+        circularMenu = FloatingActionButtonMenuCreator.createWith(ContextRetriever.INSTANCE.getCurrentContext());
+        menuButton = (FloatingActionButton) circularMenu.getActionView();
     }
 
-    private void attachListeners() {
-        brushButton.setOnClickListener(onBrushSelectedListener);
-        eraseButton.setOnClickListener(onEraseSelectedListener);
-        flowersButton.setOnClickListener(onFlowersSelectedListener);
-        canvasButton.setOnClickListener(onCanvasSelectedListener);
-        musicButton.setOnClickListener(onMusicSelectedListener);
-        shareButton.setOnClickListener(onShareSelectedListener);
-        saveButton.setOnClickListener(onSaveSelectedListener);
-        restartButton.setOnClickListener(onRestartSelectedListener);
-        zenSketch.setOnPaintingListener(this);
-    }
-
-    private View.OnClickListener onBrushSelectedListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            zenSketch.enablePainting();
-            zenSketch.disableErasing();
-        }
-    };
-    private View.OnClickListener onEraseSelectedListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            zenSketch.enableErasing();
-            zenSketch.disablePainting();
-        }
-    };
-    private View.OnClickListener onFlowersSelectedListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            //no-op
-        }
-    };
-    private View.OnClickListener onCanvasSelectedListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            //no-op
-        }
-    };
-    private View.OnClickListener onMusicSelectedListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            //no-op
-        }
-    };
-    private View.OnClickListener onShareSelectedListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            //no-op
-        }
-    };
-    private View.OnClickListener onSaveSelectedListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            //no-op
-        }
-    };
-    private View.OnClickListener onRestartSelectedListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            zenSketch.clear();
-        }
-    };
-
-    public void startSketch() {
-        zenSketch.start();
-    }
-
-    public void stopSketch() {
-        zenSketch.stop();
-    }
-
-    public void pauseSketch() {
-        zenSketch.pause();
-    }
-
-    public void destroySketch() {
-        zenSketch.destroy();
+    public CircularMenu getMenu() {
+        return circularMenu;
     }
 
     @Override
     protected void onDetachedFromWindow() {
-        detachListeners();
-        sequentialButtonAnimator.clear();
+        circularMenu = null;
         super.onDetachedFromWindow();
     }
 
-    private void detachListeners() {
-        brushButton.setOnClickListener(null);
-        eraseButton.setOnClickListener(null);
-        flowersButton.setOnClickListener(null);
-        canvasButton.setOnClickListener(null);
-        musicButton.setOnClickListener(null);
-        shareButton.setOnClickListener(null);
-        saveButton.setOnClickListener(null);
-        restartButton.setOnClickListener(null);
-        zenSketch.setOnPaintingListener(null);
-    }
-
-    @Override
-    public void onPaintingStart() {
-        hideControlsWithDelay();
-    }
-
-    @Override
-    public void onPaintingEnd() {
-        showControlsWithDelay();
-    }
-
-    private void hideControlsWithDelay() {
+    public void hideControlsWithDelay() {
         postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -172,7 +60,7 @@ public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintin
         }, MILLISECONDS_TO_HIDE);
     }
 
-    private void showControlsWithDelay() {
+    public void showControlsWithDelay() {
         postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -182,12 +70,63 @@ public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintin
     }
 
     private void hideControls() {
-        sequentialButtonAnimator.hide();
-        restartButton.hide();
+        if (circularMenu.isOpen()) {
+            circularMenu.close(true);
+            circularMenu.setStateChangeListener(menuStateChangeListener);
+        } else {
+            menuButton.hide();
+        }
     }
 
     private void showControls() {
-        sequentialButtonAnimator.show();
-        restartButton.show();
+        menuButton.show();
+    }
+
+    private CircularMenu.MenuStateChangeListener menuStateChangeListener = new CircularMenu.MenuStateChangeListener() {
+        @Override
+        public void onMenuOpened(CircularMenu circularMenu) {
+            //no-op
+        }
+
+        @Override
+        public void onMenuClosed(CircularMenu circularMenu) {
+            circularMenu.setStateChangeListener(null);
+            menuButton.hide();
+        }
+    };
+
+    public void setOnRevealListener(OnRevealListener onRevealListener) {
+        this.onRevealListener = onRevealListener;
+    }
+
+    private boolean hasOnRevealListener() {
+        return onRevealListener != null;
+    }
+
+    @SuppressWarnings("PMD.FieldDeclarationsShouldBeAtStartOfClass")
+    private final Animator.AnimatorListener revealAnimatorListener = new AnimatorListenerAdapter() {
+        @Override
+        public void onAnimationEnd(Animator animation) {
+            if (hasOnRevealListener()) {
+                onRevealListener.onRevealed();
+            }
+        }
+    };
+
+    public void startRestartAnimation() {
+        if (!revealView.isRevealing()) {
+            revealView.startRevealWith(revealAnimatorListener);
+        }
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        revealView.setRevealRadius(RainbowMath.dist(0, 0, getWidth(), getHeight()));
+        //  revealView.setRevealOrigin(restartButton.getCentre());
+    }
+
+    public interface OnRevealListener {
+        void onRevealed();
     }
 }

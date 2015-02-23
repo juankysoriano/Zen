@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BranchesDrawer implements StepDrawer {
+    private static final int BLACK = 0;
+    private static final int ALPHA = 100;
     private static final int FRAMES_TO_SKIP = 0;
     private final RainbowDrawer rainbowDrawer;
     private final BranchesList branchesList;
@@ -59,12 +61,12 @@ public class BranchesDrawer implements StepDrawer {
     }
 
     private void performBranchPainting(Branch branch) {
-        rainbowDrawer.stroke(0, 200);
+        rainbowDrawer.stroke(BLACK, ALPHA);
         rainbowDrawer.line(branch.getX(), branch.getY(), branch.getOldX(), branch.getOldY());
     }
 
     private void sproudBranchIfLuck(Branch branch) {
-        if (RainbowMath.random(100) > 80) {
+        if (RainbowMath.random(100) > 85) {
             branchesList.sproudFrom(branch);
         }
     }

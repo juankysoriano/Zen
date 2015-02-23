@@ -7,9 +7,9 @@ import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 
 public class Branch {
-    private static final float MINIMUM_RADIUS = ContextRetriever.INSTANCE.getContext().getResources().getDimension(R.dimen.branch_minimum_radius);
-    private static final float MINIMUM_RADIUS_TO_SPROUD = ContextRetriever.INSTANCE.getContext().getResources().getDimension(R.dimen.branch_minimum_radius_to_sproud);
-    private static final float DEFAULT_RADIUS = ContextRetriever.INSTANCE.getContext().getResources().getDimension(R.dimen.branch_default_radius);
+    private static final float MINIMUM_RADIUS = ContextRetriever.INSTANCE.getCurrentContext().getResources().getDimension(R.dimen.branch_minimum_radius);
+    private static final float MINIMUM_RADIUS_TO_SPROUD = ContextRetriever.INSTANCE.getCurrentContext().getResources().getDimension(R.dimen.branch_minimum_radius_to_sproud);
+    private static final float DEFAULT_RADIUS = ContextRetriever.INSTANCE.getCurrentContext().getResources().getDimension(R.dimen.branch_default_radius);
     private static final float STEP = 0.2f;
     private static final float SHRINK = 0.95f;
     private float step;

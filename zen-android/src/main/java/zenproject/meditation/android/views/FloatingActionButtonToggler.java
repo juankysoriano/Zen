@@ -4,18 +4,17 @@ import android.graphics.Point;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
-import com.dyhpoon.fab.FloatingActionButton;
 import com.nineoldandroids.view.ViewPropertyAnimator;
 
 public class FloatingActionButtonToggler {
-   /* private final static long TRANSLATE_DURATION_MILLIS = 200;
+    private final static long TRANSLATE_DURATION_MILLIS = 200;
     private final FloatingActionButton floatingActionButton;
 
-    public static TopFloatingActionButton from(FloatingActionButton floatingActionButton) {
-        return new TopFloatingActionButton(floatingActionButton);
+    public static FloatingActionButtonToggler from(FloatingActionButton floatingActionButton) {
+        return new FloatingActionButtonToggler(floatingActionButton);
     }
 
-    protected TopFloatingActionButton(FloatingActionButton floatingActionButton) {
+    protected FloatingActionButtonToggler(FloatingActionButton floatingActionButton) {
         this.floatingActionButton = floatingActionButton;
     }
 
@@ -38,5 +37,5 @@ public class FloatingActionButtonToggler {
     public Point getCentre() {
         return new Point((int) floatingActionButton.getX() + floatingActionButton.getWidth() / 2,
                 (int) floatingActionButton.getY() + floatingActionButton.getHeight() / 2);
-    }*/
+    }
 }

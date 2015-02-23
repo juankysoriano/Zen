@@ -1,7 +1,5 @@
 package zenproject.meditation.android.drawers;
 
-import android.view.ViewGroup;
-
 import com.juankysoriano.rainbow.core.Rainbow;
 import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
 import com.juankysoriano.rainbow.core.event.RainbowEvent;
@@ -13,7 +11,7 @@ import zenproject.meditation.android.model.InkDropSizeLimiter;
 
 public class ZenSketch extends Rainbow implements RainbowInputController.RainbowInteractionListener {
 
-    private static final int DEFAULT_COLOR = ContextRetriever.INSTANCE.getContext().getResources().getColor(R.color.defaultBackground);
+    private static final int DEFAULT_COLOR = ContextRetriever.INSTANCE.getCurrentContext().getResources().getColor(R.color.colorSketch);
     private final RainbowInputController rainbowInputController;
     private final RainbowDrawer rainbowDrawer;
     private final BranchesList branchesList;
@@ -23,20 +21,20 @@ public class ZenSketch extends Rainbow implements RainbowInputController.Rainbow
     private StepDrawer eraserDrawer;
     private StepDrawer branchDrawer;
 
-    ZenSketch(ViewGroup viewGroup,
-              RainbowDrawer rainbowDrawer,
-              RainbowInputController rainbowInputController, BranchesList branches, InkDropSizeLimiter inkDropSizeLimiter) {
-        super(viewGroup, rainbowDrawer, rainbowInputController);
+    ZenSketch(
+            RainbowDrawer rainbowDrawer,
+            RainbowInputController rainbowInputController, BranchesList branches, InkDropSizeLimiter inkDropSizeLimiter) {
+        super(rainbowDrawer, rainbowInputController);
         this.rainbowDrawer = rainbowDrawer;
         this.rainbowInputController = rainbowInputController;
         this.branchesList = branches;
         this.inkDropSizeLimiter = inkDropSizeLimiter;
     }
 
-    public static ZenSketch newInstance(ViewGroup viewGroup) {
+    public static ZenSketch newInstance() {
         RainbowDrawer rainbowDrawer = new RainbowDrawer();
         RainbowInputController rainbowInputController = new RainbowInputController();
-        return new ZenSketch(viewGroup, rainbowDrawer, rainbowInputController, BranchesList.newInstance(), new InkDropSizeLimiter());
+        return new ZenSketch(rainbowDrawer, rainbowInputController, BranchesList.newInstance(), new InkDropSizeLimiter());
     }
 
     @Override
@@ -48,22 +46,8 @@ public class ZenSketch extends Rainbow implements RainbowInputController.Rainbow
     }
 
     @Override
-    public void onDrawingStart() {
-        super.onDrawingStart();
-    }
-
-    @Override
     public void onDrawingStep() {
         branchDrawer.paintStep();
-    }
-
-    @Override
-    public void onDrawingStop() {
-        super.onDrawingStop();
-    }
-
-    @Override
-    public void onSketchDestroy() {
     }
 
     @Override
@@ -96,22 +80,30 @@ public class ZenSketch extends Rainbow implements RainbowInputController.Rainbow
         //no-op
     }
 
-    public void disableErasing() {
+    public void selectPainting() {
+        disableErasing();
+        enablePainting();
+    }
+
+    private void disableErasing() {
         eraserDrawer.disable();
     }
 
-    public void enablePainting() {
+    private void enablePainting() {
         inkDrawer.enable();
-        branchDrawer.enable();
     }
 
-    public void enableErasing() {
+    public void selectErasing() {
+        disablePainting();
+        enableErasing();
+    }
+
+    private void enableErasing() {
         eraserDrawer.enable();
     }
 
-    public void disablePainting() {
+    private void disablePainting() {
         inkDrawer.disable();
-        branchDrawer.disable();
     }
 
     public void clear() {

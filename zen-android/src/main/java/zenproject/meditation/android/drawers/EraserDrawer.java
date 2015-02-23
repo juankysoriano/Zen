@@ -5,6 +5,9 @@ import com.juankysoriano.rainbow.core.event.RainbowInputController;
 import com.juankysoriano.rainbow.core.graphics.RainbowGraphics;
 
 public class EraserDrawer implements StepDrawer {
+    private static final int ALPHA = 100;
+    private static final int RADIUS = 60;
+
     private final RainbowDrawer rainbowDrawer;
     private final RainbowInputController rainbowInputController;
     private boolean enabled;
@@ -44,9 +47,9 @@ public class EraserDrawer implements StepDrawer {
     private void drawErase(float x, float y) {
         if (enabled) {
             rainbowDrawer.noStroke();
-            rainbowDrawer.fill(RainbowGraphics.CLEAR, 30);
+            rainbowDrawer.fill(RainbowGraphics.CLEAR, ALPHA);
             rainbowDrawer.ellipseMode(RainbowGraphics.CENTER);
-            rainbowDrawer.ellipse(x, y, 60, 60);
+            rainbowDrawer.ellipse(x, y, RADIUS, RADIUS);
         }
     }
 
