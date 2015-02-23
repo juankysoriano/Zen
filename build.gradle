@@ -8,6 +8,7 @@ subprojects {
         }
         dependencies {
             classpath 'com.android.tools.build:gradle:1.0.0'
+            classpath 'com.github.dcendents:android-maven-plugin:1.2'
         }
     }
 
@@ -24,11 +25,11 @@ ext {
     androidDebugClassesFolder = "intermediates/classes/debug"
     javaTestClassesFolder = "classes/test"
 
-    minVersion = 17
-    targetVersion = 21
-    compileVersion = 21
-    buildToolsVersion = "21.0.1"
+    MIN_SDK = 17
+    TARGET_SDK = 21
+    COMPILE_SDK = 21
+    BUILD_TOOLS = "21.0.1"
 
-    versionCode = 1644010
-    versionName = "0.1.0"
+    VERSION_CODE = 1644010
+    VERSION_NAME = "0.1.0"
 }

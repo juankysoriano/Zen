@@ -1,1 +1,1 @@
-include ':zen-android', ':unit-tests'
+include ':zen-android', ':unit-tests', ':circularmenu-library', ':rainbow-lib'

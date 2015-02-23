@@ -11,17 +11,18 @@ android {
     def underscore = '_'
     project.archivesBaseName = "$rootProject.name$underscore$datestamp";
 
-    compileSdkVersion rootProject.ext.compileVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion rootProject.ext.COMPILE_SDK
+    buildToolsVersion rootProject.ext.BUILD_TOOLS
 
     defaultConfig {
         applicationId 'zenproject.meditation.android'
         testApplicationId 'zenproject.meditation.android.tests'
 
-        minSdkVersion rootProject.ext.minVersion
-        targetSdkVersion rootProject.ext.targetVersion
-        versionCode rootProject.ext.versionCode
-        versionName rootProject.ext.versionName
+        minSdkVersion rootProject.ext.MIN_SDK
+        targetSdkVersion rootProject.ext.TARGET_SDK
+        versionCode rootProject.ext.VERSION_CODE
+        versionName rootProject.ext.VERSION_NAME
+
         testInstrumentationRunner "com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner"
     }
 
@@ -50,9 +51,9 @@ android {
     }
 
     dependencies {
-        compile 'com.github.juankysoriano:rainbow:v0.9.6-rc2'
+        compile project(':rainbow-lib')
+        compile project(':circularmenu-library')
         compile 'com.nineoldandroids:library:2.4.0'
-        compile 'com.github.juankysoriano:CircularFloatingActionMenu:v0.5.4'
         compile 'com.android.support:support-annotations:20.0.0'
         compile 'com.android.support:appcompat-v7:21.0.3'
         compile('com.novoda:notils:2.2.11') {
