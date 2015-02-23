@@ -7,12 +7,15 @@ subprojects {
             }
         }
         dependencies {
-            classpath 'com.android.tools.build:gradle:1.0.0-rc4'
+            classpath 'com.android.tools.build:gradle:1.0.0'
         }
     }
 
     repositories {
         jcenter()
+        maven {
+            url "https://jitpack.io"
+        }
     }
 }
 
@@ -22,7 +25,7 @@ ext {
     javaTestClassesFolder = "classes/test"
 
     minVersion = 17
-    targetVersion = 20
+    targetVersion = 21
     compileVersion = 21
     buildToolsVersion = "21.0.1"
 

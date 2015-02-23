@@ -1,1 +1,1 @@
-include ':zen-android', ':rainbow', ':unit-tests'
+include ':zen-android', ':unit-tests'
