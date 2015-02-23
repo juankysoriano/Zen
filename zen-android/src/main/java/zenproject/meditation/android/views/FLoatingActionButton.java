@@ -1,5 +1,8 @@
 package zenproject.meditation.android.views;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -19,19 +22,22 @@ import android.widget.FrameLayout;
 import com.nineoldandroids.view.ViewPropertyAnimator;
 
 public class FloatingActionButton extends View {
-
-    Context context;
-    Paint mButtonPaint;
-    Paint mDrawablePaint;
-    Bitmap mBitmap;
-    boolean mHidden = false;
-    boolean mTouching = false;
+    private static final int DURATION = 400;
+    private static final int ROTATED = 90;
+    private static final int NOT_ROTATED = 0;
+    private Paint mButtonPaint;
+    private Paint mDrawablePaint;
+    private Bitmap mBitmap;
+    private boolean mHidden = false;
+    private boolean mTouching = false;
+    private boolean mRotated = false;
+    private boolean mRotating = false;
     private int color;
     private int pressedColor;
+    protected float angle = NOT_ROTATED;
 
     public FloatingActionButton(Context context) {
         super(context);
-        this.context = context;
         init(Color.WHITE);
     }
 
@@ -65,8 +71,11 @@ public class FloatingActionButton extends View {
         mButtonPaint.setColor(mTouching ? pressedColor : color);
 
         canvas.drawCircle(getWidth() / 2, getHeight() / 2, (float) (getWidth() / 2.6), mButtonPaint);
+        canvas.save();
+        canvas.rotate(angle, getWidth() / 2, getHeight() / 2);
         canvas.drawBitmap(mBitmap, (getWidth() - mBitmap.getWidth()) / 2,
                 (getHeight() - mBitmap.getHeight()) / 2, mDrawablePaint);
+        canvas.restore();
     }
 
     @Override
@@ -82,7 +91,7 @@ public class FloatingActionButton extends View {
     }
 
     public void hide() {
-        if (!mHidden) {
+        if (!isHidden()) {
             ViewPropertyAnimator.animate(this).setInterpolator(new AccelerateDecelerateInterpolator())
                     .translationY(-getBottom());
             mHidden = true;
@@ -90,11 +99,37 @@ public class FloatingActionButton extends View {
     }
 
     public void show() {
-        if (mHidden) {
+        if (isHidden()) {
             ViewPropertyAnimator.animate(this).setInterpolator(new AccelerateDecelerateInterpolator())
                     .translationY(0);
             mHidden = false;
         }
+    }
+
+    public void rotate() {
+        if (!mRotating) {
+            float startAngle = mRotated ? ROTATED : NOT_ROTATED;
+            float endAngle = mRotated ? NOT_ROTATED : ROTATED;
+            Animator animator = ObjectAnimator.ofFloat(this, "angle", startAngle, endAngle);
+            animator.setInterpolator(new AccelerateDecelerateInterpolator());
+            animator.setDuration(DURATION);
+            animator.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+                    super.onAnimationStart(animation);
+                    mRotating = true;
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    mRotated = !mRotated;
+                    mRotating = false;
+                }
+            });
+            animator.start();
+        }
+
     }
 
     public boolean isHidden() {
@@ -104,6 +139,15 @@ public class FloatingActionButton extends View {
     public Point getCentre() {
         return new Point((int) getX() + getWidth() / 2,
                 (int) getY() + getHeight() / 2);
+    }
+
+    protected float getAngle() {
+        return angle;
+    }
+
+    protected void setAngle(float angle) {
+        this.angle = angle;
+        invalidate();
     }
 
     static public class Builder {

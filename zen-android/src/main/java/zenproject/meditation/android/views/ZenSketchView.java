@@ -38,20 +38,15 @@ public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintin
 
     @Override
     protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
         circularMenu = FloatingActionButtonMenuCreator.createWith(ContextRetriever.INSTANCE.getCurrentContext());
         circularMenu.setStateChangeListener(menuStateChangeListener);
         menuButton = (FloatingActionButton) circularMenu.getActionView();
+
+        super.onAttachedToWindow();
     }
 
-    public CircularMenu getMenu() {
+    public CircularMenu getCircularMenu() {
         return circularMenu;
-    }
-
-    @Override
-    protected void onDetachedFromWindow() {
-        circularMenu = null;
-        super.onDetachedFromWindow();
     }
 
     private void hideControlsWithDelay() {
@@ -75,6 +70,7 @@ public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintin
     private void hideControls() {
         if (circularMenu.isOpen()) {
             circularMenu.close(true);
+            menuButton.rotate();
         } else {
             menuButton.hide();
         }
@@ -118,9 +114,10 @@ public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintin
         }
     };
 
-    public void startRestartAnimation() {
+    public void startRestartAnimation(FloatingActionButton view) {
         if (!revealView.isRevealing()) {
             revealView.startRevealWith(revealAnimatorListener);
+            revealView.setRevealOrigin(view.getCentre());
         }
     }
 
@@ -128,7 +125,6 @@ public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintin
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         revealView.setRevealRadius(RainbowMath.dist(0, 0, getWidth(), getHeight()));
-        //  revealView.setRevealOrigin(restartButton.getCentre());
     }
 
     @Override

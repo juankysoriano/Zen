@@ -1,20 +1,26 @@
 package zenproject.meditation.android.activities;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
 
-import zenproject.meditation.android.ContextRetriever;
+import com.oguzdev.circularfloatingactionmenu.library.CircularMenu;
+
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.dialogs.BrushOptionsDialog;
 import zenproject.meditation.android.drawers.ZenSketch;
+import zenproject.meditation.android.views.FloatingActionButton;
 import zenproject.meditation.android.views.ZenSketchView;
 
-public class SketchActivity extends FragmentActivity implements ZenSketchView.OnRevealListener {
+import static zenproject.meditation.android.views.creators.FloatingActionButtonMenuCreator.MenuId;
+
+public class SketchActivity extends ZenActivity {
 
     private ZenSketch zenSketch;
     private ZenSketchView zenSketchView;
+    private CircularMenu circularMenu;
+    private FloatingActionButton menuButton;
+    private FloatingActionButton restartButton;
 
     public SketchActivity() {
         zenSketch = ZenSketch.newInstance();
@@ -22,19 +28,21 @@ public class SketchActivity extends FragmentActivity implements ZenSketchView.On
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ContextRetriever.INSTANCE.inject(this);
         setContentView(R.layout.sketch);
 
         initUI();
-        setupUI();
     }
 
     private void initUI() {
         zenSketchView = (ZenSketchView) findViewById(R.id.sketch);
+        zenSketchView.addOnAttachStateChangeListener(this);
     }
 
     private void setupUI() {
         zenSketch.injectInto(zenSketchView);
+        circularMenu = zenSketchView.getCircularMenu();
+        restartButton = (FloatingActionButton) circularMenu.findSubActionViewWithId(MenuId.RESTART_ID);
+        menuButton = (FloatingActionButton) circularMenu.getActionView();
     }
 
     @Override
@@ -46,24 +54,24 @@ public class SketchActivity extends FragmentActivity implements ZenSketchView.On
     @Override
     protected void onResume() {
         super.onResume();
-        attachListeners();
         zenSketch.resume();
     }
 
-    private void attachListeners() {
-        zenSketchView.setOnRevealListener(this);
-        zenSketch.setOnPaintingListener(zenSketchView);
+    @Override
+    public void onViewAttachedToWindow(View v) {
+        setupUI();
+        attachListeners();
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(View v) {
+        detachListeners();
     }
 
     @Override
     protected void onPause() {
         zenSketch.pause();
-        detachListeners();
         super.onPause();
-    }
-
-    private void detachListeners() {
-        zenSketch.setOnPaintingListener(null);
     }
 
     @Override
@@ -74,26 +82,39 @@ public class SketchActivity extends FragmentActivity implements ZenSketchView.On
 
     @Override
     protected void onDestroy() {
-        ContextRetriever.INSTANCE.inject(null);
         zenSketch.destroy();
         super.onDestroy();
     }
 
-    private final View.OnClickListener onRestartListener = new View.OnClickListener() {
+    private void attachListeners() {
+        zenSketchView.setOnRevealListener(onRevealListener);
+        zenSketch.setOnPaintingListener(zenSketchView);
+        restartButton.setOnClickListener(onRestartListener);
+        menuButton.setOnClickListener(onMenuToggleListener);
+    }
+
+    private void detachListeners() {
+        zenSketchView.setOnRevealListener(null);
+        zenSketch.setOnPaintingListener(null);
+        restartButton.setOnClickListener(null);
+        menuButton.setOnClickListener(null);
+    }
+
+    /**
+     * Listeners which controls painting flow and menu operations.
+     */
+    private final View.OnClickListener onMenuToggleListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            zenSketchView.startRestartAnimation();
+            circularMenu.toggle(true);
+            menuButton.rotate();
         }
     };
 
-    private final View.OnClickListener onPaintMenuListener = new View.OnClickListener() {
+    private final View.OnClickListener onRestartListener = new View.OnClickListener() {
         @Override
-        public void onClick(View v) {
-/*            if (paintingMenu.isExpanded()) {
-                paintingMenu.collapse();
-            } else {
-                paintingMenu.expand();
-            }*/
+        public void onClick(View view) {
+            zenSketchView.startRestartAnimation((FloatingActionButton) view);
         }
     };
 
@@ -142,8 +163,10 @@ public class SketchActivity extends FragmentActivity implements ZenSketchView.On
         }
     };
 
-    @Override
-    public void onRevealed() {
-        zenSketch.clear();
-    }
+    private final ZenSketchView.OnRevealListener onRevealListener = new ZenSketchView.OnRevealListener() {
+        @Override
+        public void onRevealed() {
+            zenSketch.clear();
+        }
+    };
 }

@@ -314,6 +314,13 @@ public class CircularMenu {
     }
 
     /**
+     * Sets a listener for menu button click
+     */
+    public void setOnClickListener(View.OnClickListener listener) {
+        this.mainActionView.setOnClickListener(listener);
+    }
+
+    /**
      * @return whether the menu is a system overlay or not
      */
     public boolean isSystemOverlay() {
@@ -578,7 +585,7 @@ public class CircularMenu {
         this.stateChangeListener = new MenuStateChangeListener() {
             @Override
             public void onMenuOpened(CircularMenu menu) {
-                if(listener!=null) {
+                if (listener != null) {
                     listener.onMenuOpened(menu);
                 }
                 open = true;
@@ -586,7 +593,7 @@ public class CircularMenu {
 
             @Override
             public void onMenuClosed(CircularMenu menu) {
-                if(listener != null) {
+                if (listener != null) {
                     listener.onMenuClosed(menu);
                 }
                 open = false;

@@ -9,7 +9,6 @@ import android.animation.PropertyValuesHolder;
 import android.graphics.Point;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.OvershootInterpolator;
 
 import com.oguzdev.circularfloatingactionmenu.library.CircularMenu;
 
@@ -22,7 +21,7 @@ public class DefaultAnimationHandler extends MenuAnimationHandler {
     /**
      * duration of animations, in milliseconds
      */
-    private static final int DURATION = 500;
+    private static final int DURATION = 400;
 
     private static final int FACE_DOWN = 180;
     private static final int FACE_UP = 360;
@@ -63,7 +62,7 @@ public class DefaultAnimationHandler extends MenuAnimationHandler {
 
         ObjectAnimator animation = ObjectAnimator.ofPropertyValuesHolder(item.view, pvhX, pvhY, pvhR);
         animation.setDuration(DURATION);
-        animation.setInterpolator(new OvershootInterpolator(0.9f));
+        animation.setInterpolator(new AccelerateDecelerateInterpolator());
         animation.addListener(new SubActionItemAnimationListener(item, ActionType.OPENING));
 
         if (isFirst) {
@@ -85,7 +84,7 @@ public class DefaultAnimationHandler extends MenuAnimationHandler {
 
         final ObjectAnimator animation = ObjectAnimator.ofPropertyValuesHolder(menuBackgroundView, pvhX, pvhY);
         animation.setDuration(DURATION);
-        animation.setInterpolator(new OvershootInterpolator(0.9f));
+        animation.setInterpolator(new AccelerateDecelerateInterpolator());
 
         animation.start();
     }
