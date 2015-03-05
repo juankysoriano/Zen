@@ -1,3 +1,8 @@
 <resources>
   <string name="app_name">Zen</string>
+
+  <!--BRUSH OPTIONS-->
+  <string name="option_ink_color">Ink color</string>
+  <string name="option_brush_size">Brush size</string>
+
 </resources>

@@ -15,11 +15,9 @@ subprojects {
     repositories {
         jcenter()
 
-/*      TODO consider using jitpack at some point??
         maven {
             url "https://jitpack.io"
         }
-*/
     }
 }
 

@@ -3,6 +3,7 @@
   android:id="@+id/sketch"
   android:layout_width="fill_parent"
   android:layout_height="fill_parent"
+  android:background="@color/colorSketch"
   android:orientation="horizontal">
 
   <zenproject.meditation.android.views.RevealView

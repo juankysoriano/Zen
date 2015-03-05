@@ -54,6 +54,8 @@ android {
         compile 'com.nineoldandroids:library:2.4.0'
         compile 'com.android.support:support-annotations:20.0.0'
         compile 'com.android.support:appcompat-v7:21.0.3'
+        compile 'com.afollestad:material-dialogs:0.6.3.3'
+        compile 'de.hdodenhof:circleimageview:1.2.2'
         compile('com.novoda:notils:2.2.11') {
             exclude module: 'support-v4'
         }

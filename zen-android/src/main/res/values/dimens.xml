@@ -24,4 +24,12 @@
   <dimen name="branch_minimum_radius">0.25dp</dimen>
   <dimen name="branch_minimum_radius_to_sproud">1.5dp</dimen>
   <dimen name="branch_default_radius">3dp</dimen>
+
+  <!--OPTIONS-->
+  <dimen name="option_content_margin_start">64dp</dimen>
+  <dimen name="option_margin_top">12dp</dimen>
+  <dimen name="option_margin_bottom">12dp</dimen>
+  <dimen name="option_color_image_diameter">40dp</dimen>
+  <dimen name="divider_weight">0.5dp</dimen>
+
 </resources>

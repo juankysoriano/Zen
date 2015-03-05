@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:orientation="vertical">
+
+  <include
+    layout="@layout/included_option_brush_mode" />
+
+  <View
+    android:layout_width="match_parent"
+    android:layout_marginStart="@dimen/option_content_margin_start"
+    android:layout_marginTop="@dimen/option_margin_top"
+    android:layout_marginBottom="@dimen/option_margin_bottom"
+    android:layout_height="@dimen/divider_weight"
+    android:background="@color/divider" />
+
+  <include
+    layout="@layout/included_option_size_mode" />
+
+</LinearLayout>

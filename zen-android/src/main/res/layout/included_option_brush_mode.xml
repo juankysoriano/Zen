@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:tools="http://schemas.android.com/tools"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  tools:showIn="@layout/brush_options_dialog">
+
+  <TextView
+    android:id="@+id/option_mode_text"
+    style="@style/OptionText"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/option_content_margin_start"
+    android:text="@string/option_ink_color" />
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/option_margin_top"
+    android:layout_marginStart="@dimen/option_content_margin_start">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+      android:id="@+id/dark_brush"
+      android:layout_marginStart="0dp"
+      style="@style/BrushCircularView"
+      android:src="@color/dark_brush" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+      android:id="@+id/grey_brush"
+      style="@style/BrushCircularView"
+      android:src="@color/grey_brush" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+      android:id="@+id/erase_brush"
+      style="@style/BrushCircularView"
+      android:src="@color/colorSketch" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+      android:id="@+id/primary_brush"
+      style="@style/BrushCircularView"
+      android:src="@color/colorPrimary" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+      android:id="@+id/accent_brush"
+      style="@style/BrushCircularView"
+      android:src="@color/colorAccent" />
+
+  </LinearLayout>
+</merge>

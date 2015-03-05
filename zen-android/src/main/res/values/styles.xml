@@ -1,10 +1,26 @@
 <resources>
 
   <!-- Base application theme. -->
-  <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+  <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
     <item name="android:windowFullscreen">true</item>
     <item name="android:windowNoTitle">true</item>
-    <item name="android:background">@color/colorSketch</item>
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
+  </style>
+
+  <style name="BrushCircularView">
+    <item name="android:layout_width">@dimen/option_color_image_diameter</item>
+    <item name="android:layout_height">@dimen/option_color_image_diameter</item>
+    <item name="android:layout_marginStart">@dimen/option_margin_top</item>
+    <item name="android:layout_marginBottom">@dimen/option_margin_bottom</item>
+    <item name="border_width">@dimen/divider_weight</item>
+    <item name="border_color">@color/divider</item>
+  </style>
+
+  <style name="OptionText">
+    <item name="android:textColor">@color/colorPrimaryDark</item>
+    <item name="android:fontFamily">sans-serif</item>
   </style>
 
 </resources>
