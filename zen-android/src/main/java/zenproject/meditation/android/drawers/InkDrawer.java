@@ -1,11 +1,14 @@
 package zenproject.meditation.android.drawers;
 
+import android.graphics.Color;
+
 import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
 import com.juankysoriano.rainbow.core.event.RainbowInputController;
 import com.juankysoriano.rainbow.core.graphics.RainbowGraphics;
 import com.juankysoriano.rainbow.core.graphics.RainbowImage;
 import com.juankysoriano.rainbow.utils.RainbowMath;
 
+import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.model.InkDrop;
 import zenproject.meditation.android.model.InkDropSizeLimiter;
@@ -16,8 +19,8 @@ public class InkDrawer implements StepDrawer, RainbowImage.LoadPictureListener {
     private static final RainbowImage NO_IMAGE = null;
     private static final int INK_ISSUE_THRESHOLD = 99;
     private static final int ALPHA = 180;
-    private static final int BLACK = 0;
-    private static final int WHITE = 255;
+    private static final int BLACK = ContextRetriever.INSTANCE.getCurrentContext().getResources().getColor(R.color.dark_brush);
+    private static final int WHITE = Color.WHITE;
     private static final float INK_DROP_IMAGE_SCALE = 0.5f;
     private final RainbowDrawer rainbowDrawer;
     private final RainbowInputController rainbowInputController;
@@ -39,7 +42,7 @@ public class InkDrawer implements StepDrawer, RainbowImage.LoadPictureListener {
                                         RainbowInputController rainbowInputController) {
         InkDrawer inkDrawer = new InkDrawer(new InkDrop(inkDropSizeLimiter), branches, rainbowDrawer, rainbowInputController);
         configureDrawer(rainbowDrawer);
-        rainbowDrawer.loadImage(R.drawable.brush_ink, RainbowImage.LOAD_ORIGINAL_SIZE, inkDrawer);
+        rainbowDrawer.loadImage(R.drawable.ink_drop_issue, RainbowImage.LOAD_ORIGINAL_SIZE, inkDrawer);
         return inkDrawer;
     }
 
@@ -112,9 +115,9 @@ public class InkDrawer implements StepDrawer, RainbowImage.LoadPictureListener {
     private void paintDropWithImage(float x, float y) {
         rainbowDrawer.pushMatrix();
         rainbowDrawer.tint(WHITE, ALPHA);
+        rainbowDrawer.imageMode(RainbowGraphics.CENTER);
         rainbowDrawer.translate(x, y);
         rainbowDrawer.rotate(RainbowMath.random(RainbowMath.TWO_PI));
-        rainbowDrawer.imageMode(RainbowGraphics.CENTER);
         rainbowDrawer.image(image, 0, 0, inkDrop.getRadius(), inkDrop.getRadius());
         rainbowDrawer.popMatrix();
     }

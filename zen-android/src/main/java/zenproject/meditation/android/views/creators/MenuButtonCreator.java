@@ -12,7 +12,7 @@ import zenproject.meditation.android.views.FloatingActionButton;
 public class MenuButtonCreator {
     private final static int BUTTON_SIZE = ContextRetriever.INSTANCE.getCurrentContext().getResources().getDimensionPixelSize(R.dimen.red_action_button_size);
     private final static int MARGIN = ContextRetriever.INSTANCE.getCurrentContext().getResources().getDimensionPixelOffset(R.dimen.action_button_margin);
-    private final static int COLOR = ContextRetriever.INSTANCE.getCurrentContext().getResources().getColor(R.color.colorPrimary);
+    private final static int COLOR = ContextRetriever.INSTANCE.getCurrentContext().getResources().getColor(R.color.colorAccent);
 
     static FloatingActionButton createWith(Context context, @DrawableRes int drawableId, @IdRes int resId) {
         return new FloatingActionButton.Builder(context)

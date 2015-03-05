@@ -1,8 +1,9 @@
 package zenproject.meditation.android.drawers;
 
+import android.view.MotionEvent;
+
 import com.juankysoriano.rainbow.core.Rainbow;
 import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
-import com.juankysoriano.rainbow.core.event.RainbowEvent;
 import com.juankysoriano.rainbow.core.event.RainbowInputController;
 
 import zenproject.meditation.android.ContextRetriever;
@@ -51,7 +52,7 @@ public class ZenSketch extends Rainbow implements RainbowInputController.Rainbow
     }
 
     @Override
-    public void onSketchTouched(RainbowEvent event, RainbowDrawer rainbowDrawer) {
+    public void onSketchTouched(MotionEvent event, RainbowDrawer rainbowDrawer) {
         if (hasOnPaintingListener()) {
             onPaintingListener.onPaintingStart();
         }
@@ -63,20 +64,20 @@ public class ZenSketch extends Rainbow implements RainbowInputController.Rainbow
     }
 
     @Override
-    public void onSketchReleased(RainbowEvent event, RainbowDrawer rainbowDrawer) {
+    public void onSketchReleased(MotionEvent event, RainbowDrawer rainbowDrawer) {
         if (hasOnPaintingListener()) {
             onPaintingListener.onPaintingEnd();
         }
     }
 
     @Override
-    public void onFingerDragged(RainbowEvent event, RainbowDrawer rainbowDrawer) {
+    public void onFingerDragged(MotionEvent event, RainbowDrawer rainbowDrawer) {
         inkDrawer.paintStep();
         eraserDrawer.paintStep();
     }
 
     @Override
-    public void onMotionEvent(RainbowEvent event, RainbowDrawer rainbowDrawer) {
+    public void onMotionEvent(MotionEvent event, RainbowDrawer rainbowDrawer) {
         //no-op
     }
 

@@ -21,6 +21,7 @@ public class SketchActivity extends ZenActivity {
     private CircularMenu circularMenu;
     private FloatingActionButton menuButton;
     private FloatingActionButton restartButton;
+    private FloatingActionButton brushButton;
 
     public SketchActivity() {
         zenSketch = ZenSketch.newInstance();
@@ -36,13 +37,6 @@ public class SketchActivity extends ZenActivity {
     private void initUI() {
         zenSketchView = (ZenSketchView) findViewById(R.id.sketch);
         zenSketchView.addOnAttachStateChangeListener(this);
-    }
-
-    private void setupUI() {
-        zenSketch.injectInto(zenSketchView);
-        circularMenu = zenSketchView.getCircularMenu();
-        restartButton = (FloatingActionButton) circularMenu.findSubActionViewWithId(MenuId.RESTART_ID);
-        menuButton = (FloatingActionButton) circularMenu.getActionView();
     }
 
     @Override
@@ -61,6 +55,22 @@ public class SketchActivity extends ZenActivity {
     public void onViewAttachedToWindow(View v) {
         setupUI();
         attachListeners();
+    }
+
+    private void setupUI() {
+        zenSketch.injectInto(zenSketchView);
+        circularMenu = zenSketchView.getCircularMenu();
+        restartButton = (FloatingActionButton) circularMenu.findSubActionViewWithId(MenuId.RESTART_ID);
+        brushButton = (FloatingActionButton) circularMenu.findSubActionViewWithId(MenuId.BRUSH_ID);
+        menuButton = (FloatingActionButton) circularMenu.getActionView();
+    }
+
+    private void attachListeners() {
+        zenSketchView.setOnRevealListener(onRevealListener);
+        zenSketch.setOnPaintingListener(zenSketchView);
+        brushButton.setOnClickListener(onBrushListener);
+        restartButton.setOnClickListener(onRestartListener);
+        menuButton.setOnClickListener(onMenuToggleListener);
     }
 
     @Override
@@ -86,16 +96,10 @@ public class SketchActivity extends ZenActivity {
         super.onDestroy();
     }
 
-    private void attachListeners() {
-        zenSketchView.setOnRevealListener(onRevealListener);
-        zenSketch.setOnPaintingListener(zenSketchView);
-        restartButton.setOnClickListener(onRestartListener);
-        menuButton.setOnClickListener(onMenuToggleListener);
-    }
-
     private void detachListeners() {
         zenSketchView.setOnRevealListener(null);
         zenSketch.setOnPaintingListener(null);
+        brushButton.setOnClickListener(null);
         restartButton.setOnClickListener(null);
         menuButton.setOnClickListener(null);
     }

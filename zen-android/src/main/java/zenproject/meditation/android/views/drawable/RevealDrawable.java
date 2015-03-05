@@ -27,7 +27,7 @@ public class RevealDrawable extends Drawable {
 
     public static RevealDrawable newInstance(Context context) {
         Paint revealPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        int color = context.getResources().getColor(R.color.colorPrimary);
+        int color = context.getResources().getColor(R.color.colorAccent);
         revealPaint.setColor(color);
         revealPaint.setStyle(Paint.Style.FILL);
         return new RevealDrawable(revealPaint);
