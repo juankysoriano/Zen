@@ -28,6 +28,7 @@ public class InkDrawer implements StepDrawer, RainbowImage.LoadPictureListener {
     private final BranchesList branches;
     private RainbowImage image;
     private boolean enabled = true;
+    private int selectedColor = BLACK;
 
     private InkDrawer(InkDrop inkDrop, BranchesList branches, RainbowDrawer rainbowDrawer, RainbowInputController rainbowInputController) {
         this.inkDrop = inkDrop;
@@ -108,6 +109,10 @@ public class InkDrawer implements StepDrawer, RainbowImage.LoadPictureListener {
         }
     }
 
+    public void setSelectedColorTo(int color) {
+        selectedColor = color;
+    }
+
     private boolean hasToPaintDropImage() {
         return RainbowMath.random(100) > INK_ISSUE_THRESHOLD && hasImage();
     }
@@ -124,7 +129,7 @@ public class InkDrawer implements StepDrawer, RainbowImage.LoadPictureListener {
 
     private void paintDropWithoutImage(float x, float y) {
         rainbowDrawer.noStroke();
-        rainbowDrawer.fill(BLACK, ALPHA);
+        rainbowDrawer.fill(selectedColor, ALPHA);
         rainbowDrawer.ellipseMode(RainbowGraphics.CENTER);
         rainbowDrawer.ellipse(x, y, inkDrop.getRadius() * INK_DROP_IMAGE_SCALE, inkDrop.getRadius() * INK_DROP_IMAGE_SCALE);
     }

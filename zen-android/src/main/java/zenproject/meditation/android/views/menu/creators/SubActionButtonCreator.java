@@ -1,4 +1,4 @@
-package zenproject.meditation.android.views.creators;
+package zenproject.meditation.android.views.menu.creators;
 
 import android.content.Context;
 import android.support.annotation.ColorRes;
@@ -8,14 +8,14 @@ import android.view.Gravity;
 
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
-import zenproject.meditation.android.views.FloatingActionButton;
+import zenproject.meditation.android.views.menu.FloatingActionButton;
 
 public class SubActionButtonCreator {
     private static final int SIZE = ContextRetriever.INSTANCE.getCurrentContext().getResources().getDimensionPixelSize(R.dimen.blue_sub_action_button_size);
     private static final int MARGIN = ContextRetriever.INSTANCE.getCurrentContext().getResources().getDimensionPixelSize(R.dimen.blue_sub_action_button_content_margin);
 
     public static FloatingActionButton createFrom(Context context, @ColorRes int color, @DrawableRes int drawableId, @IdRes int resId) {
-        return new zenproject.meditation.android.views.FloatingActionButton.Builder(context)
+        return new FloatingActionButton.Builder(context)
                 .withButtonSize(SIZE)
                 .withMargins(MARGIN, MARGIN, MARGIN, MARGIN)
                 .withButtonColor(ContextRetriever.INSTANCE.getCurrentContext().getResources().getColor(color))

@@ -1,4 +1,4 @@
-package zenproject.meditation.android.views;
+package zenproject.meditation.android.views.menu;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -38,7 +38,11 @@ public class FloatingActionButton extends View {
 
     public FloatingActionButton(Context context) {
         super(context);
-        init(Color.WHITE);
+        setWillNotDraw(false);
+        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        mButtonPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mButtonPaint.setStyle(Paint.Style.FILL);
+        mDrawablePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     }
 
     public void setFloatingActionButtonColor(int FloatingActionButtonColor) {
@@ -51,16 +55,6 @@ public class FloatingActionButton extends View {
 
     public void setFloatingActionButtonDrawable(Bitmap FloatingActionButtonDrawable) {
         mBitmap = FloatingActionButtonDrawable;
-        invalidate();
-    }
-
-    public void init(int FloatingActionButtonColor) {
-        setWillNotDraw(false);
-        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-        mButtonPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mButtonPaint.setStyle(Paint.Style.FILL);
-        mDrawablePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-
         invalidate();
     }
 

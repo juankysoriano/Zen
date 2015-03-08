@@ -12,8 +12,8 @@
   <style name="BrushCircularView">
     <item name="android:layout_width">@dimen/option_color_image_diameter</item>
     <item name="android:layout_height">@dimen/option_color_image_diameter</item>
-    <item name="android:layout_marginStart">@dimen/option_margin_top</item>
-    <item name="android:layout_marginBottom">@dimen/option_margin_bottom</item>
+    <item name="android:layout_marginStart">@dimen/option_content_margin_top</item>
+    <item name="android:layout_marginBottom">@dimen/option_content_margin_bottom</item>
     <item name="border_width">@dimen/divider_weight</item>
     <item name="border_color">@color/divider</item>
   </style>
@@ -21,6 +21,12 @@
   <style name="OptionText">
     <item name="android:textColor">@color/colorPrimaryDark</item>
     <item name="android:fontFamily">sans-serif</item>
+  </style>
+
+  <style name="OptionIcon">
+    <item name="android:layout_width">24dp</item>
+    <item name="android:layout_height">24dp</item>
+    <item name="android:layout_gravity">center_vertical</item>
   </style>
 
 </resources>

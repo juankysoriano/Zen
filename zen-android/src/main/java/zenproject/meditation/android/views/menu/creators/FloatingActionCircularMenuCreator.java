@@ -1,15 +1,21 @@
-package zenproject.meditation.android.views.creators;
+package zenproject.meditation.android.views.menu.creators;
 
 import android.content.Context;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
+import android.view.Gravity;
 
 import com.oguzdev.circularfloatingactionmenu.library.CircularMenu;
 
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
+import zenproject.meditation.android.views.menu.FloatingActionButton;
 
-public class FloatingActionButtonMenuCreator {
+public class FloatingActionCircularMenuCreator {
     private static final int MENU_RADIUS = ContextRetriever.INSTANCE.getCurrentContext().getResources().getDimensionPixelSize(R.dimen.red_action_menu_radius);
+    private final static int BUTTON_SIZE = ContextRetriever.INSTANCE.getCurrentContext().getResources().getDimensionPixelSize(R.dimen.red_action_button_size);
+    private final static int MARGIN = ContextRetriever.INSTANCE.getCurrentContext().getResources().getDimensionPixelOffset(R.dimen.action_button_margin);
+    private final static int MENU_COLOR = ContextRetriever.INSTANCE.getCurrentContext().getResources().getColor(R.color.colorAccent);
 
     public static CircularMenu createWith(Context context) {
         return new CircularMenu.Builder(context)
@@ -22,8 +28,19 @@ public class FloatingActionButtonMenuCreator {
                 .addSubActionView(SubActionButtonCreator.createFrom(context, R.color.colorAccent, R.drawable.restart, MenuId.RESTART_ID))
                 .setStartAngle(185)
                 .setEndAngle(85)
-                .attachTo(MenuButtonCreator.createWith(context, R.drawable.menu, MenuId.MENU_ID))
+                .attachTo(createMenuButtonWith(context, R.drawable.menu, MenuId.MENU_ID))
                 .build();
+    }
+
+    private static FloatingActionButton createMenuButtonWith(Context context, @DrawableRes int drawableId, @IdRes int resId) {
+        return new FloatingActionButton.Builder(context)
+                .withButtonSize(BUTTON_SIZE)
+                .withMargins(MARGIN, MARGIN, MARGIN, MARGIN)
+                .withButtonColor(MENU_COLOR)
+                .withGravity(Gravity.TOP | Gravity.END)
+                .withDrawable(ContextRetriever.INSTANCE.getCurrentContext().getResources().getDrawable(drawableId))
+                .withId(resId)
+                .create();
     }
 
     public interface MenuId {

@@ -1,4 +1,4 @@
-package zenproject.meditation.android.views;
+package zenproject.meditation.android.views.reveal;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -7,7 +7,7 @@ import android.graphics.Point;
 import android.util.AttributeSet;
 import android.view.View;
 
-import zenproject.meditation.android.views.drawable.RevealDrawable;
+import zenproject.meditation.android.views.reveal.RevealDrawable;
 
 public class RevealView extends View {
     private RevealDrawable revealDrawable;

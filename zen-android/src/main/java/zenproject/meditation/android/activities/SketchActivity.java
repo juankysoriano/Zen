@@ -7,12 +7,12 @@ import android.view.View;
 import com.oguzdev.circularfloatingactionmenu.library.CircularMenu;
 
 import zenproject.meditation.android.R;
-import zenproject.meditation.android.dialogs.BrushOptionsDialog;
 import zenproject.meditation.android.drawers.ZenSketch;
-import zenproject.meditation.android.views.FloatingActionButton;
 import zenproject.meditation.android.views.ZenSketchView;
+import zenproject.meditation.android.views.dialogs.brush.BrushOptionsDialog;
+import zenproject.meditation.android.views.menu.FloatingActionButton;
 
-import static zenproject.meditation.android.views.creators.FloatingActionButtonMenuCreator.MenuId;
+import static zenproject.meditation.android.views.menu.creators.FloatingActionCircularMenuCreator.MenuId;
 
 public class SketchActivity extends ZenActivity {
 
@@ -126,8 +126,10 @@ public class SketchActivity extends ZenActivity {
         @Override
         public void onClick(View v) {
             FragmentManager fm = getSupportFragmentManager();
-            BrushOptionsDialog editNameDialog = new BrushOptionsDialog();
-            editNameDialog.show(fm, "fragment_edit_name");
+            BrushOptionsDialog brushDialog = new BrushOptionsDialog();
+            brushDialog.setColorSelectedListener(zenSketch);
+            brushDialog.setSizeChangedListener(zenSketch);
+            brushDialog.show(fm, "fragment_edit_name");
             zenSketch.selectPainting();
         }
     };

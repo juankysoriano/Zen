@@ -9,8 +9,10 @@ import com.juankysoriano.rainbow.core.event.RainbowInputController;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.model.InkDropSizeLimiter;
+import zenproject.meditation.android.views.dialogs.brush.ColorSelectedListener;
+import zenproject.meditation.android.views.dialogs.brush.SizeChangedListener;
 
-public class ZenSketch extends Rainbow implements RainbowInputController.RainbowInteractionListener {
+public class ZenSketch extends Rainbow implements RainbowInputController.RainbowInteractionListener, ColorSelectedListener, SizeChangedListener {
 
     private static final int DEFAULT_COLOR = ContextRetriever.INSTANCE.getCurrentContext().getResources().getColor(R.color.colorSketch);
     private final RainbowInputController rainbowInputController;
@@ -113,6 +115,16 @@ public class ZenSketch extends Rainbow implements RainbowInputController.Rainbow
 
     public void setOnPaintingListener(OnPaintingListener onPaintingListener) {
         this.onPaintingListener = onPaintingListener;
+    }
+
+    @Override
+    public void onColorSelected(int color) {
+        ((InkDrawer) inkDrawer).setSelectedColorTo(color);
+    }
+
+    @Override
+    public void onSizeChanged(float percentage) {
+        inkDropSizeLimiter.setScaleFactor(percentage);
     }
 
     public interface OnPaintingListener {

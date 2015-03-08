@@ -8,40 +8,54 @@
     style="@style/OptionText"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/option_content_margin_start"
+    android:layout_marginStart="@dimen/option_text_margin_start"
     android:text="@string/option_ink_color" />
 
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/option_margin_top"
-    android:layout_marginStart="@dimen/option_content_margin_start">
+    android:layout_marginTop="@dimen/option_content_margin_top"
+    android:layout_marginStart="@dimen/option_content_margin_start"
+    android:orientation="horizontal">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-      android:id="@+id/dark_brush"
-      android:layout_marginStart="0dp"
-      style="@style/BrushCircularView"
-      android:src="@color/dark_brush" />
+    <ImageView
+      style="@style/OptionIcon"
+      android:src="@drawable/palette"
+      android:layout_marginEnd="@dimen/option_icon_margin_end"
+      android:contentDescription="@null"/>
 
-    <de.hdodenhof.circleimageview.CircleImageView
-      android:id="@+id/grey_brush"
-      style="@style/BrushCircularView"
-      android:src="@color/grey_brush" />
+    <zenproject.meditation.android.views.dialogs.brush.ColorView
+      android:id="@+id/color_picker"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-      android:id="@+id/erase_brush"
-      style="@style/BrushCircularView"
-      android:src="@color/colorSketch" />
+      <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/dark_brush"
+        android:layout_marginStart="0dp"
+        style="@style/BrushCircularView"
+        android:src="@color/dark_brush" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-      android:id="@+id/primary_brush"
-      style="@style/BrushCircularView"
-      android:src="@color/colorPrimary" />
+      <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/grey_brush"
+        style="@style/BrushCircularView"
+        android:src="@color/grey_brush" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-      android:id="@+id/accent_brush"
-      style="@style/BrushCircularView"
-      android:src="@color/colorAccent" />
+      <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/erase_brush"
+        style="@style/BrushCircularView"
+        android:src="@color/colorSketch" />
 
+      <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/primary_brush"
+        style="@style/BrushCircularView"
+        android:src="@color/colorPrimary" />
+
+      <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/accent_brush"
+        style="@style/BrushCircularView"
+        android:src="@color/colorAccent" />
+
+    </zenproject.meditation.android.views.dialogs.brush.ColorView>
   </LinearLayout>
+
 </merge>

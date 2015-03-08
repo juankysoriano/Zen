@@ -12,7 +12,9 @@ import com.oguzdev.circularfloatingactionmenu.library.CircularMenu;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.drawers.ZenSketch;
-import zenproject.meditation.android.views.creators.FloatingActionButtonMenuCreator;
+import zenproject.meditation.android.views.menu.creators.FloatingActionCircularMenuCreator;
+import zenproject.meditation.android.views.menu.FloatingActionButton;
+import zenproject.meditation.android.views.reveal.RevealView;
 
 public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintingListener {
     private static final int MILLISECONDS_TO_HIDE = 150;
@@ -38,7 +40,7 @@ public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintin
 
     @Override
     protected void onAttachedToWindow() {
-        circularMenu = FloatingActionButtonMenuCreator.createWith(ContextRetriever.INSTANCE.getCurrentContext());
+        circularMenu = FloatingActionCircularMenuCreator.createWith(ContextRetriever.INSTANCE.getCurrentContext());
         circularMenu.setStateChangeListener(menuStateChangeListener);
         menuButton = (FloatingActionButton) circularMenu.getActionView();
 

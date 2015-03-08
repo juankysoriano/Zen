@@ -1,4 +1,4 @@
-package zenproject.meditation.android.views.drawable;
+package zenproject.meditation.android.views.reveal;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;

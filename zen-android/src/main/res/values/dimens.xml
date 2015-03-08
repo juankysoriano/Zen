@@ -26,10 +26,15 @@
   <dimen name="branch_default_radius">3dp</dimen>
 
   <!--OPTIONS-->
-  <dimen name="option_content_margin_start">64dp</dimen>
-  <dimen name="option_margin_top">12dp</dimen>
-  <dimen name="option_margin_bottom">12dp</dimen>
+  <dimen name="option_text_margin_start">72dp</dimen>
+  <dimen name="option_icon_margin_end">36dp</dimen>
+  <dimen name="option_content_margin_top">12dp</dimen>
+  <dimen name="option_content_margin_bottom">12dp</dimen>
+  <dimen name="option_content_margin_start">12dp</dimen>
   <dimen name="option_color_image_diameter">40dp</dimen>
   <dimen name="divider_weight">0.5dp</dimen>
+  <dimen name="color_selected_weight">1.5dp</dimen>
+  <dimen name="option_icon_size">24dp</dimen>
+
 
 </resources>
