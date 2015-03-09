@@ -10,6 +10,7 @@ import com.novoda.notils.caster.Views;
 import de.hdodenhof.circleimageview.CircleImageView;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
+import zenproject.meditation.android.preferences.BrushOptionsPreferences;
 
 public class SizeView extends LinearLayout {
     private static final int MAX_DROP_SIZE = ContextRetriever.INSTANCE.getCurrentContext().getResources().getDimensionPixelSize(R.dimen.ink_drop_max_radius);
@@ -36,6 +37,7 @@ public class SizeView extends LinearLayout {
     protected void onFinishInflate() {
         sizeSeekBar = Views.findById(this, R.id.brush_size_slider);
         inkDropImage = Views.findById(this, R.id.brush_size_image);
+        sizeSeekBar.setProgress(BrushOptionsPreferences.newInstance().getBrushSize());
     }
 
     private boolean hasSizeChangedListener() {
@@ -80,7 +82,7 @@ public class SizeView extends LinearLayout {
         sizeSeekBar.setOnSeekBarChangeListener(null);
     }
 
-    private void notifySizeChangedListener(float percentage) {
+    private void notifySizeChangedListener(int percentage) {
         if (hasSizeChangedListener()) {
             sizeChangedListener.onSizeChanged(percentage);
         }

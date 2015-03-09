@@ -10,17 +10,15 @@ import com.novoda.notils.caster.Views;
 import de.hdodenhof.circleimageview.CircleImageView;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
+import zenproject.meditation.android.preferences.BrushColor;
+import zenproject.meditation.android.preferences.BrushOptionsPreferences;
+
+import static zenproject.meditation.android.preferences.BrushColor.*;
 
 public class ColorView extends LinearLayout {
-    private static final int DARK = ContextRetriever.INSTANCE.getCurrentContext().getResources().getColor(R.color.dark_brush);
-    private static final int GREY = ContextRetriever.INSTANCE.getCurrentContext().getResources().getColor(R.color.grey_brush);
-    private static final int ERASE = ContextRetriever.INSTANCE.getCurrentContext().getResources().getColor(R.color.colorSketch);
-    private static final int PRIMARY = ContextRetriever.INSTANCE.getCurrentContext().getResources().getColor(R.color.colorPrimary);
-    private static final int ACCENT = ContextRetriever.INSTANCE.getCurrentContext().getResources().getColor(R.color.colorAccent);
-    private static final int DIVIDER = ContextRetriever.INSTANCE.getCurrentContext().getResources().getColor(R.color.divider);
-
     private static final int UNSELECTED_BORDER_SIZE = ContextRetriever.INSTANCE.getCurrentContext().getResources().getDimensionPixelSize(R.dimen.divider_weight);
     private static final int SELECTED_BORDER_SIZE = ContextRetriever.INSTANCE.getCurrentContext().getResources().getDimensionPixelSize(R.dimen.color_selected_weight);
+    private static final int DIVIDER = ContextRetriever.INSTANCE.getCurrentContext().getResources().getColor(R.color.divider);
 
     private CircleImageView darkColor;
     private CircleImageView greyColor;
@@ -49,6 +47,8 @@ public class ColorView extends LinearLayout {
         eraseColor = Views.findById(this, R.id.erase_brush);
         primaryColor = Views.findById(this, R.id.primary_brush);
         accentColor = Views.findById(this, R.id.accent_brush);
+
+        setSelectedFrom(BrushColor.from(BrushOptionsPreferences.newInstance().getBrushColor()));
     }
 
     private boolean hasColorSelectedListener() {
@@ -66,42 +66,56 @@ public class ColorView extends LinearLayout {
             @Override
             public void onClick(View v) {
                 setSelected((CircleImageView) v);
-                notifyColorSelected(DARK);
+                notifyColorSelected(DARK.toAndroidColor());
             }
         });
         greyColor.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 setSelected((CircleImageView) v);
-                notifyColorSelected(GREY);
+                notifyColorSelected(GREY.toAndroidColor());
             }
         });
         eraseColor.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 setSelected((CircleImageView) v);
-                notifyColorSelected(ERASE);
+                notifyColorSelected(ERASE.toAndroidColor());
             }
         });
         primaryColor.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 setSelected((CircleImageView) v);
-                notifyColorSelected(PRIMARY);
+                notifyColorSelected(PRIMARY.toAndroidColor());
             }
         });
         accentColor.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                setSelectedWithColor((CircleImageView) v, PRIMARY);
-                notifyColorSelected(ACCENT);
+                setSelectedWithColor((CircleImageView) v, PRIMARY.toAndroidColor());
+                notifyColorSelected(ACCENT.toAndroidColor());
             }
         });
     }
 
+    private void setSelectedFrom(BrushColor brushColor) {
+        if (DARK == brushColor) {
+            setSelected(darkColor);
+        } else if (GREY == brushColor) {
+            setSelected(greyColor);
+        } else if (ERASE == brushColor) {
+            setSelected(eraseColor);
+        } else if (PRIMARY == brushColor) {
+            setSelected(primaryColor);
+        } else if (ACCENT == brushColor) {
+            setSelectedWithColor(accentColor, PRIMARY.toAndroidColor());
+        }
+    }
+
     private void setSelected(CircleImageView circleImageView) {
         unselectAll();
-        circleImageView.setBorderColor(ACCENT);
+        circleImageView.setBorderColor(ACCENT.toAndroidColor());
         circleImageView.setBorderWidth(SELECTED_BORDER_SIZE);
     }
 
@@ -125,7 +139,6 @@ public class ColorView extends LinearLayout {
         accentColor.setBorderWidth(UNSELECTED_BORDER_SIZE);
 
     }
-
 
     @Override
     protected void onDetachedFromWindow() {

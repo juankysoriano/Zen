@@ -37,7 +37,7 @@ public class ZenSketch extends Rainbow implements RainbowInputController.Rainbow
     public static ZenSketch newInstance() {
         RainbowDrawer rainbowDrawer = new RainbowDrawer();
         RainbowInputController rainbowInputController = new RainbowInputController();
-        return new ZenSketch(rainbowDrawer, rainbowInputController, BranchesList.newInstance(), new InkDropSizeLimiter());
+        return new ZenSketch(rainbowDrawer, rainbowInputController, BranchesList.newInstance(), InkDropSizeLimiter.newInstance());
     }
 
     @Override
@@ -123,7 +123,7 @@ public class ZenSketch extends Rainbow implements RainbowInputController.Rainbow
     }
 
     @Override
-    public void onSizeChanged(float percentage) {
+    public void onSizeChanged(int percentage) {
         inkDropSizeLimiter.setScaleFactor(percentage);
     }
 
