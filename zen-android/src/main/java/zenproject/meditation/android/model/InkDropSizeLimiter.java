@@ -10,6 +10,8 @@ public class InkDropSizeLimiter {
 
     private static final float MINIMUM_RADIUS = ContextRetriever.INSTANCE.getCurrentContext().getResources().getDimension(R.dimen.ink_drop_min_radius);
     private static final float MAXIMUM_RADIUS = ContextRetriever.INSTANCE.getCurrentContext().getResources().getDimension(R.dimen.ink_drop_max_radius);
+    private static final float PERCENTAGE_MIN = 0;
+    private static final float PERCENTAGE_MAX = 100;
     private static final float SCALE_FACTOR = 3;
     private int percentage;
 
@@ -26,7 +28,7 @@ public class InkDropSizeLimiter {
     }
 
     public float getRadius() {
-        return RainbowMath.map(percentage, 0, 100, MINIMUM_RADIUS, MAXIMUM_RADIUS);
+        return RainbowMath.map(percentage, PERCENTAGE_MIN, PERCENTAGE_MAX, MINIMUM_RADIUS, MAXIMUM_RADIUS);
     }
 
     private float calculateRadiusFactorForMinimum() {

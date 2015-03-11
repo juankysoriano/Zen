@@ -16,7 +16,9 @@ import static com.juankysoriano.rainbow.core.event.RainbowInputController.Moveme
 
 public class InkDrawer implements StepDrawer, RainbowImage.LoadPictureListener {
     private static final RainbowImage NO_IMAGE = null;
-    private static final int INK_ISSUE_THRESHOLD = 99;
+    private static final float MAX_THRESHOLD = 100;
+    private static final float INK_ISSUE_THRESHOLD = .99f * MAX_THRESHOLD;
+    private static final float BRANCH_THRESHOLD = .97f * MAX_THRESHOLD;
     private static final int ALPHA = 255;
     private static final int BLACK = ContextRetriever.INSTANCE.getCurrentContext().getResources().getColor(R.color.dark_brush);
     private static final float INK_DROP_IMAGE_SCALE = 0.5f;
@@ -85,7 +87,7 @@ public class InkDrawer implements StepDrawer, RainbowImage.LoadPictureListener {
     }
 
     private void attemptToCreateBranchAt(float x, float y) {
-        if (RainbowMath.random(100) > 99 && !hasToPaintDropImage()) {
+        if (RainbowMath.random(MAX_THRESHOLD) > BRANCH_THRESHOLD && !hasToPaintDropImage()) {
             createBranchAt(x, y);
         }
     }
@@ -113,7 +115,7 @@ public class InkDrawer implements StepDrawer, RainbowImage.LoadPictureListener {
     }
 
     private boolean hasToPaintDropImage() {
-        return RainbowMath.random(100) > INK_ISSUE_THRESHOLD && hasImage();
+        return RainbowMath.random(BRANCH_THRESHOLD) > INK_ISSUE_THRESHOLD && hasImage();
     }
 
     private void paintDropWithImage(float x, float y) {
