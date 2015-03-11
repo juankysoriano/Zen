@@ -21,6 +21,9 @@ android {
         versionCode rootProject.ext.VERSION_CODE
         versionName rootProject.ext.VERSION_NAME
 
+        proguardFile getDefaultProguardFile('proguard-android.txt')
+        proguardFile 'proguard-rules.pro'
+
         testInstrumentationRunner "com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner"
     }
 
@@ -36,11 +39,12 @@ android {
     buildTypes {
         debug {
             minifyEnabled false
+            shrinkResources false
         }
         release {
             jniDebuggable false
+            shrinkResources true
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 

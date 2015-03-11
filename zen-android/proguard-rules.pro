@@ -17,3 +17,9 @@
 #}
 
 -dontwarn com.squareup.picasso.**
+-dontwarn com.squareup.okhttp.**
+-keep class zenproject.meditation.android.views.reveal.RevealDrawable {
+    void set*(***);
+    *** get*();
+}
+
