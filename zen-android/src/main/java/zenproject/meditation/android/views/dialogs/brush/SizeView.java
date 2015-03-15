@@ -69,11 +69,18 @@ public class SizeView extends LinearLayout {
         });
     }
 
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        super.onLayout(changed, l, t, r, b);
+        changeInkDropImageSize(BrushOptionsPreferences.newInstance().getBrushSize());
+    }
+
     private void changeInkDropImageSize(int progress) {
         float currentSize = inkDropImage.getWidth();
         float desiredSize = progress * MAX_DROP_SIZE * PERCENTAGE_FACTOR / currentSize;
         inkDropImage.setScaleX(desiredSize);
         inkDropImage.setScaleY(desiredSize);
+        inkDropImage.invalidate();
     }
 
     @Override
