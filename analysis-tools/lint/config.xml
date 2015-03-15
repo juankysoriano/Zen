@@ -3,16 +3,4 @@
   <issue id="MissingTranslation" severity="ignore" />
   <issue id="UnusedQuantity" severity="ignore" />
   <issue id="RtlSymmetry" severity="ignore" />
-
-  <!-- Ignore IconDensities for xxhdpi because we only support xhdpi but we want a xxhdpi app icon -->
-  <issue id="IconDensities">
-    <ignore regexp="res/drawable-xxhdpi" />
-  </issue>
-
-  <!-- Ignore UnusedResources for nodpi because there is the wallpapers and their thumbnails, used by reflection -->
-  <!-- Also ignore the file res-to-appease-tests.xml as the unused resources are used in separate package and needed here for test -->
-  <issue id="UnusedResources">
-    <ignore regexp="res/drawable-nodpi" />
-    <ignore regexp="res/values/res-to-appease-tests.xml" />
-  </issue>
 </lint>

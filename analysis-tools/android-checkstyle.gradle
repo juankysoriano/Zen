@@ -87,7 +87,7 @@ class AndroidCheckstyleTask extends DefaultTask {
     }
 
     def isAndroidLibrary(Project module) {
-        return  module.plugins.hasPlugin("com.android.library")
+        return module.plugins.hasPlugin("com.android.library")
     }
 
     def isAndroidApp(Project module) {
