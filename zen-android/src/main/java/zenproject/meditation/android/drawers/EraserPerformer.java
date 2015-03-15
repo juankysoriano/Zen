@@ -4,7 +4,7 @@ import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
 import com.juankysoriano.rainbow.core.event.RainbowInputController;
 import com.juankysoriano.rainbow.core.graphics.RainbowGraphics;
 
-public class EraserDrawer implements StepDrawer {
+public class EraserPerformer implements StepPerformer {
     private static final int ALPHA = 100;
     private static final int RADIUS = 60;
 
@@ -12,8 +12,8 @@ public class EraserDrawer implements StepDrawer {
     private final RainbowInputController rainbowInputController;
     private boolean enabled;
 
-    public static EraserDrawer newInstance(RainbowDrawer rainbowDrawer, RainbowInputController rainbowInputController) {
-        EraserDrawer eraserDrawer = new EraserDrawer(rainbowDrawer, rainbowInputController);
+    public static EraserPerformer newInstance(RainbowDrawer rainbowDrawer, RainbowInputController rainbowInputController) {
+        EraserPerformer eraserDrawer = new EraserPerformer(rainbowDrawer, rainbowInputController);
         configureDrawer(rainbowDrawer);
         return eraserDrawer;
     }
@@ -23,13 +23,13 @@ public class EraserDrawer implements StepDrawer {
         rainbowDrawer.smooth();
     }
 
-    private EraserDrawer(RainbowDrawer rainbowDrawer, RainbowInputController rainbowInputController) {
+    private EraserPerformer(RainbowDrawer rainbowDrawer, RainbowInputController rainbowInputController) {
         this.rainbowDrawer = rainbowDrawer;
         this.rainbowInputController = rainbowInputController;
     }
 
     @Override
-    public void paintStep() {
+    public void doStep() {
         final float x = rainbowInputController.getSmoothX();
         final float y = rainbowInputController.getSmoothY();
         final float px = rainbowInputController.getPreviousSmoothX();

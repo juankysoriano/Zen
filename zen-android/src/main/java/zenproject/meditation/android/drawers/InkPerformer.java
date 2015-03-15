@@ -14,7 +14,7 @@ import zenproject.meditation.android.preferences.BrushOptionsPreferences;
 
 import static com.juankysoriano.rainbow.core.event.RainbowInputController.MovementDirection;
 
-public class InkDrawer implements StepDrawer, RainbowImage.LoadPictureListener {
+public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureListener {
     private static final RainbowImage NO_IMAGE = null;
     private static final float MAX_THRESHOLD = 100;
     private static final float INK_ISSUE_THRESHOLD = .99f * MAX_THRESHOLD;
@@ -30,7 +30,7 @@ public class InkDrawer implements StepDrawer, RainbowImage.LoadPictureListener {
     private boolean enabled = true;
     private int currentColor = BLACK;
 
-    private InkDrawer(InkDrop inkDrop, int currentColor, BranchesList branches, RainbowDrawer rainbowDrawer, RainbowInputController rainbowInputController) {
+    private InkPerformer(InkDrop inkDrop, int currentColor, BranchesList branches, RainbowDrawer rainbowDrawer, RainbowInputController rainbowInputController) {
         this.inkDrop = inkDrop;
         this.currentColor = currentColor;
         this.branches = branches;
@@ -38,11 +38,11 @@ public class InkDrawer implements StepDrawer, RainbowImage.LoadPictureListener {
         this.rainbowInputController = rainbowInputController;
     }
 
-    public static InkDrawer newInstance(BranchesList branches,
+    public static InkPerformer newInstance(BranchesList branches,
                                         InkDropSizeLimiter inkDropSizeLimiter,
                                         RainbowDrawer rainbowDrawer,
                                         RainbowInputController rainbowInputController) {
-        InkDrawer inkDrawer = new InkDrawer(new InkDrop(inkDropSizeLimiter), BrushOptionsPreferences.newInstance().getBrushColor(), branches, rainbowDrawer, rainbowInputController);
+        InkPerformer inkDrawer = new InkPerformer(new InkDrop(inkDropSizeLimiter), BrushOptionsPreferences.newInstance().getBrushColor(), branches, rainbowDrawer, rainbowInputController);
         configureDrawer(rainbowDrawer);
         rainbowDrawer.loadImage(R.drawable.brush_ink, RainbowImage.LOAD_ORIGINAL_SIZE, inkDrawer);
         return inkDrawer;
@@ -64,7 +64,7 @@ public class InkDrawer implements StepDrawer, RainbowImage.LoadPictureListener {
     }
 
     @Override
-    public void paintStep() {
+    public void doStep() {
         if (enabled) {
             moveAndPaintInkDrop(rainbowInputController);
         }

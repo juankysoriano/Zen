@@ -11,7 +11,7 @@ import java.util.List;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.preferences.BrushOptionsPreferences;
 
-public class BranchesDrawer implements StepDrawer, RainbowImage.LoadPictureListener {
+public class BranchesPerformer implements StepPerformer, RainbowImage.LoadPictureListener {
     private static final RainbowImage NO_IMAGE = null;
     private static final int ALPHA = 225;
     private static final int WHITE = 255;
@@ -28,18 +28,18 @@ public class BranchesDrawer implements StepDrawer, RainbowImage.LoadPictureListe
     private boolean enabled = true;
     private RainbowImage image;
 
-    private BranchesDrawer(BranchesList branchesList,
-                           RainbowDrawer rainbowDrawer,
-                           PaintStepSkipper paintStepSkipper,
-                           BrushOptionsPreferences brushOptionsPreferences) {
+    private BranchesPerformer(BranchesList branchesList,
+                              RainbowDrawer rainbowDrawer,
+                              PaintStepSkipper paintStepSkipper,
+                              BrushOptionsPreferences brushOptionsPreferences) {
         this.branchesList = branchesList;
         this.rainbowDrawer = rainbowDrawer;
         this.paintStepSkipper = paintStepSkipper;
         this.brushOptionsPreferences = brushOptionsPreferences;
     }
 
-    public static BranchesDrawer newInstance(BranchesList branchesList, RainbowDrawer rainbowDrawer) {
-        BranchesDrawer branchesDrawer = new BranchesDrawer(branchesList,
+    public static BranchesPerformer newInstance(BranchesList branchesList, RainbowDrawer rainbowDrawer) {
+        BranchesPerformer branchesDrawer = new BranchesPerformer(branchesList,
                 rainbowDrawer,
                 new PaintStepSkipper(FRAMES_TO_SKIP),
                 BrushOptionsPreferences.newInstance());
@@ -65,7 +65,7 @@ public class BranchesDrawer implements StepDrawer, RainbowImage.LoadPictureListe
     }
 
     @Override
-    public void paintStep() {
+    public void doStep() {
         if (enabled) {
             if (!paintStepSkipper.hasToSkipStep()) {
                 paintAndUpdateBranches();

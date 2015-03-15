@@ -20,9 +20,9 @@ public class ZenSketch extends Rainbow implements RainbowInputController.Rainbow
     private final BranchesList branchesList;
     private final InkDropSizeLimiter inkDropSizeLimiter;
     private OnPaintingListener onPaintingListener;
-    private StepDrawer inkDrawer;
-    private StepDrawer eraserDrawer;
-    private StepDrawer branchDrawer;
+    private StepPerformer inkDrawer;
+    private StepPerformer eraserDrawer;
+    private StepPerformer branchDrawer;
 
     ZenSketch(
             RainbowDrawer rainbowDrawer,
@@ -42,15 +42,15 @@ public class ZenSketch extends Rainbow implements RainbowInputController.Rainbow
 
     @Override
     public void onSketchSetup() {
-        this.inkDrawer = InkDrawer.newInstance(branchesList, inkDropSizeLimiter, rainbowDrawer, rainbowInputController);
-        this.eraserDrawer = EraserDrawer.newInstance(rainbowDrawer, rainbowInputController);
-        this.branchDrawer = BranchesDrawer.newInstance(branchesList, rainbowDrawer);
+        this.inkDrawer = InkPerformer.newInstance(branchesList, inkDropSizeLimiter, rainbowDrawer, rainbowInputController);
+        this.eraserDrawer = EraserPerformer.newInstance(rainbowDrawer, rainbowInputController);
+        this.branchDrawer = BranchesPerformer.newInstance(branchesList, rainbowDrawer);
         rainbowInputController.setRainbowInteractionListener(this);
     }
 
     @Override
     public void onDrawingStep() {
-        branchDrawer.paintStep();
+        branchDrawer.doStep();
     }
 
     @Override
@@ -74,8 +74,8 @@ public class ZenSketch extends Rainbow implements RainbowInputController.Rainbow
 
     @Override
     public void onFingerDragged(MotionEvent event, RainbowDrawer rainbowDrawer) {
-        inkDrawer.paintStep();
-        eraserDrawer.paintStep();
+        inkDrawer.doStep();
+        eraserDrawer.doStep();
     }
 
     @Override
@@ -119,7 +119,7 @@ public class ZenSketch extends Rainbow implements RainbowInputController.Rainbow
 
     @Override
     public void onColorSelected(int color) {
-        ((InkDrawer) inkDrawer).setSelectedColorTo(color);
+        ((InkPerformer) inkDrawer).setSelectedColorTo(color);
     }
 
     @Override

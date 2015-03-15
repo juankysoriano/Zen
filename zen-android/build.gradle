@@ -91,4 +91,6 @@ task zen dependsOn("build") {
     println REPORT_LOCATIONS
 }
 
+zen.dependsOn("check")
+
 

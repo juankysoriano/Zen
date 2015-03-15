@@ -1,8 +1,8 @@
 package zenproject.meditation.android.drawers;
 
-public interface StepDrawer {
+public interface StepPerformer {
 
-    void paintStep();
+    void doStep();
 
     void reset();
 
