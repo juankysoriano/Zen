@@ -105,7 +105,7 @@ public class BranchesPerformer implements StepPerformer, RainbowImage.LoadPictur
     }
 
     private void performBranchPainting(zenproject.meditation.android.sketch.performers.Branch branch) {
-        rainbowDrawer.stroke(brushOptionsPreferences.getBrushColor(), ALPHA);
+        rainbowDrawer.stroke(brushOptionsPreferences.getBranchColor(), ALPHA);
         rainbowDrawer.line(branch.getX(), branch.getY(), branch.getOldX(), branch.getOldY());
     }
 

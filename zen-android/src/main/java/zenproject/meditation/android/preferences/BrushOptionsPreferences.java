@@ -7,6 +7,7 @@ import android.graphics.Color;
 import zenproject.meditation.android.ContextRetriever;
 
 public class BrushOptionsPreferences {
+    private static final float DARKENING_FACTOR = 1.4f;
     private static final String PREF_NAME = "BrushPreferences";
     private static final String PREF_BRUSH_COLOR = PREF_NAME + "Color";
     private static final String PREF_BRUSH_SIZE = PREF_NAME + "Size";
@@ -35,5 +36,12 @@ public class BrushOptionsPreferences {
 
     public int getBrushColor() {
         return sharedPreferences.getInt(PREF_BRUSH_COLOR, Color.BLACK);
+    }
+
+    public int getBranchColor() {
+        int color = getBrushColor();
+        return Color.rgb((int) (Color.red(color) / DARKENING_FACTOR),
+                (int) (Color.green(color) / DARKENING_FACTOR),
+                (int) (Color.blue(color) / DARKENING_FACTOR));
     }
 }
