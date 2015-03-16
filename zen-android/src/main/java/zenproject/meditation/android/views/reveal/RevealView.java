@@ -7,8 +7,6 @@ import android.graphics.Point;
 import android.util.AttributeSet;
 import android.view.View;
 
-import zenproject.meditation.android.views.reveal.RevealDrawable;
-
 public class RevealView extends View {
     private RevealDrawable revealDrawable;
 

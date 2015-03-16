@@ -13,7 +13,7 @@ import zenproject.meditation.android.R;
 import zenproject.meditation.android.preferences.BrushOptionsPreferences;
 
 public class SizeView extends LinearLayout {
-    private static final int MAX_DROP_SIZE = ContextRetriever.INSTANCE.getCurrentContext().getResources().getDimensionPixelSize(R.dimen.ink_drop_max_radius);
+    private static final int MAX_DROP_SIZE = ContextRetriever.INSTANCE.getCurrentResources().getDimensionPixelSize(R.dimen.ink_drop_max_radius);
     public static final float PERCENTAGE_FACTOR = 0.01f;
 
     private SeekBar sizeSeekBar;

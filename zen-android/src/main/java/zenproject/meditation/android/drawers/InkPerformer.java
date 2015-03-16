@@ -20,7 +20,7 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
     private static final float INK_ISSUE_THRESHOLD = .99f * MAX_THRESHOLD;
     private static final float BRANCH_THRESHOLD = .97f * MAX_THRESHOLD;
     private static final int ALPHA = 255;
-    private static final int BLACK = ContextRetriever.INSTANCE.getCurrentContext().getResources().getColor(R.color.dark_brush);
+    private static final int BLACK = ContextRetriever.INSTANCE.getCurrentResources().getColor(R.color.dark_brush);
     private static final float INK_DROP_IMAGE_SCALE = 0.5f;
     private final RainbowDrawer rainbowDrawer;
     private final RainbowInputController rainbowInputController;
@@ -30,7 +30,11 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
     private boolean enabled = true;
     private int currentColor = BLACK;
 
-    private InkPerformer(InkDrop inkDrop, int currentColor, BranchesList branches, RainbowDrawer rainbowDrawer, RainbowInputController rainbowInputController) {
+    protected InkPerformer(InkDrop inkDrop,
+                           int currentColor,
+                           BranchesList branches,
+                           RainbowDrawer rainbowDrawer,
+                           RainbowInputController rainbowInputController) {
         this.inkDrop = inkDrop;
         this.currentColor = currentColor;
         this.branches = branches;
@@ -39,10 +43,14 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
     }
 
     public static InkPerformer newInstance(BranchesList branches,
-                                        InkDropSizeLimiter inkDropSizeLimiter,
-                                        RainbowDrawer rainbowDrawer,
-                                        RainbowInputController rainbowInputController) {
-        InkPerformer inkDrawer = new InkPerformer(new InkDrop(inkDropSizeLimiter), BrushOptionsPreferences.newInstance().getBrushColor(), branches, rainbowDrawer, rainbowInputController);
+                                           InkDropSizeLimiter inkDropSizeLimiter,
+                                           RainbowDrawer rainbowDrawer,
+                                           RainbowInputController rainbowInputController) {
+        InkPerformer inkDrawer = new InkPerformer(new InkDrop(inkDropSizeLimiter),
+                BrushOptionsPreferences.newInstance().getBrushColor(),
+                branches,
+                rainbowDrawer,
+                rainbowInputController);
         configureDrawer(rainbowDrawer);
         rainbowDrawer.loadImage(R.drawable.brush_ink, RainbowImage.LOAD_ORIGINAL_SIZE, inkDrawer);
         return inkDrawer;

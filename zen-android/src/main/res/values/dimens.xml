@@ -10,7 +10,7 @@
   <dimen name="red_action_menu_radius">140dp</dimen>
 
   <dimen name="blue_sub_action_button_size">50dp</dimen>
-  <dimen name="blue_sub_action_button_content_margin">16dp</dimen>
+  <dimen name="blue_sub_action_button_margin">16dp</dimen>
 
   <dimen name="radius_large">120dp</dimen>
   <dimen name="radius_small">30dp</dimen>
@@ -21,8 +21,8 @@
   <dimen name="ink_drop_max_radius">120dp</dimen>
   <dimen name="ink_drop_step">0.25dp</dimen>
   <dimen name="ink_velocity_threshold">10dp</dimen>
-  <dimen name="branch_minimum_radius">0.25dp</dimen>
-  <dimen name="branch_minimum_radius_to_sproud">1.5dp</dimen>
+  <dimen name="branch_min_radius">0.25dp</dimen>
+  <dimen name="branch_min_sproud_radius">1.5dp</dimen>
   <dimen name="branch_default_radius">3dp</dimen>
 
   <!--OPTIONS-->

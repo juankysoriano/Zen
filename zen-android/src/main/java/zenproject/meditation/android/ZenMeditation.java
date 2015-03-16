@@ -5,8 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 
 @SuppressLint("NewApi")
-public class ZenMeditation extends Activity//extends PApplet
-{   /**
+public class ZenMeditation extends Activity {   /**
 	//Button Action Constants
 	static final int INK = 0;
 	static final int WATER = 1;
@@ -478,5 +477,6 @@ public class ZenMeditation extends Activity//extends PApplet
 		super.onDestroy();
 	} **/
 }
+
 
 //THANK YOU FOR READING.

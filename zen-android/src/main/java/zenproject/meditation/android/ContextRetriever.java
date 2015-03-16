@@ -2,6 +2,7 @@ package zenproject.meditation.android;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 
 public enum ContextRetriever {
     INSTANCE;
@@ -19,6 +20,10 @@ public enum ContextRetriever {
 
     public Context getCurrentContext() {
         return activity == null ? context : activity;
+    }
+
+    public Resources getCurrentResources() {
+        return getCurrentContext().getResources();
     }
 
 }

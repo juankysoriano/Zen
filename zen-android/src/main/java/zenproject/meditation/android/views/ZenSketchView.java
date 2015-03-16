@@ -16,6 +16,7 @@ import zenproject.meditation.android.views.menu.creators.FloatingActionCircularM
 import zenproject.meditation.android.views.menu.FloatingActionButton;
 import zenproject.meditation.android.views.reveal.RevealView;
 
+@SuppressWarnings("PMD.FieldDeclarationsShouldBeAtStartOfClass")
 public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintingListener {
     private static final int MILLISECONDS_TO_HIDE = 150;
     private static final int MILLISECONDS_TO_SHOW = 150;
@@ -82,7 +83,7 @@ public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintin
         menuButton.show();
     }
 
-    private CircularMenu.MenuStateChangeListener menuStateChangeListener = new CircularMenu.MenuStateChangeListener() {
+    private final CircularMenu.MenuStateChangeListener menuStateChangeListener = new CircularMenu.MenuStateChangeListener() {
         @Override
         public void onMenuOpened(CircularMenu circularMenu) {
             if (isPainting) {
@@ -106,7 +107,6 @@ public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintin
         return onRevealListener != null;
     }
 
-    @SuppressWarnings("PMD.FieldDeclarationsShouldBeAtStartOfClass")
     private final Animator.AnimatorListener revealAnimatorListener = new AnimatorListenerAdapter() {
         @Override
         public void onAnimationEnd(Animator animation) {

@@ -12,6 +12,11 @@ public class EraserPerformer implements StepPerformer {
     private final RainbowInputController rainbowInputController;
     private boolean enabled;
 
+    protected EraserPerformer(RainbowDrawer rainbowDrawer, RainbowInputController rainbowInputController) {
+        this.rainbowDrawer = rainbowDrawer;
+        this.rainbowInputController = rainbowInputController;
+    }
+
     public static EraserPerformer newInstance(RainbowDrawer rainbowDrawer, RainbowInputController rainbowInputController) {
         EraserPerformer eraserDrawer = new EraserPerformer(rainbowDrawer, rainbowInputController);
         configureDrawer(rainbowDrawer);
@@ -21,11 +26,6 @@ public class EraserPerformer implements StepPerformer {
     private static void configureDrawer(RainbowDrawer rainbowDrawer) {
         rainbowDrawer.noStroke();
         rainbowDrawer.smooth();
-    }
-
-    private EraserPerformer(RainbowDrawer rainbowDrawer, RainbowInputController rainbowInputController) {
-        this.rainbowDrawer = rainbowDrawer;
-        this.rainbowInputController = rainbowInputController;
     }
 
     @Override

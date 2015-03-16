@@ -14,9 +14,10 @@ import zenproject.meditation.android.views.menu.FloatingActionButton;
 
 import static zenproject.meditation.android.views.menu.creators.FloatingActionCircularMenuCreator.MenuId;
 
+@SuppressWarnings({"PMD.TooManyMethods", "PMD.FieldDeclarationsShouldBeAtStartOfClass"})
 public class SketchActivity extends ZenActivity {
 
-    private ZenSketch zenSketch;
+    private final ZenSketch zenSketch;
     private ZenSketchView zenSketchView;
     private CircularMenu circularMenu;
     private FloatingActionButton menuButton;
@@ -134,38 +135,53 @@ public class SketchActivity extends ZenActivity {
         }
     };
 
+    /**
+     * TODO open canvas options dialog
+     */
     private final View.OnClickListener onCanvasListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            //no-op
         }
     };
 
+    /**
+     * TODO open flowers options dialog
+     */
     private final View.OnClickListener onFlowersListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            //no-op
         }
     };
 
+    /**
+     * TODO open music options dialog
+     */
     private final View.OnClickListener onMusicListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            //no-op
         }
     };
 
+    /**
+     * TODO do share
+     */
     private final View.OnClickListener onShareListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            //no-op
         }
     };
 
+    /**
+     * TODO do save
+     */
     private final View.OnClickListener onSaveListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            //no-op
         }
     };
 

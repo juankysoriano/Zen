@@ -8,8 +8,8 @@ import zenproject.meditation.android.R;
 
 public class InkDrop {
 
-    private static final float RADIUS_STEP = ContextRetriever.INSTANCE.getCurrentContext().getResources().getDimension(R.dimen.ink_drop_step);
-    private static final float INK_VELOCITY_THRESHOLD = ContextRetriever.INSTANCE.getCurrentContext().getResources().getDimension(R.dimen.ink_velocity_threshold);
+    private static final float RADIUS_STEP = ContextRetriever.INSTANCE.getCurrentResources().getDimension(R.dimen.ink_drop_step);
+    private static final float INK_VELOCITY_THRESHOLD = ContextRetriever.INSTANCE.getCurrentResources().getDimension(R.dimen.ink_velocity_threshold);
 
     private final InkDropSizeLimiter inkDropSizeLimiter;
     private float radius;

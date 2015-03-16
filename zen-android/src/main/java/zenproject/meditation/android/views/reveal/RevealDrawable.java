@@ -33,7 +33,7 @@ public class RevealDrawable extends Drawable {
         return new RevealDrawable(revealPaint);
     }
 
-    private RevealDrawable(Paint paint) {
+    protected RevealDrawable(Paint paint) {
         this.revealPaint = paint;
 
     }

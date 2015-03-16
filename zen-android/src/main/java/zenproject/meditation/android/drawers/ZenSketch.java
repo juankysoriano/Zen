@@ -14,7 +14,7 @@ import zenproject.meditation.android.views.dialogs.brush.SizeChangedListener;
 
 public class ZenSketch extends Rainbow implements RainbowInputController.RainbowInteractionListener, ColorSelectedListener, SizeChangedListener {
 
-    private static final int DEFAULT_COLOR = ContextRetriever.INSTANCE.getCurrentContext().getResources().getColor(R.color.colorSketch);
+    private static final int DEFAULT_COLOR = ContextRetriever.INSTANCE.getCurrentResources().getColor(R.color.colorSketch);
     private final RainbowInputController rainbowInputController;
     private final RainbowDrawer rainbowDrawer;
     private final BranchesList branchesList;

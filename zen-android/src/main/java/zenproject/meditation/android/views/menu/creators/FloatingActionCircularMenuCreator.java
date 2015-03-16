@@ -3,6 +3,7 @@ package zenproject.meditation.android.views.menu.creators;
 import android.content.Context;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
+import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 
 import com.oguzdev.circularfloatingactionmenu.library.CircularMenu;
@@ -11,11 +12,11 @@ import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.views.menu.FloatingActionButton;
 
-public class FloatingActionCircularMenuCreator {
-    private static final int MENU_RADIUS = ContextRetriever.INSTANCE.getCurrentContext().getResources().getDimensionPixelSize(R.dimen.red_action_menu_radius);
-    private final static int BUTTON_SIZE = ContextRetriever.INSTANCE.getCurrentContext().getResources().getDimensionPixelSize(R.dimen.red_action_button_size);
-    private final static int MARGIN = ContextRetriever.INSTANCE.getCurrentContext().getResources().getDimensionPixelOffset(R.dimen.action_button_margin);
-    private final static int MENU_COLOR = ContextRetriever.INSTANCE.getCurrentContext().getResources().getColor(R.color.colorAccent);
+public abstract class FloatingActionCircularMenuCreator {
+    private static final int MENU_RADIUS = ContextRetriever.INSTANCE.getCurrentResources().getDimensionPixelSize(R.dimen.red_action_menu_radius);
+    private static final int BUTTON_SIZE = ContextRetriever.INSTANCE.getCurrentResources().getDimensionPixelSize(R.dimen.red_action_button_size);
+    private static final int MARGIN = ContextRetriever.INSTANCE.getCurrentResources().getDimensionPixelOffset(R.dimen.action_button_margin);
+    private static final int MENU_COLOR = ContextRetriever.INSTANCE.getCurrentResources().getColor(R.color.colorAccent);
 
     public static CircularMenu createWith(Context context) {
         return new CircularMenu.Builder(context)
@@ -38,25 +39,25 @@ public class FloatingActionCircularMenuCreator {
                 .withMargins(MARGIN, MARGIN, MARGIN, MARGIN)
                 .withButtonColor(MENU_COLOR)
                 .withGravity(Gravity.TOP | Gravity.END)
-                .withDrawable(ContextRetriever.INSTANCE.getCurrentContext().getResources().getDrawable(drawableId))
+                .withDrawable(ContextCompat.getDrawable(ContextRetriever.INSTANCE.getCurrentContext(), drawableId))
                 .withId(resId)
                 .create();
     }
 
     public interface MenuId {
         @IdRes
-        static final int BRUSH_ID = 1;
+        int BRUSH_ID = 1;
         @IdRes
-        static final int RESTART_ID = 2;
+        int RESTART_ID = 2;
         @IdRes
-        static final int MUSIC_ID = 3;
+        int MUSIC_ID = 3;
         @IdRes
-        static final int CANVAS_ID = 4;
+        int CANVAS_ID = 4;
         @IdRes
-        static final int SAVE_ID = 5;
+        int SAVE_ID = 5;
         @IdRes
-        static final int SHARE_ID = 6;
+        int SHARE_ID = 6;
         @IdRes
-        static final int MENU_ID = 7;
+        int MENU_ID = 7;
     }
 }

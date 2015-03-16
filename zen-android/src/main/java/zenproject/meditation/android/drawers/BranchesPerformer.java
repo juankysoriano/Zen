@@ -28,10 +28,10 @@ public class BranchesPerformer implements StepPerformer, RainbowImage.LoadPictur
     private boolean enabled = true;
     private RainbowImage image;
 
-    private BranchesPerformer(BranchesList branchesList,
-                              RainbowDrawer rainbowDrawer,
-                              PaintStepSkipper paintStepSkipper,
-                              BrushOptionsPreferences brushOptionsPreferences) {
+    protected BranchesPerformer(BranchesList branchesList,
+                                RainbowDrawer rainbowDrawer,
+                                PaintStepSkipper paintStepSkipper,
+                                BrushOptionsPreferences brushOptionsPreferences) {
         this.branchesList = branchesList;
         this.rainbowDrawer = rainbowDrawer;
         this.paintStepSkipper = paintStepSkipper;
@@ -83,13 +83,13 @@ public class BranchesPerformer implements StepPerformer, RainbowImage.LoadPictur
     }
 
     private void paintAndUpdateBranch(Branch branch) {
-        if (!branch.isDead()) {
+        if (branch.isDead()) {
+            branchesList.prune(branch);
+            sproudFlowerIfLuck(branch);
+        } else {
             performBranchPainting(branch);
             branch.update();
             sproudBranchIfLuck(branch);
-        } else {
-            branchesList.prune(branch);
-            sproudFlowerIfLuck(branch);
         }
     }
 
@@ -123,6 +123,7 @@ public class BranchesPerformer implements StepPerformer, RainbowImage.LoadPictur
 
     @Override
     public void reset() {
+        //no-op
     }
 
     @Override

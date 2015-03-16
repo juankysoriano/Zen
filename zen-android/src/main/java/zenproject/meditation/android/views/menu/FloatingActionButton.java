@@ -25,60 +25,60 @@ public class FloatingActionButton extends View {
     private static final int DURATION = 400;
     private static final int ROTATED = 90;
     private static final int NOT_ROTATED = 0;
-    private Paint mButtonPaint;
-    private Paint mDrawablePaint;
-    private Bitmap mBitmap;
-    private boolean mHidden = false;
-    private boolean mTouching = false;
-    private boolean mRotated = false;
-    private boolean mRotating = false;
+    private final Paint buttonPaint;
+    private final Paint drawablePaint;
+    private Bitmap bitmap;
+    private boolean hidden;
+    private boolean touching;
+    private boolean rotated;
+    private boolean rotating;
     private int color;
     private int pressedColor;
-    protected float angle = NOT_ROTATED;
+    private float angle = NOT_ROTATED;
 
     public FloatingActionButton(Context context) {
         super(context);
         setWillNotDraw(false);
         setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-        mButtonPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mButtonPaint.setStyle(Paint.Style.FILL);
-        mDrawablePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        buttonPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        buttonPaint.setStyle(Paint.Style.FILL);
+        drawablePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     }
 
-    public void setFloatingActionButtonColor(int FloatingActionButtonColor) {
-        this.color = FloatingActionButtonColor;
+    public void setFloatingActionButtonColor(int floatingActionButtonColor) {
+        this.color = floatingActionButtonColor;
     }
 
-    public void setFloatingActionPressedButtonColor(int FloatingActionButtonPressedColor) {
-        this.pressedColor = FloatingActionButtonPressedColor;
+    public void setFloatingActionPressedButtonColor(int floatingActionButtonPressedColor) {
+        this.pressedColor = floatingActionButtonPressedColor;
     }
 
-    public void setFloatingActionButtonDrawable(Bitmap FloatingActionButtonDrawable) {
-        mBitmap = FloatingActionButtonDrawable;
+    public void setFloatingActionButtonDrawable(Bitmap floatingActionButtonDrawable) {
+        bitmap = floatingActionButtonDrawable;
         invalidate();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         setClickable(true);
-        mButtonPaint.setShadowLayer(mTouching ? 15 : 10, 0.0f, 3.5f, Color.argb(mTouching ? 200 : 100, 0, 0, 0));
-        mButtonPaint.setColor(mTouching ? pressedColor : color);
+        buttonPaint.setShadowLayer(touching ? 15 : 10, 0.0f, 3.5f, Color.argb(touching ? 200 : 100, 0, 0, 0));
+        buttonPaint.setColor(touching ? pressedColor : color);
 
-        canvas.drawCircle(getWidth() / 2, getHeight() / 2, (float) (getWidth() / 2.6), mButtonPaint);
+        canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2.6f, buttonPaint);
         canvas.save();
         canvas.rotate(angle, getWidth() / 2, getHeight() / 2);
-        canvas.drawBitmap(mBitmap, (getWidth() - mBitmap.getWidth()) / 2,
-                (getHeight() - mBitmap.getHeight()) / 2, mDrawablePaint);
+        canvas.drawBitmap(bitmap, (getWidth() - bitmap.getWidth()) / 2,
+                (getHeight() - bitmap.getHeight()) / 2, drawablePaint);
         canvas.restore();
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_UP) {
-            mTouching = false;
+            touching = false;
             invalidate();
         } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            mTouching = true;
+            touching = true;
             invalidate();
         }
         return super.onTouchEvent(event);
@@ -88,7 +88,7 @@ public class FloatingActionButton extends View {
         if (!isHidden()) {
             ViewPropertyAnimator.animate(this).setInterpolator(new AccelerateDecelerateInterpolator())
                     .translationY(-getBottom());
-            mHidden = true;
+            hidden = true;
         }
     }
 
@@ -96,14 +96,14 @@ public class FloatingActionButton extends View {
         if (isHidden()) {
             ViewPropertyAnimator.animate(this).setInterpolator(new AccelerateDecelerateInterpolator())
                     .translationY(0);
-            mHidden = false;
+            hidden = false;
         }
     }
 
     public void rotate() {
-        if (!mRotating) {
-            float startAngle = mRotated ? ROTATED : NOT_ROTATED;
-            float endAngle = mRotated ? NOT_ROTATED : ROTATED;
+        if (!rotating) {
+            float startAngle = rotated ? ROTATED : NOT_ROTATED;
+            float endAngle = rotated ? NOT_ROTATED : ROTATED;
             Animator animator = ObjectAnimator.ofFloat(this, "angle", startAngle, endAngle);
             animator.setInterpolator(new AccelerateDecelerateInterpolator());
             animator.setDuration(DURATION);
@@ -111,14 +111,14 @@ public class FloatingActionButton extends View {
                 @Override
                 public void onAnimationStart(Animator animation) {
                     super.onAnimationStart(animation);
-                    mRotating = true;
+                    rotating = true;
                 }
 
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     super.onAnimationEnd(animation);
-                    mRotated = !mRotated;
-                    mRotating = false;
+                    rotated ^= true;
+                    rotating = false;
                 }
             });
             animator.start();
@@ -127,7 +127,7 @@ public class FloatingActionButton extends View {
     }
 
     public boolean isHidden() {
-        return mHidden;
+        return hidden;
     }
 
     public Point getCentre() {
@@ -144,16 +144,16 @@ public class FloatingActionButton extends View {
         invalidate();
     }
 
-    static public class Builder {
-        int id;
+    public static class Builder {
+        private int id;
         private FrameLayout.LayoutParams params;
         private final Activity activity;
-        int gravity = Gravity.BOTTOM | Gravity.RIGHT; // default bottom right
-        Drawable drawable;
-        int color = Color.WHITE;
-        int pressedColor;
-        int size;
-        float scale;
+        private int gravity = Gravity.BOTTOM | Gravity.RIGHT; // default bottom right
+        private Drawable drawable;
+        private int color = Color.WHITE;
+        private int pressedColor;
+        private final int size;
+        private final float scale;
 
         public Builder(Context context) {
             scale = context.getResources().getDisplayMetrics().density;
@@ -226,9 +226,10 @@ public class FloatingActionButton extends View {
 
         public FloatingActionButton create() {
             final FloatingActionButton button = new FloatingActionButton(activity);
+            Bitmap scaledBitmap = Bitmap.createScaledBitmap(((BitmapDrawable) drawable).getBitmap(), params.width / 2, params.height / 2, true);
             button.setFloatingActionButtonColor(this.color);
             button.setFloatingActionPressedButtonColor(this.pressedColor == 0 ? getDarkerFrom(this.color) : this.pressedColor);
-            button.setFloatingActionButtonDrawable(Bitmap.createScaledBitmap(((BitmapDrawable) drawable).getBitmap(), params.width / 2, params.height / 2, true));
+            button.setFloatingActionButtonDrawable(scaledBitmap);
             button.setId(this.id);
             params.gravity = this.gravity;
             ViewGroup root = (ViewGroup) activity.getWindow().getDecorView().findViewById(android.R.id.content);
