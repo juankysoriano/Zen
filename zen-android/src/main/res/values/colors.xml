@@ -2,14 +2,12 @@
 <resources>
   <color name="colorNeutral">#cccccc</color>
   <color name="colorAccent">#FF5252</color>
-  <color name="colorPrimaryLight">#B2EBF2</color>
-  <color name="colorPrimary">#00BCD4</color>
-  <color name="colorPrimaryDark">#0097A7</color>
+  <color name="colorPrimaryLight">#CFD8DC</color>
+  <color name="colorPrimary">#607D8B</color>
+  <color name="colorPrimaryDark">#455A64</color>
   <color name="colorSketch">#FFFDE7</color>
   <color name="dark_brush">#212121</color>
-  <color name="grey_brush">#ff727272</color>
-  <color name="light_grey_brush">#B6B6B6</color>
+  <color name="grey_brush">#616161</color>
+  <color name="light_grey_brush">#F5F5F5</color>
   <color name="divider">#21212121</color>
-
-
 </resources>
