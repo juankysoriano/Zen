@@ -17,7 +17,7 @@ import static com.juankysoriano.rainbow.core.event.RainbowInputController.Moveme
 public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureListener {
     private static final RainbowImage NO_IMAGE = null;
     private static final float MAX_THRESHOLD = 100;
-    private static final float INK_ISSUE_THRESHOLD = .99f * MAX_THRESHOLD;
+    private static final float INK_ISSUE_THRESHOLD = .995f * MAX_THRESHOLD;
     private static final float BRANCH_THRESHOLD = .97f * MAX_THRESHOLD;
     private static final int ALPHA = 255;
     private static final int BLACK = ContextRetriever.INSTANCE.getCurrentResources().getColor(R.color.dark_brush);
@@ -123,7 +123,7 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
     }
 
     private boolean hasToPaintDropImage() {
-        return RainbowMath.random(BRANCH_THRESHOLD) > INK_ISSUE_THRESHOLD && hasImage();
+        return RainbowMath.random(MAX_THRESHOLD) > INK_ISSUE_THRESHOLD && hasImage();
     }
 
     private void paintDropWithImage(float x, float y) {
