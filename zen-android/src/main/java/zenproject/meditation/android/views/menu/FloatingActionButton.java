@@ -61,7 +61,7 @@ public class FloatingActionButton extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         setClickable(true);
-        buttonPaint.setShadowLayer(touching ? 15 : 10, 0.0f, 3.5f, Color.argb(touching ? 200 : 100, 0, 0, 0));
+        buttonPaint.setShadowLayer(touching ? 20 : 10, 0.0f, 3.5f, Color.argb(touching ? 150 : 100, 0, 0, 0));
         buttonPaint.setColor(touching ? pressedColor : color);
 
         canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2.6f, buttonPaint);
@@ -238,7 +238,7 @@ public class FloatingActionButton extends View {
         }
 
         private int getDarkerFrom(int color) {
-            return Color.rgb((int) (Color.red(color) / 1.25f), (int) (Color.green(color) / 1.25f), (int) (Color.blue(color) / 1.25f));
+            return Color.rgb((int) (Color.red(color) / 1.1f), (int) (Color.green(color) / 1.1f), (int) (Color.blue(color) / 1.1f));
         }
 
         private int convertToPixels(int dp, float scale) {
