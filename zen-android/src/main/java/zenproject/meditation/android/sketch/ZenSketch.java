@@ -1,4 +1,4 @@
-package zenproject.meditation.android.drawers;
+package zenproject.meditation.android.sketch;
 
 import android.view.MotionEvent;
 
@@ -9,6 +9,12 @@ import com.juankysoriano.rainbow.core.event.RainbowInputController;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.model.InkDropSizeLimiter;
+import zenproject.meditation.android.sketch.performers.BranchesList;
+import zenproject.meditation.android.sketch.performers.BranchesPerformer;
+import zenproject.meditation.android.sketch.performers.EraserPerformer;
+import zenproject.meditation.android.sketch.performers.InkPerformer;
+import zenproject.meditation.android.sketch.performers.MusicPerformer;
+import zenproject.meditation.android.sketch.performers.StepPerformer;
 import zenproject.meditation.android.views.dialogs.brush.ColorSelectedListener;
 import zenproject.meditation.android.views.dialogs.brush.SizeChangedListener;
 
@@ -23,10 +29,13 @@ public class ZenSketch extends Rainbow implements RainbowInputController.Rainbow
     private StepPerformer inkDrawer;
     private StepPerformer eraserDrawer;
     private StepPerformer branchDrawer;
+    private StepPerformer musicPerformer;
 
-    ZenSketch(
+    protected ZenSketch(
             RainbowDrawer rainbowDrawer,
-            RainbowInputController rainbowInputController, BranchesList branches, InkDropSizeLimiter inkDropSizeLimiter) {
+            RainbowInputController rainbowInputController,
+            BranchesList branches,
+            InkDropSizeLimiter inkDropSizeLimiter) {
         super(rainbowDrawer, rainbowInputController);
         this.rainbowDrawer = rainbowDrawer;
         this.rainbowInputController = rainbowInputController;
@@ -45,12 +54,37 @@ public class ZenSketch extends Rainbow implements RainbowInputController.Rainbow
         this.inkDrawer = InkPerformer.newInstance(branchesList, inkDropSizeLimiter, rainbowDrawer, rainbowInputController);
         this.eraserDrawer = EraserPerformer.newInstance(rainbowDrawer, rainbowInputController);
         this.branchDrawer = BranchesPerformer.newInstance(branchesList, rainbowDrawer);
+        this.musicPerformer = MusicPerformer.newInstance(rainbowInputController);
         rainbowInputController.setRainbowInteractionListener(this);
     }
 
     @Override
     public void onDrawingStep() {
         branchDrawer.doStep();
+        musicPerformer.doStep();
+    }
+
+    @Override
+    public void onDrawingPause() {
+        if (hasMusicPerformer()) {
+            musicPerformer.disable();
+        }
+    }
+
+    @Override
+    public void onDrawingResume() {
+        if (hasMusicPerformer()) {
+            musicPerformer.enable();
+        }
+    }
+
+    @Override
+    public void onSketchDestroy() {
+        ((MusicPerformer) musicPerformer).release();
+    }
+
+    private boolean hasMusicPerformer() {
+        return musicPerformer != null;
     }
 
     @Override

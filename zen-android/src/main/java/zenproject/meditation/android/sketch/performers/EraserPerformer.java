@@ -1,4 +1,4 @@
-package zenproject.meditation.android.drawers;
+package zenproject.meditation.android.sketch.performers;
 
 import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
 import com.juankysoriano.rainbow.core.event.RainbowInputController;

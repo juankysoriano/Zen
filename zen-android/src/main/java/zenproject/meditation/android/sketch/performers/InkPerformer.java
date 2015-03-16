@@ -1,4 +1,4 @@
-package zenproject.meditation.android.drawers;
+package zenproject.meditation.android.sketch.performers;
 
 import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
 import com.juankysoriano.rainbow.core.event.RainbowInputController;
@@ -25,14 +25,14 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
     private final RainbowDrawer rainbowDrawer;
     private final RainbowInputController rainbowInputController;
     private final InkDrop inkDrop;
-    private final BranchesList branches;
+    private final zenproject.meditation.android.sketch.performers.BranchesList branches;
     private RainbowImage image;
     private boolean enabled = true;
     private int currentColor = BLACK;
 
     protected InkPerformer(InkDrop inkDrop,
                            int currentColor,
-                           BranchesList branches,
+                           zenproject.meditation.android.sketch.performers.BranchesList branches,
                            RainbowDrawer rainbowDrawer,
                            RainbowInputController rainbowInputController) {
         this.inkDrop = inkDrop;
@@ -42,7 +42,7 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
         this.rainbowInputController = rainbowInputController;
     }
 
-    public static InkPerformer newInstance(BranchesList branches,
+    public static InkPerformer newInstance(zenproject.meditation.android.sketch.performers.BranchesList branches,
                                            InkDropSizeLimiter inkDropSizeLimiter,
                                            RainbowDrawer rainbowDrawer,
                                            RainbowInputController rainbowInputController) {
@@ -107,7 +107,7 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
         float verticalOffset = verticalMovement == MovementDirection.DOWN ? radius : -radius;
         float horizontalOffset = horizontalMovement == MovementDirection.RIGHT ? radius : -radius;
 
-        branches.sproudFrom(Branch.createAt(x + horizontalOffset, y + verticalOffset));
+        branches.sproudFrom(zenproject.meditation.android.sketch.performers.Branch.createAt(x + horizontalOffset, y + verticalOffset));
     }
 
     private void drawInk(float x, float y) {

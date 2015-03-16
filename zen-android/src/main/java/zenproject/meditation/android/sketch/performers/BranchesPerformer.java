@@ -1,4 +1,4 @@
-package zenproject.meditation.android.drawers;
+package zenproject.meditation.android.sketch.performers;
 
 import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
 import com.juankysoriano.rainbow.core.graphics.RainbowGraphics;
@@ -22,15 +22,15 @@ public class BranchesPerformer implements StepPerformer, RainbowImage.LoadPictur
     private static final int MIN_FLOWER_SIZE = 15;
     private static final int MAX_FLOWER_SIZE = 80;
     private final RainbowDrawer rainbowDrawer;
-    private final BranchesList branchesList;
-    private final PaintStepSkipper paintStepSkipper;
+    private final zenproject.meditation.android.sketch.performers.BranchesList branchesList;
+    private final zenproject.meditation.android.sketch.performers.PaintStepSkipper paintStepSkipper;
     private final BrushOptionsPreferences brushOptionsPreferences;
     private boolean enabled = true;
     private RainbowImage image;
 
-    protected BranchesPerformer(BranchesList branchesList,
+    protected BranchesPerformer(zenproject.meditation.android.sketch.performers.BranchesList branchesList,
                                 RainbowDrawer rainbowDrawer,
-                                PaintStepSkipper paintStepSkipper,
+                                zenproject.meditation.android.sketch.performers.PaintStepSkipper paintStepSkipper,
                                 BrushOptionsPreferences brushOptionsPreferences) {
         this.branchesList = branchesList;
         this.rainbowDrawer = rainbowDrawer;
@@ -38,10 +38,10 @@ public class BranchesPerformer implements StepPerformer, RainbowImage.LoadPictur
         this.brushOptionsPreferences = brushOptionsPreferences;
     }
 
-    public static BranchesPerformer newInstance(BranchesList branchesList, RainbowDrawer rainbowDrawer) {
+    public static BranchesPerformer newInstance(zenproject.meditation.android.sketch.performers.BranchesList branchesList, RainbowDrawer rainbowDrawer) {
         BranchesPerformer branchesDrawer = new BranchesPerformer(branchesList,
                 rainbowDrawer,
-                new PaintStepSkipper(FRAMES_TO_SKIP),
+                new zenproject.meditation.android.sketch.performers.PaintStepSkipper(FRAMES_TO_SKIP),
                 BrushOptionsPreferences.newInstance());
         configureDrawer(rainbowDrawer);
         rainbowDrawer.loadImage(R.drawable.flower, RainbowImage.LOAD_ORIGINAL_SIZE, branchesDrawer);
@@ -76,13 +76,13 @@ public class BranchesPerformer implements StepPerformer, RainbowImage.LoadPictur
     }
 
     private void paintAndUpdateBranches() {
-        List<Branch> branchList = new ArrayList<>(branchesList.getBranchesList());
-        for (Branch branch : branchList) {
+        List<zenproject.meditation.android.sketch.performers.Branch> branchList = new ArrayList<>(branchesList.getBranchesList());
+        for (zenproject.meditation.android.sketch.performers.Branch branch : branchList) {
             paintAndUpdateBranch(branch);
         }
     }
 
-    private void paintAndUpdateBranch(Branch branch) {
+    private void paintAndUpdateBranch(zenproject.meditation.android.sketch.performers.Branch branch) {
         if (branch.isDead()) {
             branchesList.prune(branch);
             sproudFlowerIfLuck(branch);
@@ -93,7 +93,7 @@ public class BranchesPerformer implements StepPerformer, RainbowImage.LoadPictur
         }
     }
 
-    private void paintFlowerFor(Branch branch) {
+    private void paintFlowerFor(zenproject.meditation.android.sketch.performers.Branch branch) {
         float flowerSize = RainbowMath.random(MIN_FLOWER_SIZE, MAX_FLOWER_SIZE);
         rainbowDrawer.tint(WHITE, ALPHA);
         rainbowDrawer.imageMode(RainbowGraphics.CENTER);
@@ -104,18 +104,18 @@ public class BranchesPerformer implements StepPerformer, RainbowImage.LoadPictur
         rainbowDrawer.popMatrix();
     }
 
-    private void performBranchPainting(Branch branch) {
+    private void performBranchPainting(zenproject.meditation.android.sketch.performers.Branch branch) {
         rainbowDrawer.stroke(brushOptionsPreferences.getBrushColor(), ALPHA);
         rainbowDrawer.line(branch.getX(), branch.getY(), branch.getOldX(), branch.getOldY());
     }
 
-    private void sproudBranchIfLuck(Branch branch) {
+    private void sproudBranchIfLuck(zenproject.meditation.android.sketch.performers.Branch branch) {
         if (RainbowMath.random(MAX_THRESHOLD) > SPROUD_THRESHOLD) {
             branchesList.sproudFrom(branch);
         }
     }
 
-    private void sproudFlowerIfLuck(Branch branch) {
+    private void sproudFlowerIfLuck(zenproject.meditation.android.sketch.performers.Branch branch) {
         if (RainbowMath.random(MAX_THRESHOLD) > FLOWER_THRESHOLD) {
             paintFlowerFor(branch);
         }

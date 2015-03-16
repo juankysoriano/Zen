@@ -7,7 +7,7 @@ import android.view.View;
 import com.oguzdev.circularfloatingactionmenu.library.CircularMenu;
 
 import zenproject.meditation.android.R;
-import zenproject.meditation.android.drawers.ZenSketch;
+import zenproject.meditation.android.sketch.ZenSketch;
 import zenproject.meditation.android.views.ZenSketchView;
 import zenproject.meditation.android.views.dialogs.brush.BrushOptionsDialog;
 import zenproject.meditation.android.views.menu.FloatingActionButton;

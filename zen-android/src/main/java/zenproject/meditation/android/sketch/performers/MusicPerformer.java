@@ -1,4 +1,4 @@
-package zenproject.meditation.android.drawers;
+package zenproject.meditation.android.sketch.performers;
 
 public class MusicPerformer implements StepPerformer {
     private boolean enabled;

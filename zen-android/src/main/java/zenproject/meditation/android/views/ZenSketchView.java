@@ -11,7 +11,7 @@ import com.oguzdev.circularfloatingactionmenu.library.CircularMenu;
 
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
-import zenproject.meditation.android.drawers.ZenSketch;
+import zenproject.meditation.android.sketch.ZenSketch;
 import zenproject.meditation.android.views.menu.creators.FloatingActionCircularMenuCreator;
 import zenproject.meditation.android.views.menu.FloatingActionButton;
 import zenproject.meditation.android.views.reveal.RevealView;
