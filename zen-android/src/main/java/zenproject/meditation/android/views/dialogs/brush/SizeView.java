@@ -14,10 +14,13 @@ import zenproject.meditation.android.preferences.BrushOptionsPreferences;
 
 public class SizeView extends LinearLayout {
     private static final int MAX_DROP_SIZE = ContextRetriever.INSTANCE.getCurrentResources().getDimensionPixelSize(R.dimen.ink_drop_max_radius);
+    private static final int MIN_DROP_SIZE = ContextRetriever.INSTANCE.getCurrentResources().getDimensionPixelSize(R.dimen.ink_drop_min_radius) * 5;
+
     public static final float PERCENTAGE_FACTOR = 0.01f;
 
     private SeekBar sizeSeekBar;
     private CircleImageView inkDropImage;
+    private BrushOptionsPreferences brushOptionsPreferences;
 
     private SizeChangedListener sizeChangedListener;
 
@@ -37,6 +40,7 @@ public class SizeView extends LinearLayout {
     protected void onFinishInflate() {
         sizeSeekBar = Views.findById(this, R.id.brush_size_slider);
         inkDropImage = Views.findById(this, R.id.brush_size_image);
+        brushOptionsPreferences = BrushOptionsPreferences.newInstance();
         sizeSeekBar.setProgress(BrushOptionsPreferences.newInstance().getBrushSize());
     }
 
@@ -72,12 +76,13 @@ public class SizeView extends LinearLayout {
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
-        changeInkDropImageSize(BrushOptionsPreferences.newInstance().getBrushSize());
+        changeInkDropImageSize(brushOptionsPreferences.getBrushSize());
     }
 
     private void changeInkDropImageSize(int progress) {
         float currentSize = inkDropImage.getWidth();
-        float desiredSize = progress * MAX_DROP_SIZE * PERCENTAGE_FACTOR / currentSize;
+        float minSize = MIN_DROP_SIZE / currentSize;
+        float desiredSize = Math.max(minSize, (progress + 1) * MAX_DROP_SIZE * PERCENTAGE_FACTOR / currentSize);
         inkDropImage.setScaleX(desiredSize);
         inkDropImage.setScaleY(desiredSize);
         inkDropImage.invalidate();

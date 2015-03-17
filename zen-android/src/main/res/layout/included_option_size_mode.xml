@@ -15,13 +15,13 @@
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/option_content_margin_top"
     android:layout_marginStart="@dimen/option_content_margin_start"
     android:orientation="horizontal">
 
     <ImageView
       style="@style/OptionIcon"
       android:src="@drawable/rule"
+      android:layout_marginTop="@dimen/option_content_margin_top"
       android:layout_marginEnd="@dimen/option_icon_margin_end"
       android:contentDescription="@null" />
 
@@ -36,14 +36,14 @@
         android:layout_width="0dp"
         android:layout_weight="2"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="18dp"
         android:layout_marginStart="-6dp"
         android:max="100" />
 
       <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/brush_size_image"
         style="@style/BrushCircularView"
-        android:layout_gravity="top"
+        android:layout_gravity="center_vertical"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_marginStart="0dp"
