@@ -24,7 +24,7 @@ android {
         proguardFile getDefaultProguardFile('proguard-android.txt')
         proguardFile 'proguard-rules.pro'
 
-        testInstrumentationRunner "com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     signingConfigs {
