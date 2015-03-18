@@ -24,7 +24,7 @@
       android:layout_marginEnd="@dimen/option_icon_margin_end"
       android:contentDescription="@null"/>
 
-    <zenproject.meditation.android.views.dialogs.brush.ColorView
+    <zenproject.meditation.android.views.dialogs.brush.color.ColorView
       android:id="@+id/color_picker"
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
@@ -32,30 +32,30 @@
       <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/dark_brush"
         android:layout_marginStart="0dp"
-        style="@style/BrushCircularView"
+        style="@style/BrushColorCircularView"
         android:src="@color/dark_brush" />
 
       <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/grey_brush"
-        style="@style/BrushCircularView"
+        style="@style/BrushColorCircularView"
         android:src="@color/grey_brush" />
 
       <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/erase_brush"
-        style="@style/BrushCircularView"
+        style="@style/BrushColorCircularView"
         android:src="@color/colorSketch" />
 
       <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/primary_brush"
-        style="@style/BrushCircularView"
+        style="@style/BrushColorCircularView"
         android:src="@color/colorPrimary" />
 
       <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/accent_brush"
-        style="@style/BrushCircularView"
+        style="@style/BrushColorCircularView"
         android:src="@color/colorAccent" />
 
-    </zenproject.meditation.android.views.dialogs.brush.ColorView>
+    </zenproject.meditation.android.views.dialogs.brush.color.ColorView>
   </LinearLayout>
 
 </merge>

@@ -35,12 +35,10 @@ public class RevealDrawable extends Drawable {
 
     protected RevealDrawable(Paint paint) {
         this.revealPaint = paint;
-
     }
 
     @Override
     public void draw(Canvas canvas) {
-        revealPaint.setAlpha(revealAlpha);
         canvas.drawCircle(origin.x, origin.y, radius * revealScale, revealPaint);
     }
 
@@ -48,6 +46,12 @@ public class RevealDrawable extends Drawable {
     public void setAlpha(int alpha) {
         revealAlpha = alpha;
         revealPaint.setAlpha(alpha);
+        invalidateSelf();
+    }
+
+    @Override
+    public int getAlpha() {
+        return revealAlpha;
     }
 
     @Override
@@ -68,21 +72,12 @@ public class RevealDrawable extends Drawable {
         return revealPaint.getAlpha();
     }
 
-    protected float getRevealScale() {
+    protected float getScale() {
         return revealScale;
     }
 
-    protected void setRevealScale(float revealScale) {
+    protected void setScale(float revealScale) {
         this.revealScale = revealScale;
-        invalidateSelf();
-    }
-
-    protected int getRevealAlpha() {
-        return revealAlpha;
-    }
-
-    protected void setRevealAlpha(int revealAlpha) {
-        this.revealAlpha = revealAlpha;
         invalidateSelf();
     }
 
@@ -104,10 +99,10 @@ public class RevealDrawable extends Drawable {
     }
 
     private Animator generateRadiusAnimation() {
-        return ObjectAnimator.ofFloat(this, "revealScale", CONCEALED, REVEALED);
+        return ObjectAnimator.ofFloat(this, "scale", CONCEALED, REVEALED);
     }
 
     private Animator generateAlphaAnimation() {
-        return ObjectAnimator.ofInt(this, "revealAlpha", OPAQUE, TRANSPARENT);
+        return ObjectAnimator.ofInt(this, "alpha", OPAQUE, TRANSPARENT);
     }
 }

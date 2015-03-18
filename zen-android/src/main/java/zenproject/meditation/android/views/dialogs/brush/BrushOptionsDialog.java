@@ -12,6 +12,8 @@ import com.afollestad.materialdialogs.Theme;
 
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.preferences.BrushOptionsPreferences;
+import zenproject.meditation.android.views.dialogs.brush.color.ColorView;
+import zenproject.meditation.android.views.dialogs.brush.size.SizeView;
 // ...
 
 public class BrushOptionsDialog extends DialogFragment implements ColorSelectedListener, SizeChangedListener {
@@ -20,6 +22,7 @@ public class BrushOptionsDialog extends DialogFragment implements ColorSelectedL
     private SizeChangedListener sizeChangedListener;
     private int selectedColor = BrushOptionsPreferences.newInstance().getBrushColor();
     private int selectedSize = BrushOptionsPreferences.newInstance().getBrushSize();
+    private SizeView sizeView;
 
     @NonNull
     @Override
@@ -46,7 +49,7 @@ public class BrushOptionsDialog extends DialogFragment implements ColorSelectedL
         ColorView colorView = (ColorView) materialDialog.getCustomView().findViewById(R.id.color_picker);
         colorView.setColorSelectedListener(this);
 
-        SizeView sizeView = (SizeView) materialDialog.getCustomView().findViewById(R.id.brush_size);
+        sizeView = (SizeView) materialDialog.getCustomView().findViewById(R.id.brush_size);
         sizeView.setSizeChangedListener(this);
 
         return materialDialog;
@@ -74,6 +77,7 @@ public class BrushOptionsDialog extends DialogFragment implements ColorSelectedL
     @Override
     public void onColorSelected(int color) {
         selectedColor = color;
+        sizeView.updateInkDropImageColor(color);
     }
 
     private void notifyColorSelected(int color) {

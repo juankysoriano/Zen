@@ -1,4 +1,4 @@
-package zenproject.meditation.android.views.dialogs.brush;
+package zenproject.meditation.android.views.dialogs.brush.size;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -7,19 +7,19 @@ import android.widget.SeekBar;
 
 import com.novoda.notils.caster.Views;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.preferences.BrushOptionsPreferences;
+import zenproject.meditation.android.views.dialogs.brush.SizeChangedListener;
 
 public class SizeView extends LinearLayout {
     private static final int MAX_DROP_SIZE = ContextRetriever.INSTANCE.getCurrentResources().getDimensionPixelSize(R.dimen.ink_drop_max_radius);
-    private static final int MIN_DROP_SIZE = ContextRetriever.INSTANCE.getCurrentResources().getDimensionPixelSize(R.dimen.ink_drop_min_radius) * 5;
+    private static final int MIN_DROP_SIZE = ContextRetriever.INSTANCE.getCurrentResources().getDimensionPixelSize(R.dimen.ink_drop_min_radius);
 
-    public static final float PERCENTAGE_FACTOR = 0.01f;
+    private static final float PERCENTAGE_FACTOR = 0.005f;
 
     private SeekBar sizeSeekBar;
-    private CircleImageView inkDropImage;
+    private BrushSizeImage inkDropImage;
     private BrushOptionsPreferences brushOptionsPreferences;
 
     private SizeChangedListener sizeChangedListener;
@@ -41,7 +41,9 @@ public class SizeView extends LinearLayout {
         sizeSeekBar = Views.findById(this, R.id.brush_size_slider);
         inkDropImage = Views.findById(this, R.id.brush_size_image);
         brushOptionsPreferences = BrushOptionsPreferences.newInstance();
-        sizeSeekBar.setProgress(BrushOptionsPreferences.newInstance().getBrushSize());
+
+        sizeSeekBar.setProgress(brushOptionsPreferences.getBrushSize());
+        updateInkDropImageColor(brushOptionsPreferences.getBrushColor());
     }
 
     private boolean hasSizeChangedListener() {
@@ -80,12 +82,12 @@ public class SizeView extends LinearLayout {
     }
 
     private void changeInkDropImageSize(int progress) {
-        float currentSize = inkDropImage.getWidth();
-        float minSize = MIN_DROP_SIZE / currentSize;
-        float desiredSize = Math.max(minSize, (progress + 1) * MAX_DROP_SIZE * PERCENTAGE_FACTOR / currentSize);
-        inkDropImage.setScaleX(desiredSize);
-        inkDropImage.setScaleY(desiredSize);
-        inkDropImage.invalidate();
+        float targetSize = Math.max(MIN_DROP_SIZE, MAX_DROP_SIZE * progress * PERCENTAGE_FACTOR);
+        inkDropImage.setSize(targetSize);
+    }
+
+    public void updateInkDropImageColor(int color) {
+        inkDropImage.setColor(color);
     }
 
     @Override

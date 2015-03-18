@@ -1,4 +1,4 @@
-package zenproject.meditation.android.views.dialogs.brush;
+package zenproject.meditation.android.views.dialogs.brush.color;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -12,6 +12,7 @@ import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.preferences.BrushColor;
 import zenproject.meditation.android.preferences.BrushOptionsPreferences;
+import zenproject.meditation.android.views.dialogs.brush.ColorSelectedListener;
 
 import static zenproject.meditation.android.preferences.BrushColor.*;
 
