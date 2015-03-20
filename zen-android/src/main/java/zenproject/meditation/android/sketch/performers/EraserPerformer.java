@@ -1,5 +1,6 @@
 package zenproject.meditation.android.sketch.performers;
 
+import com.juankysoriano.rainbow.core.drawing.LineExplorer;
 import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
 import com.juankysoriano.rainbow.core.event.RainbowInputController;
 import com.juankysoriano.rainbow.core.graphics.RainbowGraphics;
@@ -35,10 +36,10 @@ public class EraserPerformer implements StepPerformer {
         final float px = rainbowInputController.getPreviousSmoothX();
         final float py = rainbowInputController.getPreviousSmoothY();
 
-        rainbowDrawer.exploreLine(x, y, px, py, new RainbowDrawer.PointDetectedListener() {
+        rainbowDrawer.exploreLine(x, y, px, py, LineExplorer.Precision.LOW, new RainbowDrawer.PointDetectedListener() {
 
             @Override
-            public void onPointDetected(float x, float y, RainbowDrawer rainbowDrawer) {
+            public void onPointDetected(float px, float py, float x, float y, RainbowDrawer rainbowDrawer) {
                 drawErase(x, y);
             }
         });

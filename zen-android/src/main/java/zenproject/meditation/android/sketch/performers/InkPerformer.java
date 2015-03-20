@@ -1,5 +1,6 @@
 package zenproject.meditation.android.sketch.performers;
 
+import com.juankysoriano.rainbow.core.drawing.LineExplorer;
 import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
 import com.juankysoriano.rainbow.core.event.RainbowInputController;
 import com.juankysoriano.rainbow.core.graphics.RainbowGraphics;
@@ -83,12 +84,12 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
                 rainbowInputController.getPreviousSmoothY(),
                 rainbowInputController.getSmoothX(),
                 rainbowInputController.getSmoothY(),
+                LineExplorer.Precision.LOW,
                 new RainbowDrawer.PointDetectedListener() {
-
                     @Override
-                    public void onPointDetected(float x, float y, RainbowDrawer rainbowDrawer) {
+                    public void onPointDetected(float px, float py, float x, float y, RainbowDrawer rainbowDrawer) {
                         inkDrop.updateInkRadiusFor(rainbowInputController);
-                        drawInk(x, y);
+                        drawInk(px, py, x, y);
                         attemptToCreateBranchAt(x, y);
                     }
                 });
@@ -110,11 +111,10 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
         branches.sproudFrom(zenproject.meditation.android.sketch.performers.Branch.createAt(x + horizontalOffset, y + verticalOffset));
     }
 
-    private void drawInk(float x, float y) {
+    private void drawInk(float px, float py, float x, float y) {
+        paintDropWithoutImage(px, py, x, y);
         if (hasToPaintDropImage()) {
             paintDropWithImage(x, y);
-        } else {
-            paintDropWithoutImage(x, y);
         }
     }
 
@@ -137,11 +137,11 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
         rainbowDrawer.popMatrix();
     }
 
-    private void paintDropWithoutImage(float x, float y) {
-        rainbowDrawer.noStroke();
-        rainbowDrawer.fill(currentColor, ALPHA);
-        rainbowDrawer.ellipseMode(RainbowGraphics.CENTER);
-        rainbowDrawer.ellipse(x, y, inkDrop.getRadius() * INK_DROP_IMAGE_SCALE, inkDrop.getRadius() * INK_DROP_IMAGE_SCALE);
+    private void paintDropWithoutImage(float px, float py, float x, float y) {
+        rainbowDrawer.stroke(currentColor, ALPHA);
+        rainbowDrawer.strokeWeight(inkDrop.getRadius() * INK_DROP_IMAGE_SCALE);
+        rainbowDrawer.line(px, py, x, y);
+        rainbowDrawer.strokeWeight(1);
     }
 
     private boolean hasImage() {
