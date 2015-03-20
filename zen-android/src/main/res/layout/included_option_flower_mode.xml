@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:tools="http://schemas.android.com/tools"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  tools:showIn="@layout/flowers_options_dialog">
+
+  <TextView
+    android:id="@+id/option_mode_text"
+    style="@style/OptionText"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/option_text_margin_start"
+    android:text="@string/option_flower" />
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/option_content_margin_top"
+    android:layout_marginStart="@dimen/option_content_margin_start"
+    android:orientation="horizontal">
+
+    <ImageView
+      style="@style/OptionIcon"
+      android:src="@drawable/flower_option"
+      android:layout_marginEnd="@dimen/option_icon_margin_end"
+      android:contentDescription="@null"/>
+
+    <LinearLayout
+      android:id="@+id/flower_picker"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+      <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/flower_1"
+        android:layout_marginStart="0dp"
+        style="@style/BrushColorCircularView"
+        android:src="@drawable/flower" />
+
+      <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/flower_2"
+        style="@style/BrushColorCircularView"
+        android:src="@drawable/flower" />
+
+      <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/flower_3"
+        style="@style/BrushColorCircularView"
+        android:src="@drawable/flower" />
+
+      <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/flower_4"
+        style="@style/BrushColorCircularView"
+        android:src="@drawable/flower" />
+
+      <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/flower_5"
+        style="@style/BrushColorCircularView"
+        android:src="@drawable/flower" />
+
+    </LinearLayout>
+  </LinearLayout>
+
+</merge>
