@@ -22,7 +22,7 @@ public abstract class FloatingActionCircularMenuCreator {
         return new CircularMenu.Builder(context)
                 .setRadius(MENU_RADIUS)
                 .addSubActionView(SubActionButtonCreator.createFrom(context, R.color.colorPrimary, R.drawable.brush, MenuId.BRUSH_ID))
-                .addSubActionView(SubActionButtonCreator.createFrom(context, R.color.colorPrimary, R.drawable.canvas, MenuId.CANVAS_ID))
+                .addSubActionView(SubActionButtonCreator.createFrom(context, R.color.colorPrimary, R.drawable.bunch_flowers, MenuId.FLOWERS_ID))
                 .addSubActionView(SubActionButtonCreator.createFrom(context, R.color.colorPrimary, R.drawable.music, MenuId.MUSIC_ID))
                 .addSubActionView(SubActionButtonCreator.createFrom(context, R.color.colorPrimaryLight, R.drawable.share, MenuId.SHARE_ID))
                 .addSubActionView(SubActionButtonCreator.createFrom(context, R.color.colorPrimaryLight, R.drawable.save, MenuId.SAVE_ID))
@@ -52,7 +52,7 @@ public abstract class FloatingActionCircularMenuCreator {
         @IdRes
         int MUSIC_ID = 3;
         @IdRes
-        int CANVAS_ID = 4;
+        int FLOWERS_ID = 4;
         @IdRes
         int SAVE_ID = 5;
         @IdRes

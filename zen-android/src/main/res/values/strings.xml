@@ -4,5 +4,7 @@
   <!--BRUSH OPTIONS-->
   <string name="option_ink_color">Ink color</string>
   <string name="option_brush_size">Brush size</string>
+  <string name="option_flower">Flower</string>
+  <string name="option_ink_issue">Ink decoration</string>
 
 </resources>

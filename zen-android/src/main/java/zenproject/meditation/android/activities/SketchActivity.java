@@ -10,6 +10,7 @@ import zenproject.meditation.android.R;
 import zenproject.meditation.android.sketch.ZenSketch;
 import zenproject.meditation.android.views.ZenSketchView;
 import zenproject.meditation.android.views.dialogs.brush.BrushOptionsDialog;
+import zenproject.meditation.android.views.dialogs.flower.FlowerOptionsDialog;
 import zenproject.meditation.android.views.menu.FloatingActionButton;
 
 import static zenproject.meditation.android.views.menu.creators.FloatingActionCircularMenuCreator.MenuId;
@@ -23,6 +24,7 @@ public class SketchActivity extends ZenActivity {
     private FloatingActionButton menuButton;
     private FloatingActionButton restartButton;
     private FloatingActionButton brushButton;
+    private FloatingActionButton flowersButton;
 
     public SketchActivity() {
         zenSketch = ZenSketch.newInstance();
@@ -63,6 +65,7 @@ public class SketchActivity extends ZenActivity {
         circularMenu = zenSketchView.getCircularMenu();
         restartButton = (FloatingActionButton) circularMenu.findSubActionViewWithId(MenuId.RESTART_ID);
         brushButton = (FloatingActionButton) circularMenu.findSubActionViewWithId(MenuId.BRUSH_ID);
+        flowersButton = (FloatingActionButton) circularMenu.findSubActionViewWithId(MenuId.FLOWERS_ID);
         menuButton = (FloatingActionButton) circularMenu.getActionView();
     }
 
@@ -70,6 +73,7 @@ public class SketchActivity extends ZenActivity {
         zenSketchView.setOnRevealListener(onRevealListener);
         zenSketch.setOnPaintingListener(zenSketchView);
         brushButton.setOnClickListener(onBrushListener);
+        flowersButton.setOnClickListener(onFlowersListener);
         restartButton.setOnClickListener(onRestartListener);
         menuButton.setOnClickListener(onMenuToggleListener);
     }
@@ -101,6 +105,7 @@ public class SketchActivity extends ZenActivity {
         zenSketchView.setOnRevealListener(null);
         zenSketch.setOnPaintingListener(null);
         brushButton.setOnClickListener(null);
+        flowersButton.setOnClickListener(null);
         restartButton.setOnClickListener(null);
         menuButton.setOnClickListener(null);
     }
@@ -136,22 +141,15 @@ public class SketchActivity extends ZenActivity {
     };
 
     /**
-     * TODO open canvas options dialog
-     */
-    private final View.OnClickListener onCanvasListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            //no-op
-        }
-    };
-
-    /**
      * TODO open flowers options dialog
      */
     private final View.OnClickListener onFlowersListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            //no-op
+            FragmentManager fm = getSupportFragmentManager();
+            FlowerOptionsDialog flowersDialog = new FlowerOptionsDialog();
+            flowersDialog.show(fm, "fragment_edit_name");
+            zenSketch.selectPainting();
         }
     };
 

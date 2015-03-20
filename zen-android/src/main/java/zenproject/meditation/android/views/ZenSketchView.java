@@ -12,8 +12,8 @@ import com.oguzdev.circularfloatingactionmenu.library.CircularMenu;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.sketch.ZenSketch;
-import zenproject.meditation.android.views.menu.creators.FloatingActionCircularMenuCreator;
 import zenproject.meditation.android.views.menu.FloatingActionButton;
+import zenproject.meditation.android.views.menu.creators.FloatingActionCircularMenuCreator;
 import zenproject.meditation.android.views.reveal.RevealView;
 
 @SuppressWarnings("PMD.FieldDeclarationsShouldBeAtStartOfClass")
@@ -41,11 +41,10 @@ public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintin
 
     @Override
     protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
         circularMenu = FloatingActionCircularMenuCreator.createWith(ContextRetriever.INSTANCE.getCurrentContext());
         circularMenu.setStateChangeListener(menuStateChangeListener);
         menuButton = (FloatingActionButton) circularMenu.getActionView();
-
-        super.onAttachedToWindow();
     }
 
     public CircularMenu getCircularMenu() {
