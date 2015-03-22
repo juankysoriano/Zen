@@ -36,6 +36,8 @@
   <dimen name="divider_weight">0.5dp</dimen>
   <dimen name="color_selected_weight">1.5dp</dimen>
   <dimen name="option_icon_size">24dp</dimen>
+  <dimen name="min_flower_size">23dp</dimen>
+  <dimen name="max_flower_size">60dp</dimen>
 
 
 </resources>

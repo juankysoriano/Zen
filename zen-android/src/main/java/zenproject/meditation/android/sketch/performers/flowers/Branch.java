@@ -1,4 +1,4 @@
-package zenproject.meditation.android.sketch.performers;
+package zenproject.meditation.android.sketch.performers.flowers;
 
 import com.juankysoriano.rainbow.core.matrix.RVector;
 import com.juankysoriano.rainbow.utils.RainbowMath;

@@ -1,9 +1,11 @@
-package zenproject.meditation.android.sketch.performers;
+package zenproject.meditation.android.sketch.performers.eraser;
 
 import com.juankysoriano.rainbow.core.drawing.LineExplorer;
 import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
 import com.juankysoriano.rainbow.core.event.RainbowInputController;
 import com.juankysoriano.rainbow.core.graphics.RainbowGraphics;
+
+import zenproject.meditation.android.sketch.performers.StepPerformer;
 
 public class EraserPerformer implements StepPerformer {
     private static final int ALPHA = 100;

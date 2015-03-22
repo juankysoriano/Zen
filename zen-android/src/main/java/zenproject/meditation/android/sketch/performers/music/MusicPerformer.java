@@ -1,4 +1,4 @@
-package zenproject.meditation.android.sketch.performers;
+package zenproject.meditation.android.sketch.performers.music;
 
 import android.media.MediaPlayer;
 
@@ -6,6 +6,7 @@ import com.juankysoriano.rainbow.core.event.RainbowInputController;
 
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
+import zenproject.meditation.android.sketch.performers.StepPerformer;
 
 public class MusicPerformer implements StepPerformer {
     private final MediaPlayer mediaPlayer;

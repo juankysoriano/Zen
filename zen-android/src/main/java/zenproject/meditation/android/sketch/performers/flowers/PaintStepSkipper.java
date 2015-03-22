@@ -1,4 +1,4 @@
-package zenproject.meditation.android.sketch.performers;
+package zenproject.meditation.android.sketch.performers.flowers;
 
 public class PaintStepSkipper {
     private final int framesToSkip;
