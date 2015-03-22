@@ -34,33 +34,27 @@
         android:id="@+id/ink_issue_1"
         android:layout_marginStart="0dp"
         style="@style/BrushColorCircularView"
-        android:tint="@android:color/black"
         android:src="@drawable/brush_ink" />
 
       <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ink_issue_2"
         style="@style/BrushColorCircularView"
-        android:tint="@android:color/black"
         android:src="@drawable/brush_ink" />
 
       <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ink_issue_3"
         style="@style/BrushColorCircularView"
-        android:tint="@android:color/black"
         android:src="@drawable/brush_ink" />
 
       <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ink_issue_4"
         style="@style/BrushColorCircularView"
-        android:tint="@android:color/black"
         android:src="@drawable/brush_ink" />
 
       <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ink_issue_5"
         style="@style/BrushColorCircularView"
-        android:tint="@android:color/black"
         android:src="@drawable/brush_ink" />
-
     </LinearLayout>
   </LinearLayout>
 

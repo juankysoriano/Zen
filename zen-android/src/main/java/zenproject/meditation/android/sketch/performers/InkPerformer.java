@@ -19,7 +19,7 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
     private static final RainbowImage NO_IMAGE = null;
     private static final float MAX_THRESHOLD = 100;
     private static final float INK_ISSUE_THRESHOLD = .9975f * MAX_THRESHOLD;
-    private static final float BRANCH_THRESHOLD = .97f * MAX_THRESHOLD;
+    private static final float BRANCH_THRESHOLD = .9f * MAX_THRESHOLD;
     private static final int ALPHA = 255;
     private static final int BLACK = ContextRetriever.INSTANCE.getCurrentResources().getColor(R.color.dark_brush);
     private static final float INK_DROP_IMAGE_SCALE = 0.5f;

@@ -20,7 +20,7 @@ public class BranchesPerformer implements StepPerformer, RainbowImage.LoadPictur
     private static final float FLOWER_THRESHOLD = .5f * MAX_THRESHOLD;
     private static final int FRAMES_TO_SKIP = 0;
     private static final int MIN_FLOWER_SIZE = 15;
-    private static final int MAX_FLOWER_SIZE = 80;
+    private static final int MAX_FLOWER_SIZE = 180;
     private final RainbowDrawer rainbowDrawer;
     private final zenproject.meditation.android.sketch.performers.BranchesList branchesList;
     private final zenproject.meditation.android.sketch.performers.PaintStepSkipper paintStepSkipper;
@@ -38,13 +38,13 @@ public class BranchesPerformer implements StepPerformer, RainbowImage.LoadPictur
         this.brushOptionsPreferences = brushOptionsPreferences;
     }
 
-    public static BranchesPerformer newInstance(zenproject.meditation.android.sketch.performers.BranchesList branchesList, RainbowDrawer rainbowDrawer) {
+    public static BranchesPerformer newInstance(BranchesList branchesList, RainbowDrawer rainbowDrawer) {
         BranchesPerformer branchesDrawer = new BranchesPerformer(branchesList,
                 rainbowDrawer,
                 new zenproject.meditation.android.sketch.performers.PaintStepSkipper(FRAMES_TO_SKIP),
                 BrushOptionsPreferences.newInstance());
         configureDrawer(rainbowDrawer);
-        rainbowDrawer.loadImage(R.drawable.flower, RainbowImage.LOAD_ORIGINAL_SIZE, branchesDrawer);
+        rainbowDrawer.loadImage(R.drawable.orange, RainbowImage.LOAD_ORIGINAL_SIZE, branchesDrawer);
 
         return branchesDrawer;
     }
@@ -99,7 +99,7 @@ public class BranchesPerformer implements StepPerformer, RainbowImage.LoadPictur
         rainbowDrawer.imageMode(RainbowGraphics.CENTER);
         rainbowDrawer.pushMatrix();
         rainbowDrawer.translate(branch.getX(), branch.getY());
-        rainbowDrawer.rotate(RainbowMath.random(RainbowMath.TWO_PI));
+        rainbowDrawer.rotate(RainbowMath.random(RainbowMath.PI));
         rainbowDrawer.image(image, 0, 0, flowerSize, flowerSize);
         rainbowDrawer.popMatrix();
     }

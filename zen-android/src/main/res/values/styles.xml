@@ -13,8 +13,8 @@
     <item name="android:layout_width">@dimen/option_color_image_diameter</item>
     <item name="android:layout_height">@dimen/option_color_image_diameter</item>
     <item name="android:layout_marginStart">@dimen/option_content_margin_top</item>
-    <item name="android:layout_marginBottom">@dimen/option_content_margin_bottom</item>
     <item name="border_width">@dimen/divider_weight</item>
+    <item name="android:layout_gravity">center_vertical</item>
     <item name="border_color">@color/divider</item>
   </style>
 
