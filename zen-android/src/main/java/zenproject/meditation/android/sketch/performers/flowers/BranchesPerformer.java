@@ -36,7 +36,7 @@ public class BranchesPerformer implements StepPerformer {
 
     public static BranchesPerformer newInstance(BranchesList branchesList, RainbowDrawer rainbowDrawer) {
         BranchesPerformer branchesDrawer = new BranchesPerformer(branchesList,
-                GerberaDrawer.newInstance(rainbowDrawer),
+                GypsophilaDrawer.newInstance(rainbowDrawer),
                 rainbowDrawer,
                 new PaintStepSkipper(FRAMES_TO_SKIP),
                 BrushOptionsPreferences.newInstance());
