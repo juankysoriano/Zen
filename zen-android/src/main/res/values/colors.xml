@@ -2,9 +2,9 @@
 <resources>
   <color name="colorNeutral">#cccccc</color>
   <color name="colorAccent">#FF5252</color>
-  <color name="colorPrimaryLight">#CFD8DC</color>
-  <color name="colorPrimary">#607D8B</color>
-  <color name="colorPrimaryDark">#455A64</color>
+  <color name="colorPrimaryLight">#C8E6C9</color>
+  <color name="colorPrimary">#4CAF50</color>
+  <color name="colorPrimaryDark">#388E3C</color>
   <color name="colorSketch">#FFFDE7</color>
   <color name="dark_brush">#212121</color>
   <color name="grey_brush">#616161</color>
