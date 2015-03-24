@@ -1,5 +1,7 @@
 package zenproject.meditation.android.sketch.performers.flowers;
 
+import android.os.AsyncTask;
+
 import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
 import com.juankysoriano.rainbow.utils.RainbowMath;
 
@@ -7,9 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import zenproject.meditation.android.preferences.BrushOptionsPreferences;
+import zenproject.meditation.android.preferences.FlowerOptionPreferences;
 import zenproject.meditation.android.sketch.performers.StepPerformer;
+import zenproject.meditation.android.views.dialogs.flower.FlowerSelectedListener;
 
-public class BranchesPerformer implements StepPerformer {
+public class BranchesPerformer implements StepPerformer, FlowerSelectedListener {
     private static final int ALPHA = 225;
     private static final float MAX_THRESHOLD = 100;
     private static final float SPROUD_THRESHOLD = .9f * MAX_THRESHOLD;
@@ -36,7 +40,7 @@ public class BranchesPerformer implements StepPerformer {
 
     public static BranchesPerformer newInstance(BranchesList branchesList, RainbowDrawer rainbowDrawer) {
         BranchesPerformer branchesDrawer = new BranchesPerformer(branchesList,
-                GypsophilaDrawer.newInstance(rainbowDrawer),
+                FlowerDrawer.from(FlowerOptionPreferences.newInstance().getFlower(), rainbowDrawer),
                 rainbowDrawer,
                 new PaintStepSkipper(FRAMES_TO_SKIP),
                 BrushOptionsPreferences.newInstance());
@@ -52,12 +56,16 @@ public class BranchesPerformer implements StepPerformer {
     @Override
     public void doStep() {
         if (enabled) {
-            if (!paintStepSkipper.hasToSkipStep()) {
+            if (!paintStepSkipper.hasToSkipStep() && hasFlower()) {
                 paintAndUpdateBranches();
             }
             paintStepSkipper.recordStep();
         }
 
+    }
+
+    private boolean hasFlower() {
+        return !(flowerDrawer instanceof NullFlowerDrawer) && flowerDrawer != null;
     }
 
     private void paintAndUpdateBranches() {
@@ -114,4 +122,14 @@ public class BranchesPerformer implements StepPerformer {
         enabled = true;
     }
 
+    @Override
+    public void onFlowerSelected(final FlowerDrawer.Flower flower) {
+        new AsyncTask<FlowerDrawer.Flower, Void, Void>() {
+            @Override
+            protected Void doInBackground(FlowerDrawer.Flower... flowers) {
+                flowerDrawer = FlowerDrawer.from(flowers[0], rainbowDrawer);
+                return null;
+            }
+        }.execute(flower);
+    }
 }

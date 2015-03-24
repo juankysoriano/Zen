@@ -22,40 +22,40 @@
       style="@style/OptionIcon"
       android:src="@drawable/flower_option"
       android:layout_marginEnd="@dimen/option_icon_margin_end"
-      android:contentDescription="@null"/>
+      android:contentDescription="@null" />
 
-    <LinearLayout
+    <zenproject.meditation.android.views.dialogs.flower.FlowerView
       android:id="@+id/flower_picker"
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
 
       <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/flower_1"
+        android:id="@+id/no_flower"
         android:layout_marginStart="0dp"
         style="@style/BrushColorCircularView"
-        android:src="@drawable/flower" />
+        android:src="@android:color/transparent"/>
 
       <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/flower_2"
+        android:id="@+id/cherry"
         style="@style/BrushColorCircularView"
-        android:src="@drawable/flower" />
+        android:src="@drawable/cherry" />
 
       <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/flower_3"
+        android:id="@+id/orange"
         style="@style/BrushColorCircularView"
-        android:src="@drawable/flower" />
+        android:src="@drawable/orange" />
 
       <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/flower_4"
+        android:id="@+id/olive"
         style="@style/BrushColorCircularView"
-        android:src="@drawable/flower" />
+        android:src="@drawable/olive" />
 
       <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/flower_5"
+        android:id="@+id/gysophilea"
         style="@style/BrushColorCircularView"
-        android:src="@drawable/flower" />
+        android:src="@drawable/gypsophila" />
 
-    </LinearLayout>
+    </zenproject.meditation.android.views.dialogs.flower.FlowerView>
   </LinearLayout>
 
 </merge>

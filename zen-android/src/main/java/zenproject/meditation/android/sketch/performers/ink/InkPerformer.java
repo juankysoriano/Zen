@@ -29,18 +29,18 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
     private final RainbowDrawer rainbowDrawer;
     private final RainbowInputController rainbowInputController;
     private final InkDrop inkDrop;
+    private final BrushOptionsPreferences brushOptionsPreferences;
     private final BranchesList branches;
     private RainbowImage image;
     private boolean enabled = true;
-    private int currentColor = BLACK;
 
     protected InkPerformer(InkDrop inkDrop,
-                           int currentColor,
+                           BrushOptionsPreferences brushOptionsPreferences,
                            BranchesList branches,
                            RainbowDrawer rainbowDrawer,
                            RainbowInputController rainbowInputController) {
         this.inkDrop = inkDrop;
-        this.currentColor = currentColor;
+        this.brushOptionsPreferences = brushOptionsPreferences;
         this.branches = branches;
         this.rainbowDrawer = rainbowDrawer;
         this.rainbowInputController = rainbowInputController;
@@ -50,8 +50,9 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
                                            InkDropSizeLimiter inkDropSizeLimiter,
                                            RainbowDrawer rainbowDrawer,
                                            RainbowInputController rainbowInputController) {
+        BrushOptionsPreferences brushOptionsPreferences = BrushOptionsPreferences.newInstance();
         InkPerformer inkDrawer = new InkPerformer(new InkDrop(inkDropSizeLimiter),
-                BrushOptionsPreferences.newInstance().getBrushColor(),
+                brushOptionsPreferences,
                 branches,
                 rainbowDrawer,
                 rainbowInputController);
@@ -121,16 +122,12 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
         }
     }
 
-    public void setSelectedColorTo(int color) {
-        currentColor = color;
-    }
-
     private boolean hasToPaintDropImage() {
         return RainbowMath.random(MAX_THRESHOLD) > INK_ISSUE_THRESHOLD && hasImage();
     }
 
     private void paintDropWithImage(float x, float y) {
-        rainbowDrawer.tint(currentColor, ALPHA);
+        rainbowDrawer.tint(brushOptionsPreferences.getBrushColor(), ALPHA);
         rainbowDrawer.imageMode(RainbowGraphics.CENTER);
 
         rainbowDrawer.pushMatrix();
@@ -141,7 +138,7 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
     }
 
     private void paintDropWithoutImage(float px, float py, float x, float y) {
-        rainbowDrawer.stroke(currentColor, ALPHA);
+        rainbowDrawer.stroke(brushOptionsPreferences.getBrushColor(), ALPHA);
         rainbowDrawer.strokeWeight(inkDrop.getRadius() * INK_DROP_IMAGE_SCALE);
         rainbowDrawer.line(px, py, x, y);
         rainbowDrawer.strokeWeight(1);

@@ -133,8 +133,6 @@ public class SketchActivity extends ZenActivity {
         public void onClick(View v) {
             FragmentManager fm = getSupportFragmentManager();
             BrushOptionsDialog brushDialog = new BrushOptionsDialog();
-            brushDialog.setColorSelectedListener(zenSketch);
-            brushDialog.setSizeChangedListener(zenSketch);
             brushDialog.show(fm, "fragment_edit_name");
             zenSketch.selectPainting();
         }
@@ -148,6 +146,7 @@ public class SketchActivity extends ZenActivity {
         public void onClick(View v) {
             FragmentManager fm = getSupportFragmentManager();
             FlowerOptionsDialog flowersDialog = new FlowerOptionsDialog();
+            flowersDialog.setFlowerSelectedListener(zenSketch);
             flowersDialog.show(fm, "fragment_edit_name");
             zenSketch.selectPainting();
         }

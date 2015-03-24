@@ -11,9 +11,14 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 
 import zenproject.meditation.android.R;
+import zenproject.meditation.android.preferences.FlowerOptionPreferences;
+import zenproject.meditation.android.sketch.performers.flowers.FlowerDrawer;
 // ...
 
-public class FlowerOptionsDialog extends DialogFragment {
+public class FlowerOptionsDialog extends DialogFragment implements FlowerSelectedListener {
+
+    private FlowerDrawer.Flower selectedFlower = FlowerDrawer.Flower.NONE;
+    private FlowerSelectedListener flowerSelectedListener;
 
     @NonNull
     @Override
@@ -27,15 +32,17 @@ public class FlowerOptionsDialog extends DialogFragment {
                 .negativeText("Cancel")
                 .negativeColorRes(R.color.colorAccent)
                 .theme(Theme.LIGHT)
-                /*.callback(new MaterialDialog.ButtonCallback() {
+                .callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
-                        notifyColorSelected(selectedColor);
-                        notifySizeChanged(selectedSize);
                         storePreferences();
+                        flowerSelectedListener.onFlowerSelected(selectedFlower);
                     }
-                })*/
+                })
                 .build();
+
+        FlowerView flowerView = (FlowerView) materialDialog.getCustomView().findViewById(R.id.flower_picker);
+        flowerView.setFlowerSelectedListener(this);
 
         return materialDialog;
     }
@@ -43,5 +50,19 @@ public class FlowerOptionsDialog extends DialogFragment {
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
+    }
+
+    private void storePreferences() {
+        FlowerOptionPreferences flowerOptionPreferences = FlowerOptionPreferences.newInstance();
+        flowerOptionPreferences.applyFlower(selectedFlower);
+    }
+
+    @Override
+    public void onFlowerSelected(FlowerDrawer.Flower flower) {
+        selectedFlower = flower;
+    }
+
+    public void setFlowerSelectedListener(FlowerSelectedListener flowerSelectedListener) {
+        this.flowerSelectedListener = flowerSelectedListener;
     }
 }

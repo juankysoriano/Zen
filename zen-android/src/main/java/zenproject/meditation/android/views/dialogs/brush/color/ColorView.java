@@ -157,5 +157,4 @@ public class ColorView extends LinearLayout {
             colorSelectedListener.onColorSelected(color);
         }
     }
-
 }

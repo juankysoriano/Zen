@@ -52,4 +52,38 @@ public abstract class FlowerDrawer implements RainbowImage.LoadPictureListener {
     }
 
     protected abstract float getFlowerSize();
+
+    public static FlowerDrawer from(Flower flower, RainbowDrawer rainbowDrawer) {
+        switch (flower) {
+            case NONE:
+                return NullFlowerDrawer.newInstance(rainbowDrawer);
+            case CHERRY:
+                return CherryDrawer.newInstance(rainbowDrawer);
+            case ORANGE:
+                return OrangeDrawer.newInstance(rainbowDrawer);
+            case OLIVE:
+                return OliveDrawer.newInstance(rainbowDrawer);
+            case GYSOPHILIA:
+                return GypsophilaDrawer.newInstance(rainbowDrawer);
+            default:
+                return NullFlowerDrawer.newInstance(rainbowDrawer);
+        }
+    }
+
+    public enum Flower {
+        NONE,
+        CHERRY,
+        ORANGE,
+        OLIVE,
+        GYSOPHILIA;
+
+        public static Flower from(int value) {
+            for (Flower flower : values()) {
+                if (flower.ordinal() == value) {
+                    return flower;
+                }
+            }
+            return NONE;
+        }
+    }
 }

@@ -13,14 +13,14 @@ public class InkDropSizeLimiter {
     private static final float PERCENTAGE_MIN = 0;
     private static final float PERCENTAGE_MAX = 100;
     private static final float SCALE_FACTOR = 3;
-    private int percentage;
+    private final BrushOptionsPreferences brushOptionsPreferences;
 
     public static InkDropSizeLimiter newInstance() {
-        return new InkDropSizeLimiter(BrushOptionsPreferences.newInstance().getBrushSize());
+        return new InkDropSizeLimiter(BrushOptionsPreferences.newInstance());
     }
 
-    InkDropSizeLimiter(int percentage) {
-        this.percentage = percentage;
+    InkDropSizeLimiter(BrushOptionsPreferences brushOptionsPreferences) {
+        this.brushOptionsPreferences = brushOptionsPreferences;
     }
 
     public float getMinimumRadius() {
@@ -28,7 +28,7 @@ public class InkDropSizeLimiter {
     }
 
     public float getRadius() {
-        return RainbowMath.map(percentage, PERCENTAGE_MIN, PERCENTAGE_MAX, MINIMUM_RADIUS, MAXIMUM_RADIUS);
+        return RainbowMath.map(brushOptionsPreferences.getBrushSize(), PERCENTAGE_MIN, PERCENTAGE_MAX, MINIMUM_RADIUS, MAXIMUM_RADIUS);
     }
 
     private float calculateRadiusFactorForMinimum() {
@@ -42,9 +42,4 @@ public class InkDropSizeLimiter {
     private float calculateRadiusFactorForMaximum() {
         return RainbowMath.map(MAXIMUM_RADIUS + MINIMUM_RADIUS - getRadius(), MINIMUM_RADIUS, MAXIMUM_RADIUS, 1, SCALE_FACTOR);
     }
-
-    public void setScaleFactor(int percentage) {
-        this.percentage = percentage;
-    }
-
 }

@@ -18,8 +18,6 @@ import zenproject.meditation.android.views.dialogs.brush.size.SizeView;
 
 public class BrushOptionsDialog extends DialogFragment implements ColorSelectedListener, SizeChangedListener {
 
-    private ColorSelectedListener colorSelectedListener;
-    private SizeChangedListener sizeChangedListener;
     private int selectedColor = BrushOptionsPreferences.newInstance().getBrushColor();
     private int selectedSize = BrushOptionsPreferences.newInstance().getBrushSize();
     private SizeView sizeView;
@@ -39,8 +37,6 @@ public class BrushOptionsDialog extends DialogFragment implements ColorSelectedL
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
-                        notifyColorSelected(selectedColor);
-                        notifySizeChanged(selectedSize);
                         storePreferences();
                     }
                 })
@@ -61,14 +57,6 @@ public class BrushOptionsDialog extends DialogFragment implements ColorSelectedL
         brushOptionsPreferences.applyBrushSize(selectedSize);
     }
 
-    public void setColorSelectedListener(ColorSelectedListener colorSelectedListener) {
-        this.colorSelectedListener = colorSelectedListener;
-    }
-
-    public void setSizeChangedListener(SizeChangedListener sizeChangedListener) {
-        this.sizeChangedListener = sizeChangedListener;
-    }
-
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
@@ -80,20 +68,8 @@ public class BrushOptionsDialog extends DialogFragment implements ColorSelectedL
         sizeView.updateInkDropImageColor(color);
     }
 
-    private void notifyColorSelected(int color) {
-        if (colorSelectedListener != null) {
-            colorSelectedListener.onColorSelected(color);
-        }
-    }
-
     @Override
     public void onSizeChanged(int size) {
         selectedSize = size;
-    }
-
-    private void notifySizeChanged(int size) {
-        if (sizeChangedListener != null) {
-            sizeChangedListener.onSizeChanged(size);
-        }
     }
 }

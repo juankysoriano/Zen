@@ -9,16 +9,16 @@ import com.juankysoriano.rainbow.core.event.RainbowInputController;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.model.InkDropSizeLimiter;
+import zenproject.meditation.android.sketch.performers.StepPerformer;
+import zenproject.meditation.android.sketch.performers.eraser.EraserPerformer;
 import zenproject.meditation.android.sketch.performers.flowers.BranchesList;
 import zenproject.meditation.android.sketch.performers.flowers.BranchesPerformer;
-import zenproject.meditation.android.sketch.performers.eraser.EraserPerformer;
+import zenproject.meditation.android.sketch.performers.flowers.FlowerDrawer;
 import zenproject.meditation.android.sketch.performers.ink.InkPerformer;
 import zenproject.meditation.android.sketch.performers.music.MusicPerformer;
-import zenproject.meditation.android.sketch.performers.StepPerformer;
-import zenproject.meditation.android.views.dialogs.brush.ColorSelectedListener;
-import zenproject.meditation.android.views.dialogs.brush.SizeChangedListener;
+import zenproject.meditation.android.views.dialogs.flower.FlowerSelectedListener;
 
-public class ZenSketch extends Rainbow implements RainbowInputController.RainbowInteractionListener, ColorSelectedListener, SizeChangedListener {
+public class ZenSketch extends Rainbow implements RainbowInputController.RainbowInteractionListener, FlowerSelectedListener {
 
     private static final int DEFAULT_COLOR = ContextRetriever.INSTANCE.getCurrentResources().getColor(R.color.colorSketch);
     private final RainbowInputController rainbowInputController;
@@ -152,13 +152,8 @@ public class ZenSketch extends Rainbow implements RainbowInputController.Rainbow
     }
 
     @Override
-    public void onColorSelected(int color) {
-        ((InkPerformer) inkDrawer).setSelectedColorTo(color);
-    }
-
-    @Override
-    public void onSizeChanged(int percentage) {
-        inkDropSizeLimiter.setScaleFactor(percentage);
+    public void onFlowerSelected(FlowerDrawer.Flower flower) {
+        ((BranchesPerformer) branchDrawer).onFlowerSelected(flower);
     }
 
     public interface OnPaintingListener {
