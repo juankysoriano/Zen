@@ -5,44 +5,50 @@ import com.juankysoriano.rainbow.core.graphics.RainbowGraphics;
 import com.juankysoriano.rainbow.core.graphics.RainbowImage;
 import com.juankysoriano.rainbow.utils.RainbowMath;
 
+import java.util.List;
+
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 
 public abstract class FlowerDrawer implements RainbowImage.LoadPictureListener {
     private static final RainbowImage NO_IMAGE = null;
-    private static final int WHITE = 255;
-    private static final int ALPHA = 225;
-    protected static final int MIN_FLOWER_SIZE = ContextRetriever.INSTANCE.getCurrentResources().getDimensionPixelSize(R.dimen.min_flower_size);
-    protected static final int MAX_FLOWER_SIZE = ContextRetriever.INSTANCE.getCurrentResources().getDimensionPixelSize(R.dimen.max_flower_size);
+    protected static final int WHITE = 255;
+    protected static final float MIN_FLOWER_SIZE = ContextRetriever.INSTANCE.getCurrentResources().getDimension(R.dimen.min_flower_size);
+    protected static final float MAX_FLOWER_SIZE = ContextRetriever.INSTANCE.getCurrentResources().getDimension(R.dimen.max_flower_size);
 
-    private RainbowImage image;
+    private final List<RainbowImage> flowerImages;
     private RainbowDrawer rainbowDrawer;
 
-    protected FlowerDrawer(RainbowDrawer rainbowDrawer) {
+    protected FlowerDrawer(List<RainbowImage> flowerImages, RainbowDrawer rainbowDrawer) {
+        this.flowerImages = flowerImages;
         this.rainbowDrawer = rainbowDrawer;
     }
 
     @Override
     public void onLoadSucceed(RainbowImage imageLoaded) {
-        image = imageLoaded;
+        flowerImages.add(imageLoaded);
     }
 
     @Override
     public void onLoadFail() {
-        image = NO_IMAGE;
+        flowerImages.add(NO_IMAGE);
     }
 
     public void paintFlowerFor(Branch branch) {
         float flowerSize = getFlowerSize();
         float rotation = RainbowMath.random(RainbowMath.QUARTER_PI);
-        rainbowDrawer.tint(WHITE, ALPHA);
+        rainbowDrawer.tint(WHITE);
         rainbowDrawer.imageMode(RainbowGraphics.CENTER);
         rainbowDrawer.pushMatrix();
         rainbowDrawer.translate(branch.getX(), branch.getY());
         rainbowDrawer.rotate(rotation);
         flipHorizontalyIfLuck();
-        rainbowDrawer.image(image, 0, 0, flowerSize, flowerSize);
+        rainbowDrawer.image(getRandomFlower(), 0, 0, flowerSize, flowerSize);
         rainbowDrawer.popMatrix();
+    }
+
+    private RainbowImage getRandomFlower() {
+        return flowerImages.get((int) RainbowMath.random(flowerImages.size()));
     }
 
     private void flipHorizontalyIfLuck() {
@@ -59,12 +65,12 @@ public abstract class FlowerDrawer implements RainbowImage.LoadPictureListener {
                 return NullFlowerDrawer.newInstance(rainbowDrawer);
             case CHERRY:
                 return CherryDrawer.newInstance(rainbowDrawer);
-            case ORANGE:
-                return OrangeDrawer.newInstance(rainbowDrawer);
-            case OLIVE:
-                return OliveDrawer.newInstance(rainbowDrawer);
-            case GYSOPHILIA:
-                return GypsophilaDrawer.newInstance(rainbowDrawer);
+            case MECONOPSIS:
+                return MeconopsisDrawer.newInstance(rainbowDrawer);
+            case POPPY:
+                return PoppyDrawer.newInstance(rainbowDrawer);
+            case AUTUMN_MIX:
+                return AutumnMixDrawer.newInstance(rainbowDrawer);
             default:
                 return NullFlowerDrawer.newInstance(rainbowDrawer);
         }
@@ -73,9 +79,9 @@ public abstract class FlowerDrawer implements RainbowImage.LoadPictureListener {
     public enum Flower {
         NONE,
         CHERRY,
-        ORANGE,
-        OLIVE,
-        GYSOPHILIA;
+        MECONOPSIS,
+        POPPY,
+        AUTUMN_MIX;
 
         public static Flower from(int value) {
             for (Flower flower : values()) {

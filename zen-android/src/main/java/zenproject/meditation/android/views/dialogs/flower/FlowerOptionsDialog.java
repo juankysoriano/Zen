@@ -1,11 +1,9 @@
 package zenproject.meditation.android.views.dialogs.flower;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
@@ -13,11 +11,12 @@ import com.afollestad.materialdialogs.Theme;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.preferences.FlowerOptionPreferences;
 import zenproject.meditation.android.sketch.performers.flowers.FlowerDrawer;
+import zenproject.meditation.android.views.dialogs.ZenDialog;
 // ...
 
-public class FlowerOptionsDialog extends DialogFragment implements FlowerSelectedListener {
+public class FlowerOptionsDialog extends ZenDialog implements FlowerSelectedListener {
 
-    private FlowerDrawer.Flower selectedFlower = FlowerDrawer.Flower.NONE;
+    private FlowerDrawer.Flower selectedFlower = FlowerOptionPreferences.newInstance().getFlower();
     private FlowerSelectedListener flowerSelectedListener;
 
     @NonNull
@@ -45,11 +44,6 @@ public class FlowerOptionsDialog extends DialogFragment implements FlowerSelecte
         flowerView.setFlowerSelectedListener(this);
 
         return materialDialog;
-    }
-
-    @Override
-    public void onDismiss(DialogInterface dialog) {
-        super.onDismiss(dialog);
     }
 
     private void storePreferences() {

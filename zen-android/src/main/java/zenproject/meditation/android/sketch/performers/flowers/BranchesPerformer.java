@@ -8,17 +8,22 @@ import com.juankysoriano.rainbow.utils.RainbowMath;
 import java.util.ArrayList;
 import java.util.List;
 
+import zenproject.meditation.android.ContextRetriever;
+import zenproject.meditation.android.R;
 import zenproject.meditation.android.preferences.BrushOptionsPreferences;
 import zenproject.meditation.android.preferences.FlowerOptionPreferences;
 import zenproject.meditation.android.sketch.performers.StepPerformer;
 import zenproject.meditation.android.views.dialogs.flower.FlowerSelectedListener;
 
 public class BranchesPerformer implements StepPerformer, FlowerSelectedListener {
-    private static final int ALPHA = 225;
+    private static final int ALPHA = 128;
     private static final float MAX_THRESHOLD = 100;
-    private static final float SPROUD_THRESHOLD = .9f * MAX_THRESHOLD;
-    private static final float FLOWER_THRESHOLD = .5f * MAX_THRESHOLD;
-    private static final int FRAMES_TO_SKIP = 0;
+    private static final float BLOOM_THRESHOLD = .90f * MAX_THRESHOLD;
+    private static final float FLOWER_THRESHOLD = .80f * MAX_THRESHOLD;
+    private static final int FRAMES_TO_SKIP = 2;
+    private static final int LEAF_COLOR = ContextRetriever.INSTANCE.getCurrentResources().getColor(R.color.colorPrimaryDark);
+    private static final float LEAF_SIZE = ContextRetriever.INSTANCE.getCurrentResources().getDimension(R.dimen.branch_default_radius) * 2;
+
     private final RainbowDrawer rainbowDrawer;
     private final BranchesList branchesList;
     private final PaintStepSkipper paintStepSkipper;
@@ -62,6 +67,7 @@ public class BranchesPerformer implements StepPerformer, FlowerSelectedListener 
             paintStepSkipper.recordStep();
         }
 
+
     }
 
     private boolean hasFlower() {
@@ -78,11 +84,11 @@ public class BranchesPerformer implements StepPerformer, FlowerSelectedListener 
     private void paintAndUpdateBranch(Branch branch) {
         if (branch.isDead()) {
             branchesList.prune(branch);
-            sproudFlowerIfLuck(branch);
+            bloomFlowerIfLuck(branch);
         } else {
             performBranchPainting(branch);
             branch.update();
-            sproudBranchIfLuck(branch);
+            bloomBranchIfLuck(branch);
         }
     }
 
@@ -95,16 +101,25 @@ public class BranchesPerformer implements StepPerformer, FlowerSelectedListener 
         rainbowDrawer.line(branch.getX(), branch.getY(), branch.getOldX(), branch.getOldY());
     }
 
-    private void sproudBranchIfLuck(Branch branch) {
-        if (RainbowMath.random(MAX_THRESHOLD) > SPROUD_THRESHOLD) {
-            branchesList.sproudFrom(branch);
+    private void bloomBranchIfLuck(Branch branch) {
+        if (RainbowMath.random(MAX_THRESHOLD) > BLOOM_THRESHOLD) {
+            branchesList.bloomFrom(branch);
         }
     }
 
-    private void sproudFlowerIfLuck(Branch branch) {
+    private void bloomFlowerIfLuck(Branch branch) {
         if (RainbowMath.random(MAX_THRESHOLD) > FLOWER_THRESHOLD) {
             paintFlowerFor(branch);
+        } else {
+            paintLeafFor(branch);
         }
+    }
+
+    private void paintLeafFor(Branch branch) {
+        rainbowDrawer.strokeWeight(LEAF_SIZE);
+        rainbowDrawer.stroke(LEAF_COLOR, ALPHA);
+        rainbowDrawer.point(branch.getX(), branch.getY());
+        rainbowDrawer.strokeWeight(1);
     }
 
     @Override

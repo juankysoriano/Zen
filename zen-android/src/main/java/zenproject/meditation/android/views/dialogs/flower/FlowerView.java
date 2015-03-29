@@ -22,9 +22,9 @@ public class FlowerView extends LinearLayout {
 
     private CircleImageView noneFlower;
     private CircleImageView cherryFlower;
-    private CircleImageView orangeFlower;
-    private CircleImageView oliveFlower;
-    private CircleImageView gysophiliaFlower;
+    private CircleImageView meconopsisFlower;
+    private CircleImageView poppyFlower;
+    private CircleImageView autumnMixFlower;
 
     private FlowerSelectedListener flowerSelectedListener;
 
@@ -44,9 +44,9 @@ public class FlowerView extends LinearLayout {
     protected void onFinishInflate() {
         noneFlower = Views.findById(this, R.id.no_flower);
         cherryFlower = Views.findById(this, R.id.cherry);
-        orangeFlower = Views.findById(this, R.id.orange);
-        oliveFlower = Views.findById(this, R.id.olive);
-        gysophiliaFlower = Views.findById(this, R.id.gysophilea);
+        meconopsisFlower = Views.findById(this, R.id.meconopsis);
+        poppyFlower = Views.findById(this, R.id.poppy);
+        autumnMixFlower = Views.findById(this, R.id.autumn_mix);
 
         setSelectedFrom(FlowerOptionPreferences.newInstance().getFlower());
     }
@@ -76,25 +76,25 @@ public class FlowerView extends LinearLayout {
                 notifyFlowerSelected(Flower.CHERRY);
             }
         });
-        orangeFlower.setOnClickListener(new View.OnClickListener() {
+        meconopsisFlower.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setSelected((CircleImageView) v);
-                notifyFlowerSelected(Flower.ORANGE);
+                notifyFlowerSelected(Flower.MECONOPSIS);
             }
         });
-        oliveFlower.setOnClickListener(new View.OnClickListener() {
+        poppyFlower.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setSelected((CircleImageView) v);
-                notifyFlowerSelected(Flower.OLIVE);
+                notifyFlowerSelected(Flower.POPPY);
             }
         });
-        gysophiliaFlower.setOnClickListener(new View.OnClickListener() {
+        autumnMixFlower.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setSelected((CircleImageView) v);
-                notifyFlowerSelected(Flower.GYSOPHILIA);
+                notifyFlowerSelected(Flower.AUTUMN_MIX);
             }
         });
     }
@@ -104,12 +104,12 @@ public class FlowerView extends LinearLayout {
             setSelected(noneFlower);
         } else if (Flower.CHERRY == flower) {
             setSelected(cherryFlower);
-        } else if (Flower.ORANGE == flower) {
-            setSelected(orangeFlower);
-        } else if (Flower.OLIVE == flower) {
-            setSelected(oliveFlower);
-        } else if (Flower.GYSOPHILIA == flower) {
-            setSelected(gysophiliaFlower);
+        } else if (Flower.MECONOPSIS == flower) {
+            setSelected(meconopsisFlower);
+        } else if (Flower.POPPY == flower) {
+            setSelected(poppyFlower);
+        } else if (Flower.AUTUMN_MIX == flower) {
+            setSelected(autumnMixFlower);
         }
     }
 
@@ -122,16 +122,15 @@ public class FlowerView extends LinearLayout {
     private void unselectAll() {
         noneFlower.setBorderColor(DIVIDER);
         cherryFlower.setBorderColor(DIVIDER);
-        orangeFlower.setBorderColor(DIVIDER);
-        oliveFlower.setBorderColor(DIVIDER);
-        gysophiliaFlower.setBorderColor(DIVIDER);
+        meconopsisFlower.setBorderColor(DIVIDER);
+        poppyFlower.setBorderColor(DIVIDER);
+        autumnMixFlower.setBorderColor(DIVIDER);
 
         noneFlower.setBorderWidth(UNSELECTED_BORDER_SIZE);
         cherryFlower.setBorderWidth(UNSELECTED_BORDER_SIZE);
-        orangeFlower.setBorderWidth(UNSELECTED_BORDER_SIZE);
-        oliveFlower.setBorderWidth(UNSELECTED_BORDER_SIZE);
-        gysophiliaFlower.setBorderWidth(UNSELECTED_BORDER_SIZE);
-
+        meconopsisFlower.setBorderWidth(UNSELECTED_BORDER_SIZE);
+        poppyFlower.setBorderWidth(UNSELECTED_BORDER_SIZE);
+        autumnMixFlower.setBorderWidth(UNSELECTED_BORDER_SIZE);
     }
 
     @Override
@@ -139,10 +138,9 @@ public class FlowerView extends LinearLayout {
         super.onDetachedFromWindow();
         noneFlower.setOnClickListener(null);
         cherryFlower.setOnClickListener(null);
-        orangeFlower.setOnClickListener(null);
-        oliveFlower.setOnClickListener(null);
-        gysophiliaFlower.setOnClickListener(null);
-
+        meconopsisFlower.setOnClickListener(null);
+        poppyFlower.setOnClickListener(null);
+        autumnMixFlower.setOnClickListener(null);
     }
 
     private void notifyFlowerSelected(Flower flower) {

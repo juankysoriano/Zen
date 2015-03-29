@@ -18,8 +18,8 @@ public class BranchesList implements Iterable<Branch> {
         return new BranchesList(new ArrayList<Branch>());
     }
 
-    public void sproudFrom(Branch branch) {
-        if (branchesList.size() < MAX_BRANCHES && branch.canSproud()) {
+    public void bloomFrom(Branch branch) {
+        if (branchesList.size() < MAX_BRANCHES && branch.canBloom()) {
             branchesList.add(Branch.createFrom(branch));
         }
     }
@@ -31,6 +31,10 @@ public class BranchesList implements Iterable<Branch> {
 
     public void prune(Branch branch) {
         branchesList.remove(branch);
+    }
+
+    public void clear() {
+        branchesList.clear();
     }
 
     public List<Branch> getBranchesList() {

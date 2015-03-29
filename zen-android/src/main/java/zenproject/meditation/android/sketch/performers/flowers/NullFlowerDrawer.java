@@ -9,7 +9,7 @@ public class NullFlowerDrawer extends FlowerDrawer {
     }
 
     protected NullFlowerDrawer(RainbowDrawer rainbowDrawer) {
-        super(rainbowDrawer);
+        super(null, rainbowDrawer);
     }
 
     @Override

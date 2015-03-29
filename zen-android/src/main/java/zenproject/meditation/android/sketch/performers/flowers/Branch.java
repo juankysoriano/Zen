@@ -8,10 +8,13 @@ import zenproject.meditation.android.R;
 
 public class Branch {
     private static final float MIN_RADIUS = ContextRetriever.INSTANCE.getCurrentResources().getDimension(R.dimen.branch_min_radius);
-    private static final float MIN_RADIUS_TO_SPROUD = ContextRetriever.INSTANCE.getCurrentResources().getDimension(R.dimen.branch_min_sproud_radius);
+    private static final float MIN_RADIUS_TO_BLOOM = ContextRetriever.INSTANCE.getCurrentResources().getDimension(R.dimen.branch_min_bloom_radius);
     private static final float DEFAULT_RADIUS = ContextRetriever.INSTANCE.getCurrentResources().getDimension(R.dimen.branch_default_radius);
-    private static final float STEP = 0.2f;
-    private static final float SHRINK = 0.95f;
+    private static final float MIN_STEP = 0.05f;
+    private static final float MAX_STEP = 0.25f;
+    private static final float MIN_RADIUS_FACTOR = 0.9f;
+    private static final float MAX_RADIUS_FACTOR = 1.1f;
+    private static final float SHRINK = RainbowMath.random(0.94f, 0.96f);
     private float step;
     private float angle;
     private float radius;
@@ -20,15 +23,19 @@ public class Branch {
 
     Branch(Branch branch) {
         this(branch.position, branch.angle, branch.radius);
-        step = -(branch.step);
+        step = branch.step > 0 ? -generateRandomStep() : generateRandomStep();
+    }
+
+    private float generateRandomStep() {
+        return RainbowMath.random(MIN_STEP, MAX_STEP);
     }
 
     Branch(RVector position, float angle, float radius) {
         this.position = new RVector(position.x, position.y);
         this.previousPosition = new RVector(this.position.x, this.position.y);
         this.angle = angle;
-        this.step = STEP;
-        this.radius = radius * 1.05f;
+        this.step = generateRandomStep();
+        this.radius = radius * RainbowMath.random(MIN_RADIUS_FACTOR, MAX_RADIUS_FACTOR);
     }
 
     public static Branch createFrom(Branch branch) {
@@ -39,15 +46,15 @@ public class Branch {
         float angle = RainbowMath.random(-RainbowMath.PI, RainbowMath.PI);
         RVector pos = new RVector(x, y);
 
-        return new Branch(pos, angle, RainbowMath.random(DEFAULT_RADIUS * 0.75f, DEFAULT_RADIUS));
+        return new Branch(pos, angle, DEFAULT_RADIUS);
     }
 
     public boolean isDead() {
         return RainbowMath.abs(radius) < MIN_RADIUS;
     }
 
-    public boolean canSproud() {
-        return RainbowMath.abs(radius) > MIN_RADIUS_TO_SPROUD;
+    public boolean canBloom() {
+        return RainbowMath.abs(radius) > MIN_RADIUS_TO_BLOOM;
     }
 
     public void update() {

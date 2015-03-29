@@ -145,6 +145,7 @@ public class ZenSketch extends Rainbow implements RainbowInputController.Rainbow
 
     public void clear() {
         rainbowDrawer.background(DEFAULT_COLOR);
+        branchesList.clear();
     }
 
     public void setOnPaintingListener(OnPaintingListener onPaintingListener) {
