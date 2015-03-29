@@ -15,7 +15,7 @@ public abstract class ZenActivity extends FragmentActivity implements View.OnAtt
 
     @Override
     protected void onDestroy() {
-        ContextRetriever.INSTANCE.inject(null);
+        ContextRetriever.INSTANCE.inject(getApplicationContext());
         super.onDestroy();
     }
 }
