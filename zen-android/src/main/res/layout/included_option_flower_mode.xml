@@ -33,7 +33,7 @@
         android:id="@+id/no_flower"
         android:layout_marginStart="0dp"
         style="@style/BrushColorCircularView"
-        android:src="@android:color/transparent"/>
+        android:src="@drawable/none"/>
 
       <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/cherry"
@@ -41,19 +41,19 @@
         android:src="@drawable/cherry" />
 
       <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/orange"
+        android:id="@+id/meconopsis"
         style="@style/BrushColorCircularView"
-        android:src="@drawable/orange" />
+        android:src="@drawable/meconopsis" />
 
       <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/olive"
+        android:id="@+id/poppy"
         style="@style/BrushColorCircularView"
-        android:src="@drawable/olive" />
+        android:src="@drawable/poppy" />
 
       <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/gysophilea"
+        android:id="@+id/autumn_mix"
         style="@style/BrushColorCircularView"
-        android:src="@drawable/gypsophila" />
+        android:src="@drawable/autumn_mix" />
 
     </zenproject.meditation.android.views.dialogs.flower.FlowerView>
   </LinearLayout>

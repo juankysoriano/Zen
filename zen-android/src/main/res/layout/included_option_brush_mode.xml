@@ -30,8 +30,13 @@
       android:layout_height="wrap_content">
 
       <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/dark_brush"
+        android:id="@+id/erase_brush"
+        style="@style/BrushColorCircularView"
         android:layout_marginStart="0dp"
+        android:src="@drawable/erase_option" />
+
+      <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/dark_brush"
         style="@style/BrushColorCircularView"
         android:src="@color/dark_brush" />
 
@@ -39,11 +44,6 @@
         android:id="@+id/grey_brush"
         style="@style/BrushColorCircularView"
         android:src="@color/grey_brush" />
-
-      <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/erase_brush"
-        style="@style/BrushColorCircularView"
-        android:src="@color/colorSketch" />
 
       <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/primary_brush"

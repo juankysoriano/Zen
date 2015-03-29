@@ -17,12 +17,12 @@
   <dimen name="radius_medium">72dp</dimen>
 
   <!--SKETCH-->
-  <dimen name="ink_drop_min_radius">2dp</dimen>
+  <dimen name="ink_drop_min_radius">1dp</dimen>
   <dimen name="ink_drop_max_radius">120dp</dimen>
-  <dimen name="ink_drop_step">0.25dp</dimen>
-  <dimen name="ink_velocity_threshold">10dp</dimen>
+  <dimen name="ink_drop_step">0.5dp</dimen>
+  <dimen name="ink_velocity_threshold">8dp</dimen>
   <dimen name="branch_min_radius">0.25dp</dimen>
-  <dimen name="branch_min_sproud_radius">1.5dp</dimen>
+  <dimen name="branch_min_bloom_radius">1.5dp</dimen>
   <dimen name="branch_default_radius">3dp</dimen>
 
   <!--OPTIONS-->
@@ -36,8 +36,11 @@
   <dimen name="divider_weight">0.5dp</dimen>
   <dimen name="color_selected_weight">1.5dp</dimen>
   <dimen name="option_icon_size">24dp</dimen>
-  <dimen name="min_flower_size">23dp</dimen>
-  <dimen name="max_flower_size">60dp</dimen>
+  <dimen name="min_flower_size">70dp</dimen>
+  <dimen name="max_flower_size">100dp</dimen>
+  <dimen name="option_dialog_width">400dp</dimen>
+  <dimen name="shadow_fab_touch">5dp</dimen>
+  <dimen name="shadow_fab_untouch">2.5dp</dimen>
 
 
 </resources>
