@@ -5,18 +5,17 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.preferences.BrushOptionsPreferences;
+import zenproject.meditation.android.views.dialogs.ZenDialog;
 import zenproject.meditation.android.views.dialogs.brush.color.ColorView;
 import zenproject.meditation.android.views.dialogs.brush.size.SizeView;
-// ...
 
-public class BrushOptionsDialog extends DialogFragment implements ColorSelectedListener, SizeChangedListener {
+public class BrushOptionsDialog extends ZenDialog implements ColorSelectedListener, SizeChangedListener {
 
     private int selectedColor = BrushOptionsPreferences.newInstance().getBrushColor();
     private int selectedSize = BrushOptionsPreferences.newInstance().getBrushSize();

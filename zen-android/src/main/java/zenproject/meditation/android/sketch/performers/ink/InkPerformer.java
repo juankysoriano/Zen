@@ -11,6 +11,7 @@ import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.model.InkDrop;
 import zenproject.meditation.android.model.InkDropSizeLimiter;
+import zenproject.meditation.android.preferences.BrushColor;
 import zenproject.meditation.android.preferences.BrushOptionsPreferences;
 import zenproject.meditation.android.sketch.performers.StepPerformer;
 import zenproject.meditation.android.sketch.performers.flowers.Branch;
@@ -21,11 +22,12 @@ import static com.juankysoriano.rainbow.core.event.RainbowInputController.Moveme
 public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureListener {
     private static final RainbowImage NO_IMAGE = null;
     private static final float MAX_THRESHOLD = 100;
-    private static final float INK_ISSUE_THRESHOLD = .9975f * MAX_THRESHOLD;
-    private static final float BRANCH_THRESHOLD = .9f * MAX_THRESHOLD;
-    private static final int ALPHA = 255;
-    private static final int BLACK = ContextRetriever.INSTANCE.getCurrentResources().getColor(R.color.dark_brush);
+    private static final float INK_ISSUE_THRESHOLD = 0.99f * MAX_THRESHOLD;
+    private static final float INK_VELOCITY_THRESHOLD = ContextRetriever.INSTANCE.getCurrentResources().getDimension(R.dimen.ink_velocity_threshold);
+    private static final float BRANCH_THRESHOLD_FAST = 0.725f * MAX_THRESHOLD;
+    private static final float BRANCH_THRESHOLD_SLOW = 0.925f * MAX_THRESHOLD;
     private static final float INK_DROP_IMAGE_SCALE = 0.5f;
+    private static final int ALPHA = 250;
     private final RainbowDrawer rainbowDrawer;
     private final RainbowInputController rainbowInputController;
     private final InkDrop inkDrop;
@@ -94,15 +96,24 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
                     public void onPointDetected(float px, float py, float x, float y, RainbowDrawer rainbowDrawer) {
                         inkDrop.updateInkRadiusFor(rainbowInputController);
                         drawInk(px, py, x, y);
-                        attemptToCreateBranchAt(x, y);
+                        attemptToBloomBranchAt(x, y);
                     }
                 });
     }
 
-    private void attemptToCreateBranchAt(float x, float y) {
-        if (RainbowMath.random(MAX_THRESHOLD) > BRANCH_THRESHOLD && !hasToPaintDropImage()) {
-            createBranchAt(x, y);
+    private void attemptToBloomBranchAt(float x, float y) {
+        if(!isErasing()) {
+            float bloomBranchThreshold = rainbowInputController.getFingerVelocity() > INK_VELOCITY_THRESHOLD
+                    ? BRANCH_THRESHOLD_FAST
+                    : BRANCH_THRESHOLD_SLOW;
+            if (RainbowMath.random(MAX_THRESHOLD) > bloomBranchThreshold && !hasToPaintDropImage()) {
+                createBranchAt(x, y);
+            }
         }
+    }
+
+    private boolean isErasing() {
+        return BrushColor.ERASE == BrushColor.from(brushOptionsPreferences.getBrushColor());
     }
 
     private void createBranchAt(float x, float y) {
@@ -112,7 +123,7 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
         float verticalOffset = verticalMovement == MovementDirection.DOWN ? radius : -radius;
         float horizontalOffset = horizontalMovement == MovementDirection.RIGHT ? radius : -radius;
 
-        branches.sproudFrom(Branch.createAt(x + horizontalOffset, y + verticalOffset));
+        branches.bloomFrom(Branch.createAt(x + horizontalOffset, y + verticalOffset));
     }
 
     private void drawInk(float px, float py, float x, float y) {
@@ -123,11 +134,11 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
     }
 
     private boolean hasToPaintDropImage() {
-        return RainbowMath.random(MAX_THRESHOLD) > INK_ISSUE_THRESHOLD && hasImage();
+        return !isErasing() && RainbowMath.random(MAX_THRESHOLD) > INK_ISSUE_THRESHOLD && hasImage();
     }
 
     private void paintDropWithImage(float x, float y) {
-        rainbowDrawer.tint(brushOptionsPreferences.getBrushColor(), ALPHA);
+        rainbowDrawer.tint(brushOptionsPreferences.getBrushColor());
         rainbowDrawer.imageMode(RainbowGraphics.CENTER);
 
         rainbowDrawer.pushMatrix();
@@ -139,7 +150,7 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
 
     private void paintDropWithoutImage(float px, float py, float x, float y) {
         rainbowDrawer.stroke(brushOptionsPreferences.getBrushColor(), ALPHA);
-        rainbowDrawer.strokeWeight(inkDrop.getRadius() * INK_DROP_IMAGE_SCALE);
+        rainbowDrawer.strokeWeight(isErasing()? inkDrop.getMaxRadius() * INK_DROP_IMAGE_SCALE : inkDrop.getRadius() * INK_DROP_IMAGE_SCALE);
         rainbowDrawer.line(px, py, x, y);
         rainbowDrawer.strokeWeight(1);
     }

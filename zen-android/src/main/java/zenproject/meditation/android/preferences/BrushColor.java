@@ -4,9 +4,9 @@ import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 
 public enum BrushColor {
+    ERASE(ContextRetriever.INSTANCE.getCurrentResources().getColor(R.color.colorSketch)),
     DARK(ContextRetriever.INSTANCE.getCurrentResources().getColor(R.color.dark_brush)),
     GREY(ContextRetriever.INSTANCE.getCurrentResources().getColor(R.color.grey_brush)),
-    ERASE(ContextRetriever.INSTANCE.getCurrentResources().getColor(R.color.colorSketch)),
     PRIMARY(ContextRetriever.INSTANCE.getCurrentResources().getColor(R.color.colorPrimary)),
     ACCENT(ContextRetriever.INSTANCE.getCurrentResources().getColor(R.color.colorAccent));
 

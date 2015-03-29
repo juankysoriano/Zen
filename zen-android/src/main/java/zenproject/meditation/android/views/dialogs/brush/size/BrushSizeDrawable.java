@@ -7,28 +7,47 @@ import android.graphics.drawable.Drawable;
 
 public class BrushSizeDrawable extends Drawable {
 
+    public static final int BORDER_ALPHA = 40;
+    private final Paint borderBrushPaint;
     private final Paint sizeBrushPaint;
     private float radius;
     private int centerX;
     private int centerY;
 
     public static BrushSizeDrawable newInstance() {
-        Paint sizeBrushPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        return new BrushSizeDrawable(sizeBrushPaint);
+        Paint borderBrushPaint = generateBorderPaint();
+        Paint sizeBrushPaint = generateBrushSizePaint();
+        return new BrushSizeDrawable(borderBrushPaint, sizeBrushPaint);
     }
 
-    protected BrushSizeDrawable(Paint paint) {
-        this.sizeBrushPaint = paint;
+    private static Paint generateBrushSizePaint() {
+        Paint sizeBrushPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        sizeBrushPaint.setStyle(Paint.Style.FILL);
+        return sizeBrushPaint;
+    }
+
+    private static Paint generateBorderPaint() {
+        Paint borderBrushPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        borderBrushPaint.setStyle(Paint.Style.STROKE);
+        borderBrushPaint.setAlpha(BORDER_ALPHA);
+        return borderBrushPaint;
+    }
+
+    protected BrushSizeDrawable(Paint borderBrushPaint, Paint sizeBrushPaint) {
+        this.borderBrushPaint = borderBrushPaint;
+        this.sizeBrushPaint = sizeBrushPaint;
     }
 
     @Override
     public void draw(Canvas canvas) {
         canvas.drawCircle(centerX, centerY, radius, sizeBrushPaint);
+        canvas.drawCircle(centerX, centerY, radius, borderBrushPaint);
     }
 
     @Override
     public void setAlpha(int alpha) {
         sizeBrushPaint.setAlpha(alpha);
+        borderBrushPaint.setAlpha(BORDER_ALPHA);
     }
 
     public void setSize(float size) {

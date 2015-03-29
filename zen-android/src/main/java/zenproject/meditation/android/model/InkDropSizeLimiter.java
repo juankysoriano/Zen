@@ -24,7 +24,7 @@ public class InkDropSizeLimiter {
     }
 
     public float getMinimumRadius() {
-        return RainbowMath.max(MINIMUM_RADIUS, getRadius() / calculateRadiusFactorForMinimum());
+        return RainbowMath.max(MINIMUM_RADIUS / 2, getRadius() / calculateRadiusFactorForMinimum());
     }
 
     public float getRadius() {
@@ -36,10 +36,6 @@ public class InkDropSizeLimiter {
     }
 
     public float getMaxRadius() {
-        return Math.min(MAXIMUM_RADIUS, getRadius() * calculateRadiusFactorForMaximum());
-    }
-
-    private float calculateRadiusFactorForMaximum() {
-        return RainbowMath.map(MAXIMUM_RADIUS + MINIMUM_RADIUS - getRadius(), MINIMUM_RADIUS, MAXIMUM_RADIUS, 1, SCALE_FACTOR);
+        return Math.min(MAXIMUM_RADIUS, getRadius());
     }
 }
