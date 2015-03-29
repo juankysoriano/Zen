@@ -9,14 +9,14 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 
 import zenproject.meditation.android.R;
+import zenproject.meditation.android.preferences.Flower;
 import zenproject.meditation.android.preferences.FlowerOptionPreferences;
-import zenproject.meditation.android.sketch.performers.flowers.FlowerDrawer;
 import zenproject.meditation.android.views.dialogs.ZenDialog;
 // ...
 
 public class FlowerOptionsDialog extends ZenDialog implements FlowerSelectedListener {
 
-    private FlowerDrawer.Flower selectedFlower = FlowerOptionPreferences.newInstance().getFlower();
+    private Flower selectedFlower = FlowerOptionPreferences.newInstance().getFlower();
     private FlowerSelectedListener flowerSelectedListener;
 
     @NonNull
@@ -52,7 +52,7 @@ public class FlowerOptionsDialog extends ZenDialog implements FlowerSelectedList
     }
 
     @Override
-    public void onFlowerSelected(FlowerDrawer.Flower flower) {
+    public void onFlowerSelected(Flower flower) {
         selectedFlower = flower;
     }
 

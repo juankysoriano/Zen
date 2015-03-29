@@ -9,6 +9,7 @@ import java.util.List;
 
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
+import zenproject.meditation.android.preferences.Flower;
 
 public abstract class FlowerDrawer implements RainbowImage.LoadPictureListener {
     private static final RainbowImage NO_IMAGE = null;
@@ -76,20 +77,4 @@ public abstract class FlowerDrawer implements RainbowImage.LoadPictureListener {
         }
     }
 
-    public enum Flower {
-        NONE,
-        CHERRY,
-        MECONOPSIS,
-        POPPY,
-        AUTUMN_MIX;
-
-        public static Flower from(int value) {
-            for (Flower flower : values()) {
-                if (flower.ordinal() == value) {
-                    return flower;
-                }
-            }
-            return NONE;
-        }
-    }
 }

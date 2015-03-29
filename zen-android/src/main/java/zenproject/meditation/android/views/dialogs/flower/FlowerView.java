@@ -13,7 +13,8 @@ import zenproject.meditation.android.R;
 import zenproject.meditation.android.preferences.FlowerOptionPreferences;
 
 import static zenproject.meditation.android.preferences.BrushColor.ACCENT;
-import static zenproject.meditation.android.sketch.performers.flowers.FlowerDrawer.Flower;
+
+import zenproject.meditation.android.preferences.Flower;
 
 public class FlowerView extends LinearLayout {
     private static final int UNSELECTED_BORDER_SIZE = ContextRetriever.INSTANCE.getCurrentResources().getDimensionPixelSize(R.dimen.divider_weight);

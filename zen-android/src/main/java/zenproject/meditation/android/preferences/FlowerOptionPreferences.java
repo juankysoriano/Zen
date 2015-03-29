@@ -5,8 +5,6 @@ import android.content.SharedPreferences;
 
 import zenproject.meditation.android.ContextRetriever;
 
-import static zenproject.meditation.android.sketch.performers.flowers.FlowerDrawer.Flower;
-
 public class FlowerOptionPreferences {
     private static final String PREF_NAME = "FlowerOptionPreferences";
     private static final String PREF_FLOWER = PREF_NAME + "Flower";

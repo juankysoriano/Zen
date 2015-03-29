@@ -1,7 +1,7 @@
 package zenproject.meditation.android.views.dialogs.flower;
 
-import zenproject.meditation.android.sketch.performers.flowers.FlowerDrawer;
+import zenproject.meditation.android.preferences.Flower;
 
 public interface FlowerSelectedListener {
-    void onFlowerSelected(FlowerDrawer.Flower flower);
+    void onFlowerSelected(Flower flower);
 }

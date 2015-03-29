@@ -9,11 +9,11 @@ import com.juankysoriano.rainbow.core.event.RainbowInputController;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.model.InkDropSizeLimiter;
+import zenproject.meditation.android.preferences.Flower;
 import zenproject.meditation.android.sketch.performers.StepPerformer;
 import zenproject.meditation.android.sketch.performers.eraser.EraserPerformer;
 import zenproject.meditation.android.sketch.performers.flowers.BranchesList;
 import zenproject.meditation.android.sketch.performers.flowers.BranchesPerformer;
-import zenproject.meditation.android.sketch.performers.flowers.FlowerDrawer;
 import zenproject.meditation.android.sketch.performers.ink.InkPerformer;
 import zenproject.meditation.android.sketch.performers.music.MusicPerformer;
 import zenproject.meditation.android.views.dialogs.flower.FlowerSelectedListener;
@@ -153,7 +153,7 @@ public class ZenSketch extends Rainbow implements RainbowInputController.Rainbow
     }
 
     @Override
-    public void onFlowerSelected(FlowerDrawer.Flower flower) {
+    public void onFlowerSelected(Flower flower) {
         ((BranchesPerformer) branchDrawer).onFlowerSelected(flower);
     }
 
