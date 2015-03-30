@@ -14,7 +14,16 @@ public class ZenApplication extends Application {
         super.onCreate();
 
         ContextRetriever.INSTANCE.inject(getApplicationContext());
-        BrushOptionsPreferences.newInstance().applyBrushColor(BrushColor.ERASE.toAndroidColor());
+
+        selectDarkColorIfCurrentIsErase();
+
         Log.setShowLogs(BuildConfig.DEBUG);
+    }
+
+    private void selectDarkColorIfCurrentIsErase() {
+        BrushOptionsPreferences brushOptionsPreferences = BrushOptionsPreferences.newInstance();
+        if (brushOptionsPreferences.getBrushColor() == BrushColor.ERASE) {
+            brushOptionsPreferences.applyBrushColor(BrushColor.DARK);
+        }
     }
 }

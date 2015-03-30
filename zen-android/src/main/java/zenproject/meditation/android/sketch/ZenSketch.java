@@ -11,7 +11,6 @@ import zenproject.meditation.android.R;
 import zenproject.meditation.android.model.InkDropSizeLimiter;
 import zenproject.meditation.android.preferences.Flower;
 import zenproject.meditation.android.sketch.performers.StepPerformer;
-import zenproject.meditation.android.sketch.performers.eraser.EraserPerformer;
 import zenproject.meditation.android.sketch.performers.flowers.BranchesList;
 import zenproject.meditation.android.sketch.performers.flowers.BranchesPerformer;
 import zenproject.meditation.android.sketch.performers.ink.InkPerformer;
@@ -27,7 +26,6 @@ public class ZenSketch extends Rainbow implements RainbowInputController.Rainbow
     private final InkDropSizeLimiter inkDropSizeLimiter;
     private OnPaintingListener onPaintingListener;
     private StepPerformer inkDrawer;
-    private StepPerformer eraserDrawer;
     private StepPerformer branchDrawer;
     private StepPerformer musicPerformer;
 
@@ -52,7 +50,6 @@ public class ZenSketch extends Rainbow implements RainbowInputController.Rainbow
     @Override
     public void onSketchSetup() {
         this.inkDrawer = InkPerformer.newInstance(branchesList, inkDropSizeLimiter, rainbowDrawer, rainbowInputController);
-        this.eraserDrawer = EraserPerformer.newInstance(rainbowDrawer, rainbowInputController);
         this.branchDrawer = BranchesPerformer.newInstance(branchesList, rainbowDrawer);
         this.musicPerformer = MusicPerformer.newInstance(rainbowInputController);
         rainbowInputController.setRainbowInteractionListener(this);
@@ -71,18 +68,6 @@ public class ZenSketch extends Rainbow implements RainbowInputController.Rainbow
         }
     }
 
-    @Override
-    public void onDrawingResume() {
-        if (hasMusicPerformer()) {
-            musicPerformer.enable();
-        }
-    }
-
-    @Override
-    public void onSketchDestroy() {
-        ((MusicPerformer) musicPerformer).release();
-    }
-
     private boolean hasMusicPerformer() {
         return musicPerformer != null;
     }
@@ -92,6 +77,10 @@ public class ZenSketch extends Rainbow implements RainbowInputController.Rainbow
         if (hasOnPaintingListener()) {
             onPaintingListener.onPaintingStart();
         }
+        if(hasMusicPerformer()) {
+            musicPerformer.reset();
+        }
+
         inkDrawer.reset();
     }
 
@@ -109,38 +98,11 @@ public class ZenSketch extends Rainbow implements RainbowInputController.Rainbow
     @Override
     public void onFingerDragged(MotionEvent event, RainbowDrawer rainbowDrawer) {
         inkDrawer.doStep();
-        eraserDrawer.doStep();
     }
 
     @Override
     public void onMotionEvent(MotionEvent event, RainbowDrawer rainbowDrawer) {
         //no-op
-    }
-
-    public void selectPainting() {
-        disableErasing();
-        enablePainting();
-    }
-
-    private void disableErasing() {
-        eraserDrawer.disable();
-    }
-
-    private void enablePainting() {
-        inkDrawer.enable();
-    }
-
-    public void selectErasing() {
-        disablePainting();
-        enableErasing();
-    }
-
-    private void enableErasing() {
-        eraserDrawer.enable();
-    }
-
-    private void disablePainting() {
-        inkDrawer.disable();
     }
 
     public void clear() {

@@ -9,7 +9,9 @@ import zenproject.meditation.android.R;
 import zenproject.meditation.android.sketch.performers.StepPerformer;
 
 public class MusicPerformer implements StepPerformer {
-    private final MediaPlayer mediaPlayer;
+    private static final float MUSIC_STEP = 0.01f;
+    private static final float MIN_VOLUME = 0.05f;
+    private MediaPlayer mediaPlayer;
     private final RainbowInputController rainbowInputController;
     private float volume;
 
@@ -19,10 +21,7 @@ public class MusicPerformer implements StepPerformer {
     }
 
     public static MusicPerformer newInstance(RainbowInputController rainbowInputController) {
-        MediaPlayer mediaPlayer = MediaPlayer.create(ContextRetriever.INSTANCE.getCurrentContext(), R.raw.zen);
-        mediaPlayer.setVolume(0, 0);
-        mediaPlayer.start();
-        return new MusicPerformer(mediaPlayer, rainbowInputController);
+        return new MusicPerformer(null, rainbowInputController);
     }
 
     @Override
@@ -35,46 +34,72 @@ public class MusicPerformer implements StepPerformer {
     }
 
     private void increaseVolume() {
-        if (mediaPlayer.isPlaying()) {
-            volume += 0.02f;
+        if (isPlaying()) {
+            volume += MUSIC_STEP;
             volume = Math.min(1f, volume);
             mediaPlayer.setVolume(volume, volume);
         }
     }
 
     private void decreaseVolume() {
-        if (mediaPlayer.isPlaying()) {
-            volume -= 0.02f;
-            volume = Math.max(0, volume);
+        if (isPlaying()) {
+            volume -= MUSIC_STEP;
+            volume = Math.max(MIN_VOLUME, volume);
             mediaPlayer.setVolume(volume, volume);
         }
     }
 
     @Override
     public void reset() {
-        volume = 0f;
+        volume = MIN_VOLUME;
+        if (isMediaPlayerReleased()) {
+            mediaPlayer = createMediaPlayer();
+        }
+        start();
+    }
+
+    private MediaPlayer createMediaPlayer() {
+        MediaPlayer mediaPlayer = MediaPlayer.create(ContextRetriever.INSTANCE.getCurrentContext(), R.raw.zen);
         mediaPlayer.setVolume(volume, volume);
+        mediaPlayer.setLooping(true);
+
+        return mediaPlayer;
     }
 
     @Override
     public void disable() {
-        stopMusic();
+        stop();
     }
 
-    private void stopMusic() {
-        if (mediaPlayer.isPlaying()) {
-            mediaPlayer.pause();
+    private boolean isMediaPlayerReleased() {
+        return mediaPlayer == null;
+    }
+
+    private void stop() {
+        if (isPlaying()) {
+            mediaPlayer.stop();
+            releaseMediaPlayer();
+        }
+    }
+
+    private boolean isPlaying() {
+        return !isMediaPlayerReleased() && mediaPlayer.isPlaying();
+    }
+
+    private void releaseMediaPlayer() {
+        if (!isMediaPlayerReleased()) {
+            mediaPlayer.release();
+            mediaPlayer = null;
         }
     }
 
     @Override
     public void enable() {
         reset();
-        startMusic();
     }
 
-    private void startMusic() {
-        if (!mediaPlayer.isPlaying()) {
+    private void start() {
+        if (!isPlaying()) {
             mediaPlayer.start();
         }
     }

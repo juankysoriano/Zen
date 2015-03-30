@@ -67,35 +67,35 @@ public class ColorView extends LinearLayout {
             @Override
             public void onClick(View v) {
                 setSelected((CircleImageView) v);
-                notifyColorSelected(DARK.toAndroidColor());
+                notifyColorSelected(DARK);
             }
         });
         greyColor.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 setSelected((CircleImageView) v);
-                notifyColorSelected(GREY.toAndroidColor());
+                notifyColorSelected(GREY);
             }
         });
         eraseColor.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 setSelected((CircleImageView) v);
-                notifyColorSelected(ERASE.toAndroidColor());
+                notifyColorSelected(ERASE);
             }
         });
         primaryColor.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 setSelected((CircleImageView) v);
-                notifyColorSelected(PRIMARY.toAndroidColor());
+                notifyColorSelected(PRIMARY);
             }
         });
         accentColor.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 setSelectedWithColor((CircleImageView) v, PRIMARY.toAndroidColor());
-                notifyColorSelected(ACCENT.toAndroidColor());
+                notifyColorSelected(ACCENT);
             }
         });
     }
@@ -152,7 +152,7 @@ public class ColorView extends LinearLayout {
 
     }
 
-    private void notifyColorSelected(int color) {
+    private void notifyColorSelected(BrushColor color) {
         if (hasColorSelectedListener()) {
             colorSelectedListener.onColorSelected(color);
         }

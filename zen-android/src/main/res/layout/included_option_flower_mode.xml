@@ -51,9 +51,9 @@
         android:src="@drawable/poppy" />
 
       <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/autumn_mix"
+        android:id="@+id/violet"
         style="@style/BrushColorCircularView"
-        android:src="@drawable/autumn_mix" />
+        android:src="@drawable/violet" />
 
     </zenproject.meditation.android.views.dialogs.flower.FlowerView>
   </LinearLayout>

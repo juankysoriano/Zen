@@ -4,11 +4,11 @@ import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 
 public enum BrushColor {
-    ERASE(ContextRetriever.INSTANCE.getCurrentResources().getColor(R.color.colorSketch)),
     DARK(ContextRetriever.INSTANCE.getCurrentResources().getColor(R.color.dark_brush)),
     GREY(ContextRetriever.INSTANCE.getCurrentResources().getColor(R.color.grey_brush)),
     PRIMARY(ContextRetriever.INSTANCE.getCurrentResources().getColor(R.color.colorPrimary)),
-    ACCENT(ContextRetriever.INSTANCE.getCurrentResources().getColor(R.color.colorAccent));
+    ACCENT(ContextRetriever.INSTANCE.getCurrentResources().getColor(R.color.colorAccent)),
+    ERASE(ContextRetriever.INSTANCE.getCurrentResources().getColor(R.color.colorSketch));
 
     private final int color;
 
@@ -23,6 +23,10 @@ public enum BrushColor {
             }
         }
         return DARK;
+    }
+
+    public static BrushColor from(BrushColor color) {
+        return BrushColor.from(color.toAndroidColor());
     }
 
     public int toAndroidColor() {

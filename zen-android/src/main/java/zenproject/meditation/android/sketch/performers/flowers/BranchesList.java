@@ -4,22 +4,28 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import zenproject.meditation.android.preferences.Flower;
+import zenproject.meditation.android.preferences.FlowerOptionPreferences;
+
 public class BranchesList implements Iterable<Branch> {
 
     private static final int MAX_BRANCHES = 1000;
 
     private final List<Branch> branchesList;
 
-    BranchesList(List<Branch> branchesList) {
+    private final FlowerOptionPreferences flowerOptionPreferences;
+
+    BranchesList(List<Branch> branchesList, FlowerOptionPreferences flowerOptionPreferences) {
         this.branchesList = branchesList;
+        this.flowerOptionPreferences = flowerOptionPreferences;
     }
 
     public static BranchesList newInstance() {
-        return new BranchesList(new ArrayList<Branch>());
+        return new BranchesList(new ArrayList<Branch>(), FlowerOptionPreferences.newInstance());
     }
 
     public void bloomFrom(Branch branch) {
-        if (branchesList.size() < MAX_BRANCHES && branch.canBloom()) {
+        if (branchesList.size() < MAX_BRANCHES && branch.canBloom() && flowerOptionPreferences.getFlower() != Flower.NONE) {
             branchesList.add(Branch.createFrom(branch));
         }
     }

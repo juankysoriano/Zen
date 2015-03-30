@@ -29,6 +29,6 @@ public class MeconopsisDrawer extends FlowerDrawer {
 
     @Override
     protected float getFlowerSize() {
-        return RainbowMath.random(MIN_FLOWER_SIZE / 5, MAX_FLOWER_SIZE / 5);
+        return RainbowMath.random(MIN_FLOWER_SIZE * 0.8f, MAX_FLOWER_SIZE * 0.8f);
     }
 }

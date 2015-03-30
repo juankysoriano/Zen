@@ -10,6 +10,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 
 import zenproject.meditation.android.R;
+import zenproject.meditation.android.preferences.BrushColor;
 import zenproject.meditation.android.preferences.BrushOptionsPreferences;
 import zenproject.meditation.android.views.dialogs.ZenDialog;
 import zenproject.meditation.android.views.dialogs.brush.color.ColorView;
@@ -17,7 +18,7 @@ import zenproject.meditation.android.views.dialogs.brush.size.SizeView;
 
 public class BrushOptionsDialog extends ZenDialog implements ColorSelectedListener, SizeChangedListener {
 
-    private int selectedColor = BrushOptionsPreferences.newInstance().getBrushColor();
+    private BrushColor selectedColor = BrushOptionsPreferences.newInstance().getBrushColor();
     private int selectedSize = BrushOptionsPreferences.newInstance().getBrushSize();
     private SizeView sizeView;
 
@@ -62,9 +63,9 @@ public class BrushOptionsDialog extends ZenDialog implements ColorSelectedListen
     }
 
     @Override
-    public void onColorSelected(int color) {
+    public void onColorSelected(BrushColor color) {
         selectedColor = color;
-        sizeView.updateInkDropImageColor(color);
+        sizeView.updateInkDropImageColor(color.toAndroidColor());
     }
 
     @Override

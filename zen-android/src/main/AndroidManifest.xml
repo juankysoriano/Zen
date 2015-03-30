@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="zenproject.meditation.android">
 
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
   <application
     android:name=".ZenApplication"
     android:allowBackup="true"

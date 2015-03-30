@@ -29,7 +29,7 @@ public class CherryDrawer extends FlowerDrawer {
 
     @Override
     protected float getFlowerSize() {
-        return RainbowMath.random(MIN_FLOWER_SIZE / 4, MAX_FLOWER_SIZE / 4);
+        return RainbowMath.random(MIN_FLOWER_SIZE, MAX_FLOWER_SIZE);
     }
 
 

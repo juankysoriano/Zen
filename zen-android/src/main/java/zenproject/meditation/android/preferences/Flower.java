@@ -5,7 +5,7 @@ public enum Flower {
     CHERRY,
     MECONOPSIS,
     POPPY,
-    AUTUMN_MIX;
+    VIOLET;
 
     public static Flower from(int value) {
         for (Flower flower : values()) {

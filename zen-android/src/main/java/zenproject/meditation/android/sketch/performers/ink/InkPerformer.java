@@ -102,7 +102,7 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
     }
 
     private void attemptToBloomBranchAt(float x, float y) {
-        if(!isErasing()) {
+        if (!isErasing()) {
             float bloomBranchThreshold = rainbowInputController.getFingerVelocity() > INK_VELOCITY_THRESHOLD
                     ? BRANCH_THRESHOLD_FAST
                     : BRANCH_THRESHOLD_SLOW;
@@ -113,7 +113,7 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
     }
 
     private boolean isErasing() {
-        return BrushColor.ERASE == BrushColor.from(brushOptionsPreferences.getBrushColor());
+        return BrushColor.ERASE == brushOptionsPreferences.getBrushColor();
     }
 
     private void createBranchAt(float x, float y) {
@@ -138,7 +138,7 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
     }
 
     private void paintDropWithImage(float x, float y) {
-        rainbowDrawer.tint(brushOptionsPreferences.getBrushColor());
+        rainbowDrawer.tint(brushOptionsPreferences.getBrushColor().toAndroidColor());
         rainbowDrawer.imageMode(RainbowGraphics.CENTER);
 
         rainbowDrawer.pushMatrix();
@@ -149,8 +149,8 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
     }
 
     private void paintDropWithoutImage(float px, float py, float x, float y) {
-        rainbowDrawer.stroke(brushOptionsPreferences.getBrushColor(), ALPHA);
-        rainbowDrawer.strokeWeight(isErasing()? inkDrop.getMaxRadius() * INK_DROP_IMAGE_SCALE : inkDrop.getRadius() * INK_DROP_IMAGE_SCALE);
+        rainbowDrawer.stroke(brushOptionsPreferences.getBrushColor().toAndroidColor(), ALPHA);
+        rainbowDrawer.strokeWeight(isErasing() ? inkDrop.getMaxRadius() * INK_DROP_IMAGE_SCALE : inkDrop.getRadius() * INK_DROP_IMAGE_SCALE);
         rainbowDrawer.line(px, py, x, y);
         rainbowDrawer.strokeWeight(1);
     }

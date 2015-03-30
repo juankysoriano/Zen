@@ -8,19 +8,20 @@ import java.util.ArrayList;
 
 import zenproject.meditation.android.R;
 
-public class AutumnMixDrawer extends FlowerDrawer {
+public class VioletDrawer extends FlowerDrawer {
     public static FlowerDrawer newInstance(RainbowDrawer rainbowDrawer) {
-        FlowerDrawer flowerDrawer = new AutumnMixDrawer(rainbowDrawer);
-        rainbowDrawer.loadImage(R.drawable.autumn_mix, RainbowImage.LOAD_ORIGINAL_SIZE, flowerDrawer);
+        FlowerDrawer flowerDrawer = new VioletDrawer(rainbowDrawer);
+        rainbowDrawer.loadImage(R.drawable.violet_1, RainbowImage.LOAD_ORIGINAL_SIZE, flowerDrawer);
+
         return flowerDrawer;
     }
 
-    protected AutumnMixDrawer(RainbowDrawer rainbowDrawer) {
+    protected VioletDrawer(RainbowDrawer rainbowDrawer) {
         super(new ArrayList<RainbowImage>(), rainbowDrawer);
     }
 
     @Override
     protected float getFlowerSize() {
-        return RainbowMath.random(MIN_FLOWER_SIZE * 0.7f, MAX_FLOWER_SIZE * 0.7f);
+        return RainbowMath.random(MIN_FLOWER_SIZE*1.2f, MAX_FLOWER_SIZE*1.2f);
     }
 }
