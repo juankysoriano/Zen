@@ -11,8 +11,12 @@ public class AnalyticsApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        if (BuildConfig.USE_CRASHLYTICS) {
+        if (doAnalytics()) {
             Fabric.with(this, new Crashlytics());
         }
+    }
+
+    private boolean doAnalytics() {
+        return !getResources().getBoolean(R.bool.analyticsDisabled);
     }
 }
