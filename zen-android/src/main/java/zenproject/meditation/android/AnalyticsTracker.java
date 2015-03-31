@@ -33,25 +33,25 @@ public enum AnalyticsTracker {
     public void trackBrush(BrushColor color, int size) {
         Tracker tracker = retrieveTracker();
         tracker.send(new HitBuilders.EventBuilder()
-                .setCategory("Brush")
-                .setAction("Color changed")
+                .setCategory(BrushTracking.BRUSH)
+                .setAction(BrushTracking.COLOR_SELECTED)
                 .setLabel(color.name())
                 .setValue(1)
                 .build());
 
         tracker.send(new HitBuilders.EventBuilder()
-                .setCategory("Brush")
-                .setAction("Size changed")
+                .setCategory(BrushTracking.BRUSH)
+                .setAction(BrushTracking.SIZE_SELECTED)
                 .setLabel("Brush size " + size + "%")
-                .set("brushSize", String.valueOf(size))
+                .set(BrushTracking.SIZE_VAR, String.valueOf(size))
                 .build());
     }
 
     public void trackFlower(Flower flower) {
         Tracker tracker = retrieveTracker();
         tracker.send(new HitBuilders.EventBuilder()
-                .setCategory("Flower")
-                .setAction("Flower selected")
+                .setCategory(FlowerTracking.FLOWER)
+                .setAction(FlowerTracking.FLOWER_SELECTED)
                 .setLabel(flower.name())
                 .setValue(1)
                 .build());
@@ -64,8 +64,8 @@ public enum AnalyticsTracker {
     public void trackScreenshot() {
         Tracker tracker = retrieveTracker();
         tracker.send(new HitBuilders.EventBuilder()
-                .setCategory("Sketch")
-                .setAction("Screenshot")
+                .setCategory(SketchTracking.SKETCH)
+                .setAction(SketchTracking.SCREENSHOT)
                 .setValue(1)
                 .build());
     }
@@ -73,8 +73,8 @@ public enum AnalyticsTracker {
     public void trackShare() {
         Tracker tracker = retrieveTracker();
         tracker.send(new HitBuilders.EventBuilder()
-                .setCategory("Sketch")
-                .setAction("Share")
+                .setCategory(SketchTracking.SKETCH)
+                .setAction(SketchTracking.SHARED)
                 .setValue(1)
                 .build());
     }
@@ -82,8 +82,8 @@ public enum AnalyticsTracker {
     public void trackClearSketch() {
         Tracker tracker = retrieveTracker();
         tracker.send(new HitBuilders.EventBuilder()
-                .setCategory("Sketch")
-                .setAction("Cleared")
+                .setCategory(SketchTracking.SKETCH)
+                .setAction(SketchTracking.CLEARED)
                 .setValue(1)
                 .build());
     }
@@ -100,6 +100,25 @@ public enum AnalyticsTracker {
 
     private void dispatch(ZenActivity zenActivity) {
         GoogleAnalytics.getInstance(zenActivity).dispatchLocalHits();
+    }
+
+    private class SketchTracking {
+        private static final String SKETCH = "Sketch";
+        private static final String CLEARED = "Cleared";
+        private static final String SHARED = "Shared";
+        private static final String SCREENSHOT = "Screenshot";
+    }
+
+    private class BrushTracking {
+        private static final String BRUSH = "Brush";
+        private static final String COLOR_SELECTED = "Color selected";
+        private static final String SIZE_SELECTED = "Size selected";
+        private static final String SIZE_VAR = "size_value";
+    }
+
+    private class FlowerTracking {
+        private static final String FLOWER = "Flower";
+        private static final String FLOWER_SELECTED = "Flower selected";
     }
 }
 
