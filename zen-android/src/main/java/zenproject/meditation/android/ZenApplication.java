@@ -1,13 +1,11 @@
 package zenproject.meditation.android;
 
-import android.app.Application;
-
 import com.novoda.notils.logger.simple.Log;
 
 import zenproject.meditation.android.preferences.BrushColor;
 import zenproject.meditation.android.preferences.BrushOptionsPreferences;
 
-public class ZenApplication extends Application {
+public class ZenApplication extends CrashLyticsApplication {
 
     @Override
     public void onCreate() {

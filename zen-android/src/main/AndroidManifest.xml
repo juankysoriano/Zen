@@ -2,6 +2,7 @@
   package="zenproject.meditation.android">
 
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.INTERNET" />
 
   <application
     android:name=".ZenApplication"
@@ -23,6 +24,9 @@
       </intent-filter>
     </activity>
 
-  </application>
+    <meta-data
+      android:name="io.fabric.ApiKey"
+      android:value="${crashLyticsApiKey}" />
+    </application>
 
 </manifest>

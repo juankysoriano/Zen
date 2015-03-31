@@ -1,10 +1,27 @@
 buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
     dependencies {
         classpath 'org.robolectric:robolectric-gradle-plugin:1.0.0'
+        classpath 'io.fabric.tools:gradle:1.18.0'
     }
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
+dependencies {
+    compile('com.crashlytics.sdk.android:crashlytics:2.2.2@aar') {
+        transitive = true;
+    }
+}
+
 
 android {
     project.archivesBaseName = "$rootProject.name";
@@ -25,6 +42,7 @@ android {
         proguardFile 'proguard-rules.pro'
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
 
     signingConfigs {
@@ -40,11 +58,19 @@ android {
         debug {
             minifyEnabled false
             shrinkResources false
+            buildConfigField "boolean", "USE_CRASHLYTICS", "false"
+            ext.enableCrashlytics = false
+            def crashLyticsApiKey = ""
+            manifestPlaceholders = [crashLyticsApiKey: crashLyticsApiKey]
         }
         release {
             jniDebuggable false
             shrinkResources true
             minifyEnabled true
+            buildConfigField "boolean", "USE_CRASHLYTICS", "true"
+            ext.enableCrashlytics = true
+            def crashLyticsApiKey = crashLyticsApiKey // this value goes into ~/.gradle/gradle.properties
+            manifestPlaceholders = [crashLyticsApiKey: crashLyticsApiKey]
         }
     }
 
