@@ -22,6 +22,14 @@ public enum ContextRetriever {
         return activity == null ? context : activity;
     }
 
+    public Context getActivityContext() {
+        return activity;
+    }
+
+    public Context getApplicationContext() {
+        return context;
+    }
+
     public Resources getCurrentResources() {
         return getCurrentContext().getResources();
     }

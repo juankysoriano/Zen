@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Application name -->
+  <string name="ga_appName">@string/app_name</string>
+
+  <!-- Application version -->
+  <string name="ga_appVersion">@string/applicationVersion</string>
+
+  <!-- the Local LogLevel for Analytics -->
+  <string name="ga_logLevel">@string/trackingLogLevel</string>
+
+  <!-- how often the dispatcher should fire -->
+  <integer name="ga_dispatchPeriod">5</integer>
+
+  <!-- Treat events as test events and don't send to google -->
+  <bool name="ga_dryRun">@boolean/analyticsDisabled</bool>
+</resources>

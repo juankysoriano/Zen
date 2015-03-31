@@ -12,9 +12,6 @@ buildscript {
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
-repositories {
-    maven { url 'https://maven.fabric.io/public' }
-}
 
 dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.2.2@aar') {
@@ -37,6 +34,9 @@ android {
         targetSdkVersion rootProject.ext.TARGET_SDK
         versionCode rootProject.ext.VERSION_CODE
         versionName rootProject.ext.VERSION_NAME
+
+        resValue 'string', 'trackingID', googleAnalyticisId  //this value is from ~/.gradle/gradle.properties
+        resValue 'string', 'applicationVersion', rootProject.ext.VERSION_NAME
 
         proguardFile getDefaultProguardFile('proguard-android.txt')
         proguardFile 'proguard-rules.pro'
@@ -62,6 +62,9 @@ android {
             ext.enableCrashlytics = false
             def crashLyticsApiKey = ""
             manifestPlaceholders = [crashLyticsApiKey: crashLyticsApiKey]
+
+            resValue 'bool', 'analyticsDisabled', "true"
+            resValue 'string', 'trackingLogLevel', "verbose"
         }
         release {
             jniDebuggable false
@@ -69,14 +72,18 @@ android {
             minifyEnabled true
             buildConfigField "boolean", "USE_CRASHLYTICS", "true"
             ext.enableCrashlytics = true
-            def crashLyticsApiKey = crashLyticsApiKey // this value goes into ~/.gradle/gradle.properties
+            def crashLyticsApiKey = crashLyticsApiKey //this value is from ~/.gradle/gradle.properties
             manifestPlaceholders = [crashLyticsApiKey: crashLyticsApiKey]
+
+            resValue 'bool', 'analyticsDisabled', "true"
+            resValue 'string', 'trackingLogLevel', "error"
         }
     }
 
     dependencies {
         compile project(':rainbow-lib')
         compile project(':circularmenu-library')
+        compile 'com.google.android.gms:play-services-analytics:7.0.0'
         compile 'com.nineoldandroids:library:2.4.0'
         compile 'com.android.support:support-annotations:20.0.0'
         compile 'com.android.support:appcompat-v7:22.0.0'

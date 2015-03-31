@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 
+import zenproject.meditation.android.AnalyticsTracker;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.preferences.Flower;
 import zenproject.meditation.android.preferences.FlowerOptionPreferences;
@@ -34,6 +35,7 @@ public class FlowerOptionsDialog extends ZenDialog implements FlowerSelectedList
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
+                        trackPreferences();
                         storePreferences();
                         flowerSelectedListener.onFlowerSelected(selectedFlower);
                     }
@@ -44,6 +46,10 @@ public class FlowerOptionsDialog extends ZenDialog implements FlowerSelectedList
         flowerView.setFlowerSelectedListener(this);
 
         return materialDialog;
+    }
+
+    private void trackPreferences() {
+        AnalyticsTracker.INSTANCE.trackFlower(selectedFlower);
     }
 
     private void storePreferences() {

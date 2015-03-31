@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 
+import zenproject.meditation.android.AnalyticsTracker;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.preferences.BrushColor;
 import zenproject.meditation.android.preferences.BrushOptionsPreferences;
@@ -37,6 +38,7 @@ public class BrushOptionsDialog extends ZenDialog implements ColorSelectedListen
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
+                        trackPreferences();
                         storePreferences();
                     }
                 })
@@ -49,6 +51,10 @@ public class BrushOptionsDialog extends ZenDialog implements ColorSelectedListen
         sizeView.setSizeChangedListener(this);
 
         return materialDialog;
+    }
+
+    private void trackPreferences() {
+        AnalyticsTracker.INSTANCE.trackBrush(selectedColor, selectedSize);
     }
 
     private void storePreferences() {

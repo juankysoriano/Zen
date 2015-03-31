@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <integer name="ga_sessionTimeout">300</integer>
+
+  <!-- Enable automatic Activity measurement -->
+  <bool name="ga_autoActivityTracking">true</bool>
+
+  <!-- The screen names that will appear in reports -->
+  <screenName name="zenproject.meditation.android.activities.SketchActivity">
+    Zen Sketch Activity
+  </screenName>
+
+  <!--  The property id from google analytics platform -->
+  <string name="ga_trackingId">@string/trackingID</string>
+</resources>
