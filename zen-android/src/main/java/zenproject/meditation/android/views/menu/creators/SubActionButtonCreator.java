@@ -12,8 +12,8 @@ import zenproject.meditation.android.R;
 import zenproject.meditation.android.views.menu.FloatingActionButton;
 
 public abstract class SubActionButtonCreator {
-    private static final int SIZE = ContextRetriever.INSTANCE.getCurrentResources().getDimensionPixelSize(R.dimen.blue_sub_action_button_size);
-    private static final int MARGIN = ContextRetriever.INSTANCE.getCurrentResources().getDimensionPixelSize(R.dimen.blue_sub_action_button_margin);
+    private static final int SIZE = ContextRetriever.INSTANCE.getCurrentResources().getDimensionPixelSize(R.dimen.sub_floating_action_button_size);
+    private static final int MARGIN = ContextRetriever.INSTANCE.getCurrentResources().getDimensionPixelSize(R.dimen.sub_floating_action_button_margin);
 
     public static FloatingActionButton createFrom(Context context, @ColorRes int color, @DrawableRes int drawableId, @IdRes int resId) {
         return new FloatingActionButton.Builder(context)

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
   <!-- Base application theme. -->
   <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -7,12 +7,13 @@
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
+    <item name="android:background">@android:color/transparent</item>
   </style>
 
   <style name="BrushColorCircularView">
     <item name="android:layout_width">@dimen/option_color_image_diameter</item>
     <item name="android:layout_height">@dimen/option_color_image_diameter</item>
-    <item name="android:layout_marginStart">@dimen/option_content_margin_top</item>
+    <item name="android:layout_marginStart" tools:targetApi="17">@dimen/option_content_margin_top</item>
     <item name="android:layout_marginLeft">@dimen/option_content_margin_top</item>
     <item name="border_width">@dimen/divider_weight</item>
     <item name="android:layout_gravity">center_vertical</item>

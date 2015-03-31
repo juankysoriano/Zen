@@ -81,13 +81,19 @@ public class FloatingActionButton extends View {
     @Override
     public boolean onTouchEvent(@NonNull MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_UP) {
-            touching = false;
-            invalidate();
+            performClick();
         } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
             touching = true;
             invalidate();
         }
         return super.onTouchEvent(event);
+    }
+
+    @Override
+    public boolean performClick() {
+        touching = false;
+        invalidate();
+        return super.performClick();
     }
 
     public void hide() {
@@ -154,7 +160,7 @@ public class FloatingActionButton extends View {
         private int id;
         private FrameLayout.LayoutParams params;
         private final Activity activity;
-        private int gravity = Gravity.BOTTOM | Gravity.RIGHT; // default bottom right
+        private int gravity = Gravity.BOTTOM | Gravity.END;
         private Drawable drawable;
         private int color = Color.WHITE;
         private int pressedColor;

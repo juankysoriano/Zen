@@ -1,20 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <!--FAB-->
-  <dimen name="floating_button_margin">16dp</dimen>
+  <dimen name="menu_floating_action_button_size">80dp</dimen>
+  <dimen name="menu_floating_action_button_radius">140dp</dimen>
 
-  <dimen name="red_action_button_size">80dp</dimen>
-  <dimen name="red_action_button_margin">48dp</dimen>
-  <dimen name="red_action_button_content_size">16dp</dimen>
-  <dimen name="red_action_button_content_margin">36dp</dimen>
-  <dimen name="red_action_menu_radius">140dp</dimen>
-
-  <dimen name="blue_sub_action_button_size">50dp</dimen>
-  <dimen name="blue_sub_action_button_margin">16dp</dimen>
-
-  <dimen name="radius_large">120dp</dimen>
-  <dimen name="radius_small">30dp</dimen>
-  <dimen name="radius_medium">72dp</dimen>
+  <dimen name="sub_floating_action_button_size">50dp</dimen>
+  <dimen name="sub_floating_action_button_margin">16dp</dimen>
 
   <!--SKETCH-->
   <dimen name="ink_drop_min_radius">1.5dp</dimen>
@@ -29,13 +20,11 @@
   <dimen name="option_text_margin_start">72dp</dimen>
   <dimen name="option_icon_margin_end">36dp</dimen>
   <dimen name="option_content_margin_top">12dp</dimen>
-  <dimen name="option_content_margin_bottom">12dp</dimen>
   <dimen name="option_content_margin_start">12dp</dimen>
   <dimen name="option_color_image_diameter">40dp</dimen>
   <dimen name="option_size_image_diameter">52dp</dimen>
   <dimen name="divider_weight">0.5dp</dimen>
   <dimen name="color_selected_weight">1.5dp</dimen>
-  <dimen name="option_icon_size">24dp</dimen>
   <dimen name="min_flower_size">18dp</dimen>
   <dimen name="max_flower_size">25dp</dimen>
   <dimen name="option_dialog_width">400dp</dimen>

@@ -48,10 +48,6 @@ android {
         }
     }
 
-    lintOptions {
-        abortOnError false
-    }
-
     dependencies {
         compile project(':rainbow-lib')
         compile project(':circularmenu-library')

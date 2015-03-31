@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="colorNeutral">#cccccc</color>
   <color name="colorAccent">#FF5252</color>
   <color name="colorPrimaryLight">#C8E6C9</color>
   <color name="colorPrimary">#4CAF50</color>
@@ -8,6 +7,5 @@
   <color name="colorSketch">#FFFDE7</color>
   <color name="dark_brush">#212121</color>
   <color name="grey_brush">#616161</color>
-  <color name="light_grey_brush">#F5F5F5</color>
   <color name="divider">#21212121</color>
 </resources>

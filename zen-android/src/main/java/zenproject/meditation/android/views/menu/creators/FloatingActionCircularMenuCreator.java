@@ -13,8 +13,8 @@ import zenproject.meditation.android.R;
 import zenproject.meditation.android.views.menu.FloatingActionButton;
 
 public abstract class FloatingActionCircularMenuCreator {
-    private static final int MENU_RADIUS = ContextRetriever.INSTANCE.getCurrentResources().getDimensionPixelSize(R.dimen.red_action_menu_radius);
-    private static final int BUTTON_SIZE = ContextRetriever.INSTANCE.getCurrentResources().getDimensionPixelSize(R.dimen.red_action_button_size);
+    private static final int MENU_RADIUS = ContextRetriever.INSTANCE.getCurrentResources().getDimensionPixelSize(R.dimen.menu_floating_action_button_radius);
+    private static final int BUTTON_SIZE = ContextRetriever.INSTANCE.getCurrentResources().getDimensionPixelSize(R.dimen.menu_floating_action_button_size);
     private static final int MARGIN = ContextRetriever.INSTANCE.getCurrentResources().getDimensionPixelOffset(R.dimen.action_button_margin);
     private static final int MENU_COLOR = ContextRetriever.INSTANCE.getCurrentResources().getColor(R.color.colorAccent);
 
