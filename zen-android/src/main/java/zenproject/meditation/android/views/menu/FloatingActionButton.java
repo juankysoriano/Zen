@@ -81,19 +81,13 @@ public class FloatingActionButton extends View {
     @Override
     public boolean onTouchEvent(@NonNull MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_UP) {
-            performClick();
+            touching = false;
+            invalidate();
         } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
             touching = true;
             invalidate();
         }
         return super.onTouchEvent(event);
-    }
-
-    @Override
-    public boolean performClick() {
-        touching = false;
-        invalidate();
-        return super.performClick();
     }
 
     public void hide() {
