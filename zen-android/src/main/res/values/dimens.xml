@@ -41,6 +41,7 @@
   <dimen name="option_dialog_width">400dp</dimen>
   <dimen name="shadow_fab_touch">5dp</dimen>
   <dimen name="shadow_fab_untouch">2.5dp</dimen>
+  <dimen name="more_flowers_margin">20dp</dimen>
 
 
 </resources>

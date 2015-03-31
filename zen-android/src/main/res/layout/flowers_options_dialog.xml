@@ -4,17 +4,14 @@
   android:layout_height="wrap_content"
   android:orientation="vertical">
 
-  <include
-    layout="@layout/included_option_flower_mode" />
+  <include layout="@layout/included_option_flower_mode" />
 
-  <View
+  <ImageView
+    android:id="@+id/more_flowers"
     android:layout_width="match_parent"
-    android:layout_marginStart="@dimen/option_text_margin_start"
-    android:layout_marginTop="@dimen/option_content_margin_top"
-    android:layout_height="@dimen/divider_weight"
-    android:background="@color/divider" />
-
-  <include
-    layout="@layout/included_option_ink_issue_mode" />
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/more_flowers_margin"
+    android:src="@drawable/more_flowers"
+    android:contentDescription="@null"/>
 
 </LinearLayout>
