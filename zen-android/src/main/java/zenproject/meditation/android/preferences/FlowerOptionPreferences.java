@@ -24,6 +24,6 @@ public class FlowerOptionPreferences {
     }
 
     public Flower getFlower() {
-        return Flower.from(sharedPreferences.getInt(PREF_FLOWER, Flower.CHERRY.ordinal()));
+        return Flower.from(sharedPreferences.getInt(PREF_FLOWER, Flower.POPPY.ordinal()));
     }
 }

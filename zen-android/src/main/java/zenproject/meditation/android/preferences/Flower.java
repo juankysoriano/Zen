@@ -2,10 +2,10 @@ package zenproject.meditation.android.preferences;
 
 public enum Flower {
     NONE,
-    CHERRY,
-    MECONOPSIS,
+    INK_FLOWER,
     POPPY,
-    VIOLET;
+    MECONOPSIS,
+    CHERRY;
 
     public static Flower from(int value) {
         for (Flower flower : values()) {

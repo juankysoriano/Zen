@@ -70,8 +70,8 @@ public abstract class FlowerDrawer implements RainbowImage.LoadPictureListener {
                 return MeconopsisDrawer.newInstance(rainbowDrawer);
             case POPPY:
                 return PoppyDrawer.newInstance(rainbowDrawer);
-            case VIOLET:
-                return VioletDrawer.newInstance(rainbowDrawer);
+            case INK_FLOWER:
+                return InkFlowerDrawer.newInstance(rainbowDrawer);
             default:
                 return NullFlowerDrawer.newInstance(rainbowDrawer);
         }

@@ -24,7 +24,7 @@ public class FlowerView extends LinearLayout {
     private CircleImageView cherryFlower;
     private CircleImageView meconopsisFlower;
     private CircleImageView poppyFlower;
-    private CircleImageView violetFlower;
+    private CircleImageView inkFlower;
 
     private FlowerSelectedListener flowerSelectedListener;
 
@@ -46,7 +46,7 @@ public class FlowerView extends LinearLayout {
         cherryFlower = Views.findById(this, R.id.cherry);
         meconopsisFlower = Views.findById(this, R.id.meconopsis);
         poppyFlower = Views.findById(this, R.id.poppy);
-        violetFlower = Views.findById(this, R.id.violet);
+        inkFlower = Views.findById(this, R.id.ink_flower);
 
         setSelectedFrom(FlowerOptionPreferences.newInstance().getFlower());
     }
@@ -90,11 +90,11 @@ public class FlowerView extends LinearLayout {
                 notifyFlowerSelected(Flower.POPPY);
             }
         });
-        violetFlower.setOnClickListener(new View.OnClickListener() {
+        inkFlower.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setSelected((CircleImageView) v);
-                notifyFlowerSelected(Flower.VIOLET);
+                notifyFlowerSelected(Flower.INK_FLOWER);
             }
         });
     }
@@ -108,8 +108,8 @@ public class FlowerView extends LinearLayout {
             setSelected(meconopsisFlower);
         } else if (Flower.POPPY == flower) {
             setSelected(poppyFlower);
-        } else if (Flower.VIOLET == flower) {
-            setSelected(violetFlower);
+        } else if (Flower.INK_FLOWER == flower) {
+            setSelected(inkFlower);
         }
     }
 
@@ -124,13 +124,13 @@ public class FlowerView extends LinearLayout {
         cherryFlower.setBorderColor(DIVIDER);
         meconopsisFlower.setBorderColor(DIVIDER);
         poppyFlower.setBorderColor(DIVIDER);
-        violetFlower.setBorderColor(DIVIDER);
+        inkFlower.setBorderColor(DIVIDER);
 
         noneFlower.setBorderWidth(UNSELECTED_BORDER_SIZE);
         cherryFlower.setBorderWidth(UNSELECTED_BORDER_SIZE);
         meconopsisFlower.setBorderWidth(UNSELECTED_BORDER_SIZE);
         poppyFlower.setBorderWidth(UNSELECTED_BORDER_SIZE);
-        violetFlower.setBorderWidth(UNSELECTED_BORDER_SIZE);
+        inkFlower.setBorderWidth(UNSELECTED_BORDER_SIZE);
     }
 
     @Override
@@ -140,7 +140,7 @@ public class FlowerView extends LinearLayout {
         cherryFlower.setOnClickListener(null);
         meconopsisFlower.setOnClickListener(null);
         poppyFlower.setOnClickListener(null);
-        violetFlower.setOnClickListener(null);
+        inkFlower.setOnClickListener(null);
     }
 
     private void notifyFlowerSelected(Flower flower) {

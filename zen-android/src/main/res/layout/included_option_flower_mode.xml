@@ -30,6 +30,11 @@
       android:layout_height="wrap_content">
 
       <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ink_flower"
+        style="@style/BrushColorCircularView"
+        android:src="@drawable/violet" />
+
+      <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/no_flower"
         android:layout_marginStart="0dp"
         style="@style/BrushColorCircularView"
@@ -49,11 +54,6 @@
         android:id="@+id/poppy"
         style="@style/BrushColorCircularView"
         android:src="@drawable/poppy" />
-
-      <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/violet"
-        style="@style/BrushColorCircularView"
-        android:src="@drawable/violet" />
 
     </zenproject.meditation.android.views.dialogs.flower.FlowerView>
   </LinearLayout>
