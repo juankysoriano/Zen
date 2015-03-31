@@ -33,6 +33,7 @@
       <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ink_issue_1"
         android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
         style="@style/BrushColorCircularView"
         android:src="@drawable/brush_ink" />
 

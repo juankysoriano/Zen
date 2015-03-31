@@ -10,6 +10,7 @@
   <View
     android:layout_width="match_parent"
     android:layout_marginStart="@dimen/option_text_margin_start"
+    android:layout_marginLeft="@dimen/option_text_margin_start"
     android:layout_marginTop="@dimen/option_content_margin_top"
     android:layout_height="@dimen/divider_weight"
     android:background="@color/divider" />

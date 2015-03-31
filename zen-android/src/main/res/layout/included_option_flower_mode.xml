@@ -9,6 +9,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/option_text_margin_start"
+    android:layout_marginLeft="@dimen/option_text_margin_start"
     android:text="@string/option_flower" />
 
   <LinearLayout
@@ -16,12 +17,14 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/option_content_margin_top"
     android:layout_marginStart="@dimen/option_content_margin_start"
+    android:layout_marginLeft="@dimen/option_content_margin_start"
     android:orientation="horizontal">
 
     <ImageView
       style="@style/OptionIcon"
       android:src="@drawable/flower_option"
       android:layout_marginEnd="@dimen/option_icon_margin_end"
+      android:layout_marginRight="@dimen/option_icon_margin_end"
       android:contentDescription="@null" />
 
     <zenproject.meditation.android.views.dialogs.flower.FlowerView
@@ -30,20 +33,16 @@
       android:layout_height="wrap_content">
 
       <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/ink_flower"
-        style="@style/BrushColorCircularView"
-        android:src="@drawable/violet" />
-
-      <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/no_flower"
         android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
         style="@style/BrushColorCircularView"
-        android:src="@drawable/none"/>
+        android:src="@drawable/none" />
 
       <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/cherry"
+        android:id="@+id/poppy"
         style="@style/BrushColorCircularView"
-        android:src="@drawable/cherry" />
+        android:src="@drawable/poppy" />
 
       <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/meconopsis"
@@ -51,9 +50,15 @@
         android:src="@drawable/meconopsis" />
 
       <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/poppy"
+        android:id="@+id/cherry"
         style="@style/BrushColorCircularView"
-        android:src="@drawable/poppy" />
+        android:src="@drawable/cherry" />
+
+      <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ink_flower"
+        style="@style/BrushColorCircularView"
+        android:src="@drawable/ink_flower" />
+
 
     </zenproject.meditation.android.views.dialogs.flower.FlowerView>
   </LinearLayout>

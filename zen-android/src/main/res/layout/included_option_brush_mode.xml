@@ -9,6 +9,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/option_text_margin_start"
+    android:layout_marginLeft="@dimen/option_text_margin_start"
     android:text="@string/option_ink_color" />
 
   <LinearLayout
@@ -16,12 +17,14 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/option_content_margin_top"
     android:layout_marginStart="@dimen/option_content_margin_start"
+    android:layout_marginLeft="@dimen/option_content_margin_start"
     android:orientation="horizontal">
 
     <ImageView
       style="@style/OptionIcon"
       android:src="@drawable/palette"
       android:layout_marginEnd="@dimen/option_icon_margin_end"
+      android:layout_marginRight="@dimen/option_icon_margin_end"
       android:contentDescription="@null"/>
 
     <zenproject.meditation.android.views.dialogs.brush.color.ColorView
@@ -33,6 +36,7 @@
         android:id="@+id/erase_brush"
         style="@style/BrushColorCircularView"
         android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
         android:src="@drawable/eraser" />
 
       <de.hdodenhof.circleimageview.CircleImageView

@@ -1,4 +1,4 @@
-apply plugin: 'robolectric'
+apply plugin: 'org.robolectric'
 
 robolectric {
     // configure the set of classes for JUnit tests

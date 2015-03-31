@@ -1,6 +1,6 @@
 buildscript {
     dependencies {
-        classpath 'org.robolectric:robolectric-gradle-plugin:0.13.2'
+        classpath 'org.robolectric:robolectric-gradle-plugin:1.0.0'
     }
 }
 

@@ -9,6 +9,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/option_text_margin_start"
+    android:layout_marginLeft="@dimen/option_text_margin_start"
     android:layout_marginTop="@dimen/option_content_margin_top"
     android:text="@string/option_brush_size" />
 
@@ -16,6 +17,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/option_content_margin_start"
+    android:layout_marginLeft="@dimen/option_content_margin_start"
     android:orientation="horizontal">
 
     <ImageView
@@ -23,6 +25,7 @@
       android:src="@drawable/rule"
       android:layout_marginTop="@dimen/option_content_margin_top"
       android:layout_marginEnd="@dimen/option_icon_margin_end"
+      android:layout_marginRight="@dimen/option_icon_margin_end"
       android:contentDescription="@null" />
 
     <zenproject.meditation.android.views.dialogs.brush.size.SizeView
@@ -38,6 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
         android:layout_marginStart="-6dp"
+        android:layout_marginLeft="-6dp"
         android:max="100" />
 
       <zenproject.meditation.android.views.dialogs.brush.size.BrushSizeImage
@@ -47,6 +51,7 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
         android:layout_marginBottom="0dp"
         android:contentDescription="@null" />
     </zenproject.meditation.android.views.dialogs.brush.size.SizeView>
