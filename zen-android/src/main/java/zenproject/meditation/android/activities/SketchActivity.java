@@ -29,7 +29,7 @@ public class SketchActivity extends ZenActivity {
 
     public SketchActivity() {
         zenSketch = ZenSketch.newInstance();
-        navigator = Navigator.newInstance();
+        navigator = Navigator.newInstance(zenSketch);
         screenshotTaker = ScreenshotTaker.newInstance(zenSketch);
     }
 

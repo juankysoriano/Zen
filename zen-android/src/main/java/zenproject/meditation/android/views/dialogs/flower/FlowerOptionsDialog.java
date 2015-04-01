@@ -37,9 +37,11 @@ public class FlowerOptionsDialog extends ZenDialog implements FlowerSelectedList
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
+                        if (hasFlowerSelectedListener()) {
+                            flowerSelectedListener.onFlowerSelected(selectedFlower);
+                        }
                         trackPreferences();
                         storePreferences();
-                        flowerSelectedListener.onFlowerSelected(selectedFlower);
                     }
                 })
                 .build();
@@ -48,6 +50,14 @@ public class FlowerOptionsDialog extends ZenDialog implements FlowerSelectedList
         flowerView.setFlowerSelectedListener(this);
 
         return materialDialog;
+    }
+
+    private boolean hasFlowerSelectedListener() {
+        return this.flowerSelectedListener != null;
+    }
+
+    public void setFlowerSelectedListener(FlowerSelectedListener flowerSelectedListener) {
+        this.flowerSelectedListener = flowerSelectedListener;
     }
 
     private void trackPreferences() {
@@ -62,9 +72,5 @@ public class FlowerOptionsDialog extends ZenDialog implements FlowerSelectedList
     @Override
     public void onFlowerSelected(Flower flower) {
         selectedFlower = flower;
-    }
-
-    public void setFlowerSelectedListener(FlowerSelectedListener flowerSelectedListener) {
-        this.flowerSelectedListener = flowerSelectedListener;
     }
 }

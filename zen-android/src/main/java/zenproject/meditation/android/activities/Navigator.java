@@ -1,36 +1,44 @@
 package zenproject.meditation.android.activities;
 
-import android.support.v4.app.FragmentManager;
-
 import com.novoda.notils.caster.Classes;
 
 import zenproject.meditation.android.AnalyticsTracker;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.views.dialogs.brush.BrushOptionsDialog;
 import zenproject.meditation.android.views.dialogs.flower.FlowerOptionsDialog;
+import zenproject.meditation.android.views.dialogs.flower.FlowerSelectedListener;
 
 public class Navigator {
 
-    private final FragmentManager fragmentManager;
+    private final BrushOptionsDialog brushOptionsDialog;
+    private final FlowerOptionsDialog flowerOptionsDialog;
 
-    protected Navigator(FragmentManager fragmentManager) {
-        this.fragmentManager = fragmentManager;
+    protected Navigator(BrushOptionsDialog brushOptionsDialog, FlowerOptionsDialog flowerOptionsDialog) {
+        this.brushOptionsDialog = brushOptionsDialog;
+        this.flowerOptionsDialog = flowerOptionsDialog;
     }
 
-    public static Navigator newInstance() {
-        ZenActivity zenActivity = Classes.from(ContextRetriever.INSTANCE.getActivityContext());
-        return new Navigator(zenActivity.getSupportFragmentManager());
+    public static Navigator newInstance(FlowerSelectedListener flowerSelectedListener) {
+        BrushOptionsDialog brushOptionsDialog = new BrushOptionsDialog();
+        FlowerOptionsDialog flowerOptionsDialog = new FlowerOptionsDialog();
+        flowerOptionsDialog.setFlowerSelectedListener(flowerSelectedListener);
+        return new Navigator(brushOptionsDialog, flowerOptionsDialog);
     }
 
     public void openBrushSelectionDialog() {
-        BrushOptionsDialog brushDialog = new BrushOptionsDialog();
-        brushDialog.show(fragmentManager, BrushOptionsDialog.TAG);
-        AnalyticsTracker.INSTANCE.trackDialogOpened(BrushOptionsDialog.TAG);
+        if (!brushOptionsDialog.isAdded()) {
+            ZenActivity zenActivity = Classes.from(ContextRetriever.INSTANCE.getActivityContext());
+
+            brushOptionsDialog.show(zenActivity.getSupportFragmentManager(), BrushOptionsDialog.TAG);
+            AnalyticsTracker.INSTANCE.trackDialogOpened(BrushOptionsDialog.TAG);
+        }
     }
 
     public void openFlowerSelectionDialog() {
-        FlowerOptionsDialog flowerOptionsDialog = new FlowerOptionsDialog();
-        flowerOptionsDialog.show(fragmentManager, FlowerOptionsDialog.TAG);
-        AnalyticsTracker.INSTANCE.trackDialogOpened(FlowerOptionsDialog.TAG);
+        if(!flowerOptionsDialog.isAdded()) {
+            ZenActivity zenActivity = Classes.from(ContextRetriever.INSTANCE.getActivityContext());
+            flowerOptionsDialog.show(zenActivity.getSupportFragmentManager(), FlowerOptionsDialog.TAG);
+            AnalyticsTracker.INSTANCE.trackDialogOpened(FlowerOptionsDialog.TAG);
+        }
     }
 }
