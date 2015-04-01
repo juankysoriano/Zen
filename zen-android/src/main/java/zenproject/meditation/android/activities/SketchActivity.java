@@ -1,19 +1,14 @@
 package zenproject.meditation.android.activities;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.view.View;
 
-import com.novoda.notils.logger.toast.Toaster;
 import com.oguzdev.circularfloatingactionmenu.library.CircularMenu;
 
-import zenproject.meditation.android.AnalyticsTracker;
-import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.sketch.ZenSketch;
+import zenproject.meditation.android.sketch.performers.ScreenshotTaker;
 import zenproject.meditation.android.views.ZenSketchView;
-import zenproject.meditation.android.views.dialogs.brush.BrushOptionsDialog;
-import zenproject.meditation.android.views.dialogs.flower.FlowerOptionsDialog;
 import zenproject.meditation.android.views.menu.FloatingActionButton;
 
 import static zenproject.meditation.android.views.menu.creators.FloatingActionCircularMenuCreator.MenuId;
@@ -22,16 +17,20 @@ import static zenproject.meditation.android.views.menu.creators.FloatingActionCi
 public class SketchActivity extends ZenActivity {
 
     private final ZenSketch zenSketch;
+    private final Navigator navigator;
+    private final ScreenshotTaker screenshotTaker;
     private ZenSketchView zenSketchView;
     private CircularMenu circularMenu;
     private FloatingActionButton menuButton;
     private FloatingActionButton restartButton;
     private FloatingActionButton brushButton;
     private FloatingActionButton flowersButton;
-    private FloatingActionButton saveButton;
+    private FloatingActionButton screenshotButton;
 
     public SketchActivity() {
         zenSketch = ZenSketch.newInstance();
+        navigator = Navigator.newInstance();
+        screenshotTaker = ScreenshotTaker.newInstance(zenSketch);
     }
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +69,7 @@ public class SketchActivity extends ZenActivity {
         restartButton = (FloatingActionButton) circularMenu.findSubActionViewWithId(MenuId.RESTART_ID);
         brushButton = (FloatingActionButton) circularMenu.findSubActionViewWithId(MenuId.BRUSH_ID);
         flowersButton = (FloatingActionButton) circularMenu.findSubActionViewWithId(MenuId.FLOWERS_ID);
-        saveButton = (FloatingActionButton) circularMenu.findSubActionViewWithId(MenuId.SAVE_ID);
+        screenshotButton = (FloatingActionButton) circularMenu.findSubActionViewWithId(MenuId.SAVE_ID);
         menuButton = (FloatingActionButton) circularMenu.getActionView();
     }
 
@@ -81,7 +80,7 @@ public class SketchActivity extends ZenActivity {
         flowersButton.setOnClickListener(onFlowersListener);
         restartButton.setOnClickListener(onRestartListener);
         menuButton.setOnClickListener(onMenuToggleListener);
-        saveButton.setOnClickListener(onSaveListener);
+        screenshotButton.setOnClickListener(onScreenshotListener);
     }
 
     @Override
@@ -114,7 +113,7 @@ public class SketchActivity extends ZenActivity {
         flowersButton.setOnClickListener(null);
         restartButton.setOnClickListener(null);
         menuButton.setOnClickListener(null);
-        saveButton.setOnClickListener(null);
+        screenshotButton.setOnClickListener(null);
     }
 
     /**
@@ -138,24 +137,14 @@ public class SketchActivity extends ZenActivity {
     private final View.OnClickListener onBrushListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            FragmentManager fm = getSupportFragmentManager();
-            BrushOptionsDialog brushDialog = new BrushOptionsDialog();
-            brushDialog.show(fm, "brush_option_dialog");
-            AnalyticsTracker.INSTANCE.trackDialogOpened("brush_option_dialog");
+            navigator.openBrushSelectionDialog();
         }
     };
 
-    /**
-     * TODO open flowers options dialog
-     */
     private final View.OnClickListener onFlowersListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            FragmentManager fm = getSupportFragmentManager();
-            FlowerOptionsDialog flowersDialog = new FlowerOptionsDialog();
-            flowersDialog.setFlowerSelectedListener(zenSketch);
-            flowersDialog.show(fm, "flower_option_dialog");
-            AnalyticsTracker.INSTANCE.trackDialogOpened("flower_option_dialog");
+            navigator.openFlowerSelectionDialog();
         }
     };
 
@@ -179,22 +168,16 @@ public class SketchActivity extends ZenActivity {
         }
     };
 
-    /**
-     * TODO do save
-     */
-    private final View.OnClickListener onSaveListener = new View.OnClickListener() {
+    private final View.OnClickListener onScreenshotListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            zenSketch.getRainbowDrawer().save("Zen", "User sketch");
-            Toaster.newInstance(ContextRetriever.INSTANCE.getCurrentContext()).popToast(R.string.save_sketch);
-            AnalyticsTracker.INSTANCE.trackScreenshot();
+            screenshotTaker.takeScreenshot();
         }
     };
 
     private final ZenSketchView.onClearListener onClearListener = new ZenSketchView.onClearListener() {
         @Override
         public void onRevealed() {
-            AnalyticsTracker.INSTANCE.trackClearSketch();
             zenSketch.clear();
         }
     };

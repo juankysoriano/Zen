@@ -10,6 +10,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 
 import zenproject.meditation.android.AnalyticsTracker;
+import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.preferences.BrushColor;
 import zenproject.meditation.android.preferences.BrushOptionsPreferences;
@@ -18,6 +19,7 @@ import zenproject.meditation.android.views.dialogs.brush.color.ColorView;
 import zenproject.meditation.android.views.dialogs.brush.size.SizeView;
 
 public class BrushOptionsDialog extends ZenDialog implements ColorSelectedListener, SizeChangedListener {
+    public static final String TAG = "BrushOptionsDialog";
 
     private BrushColor selectedColor = BrushOptionsPreferences.newInstance().getBrushColor();
     private int selectedSize = BrushOptionsPreferences.newInstance().getBrushSize();
@@ -27,12 +29,12 @@ public class BrushOptionsDialog extends ZenDialog implements ColorSelectedListen
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         MaterialDialog materialDialog = new MaterialDialog.Builder(getActivity())
-                .title("Brush options")
+                .title(ContextRetriever.INSTANCE.getCurrentResources().getString(R.string.brush_options_title))
                 .backgroundColor(Color.WHITE)
                 .customView(R.layout.brush_options_dialog, false)
-                .positiveText("Done")
+                .positiveText(ContextRetriever.INSTANCE.getCurrentResources().getString(R.string.option_done))
                 .positiveColorRes(R.color.colorPrimaryDark)
-                .negativeText("Cancel")
+                .negativeText(ContextRetriever.INSTANCE.getCurrentResources().getString(R.string.option_cancel))
                 .negativeColorRes(R.color.colorAccent)
                 .theme(Theme.LIGHT)
                 .callback(new MaterialDialog.ButtonCallback() {

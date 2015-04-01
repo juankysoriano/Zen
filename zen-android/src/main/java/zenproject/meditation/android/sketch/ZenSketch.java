@@ -6,6 +6,7 @@ import com.juankysoriano.rainbow.core.Rainbow;
 import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
 import com.juankysoriano.rainbow.core.event.RainbowInputController;
 
+import zenproject.meditation.android.AnalyticsTracker;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.model.InkDropSizeLimiter;
@@ -113,6 +114,7 @@ public class ZenSketch extends Rainbow implements RainbowInputController.Rainbow
     }
 
     public void clear() {
+        AnalyticsTracker.INSTANCE.trackClearSketch();
         rainbowDrawer.background(DEFAULT_COLOR);
         branchesList.clear();
     }

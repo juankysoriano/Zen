@@ -9,6 +9,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 
 import zenproject.meditation.android.AnalyticsTracker;
+import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.preferences.Flower;
 import zenproject.meditation.android.preferences.FlowerOptionPreferences;
@@ -16,6 +17,7 @@ import zenproject.meditation.android.views.dialogs.ZenDialog;
 // ...
 
 public class FlowerOptionsDialog extends ZenDialog implements FlowerSelectedListener {
+    public static final String TAG = "FlowerOptionsDialog";
 
     private Flower selectedFlower = FlowerOptionPreferences.newInstance().getFlower();
     private FlowerSelectedListener flowerSelectedListener;
@@ -24,12 +26,12 @@ public class FlowerOptionsDialog extends ZenDialog implements FlowerSelectedList
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         MaterialDialog materialDialog = new MaterialDialog.Builder(getActivity())
-                .title("Flower options")
+                .title(ContextRetriever.INSTANCE.getCurrentResources().getString(R.string.flower_options_title))
                 .backgroundColor(Color.WHITE)
                 .customView(R.layout.flowers_options_dialog, false)
-                .positiveText("Done")
+                .positiveText(ContextRetriever.INSTANCE.getCurrentResources().getString(R.string.option_done))
                 .positiveColorRes(R.color.colorPrimaryDark)
-                .negativeText("Cancel")
+                .negativeText(ContextRetriever.INSTANCE.getCurrentResources().getString(R.string.option_cancel))
                 .negativeColorRes(R.color.colorAccent)
                 .theme(Theme.LIGHT)
                 .callback(new MaterialDialog.ButtonCallback() {
