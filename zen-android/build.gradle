@@ -35,7 +35,7 @@ android {
         versionCode rootProject.ext.VERSION_CODE
         versionName rootProject.ext.VERSION_NAME
 
-        resValue 'string', 'trackingID', googleAnalyticisId  //this value is from ~/.gradle/gradle.properties
+        resValue 'string', 'trackingID', googleAnalyticsId  //this value is from ~/.gradle/gradle.properties
         resValue 'string', 'applicationVersion', rootProject.ext.VERSION_NAME
 
         proguardFile getDefaultProguardFile('proguard-android.txt')
