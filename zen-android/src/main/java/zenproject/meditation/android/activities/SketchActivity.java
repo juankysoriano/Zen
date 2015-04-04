@@ -10,8 +10,7 @@ import zenproject.meditation.android.sketch.ZenSketch;
 import zenproject.meditation.android.sketch.performers.ScreenshotTaker;
 import zenproject.meditation.android.views.ZenSketchView;
 import zenproject.meditation.android.views.menu.FloatingActionButton;
-
-import static zenproject.meditation.android.views.menu.creators.FloatingActionCircularMenuCreator.MenuId;
+import zenproject.meditation.android.views.menu.MenuId;
 
 @SuppressWarnings({"PMD.TooManyMethods", "PMD.FieldDeclarationsShouldBeAtStartOfClass"})
 public class SketchActivity extends ZenActivity {
