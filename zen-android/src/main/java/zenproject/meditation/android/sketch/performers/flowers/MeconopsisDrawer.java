@@ -12,6 +12,10 @@ import zenproject.meditation.android.R;
 public class MeconopsisDrawer extends FlowerDrawer {
     private static final int NUM_FLOWERS = 5;
 
+    protected MeconopsisDrawer(List<RainbowImage> flowerImages, RainbowDrawer rainbowDrawer) {
+        super(flowerImages, rainbowDrawer);
+    }
+
     public static FlowerDrawer newInstance(RainbowDrawer rainbowDrawer) {
         MeconopsisDrawer meconopsisDrawer = new MeconopsisDrawer(new ArrayList<RainbowImage>(NUM_FLOWERS), rainbowDrawer);
         rainbowDrawer.loadImage(R.drawable.meconopsis_1, RainbowImage.LOAD_ORIGINAL_SIZE, meconopsisDrawer);
@@ -21,10 +25,6 @@ public class MeconopsisDrawer extends FlowerDrawer {
         rainbowDrawer.loadImage(R.drawable.meconopsis_5, RainbowImage.LOAD_ORIGINAL_SIZE, meconopsisDrawer);
 
         return meconopsisDrawer;
-    }
-
-    private MeconopsisDrawer(List<RainbowImage> flowerImages, RainbowDrawer rainbowDrawer) {
-        super(flowerImages, rainbowDrawer);
     }
 
     @Override

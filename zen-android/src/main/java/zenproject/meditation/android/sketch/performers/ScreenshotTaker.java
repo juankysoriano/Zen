@@ -12,7 +12,7 @@ public class ScreenshotTaker {
     private static final String PICTURE_TITLE = ContextRetriever.INSTANCE.getCurrentResources().getString(R.string.picture_title);
     private final ZenSketch zenSketch;
 
-    private ScreenshotTaker(ZenSketch zenSketch) {
+    protected ScreenshotTaker(ZenSketch zenSketch) {
         this.zenSketch = zenSketch;
     }
 

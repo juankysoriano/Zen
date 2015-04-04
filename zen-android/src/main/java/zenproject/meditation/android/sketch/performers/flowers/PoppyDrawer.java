@@ -12,6 +12,10 @@ import zenproject.meditation.android.R;
 public class PoppyDrawer extends FlowerDrawer {
     private static final int NUM_FLOWERS = 5;
 
+    protected PoppyDrawer(List<RainbowImage> flowerImages, RainbowDrawer rainbowDrawer) {
+        super(flowerImages, rainbowDrawer);
+    }
+
     public static FlowerDrawer newInstance(RainbowDrawer rainbowDrawer) {
         PoppyDrawer poppyDrawer = new PoppyDrawer(new ArrayList<RainbowImage>(NUM_FLOWERS), rainbowDrawer);
         rainbowDrawer.loadImage(R.drawable.poppy_1, RainbowImage.LOAD_ORIGINAL_SIZE, poppyDrawer);
@@ -21,10 +25,6 @@ public class PoppyDrawer extends FlowerDrawer {
         rainbowDrawer.loadImage(R.drawable.poppy_5, RainbowImage.LOAD_ORIGINAL_SIZE, poppyDrawer);
 
         return poppyDrawer;
-    }
-
-    private PoppyDrawer(List<RainbowImage> flowerImages, RainbowDrawer rainbowDrawer) {
-        super(flowerImages, rainbowDrawer);
     }
 
     @Override

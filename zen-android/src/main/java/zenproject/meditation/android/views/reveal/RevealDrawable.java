@@ -22,8 +22,8 @@ public class RevealDrawable extends Drawable {
     private final Paint revealPaint;
     private float radius;
     private Point origin;
-    protected float revealScale;
-    protected int revealAlpha;
+    private float revealScale;
+    private int revealAlpha;
 
     public static RevealDrawable newInstance(Context context) {
         Paint revealPaint = new Paint(Paint.ANTI_ALIAS_FLAG);

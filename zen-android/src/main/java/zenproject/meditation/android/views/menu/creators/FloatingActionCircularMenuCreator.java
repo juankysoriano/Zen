@@ -11,6 +11,7 @@ import com.oguzdev.circularfloatingactionmenu.library.CircularMenu;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.views.menu.FloatingActionButton;
+import zenproject.meditation.android.views.menu.MenuId;
 
 public abstract class FloatingActionCircularMenuCreator {
     private static final int MENU_RADIUS = ContextRetriever.INSTANCE.getCurrentResources().getDimensionPixelSize(R.dimen.menu_floating_action_button_radius);
@@ -44,20 +45,4 @@ public abstract class FloatingActionCircularMenuCreator {
                 .create();
     }
 
-    public interface MenuId {
-        @IdRes
-        int BRUSH_ID = 1;
-        @IdRes
-        int RESTART_ID = 2;
-        @IdRes
-        int MUSIC_ID = 3;
-        @IdRes
-        int FLOWERS_ID = 4;
-        @IdRes
-        int SAVE_ID = 5;
-        @IdRes
-        int SHARE_ID = 6;
-        @IdRes
-        int MENU_ID = 7;
-    }
 }

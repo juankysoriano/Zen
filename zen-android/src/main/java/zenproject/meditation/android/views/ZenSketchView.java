@@ -21,7 +21,7 @@ public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintin
     private static final int MILLISECONDS_TO_HIDE = 150;
     private static final int MILLISECONDS_TO_SHOW = 150;
     private RevealView revealView;
-    private onClearListener onClearListener;
+    private OnClearListener OnClearListener;
     private CircularMenu circularMenu;
     private FloatingActionButton menuButton;
     private boolean isPainting;
@@ -98,19 +98,19 @@ public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintin
         }
     };
 
-    public void setOnClearListener(onClearListener onClearListener) {
-        this.onClearListener = onClearListener;
+    public void setOnClearListener(OnClearListener OnClearListener) {
+        this.OnClearListener = OnClearListener;
     }
 
     private boolean hasOnRevealListener() {
-        return onClearListener != null;
+        return OnClearListener != null;
     }
 
     private final Animator.AnimatorListener revealAnimatorListener = new AnimatorListenerAdapter() {
         @Override
         public void onAnimationEnd(Animator animation) {
             if (hasOnRevealListener()) {
-                onClearListener.onRevealed();
+                OnClearListener.onRevealed();
             }
         }
     };
@@ -140,7 +140,7 @@ public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintin
         showControlsWithDelay();
     }
 
-    public interface onClearListener {
+    public interface OnClearListener {
         void onRevealed();
     }
 }

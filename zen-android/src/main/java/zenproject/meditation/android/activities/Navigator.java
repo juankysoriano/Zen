@@ -35,7 +35,7 @@ public class Navigator {
     }
 
     public void openFlowerSelectionDialog() {
-        if(!flowerOptionsDialog.isAdded()) {
+        if (!flowerOptionsDialog.isAdded()) {
             ZenActivity zenActivity = Classes.from(ContextRetriever.INSTANCE.getActivityContext());
             flowerOptionsDialog.show(zenActivity.getSupportFragmentManager(), FlowerOptionsDialog.TAG);
             AnalyticsTracker.INSTANCE.trackDialogOpened(FlowerOptionsDialog.TAG);

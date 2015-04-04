@@ -12,6 +12,10 @@ import zenproject.meditation.android.R;
 public class CherryDrawer extends FlowerDrawer {
     private static final int NUM_FLOWERS = 5;
 
+    protected CherryDrawer(List<RainbowImage> flowerImages, RainbowDrawer rainbowDrawer) {
+        super(flowerImages, rainbowDrawer);
+    }
+
     public static FlowerDrawer newInstance(RainbowDrawer rainbowDrawer) {
         CherryDrawer cherryDrawer = new CherryDrawer(new ArrayList<RainbowImage>(NUM_FLOWERS), rainbowDrawer);
         rainbowDrawer.loadImage(R.drawable.cherry_1, RainbowImage.LOAD_ORIGINAL_SIZE, cherryDrawer);
@@ -23,14 +27,9 @@ public class CherryDrawer extends FlowerDrawer {
         return cherryDrawer;
     }
 
-    private CherryDrawer(List<RainbowImage> flowerImages, RainbowDrawer rainbowDrawer) {
-        super(flowerImages, rainbowDrawer);
-    }
-
     @Override
     protected float getFlowerSize() {
         return RainbowMath.random(MIN_FLOWER_SIZE, MAX_FLOWER_SIZE);
     }
-
 
 }
