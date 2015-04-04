@@ -58,7 +58,6 @@ android {
         debug {
             minifyEnabled false
             shrinkResources false
-            ext.enableCrashlytics = false
             def crashLyticsApiKey = ""
             manifestPlaceholders = [crashLyticsApiKey: crashLyticsApiKey]
 
@@ -69,7 +68,6 @@ android {
             jniDebuggable false
             shrinkResources true
             minifyEnabled true
-            ext.enableCrashlytics = true
             def crashLyticsApiKey = crashLyticsApiKey //this value is from ~/.gradle/gradle.properties
             manifestPlaceholders = [crashLyticsApiKey: crashLyticsApiKey]
 
