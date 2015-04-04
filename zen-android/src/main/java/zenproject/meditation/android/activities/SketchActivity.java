@@ -73,7 +73,7 @@ public class SketchActivity extends ZenActivity {
     }
 
     private void attachListeners() {
-        zenSketchView.setOnClearListener(OnClearListener);
+        zenSketchView.setOnClearListener(onClearListener);
         zenSketch.setOnPaintingListener(zenSketchView);
         brushButton.setOnClickListener(onBrushListener);
         flowersButton.setOnClickListener(onFlowersListener);
@@ -174,7 +174,7 @@ public class SketchActivity extends ZenActivity {
         }
     };
 
-    private final ZenSketchView.OnClearListener OnClearListener = new ZenSketchView.OnClearListener() {
+    private final ZenSketchView.OnClearListener onClearListener = new ZenSketchView.OnClearListener() {
         @Override
         public void onRevealed() {
             zenSketch.clear();
