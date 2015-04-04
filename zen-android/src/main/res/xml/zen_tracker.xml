@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <integer name="ga_sessionTimeout">300</integer>
+<resources xmlns:tools="http://schemas.android.com/tools"
+  tools:ignore="UnusedResources">
+<integer name="ga_sessionTimeout">300</integer>
 
   <!-- Enable automatic Activity measurement -->
   <bool name="ga_autoActivityTracking">true</bool>
