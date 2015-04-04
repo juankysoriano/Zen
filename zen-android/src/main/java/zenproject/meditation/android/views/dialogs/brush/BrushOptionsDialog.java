@@ -15,7 +15,7 @@ import zenproject.meditation.android.R;
 import zenproject.meditation.android.preferences.BrushColor;
 import zenproject.meditation.android.preferences.BrushOptionsPreferences;
 import zenproject.meditation.android.views.dialogs.ZenDialog;
-import zenproject.meditation.android.views.dialogs.brush.color.ColorView;
+import zenproject.meditation.android.views.dialogs.brush.color.ColorListView;
 import zenproject.meditation.android.views.dialogs.brush.size.SizeView;
 
 public class BrushOptionsDialog extends ZenDialog implements ColorSelectedListener, SizeChangedListener {
@@ -46,8 +46,8 @@ public class BrushOptionsDialog extends ZenDialog implements ColorSelectedListen
                 })
                 .build();
 
-        ColorView colorView = (ColorView) materialDialog.getCustomView().findViewById(R.id.color_picker);
-        colorView.setColorSelectedListener(this);
+        ColorListView colorListView = (ColorListView) materialDialog.getCustomView().findViewById(R.id.color_picker);
+        colorListView.setColorSelectedListener(this);
 
         sizeView = (SizeView) materialDialog.getCustomView().findViewById(R.id.brush_size);
         sizeView.setSizeChangedListener(this);

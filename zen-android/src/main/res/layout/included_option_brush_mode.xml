@@ -27,7 +27,7 @@
       android:layout_marginRight="@dimen/option_icon_margin_end"
       android:contentDescription="@null"/>
 
-    <zenproject.meditation.android.views.dialogs.brush.color.ColorView
+    <zenproject.meditation.android.views.dialogs.brush.color.ColorListView
       android:id="@+id/color_picker"
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
@@ -59,7 +59,7 @@
         style="@style/BrushColorCircularView"
         android:src="@color/colorAccent" />
 
-    </zenproject.meditation.android.views.dialogs.brush.color.ColorView>
+    </zenproject.meditation.android.views.dialogs.brush.color.ColorListView>
   </LinearLayout>
 
 </merge>

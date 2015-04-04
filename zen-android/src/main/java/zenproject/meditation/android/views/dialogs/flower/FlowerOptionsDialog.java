@@ -46,8 +46,8 @@ public class FlowerOptionsDialog extends ZenDialog implements FlowerSelectedList
                 })
                 .build();
 
-        FlowerView flowerView = (FlowerView) materialDialog.getCustomView().findViewById(R.id.flower_picker);
-        flowerView.setFlowerSelectedListener(this);
+        FlowerViewList flowerViewList = (FlowerViewList) materialDialog.getCustomView().findViewById(R.id.flower_picker);
+        flowerViewList.setFlowerSelectedListener(this);
 
         return materialDialog;
     }

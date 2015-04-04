@@ -148,7 +148,7 @@ public class SketchActivity extends ZenActivity {
     };
 
     /**
-     * TODO open music options dialog
+     * TODO open music options dialog. Implement what's needed to have a fully working music feature.
      */
     private final View.OnClickListener onMusicListener = new View.OnClickListener() {
         @Override
@@ -158,7 +158,7 @@ public class SketchActivity extends ZenActivity {
     };
 
     /**
-     * TODO do share
+     * TODO do share sketch with friends feature.
      */
     private final View.OnClickListener onShareListener = new View.OnClickListener() {
         @Override

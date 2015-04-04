@@ -15,7 +15,10 @@ import zenproject.meditation.android.preferences.FlowerOptionPreferences;
 
 import static zenproject.meditation.android.preferences.BrushColor.ACCENT;
 
-public class FlowerView extends LinearLayout {
+/**
+ * TODO Consider using an adapter when the number of flowers increases
+ */
+public class FlowerViewList extends LinearLayout {
     private static final int UNSELECTED_BORDER_SIZE = ContextRetriever.INSTANCE.getResources().getDimensionPixelSize(R.dimen.divider_weight);
     private static final int SELECTED_BORDER_SIZE = ContextRetriever.INSTANCE.getResources().getDimensionPixelSize(R.dimen.color_selected_weight);
     private static final int DIVIDER = ContextRetriever.INSTANCE.getResources().getColor(R.color.divider);
@@ -28,15 +31,15 @@ public class FlowerView extends LinearLayout {
 
     private FlowerSelectedListener flowerSelectedListener;
 
-    public FlowerView(Context context) {
+    public FlowerViewList(Context context) {
         super(context);
     }
 
-    public FlowerView(Context context, AttributeSet attrs) {
+    public FlowerViewList(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public FlowerView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public FlowerViewList(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
