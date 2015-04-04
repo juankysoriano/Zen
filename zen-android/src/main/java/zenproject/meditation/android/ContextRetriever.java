@@ -30,7 +30,7 @@ public enum ContextRetriever {
         return context;
     }
 
-    public Resources getCurrentResources() {
+    public Resources getResources() {
         return getCurrentContext().getResources();
     }
 

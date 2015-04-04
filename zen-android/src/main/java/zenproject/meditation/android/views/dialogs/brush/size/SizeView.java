@@ -13,8 +13,8 @@ import zenproject.meditation.android.preferences.BrushOptionsPreferences;
 import zenproject.meditation.android.views.dialogs.brush.SizeChangedListener;
 
 public class SizeView extends LinearLayout {
-    private static final int MAX_DROP_SIZE = ContextRetriever.INSTANCE.getCurrentResources().getDimensionPixelSize(R.dimen.ink_drop_max_radius);
-    private static final int MIN_DROP_SIZE = ContextRetriever.INSTANCE.getCurrentResources().getDimensionPixelSize(R.dimen.ink_drop_min_radius);
+    private static final int MAX_DROP_SIZE = ContextRetriever.INSTANCE.getResources().getDimensionPixelSize(R.dimen.ink_drop_max_radius);
+    private static final int MIN_DROP_SIZE = ContextRetriever.INSTANCE.getResources().getDimensionPixelSize(R.dimen.ink_drop_min_radius);
 
     private static final float PERCENTAGE_FACTOR = 0.005f;
 

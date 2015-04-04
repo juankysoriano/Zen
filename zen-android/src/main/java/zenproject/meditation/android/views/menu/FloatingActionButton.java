@@ -26,8 +26,8 @@ import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 
 public class FloatingActionButton extends View {
-    private static final float FAB_SHADOW_TOUCH = ContextRetriever.INSTANCE.getCurrentResources().getDimensionPixelSize(R.dimen.shadow_fab_touch);
-    private static final float FAB_SHADOW_UNTOUCH = ContextRetriever.INSTANCE.getCurrentResources().getDimensionPixelSize(R.dimen.shadow_fab_untouch);
+    private static final float FAB_SHADOW_TOUCH = ContextRetriever.INSTANCE.getResources().getDimensionPixelSize(R.dimen.shadow_fab_touch);
+    private static final float FAB_SHADOW_UNTOUCH = ContextRetriever.INSTANCE.getResources().getDimensionPixelSize(R.dimen.shadow_fab_untouch);
     private static final int DURATION = 400;
     private static final int ROTATED = 90;
     private static final int NOT_ROTATED = 0;
@@ -70,11 +70,11 @@ public class FloatingActionButton extends View {
         buttonPaint.setShadowLayer(touching ? FAB_SHADOW_TOUCH : FAB_SHADOW_UNTOUCH, 0.0f, 3.5f, Color.argb(touching ? 150 : 100, 0, 0, 0));
         buttonPaint.setColor(touching ? pressedColor : color);
 
-        canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2.6f, buttonPaint);
+        canvas.drawCircle(getWidth() / 2f, getHeight() / 2f, getWidth() / 2.6f, buttonPaint);
         canvas.save();
-        canvas.rotate(angle, getWidth() / 2, getHeight() / 2);
-        canvas.drawBitmap(bitmap, (getWidth() - bitmap.getWidth()) / 2,
-                (getHeight() - bitmap.getHeight()) / 2, drawablePaint);
+        canvas.rotate(angle, getWidth() / 2f, getHeight() / 2f);
+        canvas.drawBitmap(bitmap, (getWidth() - bitmap.getWidth()) / 2f,
+                (getHeight() - bitmap.getHeight()) / 2f, drawablePaint);
         canvas.restore();
     }
 

@@ -22,8 +22,8 @@ public class BranchesPerformer implements StepPerformer, FlowerSelectedListener 
     private static final float BLOOM_THRESHOLD = .90f * MAX_THRESHOLD;
     private static final float FLOWER_THRESHOLD = .80f * MAX_THRESHOLD;
     private static final int FRAMES_TO_SKIP = 2;
-    private static final int LEAF_COLOR = ContextRetriever.INSTANCE.getCurrentResources().getColor(R.color.colorPrimaryDark);
-    private static final float LEAF_SIZE = ContextRetriever.INSTANCE.getCurrentResources().getDimension(R.dimen.branch_default_radius) * 2;
+    private static final int LEAF_COLOR = ContextRetriever.INSTANCE.getResources().getColor(R.color.colorPrimaryDark);
+    private static final float LEAF_SIZE = ContextRetriever.INSTANCE.getResources().getDimension(R.dimen.branch_default_radius) * 2;
 
     private final RainbowDrawer rainbowDrawer;
     private final BranchesList branchesList;

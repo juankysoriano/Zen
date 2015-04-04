@@ -53,17 +53,15 @@ public class MusicPerformer implements StepPerformer {
     public void reset() {
         volume = MIN_VOLUME;
         if (isMediaPlayerReleased()) {
-            mediaPlayer = createMediaPlayer();
+            initMediaPlayer();
         }
         start();
     }
 
-    private MediaPlayer createMediaPlayer() {
-        MediaPlayer mediaPlayer = MediaPlayer.create(ContextRetriever.INSTANCE.getCurrentContext(), R.raw.zen);
+    private void initMediaPlayer() {
+        mediaPlayer = MediaPlayer.create(ContextRetriever.INSTANCE.getCurrentContext(), R.raw.zen);
         mediaPlayer.setVolume(volume, volume);
         mediaPlayer.setLooping(true);
-
-        return mediaPlayer;
     }
 
     @Override

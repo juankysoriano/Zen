@@ -41,6 +41,9 @@ android {
         proguardFile getDefaultProguardFile('proguard-android.txt')
         proguardFile 'proguard-rules.pro'
 
+        def crashLyticsApiKey = crashLyticsApiKey //this value is from ~/.gradle/gradle.properties
+        manifestPlaceholders = [crashLyticsApiKey: crashLyticsApiKey]
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
@@ -58,8 +61,6 @@ android {
         debug {
             minifyEnabled false
             shrinkResources false
-            def crashLyticsApiKey = ""
-            manifestPlaceholders = [crashLyticsApiKey: crashLyticsApiKey]
 
             resValue 'bool', 'analyticsDisabled', "true"
             resValue 'string', 'trackingLogLevel', "verbose"
@@ -68,8 +69,6 @@ android {
             jniDebuggable false
             shrinkResources true
             minifyEnabled true
-            def crashLyticsApiKey = crashLyticsApiKey //this value is from ~/.gradle/gradle.properties
-            manifestPlaceholders = [crashLyticsApiKey: crashLyticsApiKey]
 
             resValue 'bool', 'analyticsDisabled', "false"
             resValue 'string', 'trackingLogLevel', "error"

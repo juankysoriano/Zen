@@ -29,12 +29,12 @@ public class BrushOptionsDialog extends ZenDialog implements ColorSelectedListen
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         MaterialDialog materialDialog = new MaterialDialog.Builder(getActivity())
-                .title(ContextRetriever.INSTANCE.getCurrentResources().getString(R.string.brush_options_title))
+                .title(ContextRetriever.INSTANCE.getResources().getString(R.string.brush_options_title))
                 .backgroundColor(Color.WHITE)
                 .customView(R.layout.brush_options_dialog, false)
-                .positiveText(ContextRetriever.INSTANCE.getCurrentResources().getString(R.string.option_done))
+                .positiveText(ContextRetriever.INSTANCE.getResources().getString(R.string.option_done))
                 .positiveColorRes(R.color.colorPrimaryDark)
-                .negativeText(ContextRetriever.INSTANCE.getCurrentResources().getString(R.string.option_cancel))
+                .negativeText(ContextRetriever.INSTANCE.getResources().getString(R.string.option_cancel))
                 .negativeColorRes(R.color.colorAccent)
                 .theme(Theme.LIGHT)
                 .callback(new MaterialDialog.ButtonCallback() {

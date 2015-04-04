@@ -17,29 +17,33 @@ public enum AnalyticsTracker {
     }
 
     private Tracker retrieveTracker() {
-        if (tracker == null) {
+        if (!hasTracker()) {
             GoogleAnalytics analytics = GoogleAnalytics.getInstance(ContextRetriever.INSTANCE.getCurrentContext());
             tracker = analytics.newTracker(R.xml.zen_tracker);
         }
         return tracker;
     }
 
+    private boolean hasTracker() {
+        return tracker != null;
+    }
+
     public void trackDialogOpened(String dialogTag) {
-        Tracker tracker = retrieveTracker();
-        tracker.setScreenName(dialogTag);
-        tracker.send(new HitBuilders.ScreenViewBuilder().build());
+        Tracker dialogTracker = hasTracker() ? tracker : retrieveTracker();
+        dialogTracker.setScreenName(dialogTag);
+        dialogTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     public void trackBrush(BrushColor color, int size) {
-        Tracker tracker = retrieveTracker();
-        tracker.send(new HitBuilders.EventBuilder()
+        Tracker brushTracker = hasTracker() ? tracker : retrieveTracker();
+        brushTracker.send(new HitBuilders.EventBuilder()
                 .setCategory(BrushTracking.BRUSH)
                 .setAction(BrushTracking.COLOR_SELECTED)
                 .setLabel(color.name())
                 .setValue(1)
                 .build());
 
-        tracker.send(new HitBuilders.EventBuilder()
+        brushTracker.send(new HitBuilders.EventBuilder()
                 .setCategory(BrushTracking.BRUSH)
                 .setAction(BrushTracking.SIZE_SELECTED)
                 .setLabel("Brush size " + size + "%")
@@ -48,8 +52,8 @@ public enum AnalyticsTracker {
     }
 
     public void trackFlower(Flower flower) {
-        Tracker tracker = retrieveTracker();
-        tracker.send(new HitBuilders.EventBuilder()
+        Tracker flowerTracker = hasTracker() ? tracker : retrieveTracker();
+        flowerTracker.send(new HitBuilders.EventBuilder()
                 .setCategory(FlowerTracking.FLOWER)
                 .setAction(FlowerTracking.FLOWER_SELECTED)
                 .setLabel(flower.name())
@@ -62,8 +66,8 @@ public enum AnalyticsTracker {
     }
 
     public void trackScreenshot() {
-        Tracker tracker = retrieveTracker();
-        tracker.send(new HitBuilders.EventBuilder()
+        Tracker screenshotTracker = hasTracker() ? tracker : retrieveTracker();
+        screenshotTracker.send(new HitBuilders.EventBuilder()
                 .setCategory(SketchTracking.SKETCH)
                 .setAction(SketchTracking.SCREENSHOT)
                 .setValue(1)
@@ -71,8 +75,8 @@ public enum AnalyticsTracker {
     }
 
     public void trackShare() {
-        Tracker tracker = retrieveTracker();
-        tracker.send(new HitBuilders.EventBuilder()
+        Tracker shareTracker = hasTracker() ? tracker : retrieveTracker();
+        shareTracker.send(new HitBuilders.EventBuilder()
                 .setCategory(SketchTracking.SKETCH)
                 .setAction(SketchTracking.SHARED)
                 .setValue(1)
@@ -80,8 +84,8 @@ public enum AnalyticsTracker {
     }
 
     public void trackClearSketch() {
-        Tracker tracker = retrieveTracker();
-        tracker.send(new HitBuilders.EventBuilder()
+        Tracker clearTracker = hasTracker() ? tracker : retrieveTracker();
+        clearTracker.send(new HitBuilders.EventBuilder()
                 .setCategory(SketchTracking.SKETCH)
                 .setAction(SketchTracking.CLEARED)
                 .setValue(1)
@@ -102,21 +106,21 @@ public enum AnalyticsTracker {
         GoogleAnalytics.getInstance(zenActivity).dispatchLocalHits();
     }
 
-    private class SketchTracking {
+    private static class SketchTracking {
         private static final String SKETCH = "Sketch";
         private static final String CLEARED = "Cleared";
         private static final String SHARED = "Shared";
         private static final String SCREENSHOT = "Screenshot";
     }
 
-    private class BrushTracking {
+    private static class BrushTracking {
         private static final String BRUSH = "Brush";
         private static final String COLOR_SELECTED = "Color selected";
         private static final String SIZE_SELECTED = "Size selected";
         private static final String SIZE_VAR = "size_value";
     }
 
-    private class FlowerTracking {
+    private static class FlowerTracking {
         private static final String FLOWER = "Flower";
         private static final String FLOWER_SELECTED = "Flower selected";
     }

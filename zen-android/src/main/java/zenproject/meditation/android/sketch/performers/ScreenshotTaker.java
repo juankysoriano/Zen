@@ -8,8 +8,8 @@ import zenproject.meditation.android.R;
 import zenproject.meditation.android.sketch.ZenSketch;
 
 public class ScreenshotTaker {
-    private static final String ZEN = ContextRetriever.INSTANCE.getCurrentResources().getString(R.string.app_name);
-    private static final String PICTURE_TITLE = ContextRetriever.INSTANCE.getCurrentResources().getString(R.string.picture_title);
+    private static final String ZEN = ContextRetriever.INSTANCE.getResources().getString(R.string.app_name);
+    private static final String PICTURE_TITLE = ContextRetriever.INSTANCE.getResources().getString(R.string.picture_title);
     private final ZenSketch zenSketch;
 
     protected ScreenshotTaker(ZenSketch zenSketch) {

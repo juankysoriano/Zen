@@ -14,8 +14,8 @@ import zenproject.meditation.android.preferences.Flower;
 public abstract class FlowerDrawer implements RainbowImage.LoadPictureListener {
     private static final RainbowImage NO_IMAGE = null;
     protected static final int WHITE = 255;
-    protected static final float MIN_FLOWER_SIZE = ContextRetriever.INSTANCE.getCurrentResources().getDimension(R.dimen.min_flower_size);
-    protected static final float MAX_FLOWER_SIZE = ContextRetriever.INSTANCE.getCurrentResources().getDimension(R.dimen.max_flower_size);
+    protected static final float MIN_FLOWER_SIZE = ContextRetriever.INSTANCE.getResources().getDimension(R.dimen.min_flower_size);
+    protected static final float MAX_FLOWER_SIZE = ContextRetriever.INSTANCE.getResources().getDimension(R.dimen.max_flower_size);
 
     private final List<RainbowImage> flowerImages;
     private RainbowDrawer rainbowDrawer;

@@ -20,7 +20,7 @@ import zenproject.meditation.android.views.dialogs.flower.FlowerSelectedListener
 
 public class ZenSketch extends Rainbow implements RainbowInputController.RainbowInteractionListener, FlowerSelectedListener {
 
-    private static final int DEFAULT_COLOR = ContextRetriever.INSTANCE.getCurrentResources().getColor(R.color.colorSketch);
+    private static final int DEFAULT_COLOR = ContextRetriever.INSTANCE.getResources().getColor(R.color.colorSketch);
     private final RainbowInputController rainbowInputController;
     private final RainbowDrawer rainbowDrawer;
     private final BranchesList branchesList;

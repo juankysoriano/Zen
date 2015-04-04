@@ -16,9 +16,9 @@ import zenproject.meditation.android.preferences.FlowerOptionPreferences;
 import static zenproject.meditation.android.preferences.BrushColor.ACCENT;
 
 public class FlowerView extends LinearLayout {
-    private static final int UNSELECTED_BORDER_SIZE = ContextRetriever.INSTANCE.getCurrentResources().getDimensionPixelSize(R.dimen.divider_weight);
-    private static final int SELECTED_BORDER_SIZE = ContextRetriever.INSTANCE.getCurrentResources().getDimensionPixelSize(R.dimen.color_selected_weight);
-    private static final int DIVIDER = ContextRetriever.INSTANCE.getCurrentResources().getColor(R.color.divider);
+    private static final int UNSELECTED_BORDER_SIZE = ContextRetriever.INSTANCE.getResources().getDimensionPixelSize(R.dimen.divider_weight);
+    private static final int SELECTED_BORDER_SIZE = ContextRetriever.INSTANCE.getResources().getDimensionPixelSize(R.dimen.color_selected_weight);
+    private static final int DIVIDER = ContextRetriever.INSTANCE.getResources().getColor(R.color.divider);
 
     private CircleImageView noneFlower;
     private CircleImageView cherryFlower;
