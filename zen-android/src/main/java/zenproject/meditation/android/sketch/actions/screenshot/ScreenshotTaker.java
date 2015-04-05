@@ -2,9 +2,9 @@ package zenproject.meditation.android.sketch.actions.screenshot;
 
 import com.novoda.notils.logger.toast.Toaster;
 
-import zenproject.meditation.android.analytics.AnalyticsTracker;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
+import zenproject.meditation.android.analytics.AnalyticsTracker;
 import zenproject.meditation.android.sketch.ZenSketch;
 
 public class ScreenshotTaker {

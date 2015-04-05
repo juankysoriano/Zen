@@ -13,7 +13,7 @@ public class MusicPerformer implements StepPerformer {
     private static final float MIN_VOLUME = 0.05f;
     private MediaPlayer mediaPlayer;
     private final RainbowInputController rainbowInputController;
-    private float volume;
+    private float volume = MIN_VOLUME;
 
     protected MusicPerformer(MediaPlayer mediaPlayer, RainbowInputController rainbowInputController) {
         this.mediaPlayer = mediaPlayer;
@@ -36,7 +36,7 @@ public class MusicPerformer implements StepPerformer {
     private void increaseVolume() {
         if (isPlaying()) {
             volume += MUSIC_STEP;
-            volume = Math.min(1f, volume);
+            volume = Math.min(1f, Math.max(MIN_VOLUME, volume));
             mediaPlayer.setVolume(volume, volume);
         }
     }
@@ -100,9 +100,5 @@ public class MusicPerformer implements StepPerformer {
         if (!isPlaying()) {
             mediaPlayer.start();
         }
-    }
-
-    public void release() {
-        mediaPlayer.release();
     }
 }

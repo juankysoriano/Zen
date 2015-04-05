@@ -4,13 +4,14 @@ import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
-import zenproject.meditation.android.ContextRetriever;
-import zenproject.meditation.android.R;
 import zenproject.meditation.android.activities.ZenActivity;
-import zenproject.meditation.android.sketch.painting.ink.BrushColor;
 import zenproject.meditation.android.sketch.painting.flowers.Flower;
+import zenproject.meditation.android.sketch.painting.ink.BrushColor;
 
-public enum AnalyticsTracker {
+/**
+ * TODO having AnalyticsTracker implementing ZenAnalytics interface then it is mockable so we should pass this as collaborator and test interactions.
+ */
+public enum AnalyticsTracker implements ZenAnalytics {
     INSTANCE;
 
     private Tracker tracker;
@@ -18,34 +19,27 @@ public enum AnalyticsTracker {
     AnalyticsTracker() {
     }
 
-    private Tracker retrieveTracker() {
-        if (!hasTracker()) {
-            GoogleAnalytics analytics = GoogleAnalytics.getInstance(ContextRetriever.INSTANCE.getCurrentContext());
-            tracker = analytics.newTracker(R.xml.zen_tracker);
-        }
-        return tracker;
+
+    public void inject(Tracker tracker) {
+        this.tracker = tracker;
     }
 
-    private boolean hasTracker() {
-        return tracker != null;
-    }
-
+    @Override
     public void trackDialogOpened(String dialogTag) {
-        Tracker dialogTracker = hasTracker() ? tracker : retrieveTracker();
-        dialogTracker.setScreenName(dialogTag);
-        dialogTracker.send(new HitBuilders.ScreenViewBuilder().build());
+        tracker.setScreenName(dialogTag);
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
+    @Override
     public void trackBrush(BrushColor color, int size) {
-        Tracker brushTracker = hasTracker() ? tracker : retrieveTracker();
-        brushTracker.send(new HitBuilders.EventBuilder()
+        tracker.send(new HitBuilders.EventBuilder()
                 .setCategory(BrushTracking.BRUSH)
                 .setAction(BrushTracking.COLOR_SELECTED)
                 .setLabel(color.name())
                 .setValue(1)
                 .build());
 
-        brushTracker.send(new HitBuilders.EventBuilder()
+        tracker.send(new HitBuilders.EventBuilder()
                 .setCategory(BrushTracking.BRUSH)
                 .setAction(BrushTracking.SIZE_SELECTED)
                 .setLabel("Brush size " + size + "%")
@@ -53,9 +47,9 @@ public enum AnalyticsTracker {
                 .build());
     }
 
+    @Override
     public void trackFlower(Flower flower) {
-        Tracker flowerTracker = hasTracker() ? tracker : retrieveTracker();
-        flowerTracker.send(new HitBuilders.EventBuilder()
+        tracker.send(new HitBuilders.EventBuilder()
                 .setCategory(FlowerTracking.FLOWER)
                 .setAction(FlowerTracking.FLOWER_SELECTED)
                 .setLabel(flower.name())
@@ -63,42 +57,45 @@ public enum AnalyticsTracker {
                 .build());
     }
 
+    @Override
     public void trackMusic() {
 
     }
 
+    @Override
     public void trackScreenshot() {
-        Tracker screenshotTracker = hasTracker() ? tracker : retrieveTracker();
-        screenshotTracker.send(new HitBuilders.EventBuilder()
+        tracker.send(new HitBuilders.EventBuilder()
                 .setCategory(SketchTracking.SKETCH)
                 .setAction(SketchTracking.SCREENSHOT)
                 .setValue(1)
                 .build());
     }
 
+    @Override
     public void trackShare() {
-        Tracker shareTracker = hasTracker() ? tracker : retrieveTracker();
-        shareTracker.send(new HitBuilders.EventBuilder()
+        tracker.send(new HitBuilders.EventBuilder()
                 .setCategory(SketchTracking.SKETCH)
                 .setAction(SketchTracking.SHARED)
                 .setValue(1)
                 .build());
     }
 
+    @Override
     public void trackClearSketch() {
-        Tracker clearTracker = hasTracker() ? tracker : retrieveTracker();
-        clearTracker.send(new HitBuilders.EventBuilder()
+        tracker.send(new HitBuilders.EventBuilder()
                 .setCategory(SketchTracking.SKETCH)
                 .setAction(SketchTracking.CLEARED)
                 .setValue(1)
                 .build());
     }
 
+    @Override
     public void trackActivityStart(ZenActivity zenActivity) {
         GoogleAnalytics.getInstance(zenActivity).reportActivityStart(zenActivity);
         dispatch(zenActivity);
     }
 
+    @Override
     public void trackActivityStop(ZenActivity zenActivity) {
         GoogleAnalytics.getInstance(zenActivity).reportActivityStop(zenActivity);
         dispatch(zenActivity);

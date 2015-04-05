@@ -25,6 +25,4 @@ robolectric {
         testCompile 'junit:junit:4.12'
         testCompile 'com.squareup:fest-android:1.0.8'
     }
-
-    apply from: "$project.rootDir/analysis-tools/android-jacoco.gradle"
 }

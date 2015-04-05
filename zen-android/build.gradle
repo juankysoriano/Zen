@@ -101,18 +101,21 @@ def buildTimeFormatted() {
 }
 
 apply from: "$project.rootDir/analysis-tools/android-robolectric.gradle"
+apply from: "$project.rootDir/analysis-tools/android-jacoco.gradle"
 apply from: "$project.rootDir/analysis-tools/android-checkstyle.gradle"
 apply from: "$project.rootDir/analysis-tools/android-pmd.gradle"
 apply from: "$project.rootDir/analysis-tools/android-findbugs.gradle"
 
-task zen dependsOn("build") {
-
+task zenCheck dependsOn("check") {
     println "Finished at: " + new Date();
 
     println "\n"
     println REPORT_LOCATIONS
 }
 
-zen.dependsOn("check")
+task zen dependsOn("build") {
+}
+
+zen.dependsOn("zenCheck")
 
 

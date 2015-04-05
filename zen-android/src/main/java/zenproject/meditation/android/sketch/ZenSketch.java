@@ -114,7 +114,6 @@ public class ZenSketch extends Rainbow implements RainbowInputController.Rainbow
     }
 
     public void clear() {
-        AnalyticsTracker.INSTANCE.trackClearSketch();
         rainbowDrawer.background(DEFAULT_COLOR);
         branchesList.clear();
     }
