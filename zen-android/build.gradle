@@ -19,7 +19,6 @@ dependencies {
     }
 }
 
-
 android {
     project.archivesBaseName = "$rootProject.name";
 
@@ -99,7 +98,6 @@ def buildTimeFormatted() {
     instance.setTimeInMillis(System.currentTimeMillis())
     instance.getTime()
 }
-
 
 apply from: "$project.rootDir/analysis-tools/android-robolectric.gradle"
 apply from: "$project.rootDir/analysis-tools/android-jacoco.gradle"

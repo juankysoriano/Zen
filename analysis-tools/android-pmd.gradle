@@ -64,7 +64,7 @@ class AndroidPmdTask extends DefaultTask {
                     submodule.android.sourceSets.each { sourceSet ->
                         sourceSet.java.each { file ->
                             file.getSrcDirs().each {
-                                if (it.exists() && !it.path.contains("androidTest")) {
+                                if (it.exists() && !it.path.contains("test")) {
                                     fileset(dir: it)
                                 }
                             }

@@ -1,7 +1,7 @@
 apply plugin: 'jacoco'
 
 jacoco {
-    toolVersion = "0.7.1.201405082137"
+    toolVersion = "0.7.4.201502262128"
 }
 
 def coverageSourceDirs = [
@@ -28,6 +28,6 @@ task jacocoReport(type: JacocoReport, dependsOn: "testDebug") {
     executionData = files('build/jacoco/testDebug.exec')
 
     doLast {
-        project.REPORT_LOCATIONS += "JaCoCo wrote HTML report to: file:///$project.buildDir/reports/jacoco/jacocoReport/html/index.html \n"
+        println "JaCoCo wrote HTML report to: file:///$project.buildDir/reports/jacoco/jacocoReport/html/index.html \n"
     }
 }
