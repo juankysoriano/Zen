@@ -78,6 +78,6 @@ public enum Flower {
 
     private static class Dimension {
         private static final float DEFAULT_MAX_SIZE = ContextRetriever.INSTANCE.getResources().getDimension(R.dimen.max_flower_size);
-        private static final float DEFAULT_MIN_SIZE = ContextRetriever.INSTANCE.getResources().getDimension(R.dimen.max_flower_size);
+        private static final float DEFAULT_MIN_SIZE = ContextRetriever.INSTANCE.getResources().getDimension(R.dimen.min_flower_size);
     }
 }
