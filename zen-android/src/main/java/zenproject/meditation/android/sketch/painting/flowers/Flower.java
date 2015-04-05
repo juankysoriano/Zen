@@ -14,8 +14,7 @@ import zenproject.meditation.android.R;
 public enum Flower {
 
     NONE(Dimension.DEFAULT_MIN_SIZE,
-            Dimension.DEFAULT_MAX_SIZE,
-            R.drawable.none),
+            Dimension.DEFAULT_MAX_SIZE),
     INK_FLOWER(Dimension.DEFAULT_MIN_SIZE * 1.2f,
             Dimension.DEFAULT_MAX_SIZE * 1.2f,
             R.drawable.ink_flower_1,
