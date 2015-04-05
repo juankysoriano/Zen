@@ -2,8 +2,8 @@ package zenproject.meditation.android;
 
 import com.novoda.notils.logger.simple.Log;
 
-import zenproject.meditation.android.preferences.BrushColor;
-import zenproject.meditation.android.preferences.BrushOptionsPreferences;
+import zenproject.meditation.android.sketch.painting.ink.BrushColor;
+import zenproject.meditation.android.persistence.BrushOptionsPreferences;
 
 public class ZenApplication extends AnalyticsApplication {
 

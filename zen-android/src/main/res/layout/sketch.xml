@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<zenproject.meditation.android.views.ZenSketchView
+<zenproject.meditation.android.ui.sketch.ZenSketchView
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/sketch"
@@ -9,12 +9,12 @@
   android:background="@color/colorSketch"
   android:orientation="horizontal">
 
-  <zenproject.meditation.android.views.reveal.RevealView
+  <zenproject.meditation.android.ui.sketch.clear.ClearView
     android:id="@+id/reveal_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:visibility="gone" />
 
-</zenproject.meditation.android.views.ZenSketchView>
+</zenproject.meditation.android.ui.sketch.ZenSketchView>
 

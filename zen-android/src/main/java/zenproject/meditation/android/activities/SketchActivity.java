@@ -7,10 +7,12 @@ import com.oguzdev.circularfloatingactionmenu.library.CircularMenu;
 
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.sketch.ZenSketch;
-import zenproject.meditation.android.sketch.performers.ScreenshotTaker;
-import zenproject.meditation.android.views.ZenSketchView;
-import zenproject.meditation.android.views.menu.FloatingActionButton;
-import zenproject.meditation.android.views.menu.MenuId;
+import zenproject.meditation.android.sketch.actions.clear.SketchClearer;
+import zenproject.meditation.android.sketch.actions.screenshot.ScreenshotTaker;
+import zenproject.meditation.android.ui.sketch.ZenSketchView;
+import zenproject.meditation.android.ui.menu.buttons.FloatingActionButton;
+
+import static zenproject.meditation.android.ui.menu.buttons.MenuButton.*;
 
 @SuppressWarnings({"PMD.TooManyMethods", "PMD.FieldDeclarationsShouldBeAtStartOfClass"})
 public class SketchActivity extends ZenActivity {
@@ -18,6 +20,7 @@ public class SketchActivity extends ZenActivity {
     private final ZenSketch zenSketch;
     private final Navigator navigator;
     private final ScreenshotTaker screenshotTaker;
+    private final SketchClearer sketchClearer;
     private ZenSketchView zenSketchView;
     private CircularMenu circularMenu;
     private FloatingActionButton menuButton;
@@ -30,6 +33,7 @@ public class SketchActivity extends ZenActivity {
         zenSketch = ZenSketch.newInstance();
         navigator = Navigator.newInstance(zenSketch);
         screenshotTaker = ScreenshotTaker.newInstance(zenSketch);
+        sketchClearer = SketchClearer.newInstance(zenSketch);
     }
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,10 +69,10 @@ public class SketchActivity extends ZenActivity {
     private void setupUI() {
         zenSketch.injectInto(zenSketchView);
         circularMenu = zenSketchView.getCircularMenu();
-        restartButton = (FloatingActionButton) circularMenu.findSubActionViewWithId(MenuId.RESTART_ID);
-        brushButton = (FloatingActionButton) circularMenu.findSubActionViewWithId(MenuId.BRUSH_ID);
-        flowersButton = (FloatingActionButton) circularMenu.findSubActionViewWithId(MenuId.FLOWERS_ID);
-        screenshotButton = (FloatingActionButton) circularMenu.findSubActionViewWithId(MenuId.SAVE_ID);
+        restartButton = (FloatingActionButton) circularMenu.findSubActionViewWithId(RESTART.getId());
+        brushButton = (FloatingActionButton) circularMenu.findSubActionViewWithId(BRUSH.getId());
+        flowersButton = (FloatingActionButton) circularMenu.findSubActionViewWithId(FLOWER.getId());
+        screenshotButton = (FloatingActionButton) circularMenu.findSubActionViewWithId(SAVE.getId());
         menuButton = (FloatingActionButton) circularMenu.getActionView();
     }
 
@@ -177,7 +181,7 @@ public class SketchActivity extends ZenActivity {
     private final ZenSketchView.OnClearListener onClearListener = new ZenSketchView.OnClearListener() {
         @Override
         public void onRevealed() {
-            zenSketch.clear();
+            sketchClearer.clearSketch();
         }
     };
 }

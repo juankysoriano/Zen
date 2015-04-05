@@ -2,11 +2,11 @@ package zenproject.meditation.android.activities;
 
 import com.novoda.notils.caster.Classes;
 
-import zenproject.meditation.android.AnalyticsTracker;
+import zenproject.meditation.android.analytics.AnalyticsTracker;
 import zenproject.meditation.android.ContextRetriever;
-import zenproject.meditation.android.views.dialogs.brush.BrushOptionsDialog;
-import zenproject.meditation.android.views.dialogs.flower.FlowerOptionsDialog;
-import zenproject.meditation.android.views.dialogs.flower.FlowerSelectedListener;
+import zenproject.meditation.android.ui.menu.dialogs.brush.BrushOptionsDialog;
+import zenproject.meditation.android.ui.menu.dialogs.flower.FlowerOptionsDialog;
+import zenproject.meditation.android.ui.menu.dialogs.flower.FlowerSelectedListener;
 
 public class Navigator {
 

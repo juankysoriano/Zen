@@ -27,7 +27,7 @@
       android:layout_marginRight="@dimen/option_icon_margin_end"
       android:contentDescription="@null" />
 
-    <zenproject.meditation.android.views.dialogs.flower.FlowerViewList
+    <zenproject.meditation.android.ui.menu.dialogs.flower.FlowerViewList
       android:id="@+id/flower_picker"
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
@@ -60,7 +60,7 @@
         android:src="@drawable/ink_flower" />
 
 
-    </zenproject.meditation.android.views.dialogs.flower.FlowerViewList>
+    </zenproject.meditation.android.ui.menu.dialogs.flower.FlowerViewList>
   </LinearLayout>
 
 </merge>
