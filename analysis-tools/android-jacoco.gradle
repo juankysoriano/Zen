@@ -1,7 +1,7 @@
 apply plugin: 'jacoco'
 
 jacoco {
-    toolVersion = "0.7.4.201502262128"
+    toolVersion = "0.7.1.201405082137"
 }
 
 def coverageSourceDirs = [
@@ -18,7 +18,7 @@ task jacocoReport(type: JacocoReport, dependsOn: "testDebug") {
     }
 
     classDirectories = fileTree(
-            dir: './build/intermediates/classes/debug',
+            dir: 'build/intermediates/classes/debug',
             excludes: ['**/R.class',
                        '**/R$*.class'
             ])

@@ -13,7 +13,7 @@ import zenproject.meditation.android.sketch.ZenSketch;
 import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricLauncherGradleTestRunner.class)
-public class SketchClearerTestBase extends ZenTestBase {
+public class SketchClearerTest extends ZenTestBase {
     @Mock
     private ZenSketch zenSketch;
 

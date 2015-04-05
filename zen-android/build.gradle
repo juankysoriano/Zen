@@ -44,7 +44,6 @@ android {
         manifestPlaceholders = [crashLyticsApiKey: crashLyticsApiKey]
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
 
     signingConfigs {
@@ -60,6 +59,7 @@ android {
         debug {
             minifyEnabled false
             shrinkResources false
+            testCoverageEnabled = true
 
             resValue 'bool', 'analyticsDisabled', "true"
             resValue 'string', 'trackingLogLevel', "verbose"
@@ -68,6 +68,7 @@ android {
             jniDebuggable false
             shrinkResources true
             minifyEnabled true
+            testCoverageEnabled = false
 
             resValue 'bool', 'analyticsDisabled', "false"
             resValue 'string', 'trackingLogLevel', "error"
@@ -100,7 +101,6 @@ def buildTimeFormatted() {
 }
 
 apply from: "$project.rootDir/analysis-tools/android-robolectric.gradle"
-apply from: "$project.rootDir/analysis-tools/android-jacoco.gradle"
 apply from: "$project.rootDir/analysis-tools/android-checkstyle.gradle"
 apply from: "$project.rootDir/analysis-tools/android-pmd.gradle"
 apply from: "$project.rootDir/analysis-tools/android-findbugs.gradle"
