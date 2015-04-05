@@ -9,8 +9,6 @@ def coverageSourceDirs = [
         'src/gen'
 ]
 
-check.dependsOn("jacocoReport")
-
 task jacocoReport(type: JacocoReport, dependsOn: "testDebug") {
     group = "Reporting"
     description = "Generate Jacoco coverage reports after running tests."
@@ -28,6 +26,6 @@ task jacocoReport(type: JacocoReport, dependsOn: "testDebug") {
     executionData = files('build/jacoco/testDebug.exec')
 
     doLast {
-        println "JaCoCo wrote HTML report to: file:///$project.buildDir/reports/jacoco/jacocoReport/html/index.html \n"
+        project.REPORT_LOCATIONS += "JaCoCo wrote HTML report to: file:///$project.buildDir/reports/jacoco/jacocoReport/html/index.html \n"
     }
 }
