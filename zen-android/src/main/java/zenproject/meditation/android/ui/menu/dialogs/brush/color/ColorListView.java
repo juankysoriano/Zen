@@ -49,7 +49,7 @@ public class ColorListView extends LinearLayout {
         primaryColor = Views.findById(this, R.id.primary_brush);
         accentColor = Views.findById(this, R.id.accent_brush);
 
-        setSelectedFrom(BrushColor.from(BrushOptionsPreferences.newInstance().getBrushColor()));
+        setSelectedFrom(BrushOptionsPreferences.newInstance().getBrushColor());
     }
 
     private boolean hasColorSelectedListener() {

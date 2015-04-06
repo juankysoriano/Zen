@@ -48,7 +48,7 @@ public class BranchPerformer implements StepPerformer, FlowerSelectedListener {
 
     public static BranchPerformer newInstance(BranchesList branchesList, RainbowDrawer rainbowDrawer) {
         BranchPerformer branchesDrawer = new BranchPerformer(branchesList,
-                FlowerDrawer.from(FlowerOptionPreferences.newInstance().getFlower(), rainbowDrawer),
+                FlowerDrawer.newInstance(FlowerOptionPreferences.newInstance().getFlower(), rainbowDrawer),
                 rainbowDrawer,
                 new PaintStepSkipper(FRAMES_TO_SKIP),
                 BrushOptionsPreferences.newInstance());
@@ -144,7 +144,7 @@ public class BranchPerformer implements StepPerformer, FlowerSelectedListener {
         new AsyncTask<Flower, Void, Void>() {
             @Override
             protected Void doInBackground(Flower... flowers) {
-                flowerDrawer = FlowerDrawer.from(flowers[0], rainbowDrawer);
+                flowerDrawer = FlowerDrawer.newInstance(flowers[0], rainbowDrawer);
                 return null;
             }
         }.execute(flower);

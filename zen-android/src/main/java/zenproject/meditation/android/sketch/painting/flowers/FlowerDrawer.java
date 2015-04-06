@@ -24,6 +24,17 @@ public class FlowerDrawer implements RainbowImage.LoadPictureListener {
         this.rainbowDrawer = rainbowDrawer;
     }
 
+    public static FlowerDrawer newInstance(Flower flower, RainbowDrawer rainbowDrawer) {
+        List<Integer> flowerLeafsRes = flower.getFlowerLeafRes();
+        FlowerDrawer flowerDrawer = new FlowerDrawer(flower, new ArrayList<RainbowImage>(flowerLeafsRes.size()), rainbowDrawer);
+
+        for (Integer leafRes : flowerLeafsRes) {
+            rainbowDrawer.loadImage(leafRes, RainbowImage.LOAD_ORIGINAL_SIZE, flowerDrawer);
+        }
+
+        return flowerDrawer;
+    }
+
     @Override
     public void onLoadSucceed(RainbowImage imageLoaded) {
         flowerImages.add(imageLoaded);
@@ -59,17 +70,6 @@ public class FlowerDrawer implements RainbowImage.LoadPictureListener {
 
     private float getFlowerSize() {
         return RainbowMath.random(flower.getMinSize(), flower.getMaxSize());
-    }
-
-    public static FlowerDrawer from(Flower flower, RainbowDrawer rainbowDrawer) {
-        List<Integer> flowerLeafsRes = flower.getFlowerLeafRes();
-        FlowerDrawer flowerDrawer = new FlowerDrawer(flower, new ArrayList<RainbowImage>(flowerLeafsRes.size()), rainbowDrawer);
-
-        for (Integer leafRes : flowerLeafsRes) {
-            rainbowDrawer.loadImage(leafRes, RainbowImage.LOAD_ORIGINAL_SIZE, flowerDrawer);
-        }
-
-        return flowerDrawer;
     }
 
 }

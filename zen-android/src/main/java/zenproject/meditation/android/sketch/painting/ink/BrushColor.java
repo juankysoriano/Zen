@@ -25,10 +25,6 @@ public enum BrushColor {
         return DARK;
     }
 
-    public static BrushColor from(BrushColor color) {
-        return BrushColor.from(color.toAndroidColor());
-    }
-
     public int toAndroidColor() {
         return color;
     }
