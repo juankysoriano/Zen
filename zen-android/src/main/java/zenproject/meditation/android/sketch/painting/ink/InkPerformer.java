@@ -9,7 +9,6 @@ import com.juankysoriano.rainbow.utils.RainbowMath;
 
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
-import zenproject.meditation.android.persistence.BrushOptionsPreferences;
 import zenproject.meditation.android.sketch.actions.StepPerformer;
 import zenproject.meditation.android.sketch.painting.flowers.branch.Branch;
 import zenproject.meditation.android.sketch.painting.flowers.branch.BranchesList;
@@ -28,30 +27,24 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
     private final RainbowDrawer rainbowDrawer;
     private final RainbowInputController rainbowInputController;
     private final InkDrop inkDrop;
-    private final BrushOptionsPreferences brushOptionsPreferences;
     private final BranchesList branches;
     private RainbowImage image;
     private boolean enabled = true;
 
     protected InkPerformer(InkDrop inkDrop,
-                           BrushOptionsPreferences brushOptionsPreferences,
                            BranchesList branches,
                            RainbowDrawer rainbowDrawer,
                            RainbowInputController rainbowInputController) {
         this.inkDrop = inkDrop;
-        this.brushOptionsPreferences = brushOptionsPreferences;
         this.branches = branches;
         this.rainbowDrawer = rainbowDrawer;
         this.rainbowInputController = rainbowInputController;
     }
 
     public static InkPerformer newInstance(BranchesList branches,
-                                           InkDropSizeLimiter inkDropSizeLimiter,
                                            RainbowDrawer rainbowDrawer,
                                            RainbowInputController rainbowInputController) {
-        BrushOptionsPreferences brushOptionsPreferences = BrushOptionsPreferences.newInstance();
-        InkPerformer inkDrawer = new InkPerformer(new InkDrop(inkDropSizeLimiter),
-                brushOptionsPreferences,
+        InkPerformer inkDrawer = new InkPerformer(InkDrop.newInstance(),
                 branches,
                 rainbowDrawer,
                 rainbowInputController);
@@ -110,7 +103,7 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
     }
 
     private boolean isErasing() {
-        return BrushColor.ERASE == brushOptionsPreferences.getBrushColor();
+        return BrushColor.ERASE == inkDrop.getBrushColor();
     }
 
     private void createBranchAt(float x, float y) {
@@ -135,7 +128,7 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
     }
 
     private void paintDropWithImage(float x, float y) {
-        rainbowDrawer.tint(brushOptionsPreferences.getBrushColor().toAndroidColor());
+        rainbowDrawer.tint(inkDrop.getBrushColor().toAndroidColor());
         rainbowDrawer.imageMode(RainbowGraphics.CENTER);
 
         rainbowDrawer.pushMatrix();
@@ -146,7 +139,7 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
     }
 
     private void paintDropWithoutImage(float px, float py, float x, float y) {
-        rainbowDrawer.stroke(brushOptionsPreferences.getBrushColor().toAndroidColor(), ALPHA);
+        rainbowDrawer.stroke(inkDrop.getBrushColor().toAndroidColor(), ALPHA);
         rainbowDrawer.strokeWeight(isErasing() ? inkDrop.getMaxRadius() * INK_DROP_IMAGE_SCALE : inkDrop.getRadius() * INK_DROP_IMAGE_SCALE);
         rainbowDrawer.line(px, py, x, y);
         rainbowDrawer.strokeWeight(1);

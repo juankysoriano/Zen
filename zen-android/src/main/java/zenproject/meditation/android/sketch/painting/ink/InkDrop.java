@@ -5,6 +5,7 @@ import com.juankysoriano.rainbow.utils.RainbowMath;
 
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
+import zenproject.meditation.android.persistence.BrushOptionsPreferences;
 
 public class InkDrop {
 
@@ -13,19 +14,32 @@ public class InkDrop {
     private static final float ABSOLUTE_MIN_RADIUS = ContextRetriever.INSTANCE.getResources().getDimension(R.dimen.ink_drop_min_radius);
 
     private final InkDropSizeLimiter inkDropSizeLimiter;
+    private final BrushOptionsPreferences brushOptionsPreferences;
     private float radius;
     private boolean reachedRadiusAfterReset;
 
-    public InkDrop(InkDropSizeLimiter inkDropSizeLimiter) {
+    public static InkDrop newInstance() {
+        BrushOptionsPreferences brushOptionsPreferences = BrushOptionsPreferences.newInstance();
+        InkDropSizeLimiter inkDropSizeLimiter = InkDropSizeLimiter.newInstance(brushOptionsPreferences);
+
+        return new InkDrop(inkDropSizeLimiter, brushOptionsPreferences);
+    }
+
+    protected InkDrop(InkDropSizeLimiter inkDropSizeLimiter, BrushOptionsPreferences brushOptionsPreferences) {
         this.inkDropSizeLimiter = inkDropSizeLimiter;
+        this.brushOptionsPreferences = brushOptionsPreferences;
     }
 
     public float getRadius() {
         return radius;
     }
 
+    public BrushColor getBrushColor() {
+        return brushOptionsPreferences.getBrushColor();
+    }
+
     public float getMaxRadius() {
-        return inkDropSizeLimiter.getMaxRadius();
+        return inkDropSizeLimiter.getMaximumRadius();
     }
 
     public void updateInkRadiusFor(RainbowInputController rainbowInputController) {
@@ -49,7 +63,7 @@ public class InkDrop {
 
     private void constrainRadius(RainbowInputController rainbowInputController) {
         reachedRadiusAfterReset = reachedRadiusAfterReset || radius >= inkDropSizeLimiter.getRadius() / 2;
-        radius = RainbowMath.constrain(radius, getMinimumRadius(rainbowInputController), inkDropSizeLimiter.getMaxRadius());
+        radius = RainbowMath.constrain(radius, getMinimumRadius(rainbowInputController), inkDropSizeLimiter.getMaximumRadius());
     }
 
     private float getMinimumRadius(RainbowInputController rainbowInputController) {

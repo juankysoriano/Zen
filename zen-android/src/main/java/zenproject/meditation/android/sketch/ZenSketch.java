@@ -6,16 +6,14 @@ import com.juankysoriano.rainbow.core.Rainbow;
 import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
 import com.juankysoriano.rainbow.core.event.RainbowInputController;
 
-import zenproject.meditation.android.analytics.AnalyticsTracker;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
-import zenproject.meditation.android.sketch.painting.ink.InkDropSizeLimiter;
-import zenproject.meditation.android.sketch.painting.flowers.Flower;
 import zenproject.meditation.android.sketch.actions.StepPerformer;
+import zenproject.meditation.android.sketch.music.MusicPerformer;
+import zenproject.meditation.android.sketch.painting.flowers.Flower;
 import zenproject.meditation.android.sketch.painting.flowers.branch.BranchPerformer;
 import zenproject.meditation.android.sketch.painting.flowers.branch.BranchesList;
 import zenproject.meditation.android.sketch.painting.ink.InkPerformer;
-import zenproject.meditation.android.sketch.music.MusicPerformer;
 import zenproject.meditation.android.ui.menu.dialogs.flower.FlowerSelectedListener;
 
 public class ZenSketch extends Rainbow implements RainbowInputController.RainbowInteractionListener, FlowerSelectedListener {
@@ -24,19 +22,17 @@ public class ZenSketch extends Rainbow implements RainbowInputController.Rainbow
     private final RainbowInputController rainbowInputController;
     private final RainbowDrawer rainbowDrawer;
     private final BranchesList branchesList;
-    private final InkDropSizeLimiter inkDropSizeLimiter;
     private OnPaintingListener onPaintingListener;
     private StepPerformer inkDrawer;
     private StepPerformer branchDrawer;
     private StepPerformer musicPerformer;
 
     protected ZenSketch(
-            MusicPerformer musicPerformer, BranchesList branches, InkDropSizeLimiter inkDropSizeLimiter, RainbowDrawer rainbowDrawer,
+            MusicPerformer musicPerformer, BranchesList branches, RainbowDrawer rainbowDrawer,
             RainbowInputController rainbowInputController) {
         super(rainbowDrawer, rainbowInputController);
         this.musicPerformer = musicPerformer;
         this.branchesList = branches;
-        this.inkDropSizeLimiter = inkDropSizeLimiter;
         this.rainbowDrawer = rainbowDrawer;
         this.rainbowInputController = rainbowInputController;
     }
@@ -47,14 +43,13 @@ public class ZenSketch extends Rainbow implements RainbowInputController.Rainbow
 
         return new ZenSketch(MusicPerformer.newInstance(rainbowInputController),
                 BranchesList.newInstance(),
-                InkDropSizeLimiter.newInstance(),
                 rainbowDrawer,
                 rainbowInputController);
     }
 
     @Override
     public void onSketchSetup() {
-        this.inkDrawer = InkPerformer.newInstance(branchesList, inkDropSizeLimiter, rainbowDrawer, rainbowInputController);
+        this.inkDrawer = InkPerformer.newInstance(branchesList, rainbowDrawer, rainbowInputController);
         this.branchDrawer = BranchPerformer.newInstance(branchesList, rainbowDrawer);
         this.rainbowInputController.setRainbowInteractionListener(this);
     }

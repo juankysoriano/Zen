@@ -15,27 +15,31 @@ public class InkDropSizeLimiter {
     private static final float SCALE_FACTOR = 3;
     private final BrushOptionsPreferences brushOptionsPreferences;
 
-    public static InkDropSizeLimiter newInstance() {
-        return new InkDropSizeLimiter(BrushOptionsPreferences.newInstance());
+    public static InkDropSizeLimiter newInstance(BrushOptionsPreferences brushOptionsPreferences) {
+        return new InkDropSizeLimiter(brushOptionsPreferences);
     }
 
-    InkDropSizeLimiter(BrushOptionsPreferences brushOptionsPreferences) {
+    protected InkDropSizeLimiter(BrushOptionsPreferences brushOptionsPreferences) {
         this.brushOptionsPreferences = brushOptionsPreferences;
     }
 
     public float getMinimumRadius() {
-        return RainbowMath.max(MINIMUM_RADIUS / 2, getRadius() / calculateRadiusFactorForMinimum());
+        return RainbowMath.max(MINIMUM_RADIUS, getRadius() / calculateRadiusFactorForMinimum());
     }
 
     public float getRadius() {
-        return RainbowMath.map(brushOptionsPreferences.getBrushSize(), PERCENTAGE_MIN, PERCENTAGE_MAX, MINIMUM_RADIUS, MAXIMUM_RADIUS);
+        return constrain(RainbowMath.map(brushOptionsPreferences.getBrushSize(), PERCENTAGE_MIN, PERCENTAGE_MAX, MINIMUM_RADIUS, MAXIMUM_RADIUS));
+    }
+
+    private float constrain(float radius) {
+        return Math.min(MAXIMUM_RADIUS, Math.max(MINIMUM_RADIUS, radius));
     }
 
     private float calculateRadiusFactorForMinimum() {
         return SCALE_FACTOR;
     }
 
-    public float getMaxRadius() {
+    public float getMaximumRadius() {
         return Math.min(MAXIMUM_RADIUS, getRadius());
     }
 }

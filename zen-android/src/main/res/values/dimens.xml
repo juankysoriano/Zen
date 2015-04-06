@@ -8,7 +8,7 @@
   <dimen name="sub_floating_action_button_margin">16dp</dimen>
 
   <!--SKETCH-->
-  <dimen name="ink_drop_min_radius">1.5dp</dimen>
+  <dimen name="ink_drop_min_radius">0.75dp</dimen>
   <dimen name="ink_drop_max_radius">120dp</dimen>
   <dimen name="ink_drop_step">0.5dp</dimen>
   <dimen name="ink_velocity_threshold">8dp</dimen>
