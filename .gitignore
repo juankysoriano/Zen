@@ -30,3 +30,5 @@ proguard/
 .DS_Store
 !/.gitignore
 .*
+
+*.log

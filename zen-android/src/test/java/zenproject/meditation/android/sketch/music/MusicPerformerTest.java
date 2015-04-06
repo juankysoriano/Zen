@@ -35,7 +35,7 @@ public class MusicPerformerTest {
     }
 
     @Test
-    public void onEveryStepIfScreenIsTouchedAndIsPlayingVolumeIsIncreased() {
+    public void testThatOnEveryStepIfScreenIsTouchedAndIsPlayingVolumeIsIncreased() {
         givenThatIsPlaying();
         givenThatScreenIsTouched();
         musicPerformer.doStep();
@@ -43,7 +43,7 @@ public class MusicPerformerTest {
     }
 
     @Test
-    public void onEveryStepIfScreenIsTouchedAndIsNotPlayingVolumeNotChanged() {
+    public void testThatOnEveryStepIfScreenIsTouchedAndIsNotPlayingVolumeNotChanged() {
         givenThatIsNotPlaying();
         givenThatScreenIsTouched();
         musicPerformer.doStep();
@@ -52,7 +52,7 @@ public class MusicPerformerTest {
     }
 
     @Test
-    public void onEveryStepIfScreenIsNotTouchedAndIsPlayingVolumeIsDecreased() {
+    public void testThatOnEveryStepIfScreenIsNotTouchedAndIsPlayingVolumeIsDecreased() {
         givenThatIsPlaying();
         givenThatVolumeIsTwoStepsOverInitial();
         givenThatScreenIsNotTouched();
@@ -62,7 +62,7 @@ public class MusicPerformerTest {
     }
 
     @Test
-    public void onEveryStepIfScreenIsNotTouchedAndIsNotPlayingVolumeNotChanged() {
+    public void testThatOnEveryStepIfScreenIsNotTouchedAndIsNotPlayingVolumeNotChanged() {
         givenThatIsNotPlaying();
         givenThatScreenIsNotTouched();
         musicPerformer.doStep();
