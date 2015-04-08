@@ -32,7 +32,7 @@ public abstract class ZenActivity extends Activity {
 
     @Override
     protected void onDestroy() {
-        ContextRetriever.INSTANCE.inject((Activity)null);
+        ContextRetriever.INSTANCE.inject((Activity) null);
         super.onDestroy();
     }
 }

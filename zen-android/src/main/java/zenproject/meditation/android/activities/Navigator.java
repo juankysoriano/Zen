@@ -25,7 +25,7 @@ public class Navigator {
         FlowerOptionsDialog flowerOptionsDialog = new FlowerOptionsDialog();
         flowerOptionsDialog.setFlowerSelectedListener(flowerSelectedListener);
         FragmentManager fragmentManager = ContextRetriever.INSTANCE.getActivity().getFragmentManager();
-        return new Navigator(fragmentManager,brushOptionsDialog, flowerOptionsDialog);
+        return new Navigator(fragmentManager, brushOptionsDialog, flowerOptionsDialog);
     }
 
     public void openBrushSelectionDialog() {

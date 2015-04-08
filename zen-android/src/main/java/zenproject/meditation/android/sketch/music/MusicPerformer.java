@@ -26,7 +26,7 @@ public class MusicPerformer implements StepPerformer {
 
     @Override
     public void init() {
-        if(isMediaPlayerReleased()) {
+        if (isMediaPlayerReleased()) {
             mediaPlayer = MediaPlayer.create(ContextRetriever.INSTANCE.getApplicationContext(), R.raw.zen);
             mediaPlayer.setVolume(volume, volume);
             mediaPlayer.setLooping(true);

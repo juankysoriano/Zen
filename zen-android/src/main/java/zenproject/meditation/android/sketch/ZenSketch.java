@@ -32,7 +32,11 @@ public class ZenSketch extends Rainbow implements RainbowInputController.Rainbow
     private StepPerformer musicPerformer;
 
     protected ZenSketch(
-            MusicPerformer musicPerformer, InkPerformer inkPerformer, BranchPerformer branchPerformer, BranchesList branches, RainbowDrawer rainbowDrawer,
+            MusicPerformer musicPerformer,
+            InkPerformer inkPerformer,
+            BranchPerformer branchPerformer,
+            BranchesList branches,
+            RainbowDrawer rainbowDrawer,
             RainbowInputController rainbowInputController) {
         super(rainbowDrawer, rainbowInputController);
         this.musicPerformer = musicPerformer;
@@ -121,8 +125,8 @@ public class ZenSketch extends Rainbow implements RainbowInputController.Rainbow
 
     @Override
     public void onFlowerSelected(Flower flower) {
-        BranchPerformer branchPerformer = Classes.from(this.branchPerformer);
-        branchPerformer.onFlowerSelected(flower);
+        BranchPerformer performer = Classes.from(this.branchPerformer);
+        performer.onFlowerSelected(flower);
     }
 
     public interface OnPaintingListener {
