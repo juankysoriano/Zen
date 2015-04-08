@@ -31,7 +31,7 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
     private final BranchesList branches;
     private RainbowImage image;
     private boolean enabled = true;
-    private boolean initialised = false;
+    private boolean initialised;
 
     protected InkPerformer(InkDrop inkDrop,
                            BranchesList branches,
@@ -46,11 +46,10 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
     public static InkPerformer newInstance(BranchesList branches,
                                            RainbowDrawer rainbowDrawer,
                                            RainbowInputController rainbowInputController) {
-        InkPerformer inkDrawer = new InkPerformer(InkDrop.newInstance(),
+        return new InkPerformer(InkDrop.newInstance(),
                 branches,
                 rainbowDrawer,
                 rainbowInputController);
-        return inkDrawer;
     }
 
     @Override
@@ -59,10 +58,10 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
             throw new DeveloperError("You don't really want init this if it was already initialised");
         }
         initialised = true;
-        configureDrawer(rainbowDrawer);
+        configureDrawer();
     }
 
-    private void configureDrawer(RainbowDrawer rainbowDrawer) {
+    private void configureDrawer() {
         rainbowDrawer.noStroke();
         rainbowDrawer.smooth();
         rainbowDrawer.loadImage(R.drawable.brush_ink, RainbowImage.LOAD_ORIGINAL_SIZE, this);

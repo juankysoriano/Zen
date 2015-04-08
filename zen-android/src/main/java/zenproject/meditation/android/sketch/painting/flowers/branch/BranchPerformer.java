@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 
 import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
 import com.juankysoriano.rainbow.utils.RainbowMath;
+import com.novoda.notils.exception.DeveloperError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,7 @@ public class BranchPerformer implements StepPerformer, FlowerSelectedListener {
     private final BrushOptionsPreferences brushOptionsPreferences;
     private FlowerDrawer flowerDrawer;
     private boolean enabled = true;
+    private boolean initialised;
 
     protected BranchPerformer(BranchesList branchesList,
                               FlowerDrawer flowerDrawer,
@@ -55,9 +57,17 @@ public class BranchPerformer implements StepPerformer, FlowerSelectedListener {
 
     @Override
     public synchronized void init() {
+        if (initialised) {
+            throw new DeveloperError("You don't really want init this if it was already initialised");
+        }
+        initialised = true;
+        configureDrawer();
+        flowerDrawer.init();
+    }
+
+    private void configureDrawer() {
         rainbowDrawer.noStroke();
         rainbowDrawer.smooth();
-        flowerDrawer.init();
     }
 
     @Override

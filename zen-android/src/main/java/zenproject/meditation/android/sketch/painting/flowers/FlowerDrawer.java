@@ -46,16 +46,22 @@ public class FlowerDrawer implements RainbowImage.LoadPictureListener {
     }
 
     public void paintFlowerFor(Branch branch) {
-        float flowerSize = getFlowerSize();
-        float rotation = RainbowMath.random(RainbowMath.QUARTER_PI);
-        rainbowDrawer.tint(WHITE);
-        rainbowDrawer.imageMode(RainbowGraphics.CENTER);
-        rainbowDrawer.pushMatrix();
-        rainbowDrawer.translate(branch.getX(), branch.getY());
-        rainbowDrawer.rotate(rotation);
-        flipHorizontalyIfLuck();
-        rainbowDrawer.image(getRandomFlower(), 0, 0, flowerSize, flowerSize);
-        rainbowDrawer.popMatrix();
+        if (hasFlowersToPaint()) {
+            float flowerSize = getFlowerSize();
+            float rotation = RainbowMath.random(RainbowMath.QUARTER_PI);
+            rainbowDrawer.tint(WHITE);
+            rainbowDrawer.imageMode(RainbowGraphics.CENTER);
+            rainbowDrawer.pushMatrix();
+            rainbowDrawer.translate(branch.getX(), branch.getY());
+            rainbowDrawer.rotate(rotation);
+            flipHorizontalyIfLuck();
+            rainbowDrawer.image(getRandomFlower(), 0, 0, flowerSize, flowerSize);
+            rainbowDrawer.popMatrix();
+        }
+    }
+
+    private boolean hasFlowersToPaint() {
+        return !flowerImages.isEmpty();
     }
 
     private RainbowImage getRandomFlower() {

@@ -104,6 +104,13 @@ public class FlowerDrawerTest extends ZenTestBase {
     }
 
     @Test
+    public void testThatPaintFlowerForBranchDoesNothingIfHasNoFlowersToPaint() {
+        flowerDrawer.paintFlowerFor(givenABranch());
+
+        verify(rainbowDrawer, never()).image(any(RainbowImage.class), anyFloat(), anyFloat(), anyFloat(), anyFloat());
+    }
+
+    @Test
     public void testThatNewInstanceReturnsNotNullFlowerDrawer() {
         Assertions.assertThat(FlowerDrawer.newInstance(Flower.POPPY, rainbowDrawer)).isNotNull();
     }

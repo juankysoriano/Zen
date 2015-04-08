@@ -6,6 +6,11 @@ import com.juankysoriano.rainbow.utils.RainbowMath;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 
+/**
+ * TODO
+ * This class could be much better written, attention to the two constructors.
+ * We could avoid writing so many sh*t there.
+ */
 public class Branch {
     private static final float MIN_RADIUS = ContextRetriever.INSTANCE.getResources().getDimension(R.dimen.branch_min_radius);
     private static final float MIN_RADIUS_TO_BLOOM = ContextRetriever.INSTANCE.getResources().getDimension(R.dimen.branch_min_bloom_radius);
@@ -21,21 +26,21 @@ public class Branch {
     private RVector position;
     private RVector previousPosition;
 
-    Branch(Branch branch) {
+    protected Branch(Branch branch) {
         this(branch.position, branch.angle, branch.radius);
         step = branch.step > 0 ? -generateRandomStep() : generateRandomStep();
     }
 
-    private float generateRandomStep() {
-        return RainbowMath.random(MIN_STEP, MAX_STEP);
-    }
-
-    Branch(RVector position, float angle, float radius) {
+    protected Branch(RVector position, float angle, float radius) {
         this.position = new RVector(position.x, position.y);
         this.previousPosition = new RVector(this.position.x, this.position.y);
         this.angle = angle;
         this.step = generateRandomStep();
         this.radius = radius * RainbowMath.random(MIN_RADIUS_FACTOR, MAX_RADIUS_FACTOR);
+    }
+
+    private float generateRandomStep() {
+        return RainbowMath.random(MIN_STEP, MAX_STEP);
     }
 
     public static Branch createFrom(Branch branch) {
