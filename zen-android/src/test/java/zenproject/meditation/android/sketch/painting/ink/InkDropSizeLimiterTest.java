@@ -67,12 +67,12 @@ public class InkDropSizeLimiterTest extends ZenTestBase {
     }
 
     @Test
-    public void testThatInkDropSizeLimiterNewInstanceReturnsNotNullInkDropSizeLimiter() {
+    public void testThatNewInstanceReturnsNotNullInkDropSizeLimiter() {
         Assertions.assertThat(InkDropSizeLimiter.newInstance(brushOptionsPreferences)).isNotNull();
     }
 
     @Test
-    public void testThatInkDropSizeLimiterNewInstanceReturnsANewInstance() {
+    public void testThatNewInstanceReturnsANewInstance() {
         InkDropSizeLimiter firstInstance = InkDropSizeLimiter.newInstance(brushOptionsPreferences);
         InkDropSizeLimiter secondInstance = InkDropSizeLimiter.newInstance(brushOptionsPreferences);
 

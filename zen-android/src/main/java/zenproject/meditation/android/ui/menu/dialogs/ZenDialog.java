@@ -1,6 +1,6 @@
 package zenproject.meditation.android.ui.menu.dialogs;
 
-import android.support.v4.app.DialogFragment;
+import android.app.DialogFragment;
 import android.view.ViewGroup;
 
 import zenproject.meditation.android.ContextRetriever;

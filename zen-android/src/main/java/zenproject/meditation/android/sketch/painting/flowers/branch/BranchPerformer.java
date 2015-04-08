@@ -46,18 +46,18 @@ public class BranchPerformer implements StepPerformer, FlowerSelectedListener {
     }
 
     public static BranchPerformer newInstance(BranchesList branchesList, RainbowDrawer rainbowDrawer) {
-        BranchPerformer branchesDrawer = new BranchPerformer(branchesList,
+        return new BranchPerformer(branchesList,
                 FlowerDrawer.newInstance(FlowerOptionPreferences.newInstance().getFlower(), rainbowDrawer),
                 rainbowDrawer,
                 new PaintStepSkipper(),
                 BrushOptionsPreferences.newInstance());
-        configureDrawer(rainbowDrawer);
-        return branchesDrawer;
     }
 
-    private static void configureDrawer(RainbowDrawer rainbowDrawer) {
+    @Override
+    public synchronized void init() {
         rainbowDrawer.noStroke();
         rainbowDrawer.smooth();
+        flowerDrawer.init();
     }
 
     @Override

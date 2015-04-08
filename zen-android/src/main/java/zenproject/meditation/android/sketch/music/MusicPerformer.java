@@ -25,6 +25,15 @@ public class MusicPerformer implements StepPerformer {
     }
 
     @Override
+    public void init() {
+        if(isMediaPlayerReleased()) {
+            mediaPlayer = MediaPlayer.create(ContextRetriever.INSTANCE.getApplicationContext(), R.raw.zen);
+            mediaPlayer.setVolume(volume, volume);
+            mediaPlayer.setLooping(true);
+        }
+    }
+
+    @Override
     public void doStep() {
         if (rainbowInputController.isScreenTouched()) {
             increaseVolume();
@@ -53,15 +62,9 @@ public class MusicPerformer implements StepPerformer {
     public void reset() {
         volume = MIN_VOLUME;
         if (isMediaPlayerReleased()) {
-            initMediaPlayer();
+            init();
         }
         start();
-    }
-
-    private void initMediaPlayer() {
-        mediaPlayer = MediaPlayer.create(ContextRetriever.INSTANCE.getCurrentContext(), R.raw.zen);
-        mediaPlayer.setVolume(volume, volume);
-        mediaPlayer.setLooping(true);
     }
 
     @Override

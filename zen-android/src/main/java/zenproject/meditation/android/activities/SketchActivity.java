@@ -15,7 +15,7 @@ import zenproject.meditation.android.ui.menu.buttons.FloatingActionButton;
 import static zenproject.meditation.android.ui.menu.buttons.MenuButton.*;
 
 @SuppressWarnings({"PMD.TooManyMethods", "PMD.FieldDeclarationsShouldBeAtStartOfClass"})
-public class SketchActivity extends ZenActivity {
+public class SketchActivity extends ZenActivity implements View.OnAttachStateChangeListener {
 
     private final ZenSketch zenSketch;
     private final Navigator navigator;
@@ -30,10 +30,19 @@ public class SketchActivity extends ZenActivity {
     private FloatingActionButton screenshotButton;
 
     public SketchActivity() {
+        super();
         zenSketch = ZenSketch.newInstance();
         navigator = Navigator.newInstance(zenSketch);
         screenshotTaker = ScreenshotTaker.newInstance(zenSketch);
         sketchClearer = SketchClearer.newInstance(zenSketch);
+    }
+
+    protected SketchActivity(ZenSketch zenSketch, Navigator navigator, ScreenshotTaker screenshotTaker, SketchClearer sketchClearer) {
+        super();
+        this.zenSketch = zenSketch;
+        this.navigator = navigator;
+        this.screenshotTaker = screenshotTaker;
+        this.sketchClearer = sketchClearer;
     }
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +130,7 @@ public class SketchActivity extends ZenActivity {
 
     /**
      * Listeners which controls painting flow and menu operations.
+     * TODO Consider extracting this listeners into classes. This way they can be tested.
      */
     private final View.OnClickListener onMenuToggleListener = new View.OnClickListener() {
         @Override

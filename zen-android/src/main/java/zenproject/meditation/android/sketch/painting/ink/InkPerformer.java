@@ -6,6 +6,7 @@ import com.juankysoriano.rainbow.core.event.RainbowInputController;
 import com.juankysoriano.rainbow.core.graphics.RainbowGraphics;
 import com.juankysoriano.rainbow.core.graphics.RainbowImage;
 import com.juankysoriano.rainbow.utils.RainbowMath;
+import com.novoda.notils.exception.DeveloperError;
 
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
@@ -30,6 +31,7 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
     private final BranchesList branches;
     private RainbowImage image;
     private boolean enabled = true;
+    private boolean initialised = false;
 
     protected InkPerformer(InkDrop inkDrop,
                            BranchesList branches,
@@ -48,14 +50,22 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
                 branches,
                 rainbowDrawer,
                 rainbowInputController);
-        configureDrawer(rainbowDrawer);
-        rainbowDrawer.loadImage(R.drawable.brush_ink, RainbowImage.LOAD_ORIGINAL_SIZE, inkDrawer);
         return inkDrawer;
     }
 
-    private static void configureDrawer(RainbowDrawer rainbowDrawer) {
+    @Override
+    public synchronized void init() {
+        if(initialised) {
+            throw new DeveloperError("You don't really want init this if it was already initialised");
+        }
+        initialised = true;
+        configureDrawer(rainbowDrawer);
+    }
+
+    private void configureDrawer(RainbowDrawer rainbowDrawer) {
         rainbowDrawer.noStroke();
         rainbowDrawer.smooth();
+        rainbowDrawer.loadImage(R.drawable.brush_ink, RainbowImage.LOAD_ORIGINAL_SIZE, this);
     }
 
     @Override

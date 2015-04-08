@@ -43,7 +43,7 @@ public abstract class FloatingActionCircularMenuCreator {
                 .withMargins(MARGIN, MARGIN, MARGIN, MARGIN)
                 .withButtonColor(MENU_COLOR)
                 .withGravity(Gravity.TOP | Gravity.END)
-                .withDrawable(ContextCompat.getDrawable(ContextRetriever.INSTANCE.getCurrentContext(), drawableId))
+                .withDrawable(ContextCompat.getDrawable(ContextRetriever.INSTANCE.getApplicationContext(), drawableId))
                 .withId(resId)
                 .create();
     }

@@ -84,12 +84,12 @@ public class BranchesListTest extends ZenTestBase {
     }
 
     @Test
-    public void testThatInkDropSizeLimiterNewInstanceReturnsNotNullInkDropSizeLimiter() {
+    public void testThatNewInstanceReturnsNotNullInkDropSizeLimiter() {
         Assertions.assertThat(BranchesList.newInstance()).isNotNull();
     }
 
     @Test
-    public void testThatInkDropSizeLimiterNewInstanceReturnsANewInstance() {
+    public void testThatNewInstanceReturnsANewInstance() {
         BranchesList firstInstance = BranchesList.newInstance();
         BranchesList secondInstance = BranchesList.newInstance();
 

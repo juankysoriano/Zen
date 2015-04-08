@@ -4,6 +4,6 @@ import org.robolectric.Robolectric;
 
 public class ZenTestBase {
     static {
-        ContextRetriever.INSTANCE.inject(Robolectric.application.getApplicationContext());
+        ContextRetriever.INSTANCE.inject(Robolectric.application);
     }
 }

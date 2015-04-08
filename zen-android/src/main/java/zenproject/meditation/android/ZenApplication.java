@@ -11,14 +11,17 @@ public class ZenApplication extends AnalyticsApplication {
     public void onCreate() {
         super.onCreate();
 
-        ContextRetriever.INSTANCE.inject(getApplicationContext());
-
-        selectDarkColorIfCurrentIsErase();
+        ContextRetriever.INSTANCE.inject(this);
 
         Log.setShowLogs(BuildConfig.DEBUG);
     }
 
-    private void selectDarkColorIfCurrentIsErase() {
+    @Override
+    public void onTerminate() {
+        ensureThatNextSessionWillHaveAVisibleColor();
+    }
+
+    private void ensureThatNextSessionWillHaveAVisibleColor() {
         BrushOptionsPreferences brushOptionsPreferences = BrushOptionsPreferences.newInstance();
         if (brushOptionsPreferences.getBrushColor() == BrushColor.ERASE) {
             brushOptionsPreferences.applyBrushColor(BrushColor.DARK);

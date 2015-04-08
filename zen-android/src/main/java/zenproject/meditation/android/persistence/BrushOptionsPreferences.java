@@ -16,10 +16,10 @@ public class BrushOptionsPreferences {
     private final SharedPreferences sharedPreferences;
 
     public static BrushOptionsPreferences newInstance() {
-        return new BrushOptionsPreferences(ContextRetriever.INSTANCE.getCurrentContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE));
+        return new BrushOptionsPreferences(ContextRetriever.INSTANCE.getApplicationContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE));
     }
 
-    BrushOptionsPreferences(SharedPreferences sharedPreferences) {
+    protected BrushOptionsPreferences(SharedPreferences sharedPreferences) {
         this.sharedPreferences = sharedPreferences;
     }
 
@@ -36,7 +36,9 @@ public class BrushOptionsPreferences {
     }
 
     public BrushColor getBrushColor() {
-        return BrushColor.from(sharedPreferences.getInt(PREF_BRUSH_COLOR, BrushColor.DARK.toAndroidColor()));
+        int defaultColor = BrushColor.DARK.toAndroidColor();
+        int color = sharedPreferences.getInt(PREF_BRUSH_COLOR, defaultColor);
+        return BrushColor.from(color);
     }
 
     public int getBranchColor() {

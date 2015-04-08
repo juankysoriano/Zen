@@ -54,12 +54,12 @@ public class SketchClearerTest extends ZenTestBase {
      */
 
     @Test
-    public void testThatSketchClearerNewInstanceReturnsNotNullSketchClearer() {
+    public void testThatNewInstanceReturnsNotNullSketchClearer() {
         Assertions.assertThat(SketchClearer.newInstance(zenSketch)).isNotNull();
     }
 
     @Test
-    public void testThatSketchClearerNewInstanceReturnsANewInstance() {
+    public void testThatNewInstanceReturnsANewInstance() {
         SketchClearer firstInstance = SketchClearer.newInstance(zenSketch);
         SketchClearer secondInstance = SketchClearer.newInstance(zenSketch);
 

@@ -13,7 +13,7 @@ public class FlowerOptionPreferences {
     private final SharedPreferences sharedPreferences;
 
     public static FlowerOptionPreferences newInstance() {
-        return new FlowerOptionPreferences(ContextRetriever.INSTANCE.getCurrentContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE));
+        return new FlowerOptionPreferences(ContextRetriever.INSTANCE.getApplicationContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE));
     }
 
     FlowerOptionPreferences(SharedPreferences sharedPreferences) {

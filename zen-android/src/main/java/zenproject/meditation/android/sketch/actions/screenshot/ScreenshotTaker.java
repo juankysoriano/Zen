@@ -22,7 +22,7 @@ public class ScreenshotTaker {
 
     public void takeScreenshot() {
         zenSketch.getRainbowDrawer().save(ZEN, PICTURE_TITLE);
-        Toaster.newInstance(ContextRetriever.INSTANCE.getCurrentContext()).popToast(R.string.save_sketch);
+        Toaster.newInstance(ContextRetriever.INSTANCE.getApplicationContext()).popToast(R.string.save_sketch);
         AnalyticsTracker.INSTANCE.trackScreenshot();
     }
 }

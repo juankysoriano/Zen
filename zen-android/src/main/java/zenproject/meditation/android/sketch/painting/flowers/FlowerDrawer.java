@@ -26,13 +26,13 @@ public class FlowerDrawer implements RainbowImage.LoadPictureListener {
 
     public static FlowerDrawer newInstance(Flower flower, RainbowDrawer rainbowDrawer) {
         List<Integer> flowerLeafsRes = flower.getFlowerLeafRes();
-        FlowerDrawer flowerDrawer = new FlowerDrawer(flower, new ArrayList<RainbowImage>(flowerLeafsRes.size()), rainbowDrawer);
+        return new FlowerDrawer(flower, new ArrayList<RainbowImage>(flowerLeafsRes.size()), rainbowDrawer);
+    }
 
-        for (Integer leafRes : flowerLeafsRes) {
-            rainbowDrawer.loadImage(leafRes, RainbowImage.LOAD_ORIGINAL_SIZE, flowerDrawer);
+    public void init() {
+        for (Integer leafRes : flower.getFlowerLeafRes()) {
+            rainbowDrawer.loadImage(leafRes, RainbowImage.LOAD_ORIGINAL_SIZE, this);
         }
-
-        return flowerDrawer;
     }
 
     @Override

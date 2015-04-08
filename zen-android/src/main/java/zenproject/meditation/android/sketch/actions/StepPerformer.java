@@ -9,4 +9,6 @@ public interface StepPerformer {
     void disable();
 
     void enable();
+
+    void init();
 }

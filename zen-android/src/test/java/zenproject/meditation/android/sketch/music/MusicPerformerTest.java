@@ -135,12 +135,12 @@ public class MusicPerformerTest {
     }
 
     @Test
-    public void testThatMusicPerformerNewInstanceReturnsNotNullMusicPerformer() {
+    public void testThatNewInstanceReturnsNotNullMusicPerformer() {
         Assertions.assertThat(BrushOptionsPreferences.newInstance()).isNotNull();
     }
 
     @Test
-    public void testThatMusicPerformerNewInstanceReturnsANewInstance() {
+    public void testThatNewInstanceReturnsANewInstance() {
         MusicPerformer firstInstance = MusicPerformer.newInstance(rainbowInputController);
         MusicPerformer secondInstance = MusicPerformer.newInstance(rainbowInputController);
 

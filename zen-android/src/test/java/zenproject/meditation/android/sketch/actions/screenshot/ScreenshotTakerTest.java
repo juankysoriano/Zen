@@ -59,12 +59,12 @@ public class ScreenshotTakerTest extends ZenTestBase {
     }
 
     @Test
-    public void testThatScreenshotTakerNewInstanceReturnsNotNullSketchClearer() {
+    public void testThatNewInstanceReturnsNotNullSketchClearer() {
         Assertions.assertThat(ScreenshotTaker.newInstance(zenSketch)).isNotNull();
     }
 
     @Test
-    public void testThatScreenshotTakerNewInstanceReturnsANewInstance() {
+    public void testThatNewInstanceReturnsANewInstance() {
         ScreenshotTaker secondInstance = ScreenshotTaker.newInstance(zenSketch);
         ScreenshotTaker firstInstance = ScreenshotTaker.newInstance(zenSketch);
 

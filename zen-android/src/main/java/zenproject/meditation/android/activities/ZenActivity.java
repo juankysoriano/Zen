@@ -1,13 +1,17 @@
 package zenproject.meditation.android.activities;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.view.View;
 
-import zenproject.meditation.android.analytics.AnalyticsTracker;
 import zenproject.meditation.android.ContextRetriever;
+import zenproject.meditation.android.analytics.AnalyticsTracker;
 
-public abstract class ZenActivity extends FragmentActivity implements View.OnAttachStateChangeListener {
+public abstract class ZenActivity extends Activity {
+
+    protected ZenActivity() {
+        ContextRetriever.INSTANCE.inject(this);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +32,7 @@ public abstract class ZenActivity extends FragmentActivity implements View.OnAtt
 
     @Override
     protected void onDestroy() {
-        ContextRetriever.INSTANCE.inject(getApplicationContext());
+        ContextRetriever.INSTANCE.inject((Activity)null);
         super.onDestroy();
     }
 }

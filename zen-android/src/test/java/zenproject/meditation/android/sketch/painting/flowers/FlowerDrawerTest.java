@@ -104,12 +104,12 @@ public class FlowerDrawerTest extends ZenTestBase {
     }
 
     @Test
-    public void testThatFlowerDrawerNewInstanceReturnsNotNullFlowerDrawer() {
+    public void testThatNewInstanceReturnsNotNullFlowerDrawer() {
         Assertions.assertThat(FlowerDrawer.newInstance(Flower.POPPY, rainbowDrawer)).isNotNull();
     }
 
     @Test
-    public void testThatFlowerDrawerNewInstanceReturnsANewInstance() {
+    public void testThatNewInstanceReturnsANewInstance() {
         FlowerDrawer firstInstance = FlowerDrawer.newInstance(flowerToPaint, rainbowDrawer);
         FlowerDrawer secondInstance = FlowerDrawer.newInstance(flowerToPaint, rainbowDrawer);
 

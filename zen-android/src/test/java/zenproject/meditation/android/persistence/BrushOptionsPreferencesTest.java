@@ -99,12 +99,12 @@ public class BrushOptionsPreferencesTest extends ZenTestBase {
     }
 
     @Test
-    public void testThatBrushOptionsPreferencesNewInstanceReturnsNotNullBrushOptionsPreferences() {
+    public void testThatNewInstanceReturnsNotNullBrushOptionsPreferences() {
         Assertions.assertThat(BrushOptionsPreferences.newInstance()).isNotNull();
     }
 
     @Test
-    public void testThatBrushOptionsPreferencesNewInstanceReturnsANewInstance() {
+    public void testThatNewInstanceReturnsANewInstance() {
         BrushOptionsPreferences firstInstance = BrushOptionsPreferences.newInstance();
         BrushOptionsPreferences secondInstance = BrushOptionsPreferences.newInstance();
 

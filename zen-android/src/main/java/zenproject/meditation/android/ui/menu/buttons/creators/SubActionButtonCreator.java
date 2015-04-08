@@ -19,9 +19,9 @@ public abstract class SubActionButtonCreator {
         return new FloatingActionButton.Builder(context)
                 .withButtonSize(SIZE)
                 .withMargins(MARGIN, MARGIN, MARGIN, MARGIN)
-                .withButtonColor(ContextRetriever.INSTANCE.getCurrentContext().getResources().getColor(color))
+                .withButtonColor(ContextRetriever.INSTANCE.getApplicationContext().getResources().getColor(color))
                 .withGravity(Gravity.TOP | Gravity.END)
-                .withDrawable(ContextCompat.getDrawable(ContextRetriever.INSTANCE.getCurrentContext(), drawableId))
+                .withDrawable(ContextCompat.getDrawable(ContextRetriever.INSTANCE.getApplicationContext(), drawableId))
                 .withId(resId)
                 .create();
     }
