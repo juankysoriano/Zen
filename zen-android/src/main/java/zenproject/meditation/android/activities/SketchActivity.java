@@ -143,7 +143,7 @@ public class SketchActivity extends ZenActivity implements View.OnAttachStateCha
     private final View.OnClickListener onRestartListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            zenSketchView.startRestartAnimation((FloatingActionButton) view);
+            zenSketchView.startClearAnimation((FloatingActionButton) view);
         }
     };
 

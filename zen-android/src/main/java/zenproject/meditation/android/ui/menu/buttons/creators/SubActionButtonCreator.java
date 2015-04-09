@@ -6,6 +6,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
+import android.view.ViewGroup;
 
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
@@ -23,6 +24,10 @@ public abstract class SubActionButtonCreator {
                 .withGravity(Gravity.TOP | Gravity.END)
                 .withDrawable(ContextCompat.getDrawable(ContextRetriever.INSTANCE.getApplicationContext(), drawableId))
                 .withId(resId)
-                .create();
+                .createInto(getActivityContentView());
+    }
+
+    private static ViewGroup getActivityContentView() {
+        return (ViewGroup) ContextRetriever.INSTANCE.getActivity().getWindow().getDecorView().findViewById(android.R.id.content);
     }
 }

@@ -42,7 +42,7 @@ public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintin
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        circularMenu = FloatingActionCircularMenuCreator.createWith(ContextRetriever.INSTANCE.getActivity());
+        circularMenu = FloatingActionCircularMenuCreator.createWith(ContextRetriever.INSTANCE.getApplicationContext());
         circularMenu.setStateChangeListener(menuStateChangeListener);
         menuButton = (FloatingActionButton) circularMenu.getActionView();
     }
@@ -115,7 +115,7 @@ public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintin
         }
     };
 
-    public void startRestartAnimation(FloatingActionButton view) {
+    public void startClearAnimation(FloatingActionButton view) {
         if (!clearView.isClearing()) {
             clearView.startClearWith(revealAnimatorListener);
             clearView.setClearOrigin(view.getCentre());

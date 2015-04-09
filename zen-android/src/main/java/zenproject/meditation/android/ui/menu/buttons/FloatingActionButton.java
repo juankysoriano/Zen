@@ -3,7 +3,6 @@ package zenproject.meditation.android.ui.menu.buttons;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -153,7 +152,6 @@ public class FloatingActionButton extends View {
     public static class Builder {
         private int id;
         private FrameLayout.LayoutParams params;
-        private final Activity activity;
         private int gravity = Gravity.BOTTOM | Gravity.END;
         private Drawable drawable;
         private int color = Color.WHITE;
@@ -166,8 +164,6 @@ public class FloatingActionButton extends View {
             size = convertToPixels(72, scale); // default size is 72dp by 72dp
             params = new FrameLayout.LayoutParams(size, size);
             params.gravity = gravity;
-
-            this.activity = (Activity) context;
         }
 
         /**
@@ -230,16 +226,20 @@ public class FloatingActionButton extends View {
             return this;
         }
 
-        public FloatingActionButton create() {
-            final FloatingActionButton button = new FloatingActionButton(activity);
+        /**
+         * Creates a FloatingActionButton and attaches it to the rootView.
+         * @param rootView
+         * @return
+         */
+        public FloatingActionButton createInto(ViewGroup rootView) {
+            final FloatingActionButton button = new FloatingActionButton(rootView.getContext().getApplicationContext());
             Bitmap scaledBitmap = Bitmap.createScaledBitmap(((BitmapDrawable) drawable).getBitmap(), params.width / 2, params.height / 2, true);
             button.setFloatingActionButtonColor(this.color);
             button.setFloatingActionPressedButtonColor(this.pressedColor == 0 ? getDarkerFrom(this.color) : this.pressedColor);
             button.setFloatingActionButtonDrawable(scaledBitmap);
             button.setId(this.id);
             params.gravity = this.gravity;
-            ViewGroup root = (ViewGroup) activity.getWindow().getDecorView().findViewById(android.R.id.content);
-            root.addView(button, params);
+            rootView.addView(button, params);
             return button;
         }
 
