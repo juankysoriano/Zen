@@ -11,6 +11,7 @@ import zenproject.meditation.android.ZenTestBase;
 import zenproject.meditation.android.sketch.ZenSketch;
 import zenproject.meditation.android.sketch.actions.clear.SketchClearer;
 import zenproject.meditation.android.sketch.actions.screenshot.ScreenshotTaker;
+import zenproject.meditation.android.sketch.actions.share.SketchSharer;
 import zenproject.meditation.android.ui.sketch.ZenSketchView;
 
 import static org.mockito.Mockito.verify;
@@ -24,6 +25,8 @@ public class SketchActivityTest extends ZenTestBase {
     @Mock
     private ScreenshotTaker screenshotTaker;
     @Mock
+    private SketchSharer sketchSharer;
+    @Mock
     private Navigator navigator;
     @Mock
     private ZenSketchView zenSketchView;
@@ -33,7 +36,7 @@ public class SketchActivityTest extends ZenTestBase {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        sketchActivity = new SketchActivity(zenSketch, navigator, screenshotTaker, sketchClearer);
+        sketchActivity = new SketchActivity(zenSketch, navigator, screenshotTaker, sketchClearer, sketchSharer);
     }
 
     @Test
