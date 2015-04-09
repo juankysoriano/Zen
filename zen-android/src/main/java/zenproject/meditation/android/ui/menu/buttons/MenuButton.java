@@ -7,7 +7,7 @@ public enum MenuButton {
     RESTART(2),
     MUSIC(3),
     FLOWER(4),
-    SAVE(5),
+    SCREENSHOT(5),
     SHARE(6),
     MENU(7);
 

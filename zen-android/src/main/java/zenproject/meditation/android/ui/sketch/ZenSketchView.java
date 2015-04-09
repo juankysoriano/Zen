@@ -13,6 +13,7 @@ import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.sketch.ZenSketch;
 import zenproject.meditation.android.ui.menu.buttons.FloatingActionButton;
+import zenproject.meditation.android.ui.menu.buttons.MenuButton;
 import zenproject.meditation.android.ui.menu.buttons.creators.FloatingActionCircularMenuCreator;
 import zenproject.meditation.android.ui.sketch.clear.ClearView;
 
@@ -49,6 +50,10 @@ public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintin
 
     public CircularMenu getCircularMenu() {
         return circularMenu;
+    }
+
+    public FloatingActionButton getButtonViewFor(MenuButton menuButton) {
+        return (FloatingActionButton) circularMenu.findSubActionViewWithId(menuButton.getId());
     }
 
     private void hideControlsWithDelay() {
