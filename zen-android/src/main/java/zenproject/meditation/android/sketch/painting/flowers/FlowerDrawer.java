@@ -13,6 +13,10 @@ import zenproject.meditation.android.sketch.painting.flowers.branch.Branch;
 public class FlowerDrawer implements RainbowImage.LoadPictureListener {
     private static final RainbowImage NO_IMAGE = null;
     protected static final int WHITE = 255;
+    public static final int NORMAL = 1;
+    public static final int REVERSE = -1;
+    public static final int HUNDRED = 100;
+    public static final int FIFTY = 50;
 
     private final Flower flower;
     private final List<RainbowImage> flowerImages;
@@ -54,7 +58,7 @@ public class FlowerDrawer implements RainbowImage.LoadPictureListener {
             rainbowDrawer.pushMatrix();
             rainbowDrawer.translate(branch.getX(), branch.getY());
             rainbowDrawer.rotate(rotation);
-            flipHorizontalyIfLuck();
+            flipHorizontallyIfLuck();
             rainbowDrawer.image(getRandomFlower(), 0, 0, flowerSize, flowerSize);
             rainbowDrawer.popMatrix();
         }
@@ -68,10 +72,14 @@ public class FlowerDrawer implements RainbowImage.LoadPictureListener {
         return flowerImages.get((int) RainbowMath.random(flowerImages.size()));
     }
 
-    private void flipHorizontalyIfLuck() {
-        if (RainbowMath.random(2) > 1) {
-            rainbowDrawer.scale(-1, 1);
+    private void flipHorizontallyIfLuck() {
+        if (flipCoin()) {
+            rainbowDrawer.scale(REVERSE, NORMAL); //Tricky, but this reverses image.
         }
+    }
+
+    private boolean flipCoin() {
+        return RainbowMath.random(HUNDRED) >= FIFTY;
     }
 
     private float getFlowerSize() {

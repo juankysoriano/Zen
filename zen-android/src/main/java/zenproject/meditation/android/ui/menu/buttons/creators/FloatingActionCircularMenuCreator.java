@@ -13,7 +13,13 @@ import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.ui.menu.buttons.FloatingActionButton;
 
-import static zenproject.meditation.android.ui.menu.buttons.MenuButton.*;
+import static zenproject.meditation.android.ui.menu.buttons.MenuButton.BRUSH;
+import static zenproject.meditation.android.ui.menu.buttons.MenuButton.FLOWER;
+import static zenproject.meditation.android.ui.menu.buttons.MenuButton.MENU;
+import static zenproject.meditation.android.ui.menu.buttons.MenuButton.MUSIC;
+import static zenproject.meditation.android.ui.menu.buttons.MenuButton.SHARE;
+import static zenproject.meditation.android.ui.menu.buttons.MenuButton.SCREENSHOT;
+import static zenproject.meditation.android.ui.menu.buttons.MenuButton.RESTART;
 
 public class FloatingActionCircularMenuCreator {
     private static final int MENU_RADIUS = ContextRetriever.INSTANCE.getResources().getDimensionPixelSize(R.dimen.menu_floating_action_button_radius);
@@ -23,7 +29,7 @@ public class FloatingActionCircularMenuCreator {
     private static final int START_ANGLE = 185;
     private static final int END_ANGLE = 85;
 
-    protected FloatingActionCircularMenuCreator() {
+    private FloatingActionCircularMenuCreator() {
         //no-op
     }
 

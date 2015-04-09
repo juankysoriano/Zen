@@ -46,7 +46,7 @@ public class BranchesListTest extends ZenTestBase {
 
     @Test
     public void testThatGetBranchesReturnsInternalList() {
-        Assertions.assertThat(branchesList.getBranchesList()).isEqualTo(internalBranchList);
+        Assertions.assertThat(branchesList.asList()).isEqualTo(internalBranchList);
     }
 
     @Test

@@ -12,6 +12,8 @@ public class AnalyticsApplication extends Application {
 
     @Override
     public void onCreate() {
+        super.onCreate();
+
         Crashlytics crashlytics = new Crashlytics.Builder().disabled(isAnalyticsDisabled()).build();
         Fabric.with(this, crashlytics);
 

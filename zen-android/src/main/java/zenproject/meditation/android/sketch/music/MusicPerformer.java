@@ -9,6 +9,7 @@ import zenproject.meditation.android.R;
 import zenproject.meditation.android.sketch.actions.StepPerformer;
 
 public class MusicPerformer implements StepPerformer {
+    private static final MediaPlayer RELEASED_MUSIC_PERFORMER = null;
     private static final float MUSIC_STEP = 0.01f;
     private static final float MIN_VOLUME = 0.05f;
     private MediaPlayer mediaPlayer;
@@ -21,7 +22,7 @@ public class MusicPerformer implements StepPerformer {
     }
 
     public static MusicPerformer newInstance(RainbowInputController rainbowInputController) {
-        return new MusicPerformer(null, rainbowInputController);
+        return new MusicPerformer(RELEASED_MUSIC_PERFORMER, rainbowInputController);
     }
 
     @Override
@@ -72,8 +73,9 @@ public class MusicPerformer implements StepPerformer {
         stop();
     }
 
+    @SuppressWarnings("PMD.CompareObjectsWithEquals")
     private boolean isMediaPlayerReleased() {
-        return mediaPlayer == null;
+        return mediaPlayer == RELEASED_MUSIC_PERFORMER;
     }
 
     private void stop() {
@@ -90,7 +92,7 @@ public class MusicPerformer implements StepPerformer {
     private void releaseMediaPlayer() {
         if (!isMediaPlayerReleased()) {
             mediaPlayer.release();
-            mediaPlayer = null;
+            mediaPlayer = RELEASED_MUSIC_PERFORMER;
         }
     }
 

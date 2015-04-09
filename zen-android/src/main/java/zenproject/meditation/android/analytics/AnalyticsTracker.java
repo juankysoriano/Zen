@@ -16,10 +16,6 @@ public enum AnalyticsTracker implements ZenAnalytics {
 
     private Tracker tracker;
 
-    AnalyticsTracker() {
-    }
-
-
     public void inject(Tracker tracker) {
         this.tracker = tracker;
     }
@@ -59,7 +55,7 @@ public enum AnalyticsTracker implements ZenAnalytics {
 
     @Override
     public void trackMusic() {
-
+        //no-op
     }
 
     @Override
@@ -105,21 +101,21 @@ public enum AnalyticsTracker implements ZenAnalytics {
         GoogleAnalytics.getInstance(zenActivity).dispatchLocalHits();
     }
 
-    private static class SketchTracking {
+    private class SketchTracking {
         private static final String SKETCH = "Sketch";
         private static final String CLEARED = "Cleared";
         private static final String SHARED = "Shared";
         private static final String SCREENSHOT = "Screenshot";
     }
 
-    private static class BrushTracking {
+    private class BrushTracking {
         private static final String BRUSH = "Brush";
         private static final String COLOR_SELECTED = "Color selected";
         private static final String SIZE_SELECTED = "Size selected";
         private static final String SIZE_VAR = "size_value";
     }
 
-    private static class FlowerTracking {
+    private class FlowerTracking {
         private static final String FLOWER = "Flower";
         private static final String FLOWER_SELECTED = "Flower selected";
     }

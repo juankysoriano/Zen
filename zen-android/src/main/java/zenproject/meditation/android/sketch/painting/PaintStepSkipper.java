@@ -5,9 +5,6 @@ public class PaintStepSkipper {
 
     private int step;
 
-    public PaintStepSkipper() {
-    }
-
     public boolean hasToSkipStep() {
         return step % (FRAMES_TO_SKIP + 1) != 0;
     }

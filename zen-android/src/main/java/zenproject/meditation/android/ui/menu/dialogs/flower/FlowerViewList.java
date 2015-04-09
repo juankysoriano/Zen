@@ -18,6 +18,7 @@ import static zenproject.meditation.android.sketch.painting.ink.BrushColor.ACCEN
 /**
  * TODO Consider using an adapter when the number of flowers increases
  */
+@SuppressWarnings("PMD.TooManyMethods")
 public class FlowerViewList extends LinearLayout {
     private static final int UNSELECTED_BORDER_SIZE = ContextRetriever.INSTANCE.getResources().getDimensionPixelSize(R.dimen.divider_weight);
     private static final int SELECTED_BORDER_SIZE = ContextRetriever.INSTANCE.getResources().getDimensionPixelSize(R.dimen.color_selected_weight);

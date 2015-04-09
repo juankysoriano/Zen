@@ -11,11 +11,11 @@ import java.util.List;
 
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
-import zenproject.meditation.android.sketch.painting.flowers.Flower;
 import zenproject.meditation.android.persistence.BrushOptionsPreferences;
 import zenproject.meditation.android.persistence.FlowerOptionPreferences;
 import zenproject.meditation.android.sketch.actions.StepPerformer;
 import zenproject.meditation.android.sketch.painting.PaintStepSkipper;
+import zenproject.meditation.android.sketch.painting.flowers.Flower;
 import zenproject.meditation.android.sketch.painting.flowers.FlowerDrawer;
 import zenproject.meditation.android.ui.menu.dialogs.flower.FlowerSelectedListener;
 
@@ -56,13 +56,15 @@ public class BranchPerformer implements StepPerformer, FlowerSelectedListener {
     }
 
     @Override
-    public synchronized void init() {
-        if (initialised) {
-            throw new DeveloperError("You don't really want init this if it was already initialised");
+    public void init() {
+        synchronized (this) {
+            if (initialised) {
+                throw new DeveloperError("You don't really want init this if it was already initialised");
+            }
+            initialised = true;
+            configureDrawer();
+            flowerDrawer.init();
         }
-        initialised = true;
-        configureDrawer();
-        flowerDrawer.init();
     }
 
     private void configureDrawer() {
@@ -86,7 +88,7 @@ public class BranchPerformer implements StepPerformer, FlowerSelectedListener {
     }
 
     private void paintAndUpdateBranches() {
-        List<Branch> branchList = new ArrayList<>(branchesList.getBranchesList());
+        List<Branch> branchList = new ArrayList<>(branchesList.asList());
         for (Branch branch : branchList) {
             paintAndUpdateBranch(branch);
         }

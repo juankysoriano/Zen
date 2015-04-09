@@ -24,6 +24,7 @@ import com.nineoldandroids.view.ViewPropertyAnimator;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 
+@SuppressWarnings("TooManyMethods")
 public class FloatingActionButton extends View {
     private static final float FAB_SHADOW_TOUCH = ContextRetriever.INSTANCE.getResources().getDimensionPixelSize(R.dimen.shadow_fab_touch);
     private static final float FAB_SHADOW_UNTOUCH = ContextRetriever.INSTANCE.getResources().getDimensionPixelSize(R.dimen.shadow_fab_untouch);

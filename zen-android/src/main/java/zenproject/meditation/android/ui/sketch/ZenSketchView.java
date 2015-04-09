@@ -17,7 +17,7 @@ import zenproject.meditation.android.ui.menu.buttons.MenuButton;
 import zenproject.meditation.android.ui.menu.buttons.creators.FloatingActionCircularMenuCreator;
 import zenproject.meditation.android.ui.sketch.clear.ClearView;
 
-@SuppressWarnings("PMD.FieldDeclarationsShouldBeAtStartOfClass")
+@SuppressWarnings({ "PMD.FieldDeclarationsShouldBeAtStartOfClass", "PMD.TooManyMethods" })
 public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintingListener {
     private static final int MILLISECONDS_TO_HIDE = 150;
     private static final int MILLISECONDS_TO_SHOW = 150;

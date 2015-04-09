@@ -16,7 +16,7 @@ public class SubActionButtonCreator {
     private static final int SIZE = ContextRetriever.INSTANCE.getResources().getDimensionPixelSize(R.dimen.sub_floating_action_button_size);
     private static final int MARGIN = ContextRetriever.INSTANCE.getResources().getDimensionPixelSize(R.dimen.sub_floating_action_button_margin);
 
-    protected SubActionButtonCreator() {
+    private SubActionButtonCreator() {
         //no-op
     }
 

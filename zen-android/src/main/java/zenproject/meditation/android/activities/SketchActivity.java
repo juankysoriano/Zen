@@ -11,7 +11,7 @@ import zenproject.meditation.android.ui.menu.buttons.FloatingActionButton;
 import zenproject.meditation.android.ui.menu.buttons.MenuButton;
 import zenproject.meditation.android.ui.sketch.ZenSketchView;
 
-@SuppressWarnings({"PMD.TooManyMethods", "PMD.FieldDeclarationsShouldBeAtStartOfClass"})
+@SuppressWarnings({ "PMD.TooManyMethods", "PMD.FieldDeclarationsShouldBeAtStartOfClass" })
 public class SketchActivity extends ZenActivity implements View.OnAttachStateChangeListener {
 
     private final ZenSketch zenSketch;

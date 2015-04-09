@@ -75,10 +75,11 @@ public enum Flower {
         return minSize;
     }
 
+    @SuppressWarnings("PMD.UnusedModifier")
     private static class Constants {
-        private static final float DEFAULT_MAX_SIZE = ContextRetriever.INSTANCE.getResources().getDimension(R.dimen.max_flower_size);
-        private static final float DEFAULT_MIN_SIZE = ContextRetriever.INSTANCE.getResources().getDimension(R.dimen.min_flower_size);
         private static final float SMALLER_FLOWER_FACTOR = 0.8f;
         private static final float BIGGER_FLOWER_FACTOR = 1.2f;
+        private static final float DEFAULT_MAX_SIZE = ContextRetriever.INSTANCE.getResources().getDimension(R.dimen.max_flower_size);
+        private static final float DEFAULT_MIN_SIZE = ContextRetriever.INSTANCE.getResources().getDimension(R.dimen.min_flower_size);
     }
 }

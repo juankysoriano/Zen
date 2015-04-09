@@ -11,12 +11,12 @@ public class BranchesList implements Iterable<Branch> {
 
     private static final int MAX_BRANCHES = 1000;
 
-    private final List<Branch> branchesList;
+    private final List<Branch> list;
 
     private final FlowerOptionPreferences flowerOptionPreferences;
 
-    BranchesList(List<Branch> branchesList, FlowerOptionPreferences flowerOptionPreferences) {
-        this.branchesList = branchesList;
+    BranchesList(List<Branch> list, FlowerOptionPreferences flowerOptionPreferences) {
+        this.list = list;
         this.flowerOptionPreferences = flowerOptionPreferences;
     }
 
@@ -25,25 +25,25 @@ public class BranchesList implements Iterable<Branch> {
     }
 
     public void bloomFrom(Branch branch) {
-        if (branchesList.size() < MAX_BRANCHES && branch.canBloom() && flowerOptionPreferences.getFlower() != Flower.NONE) {
-            branchesList.add(Branch.createFrom(branch));
+        if (list.size() < MAX_BRANCHES && branch.canBloom() && flowerOptionPreferences.getFlower() != Flower.NONE) {
+            list.add(Branch.createFrom(branch));
         }
     }
 
     @Override
     public Iterator<Branch> iterator() {
-        return branchesList.iterator();
+        return list.iterator();
     }
 
     public void prune(Branch branch) {
-        branchesList.remove(branch);
+        list.remove(branch);
     }
 
     public void clear() {
-        branchesList.clear();
+        list.clear();
     }
 
-    public List<Branch> getBranchesList() {
-        return branchesList;
+    public List<Branch> asList() {
+        return list;
     }
 }

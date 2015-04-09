@@ -53,12 +53,14 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
     }
 
     @Override
-    public synchronized void init() {
-        if (initialised) {
-            throw new DeveloperError("You don't really want init this if it was already initialised");
+    public void init() {
+        synchronized (this) {
+            if (initialised) {
+                throw new DeveloperError("You don't really want init this if it was already initialised");
+            }
+            initialised = true;
+            configureDrawer();
         }
-        initialised = true;
-        configureDrawer();
     }
 
     private void configureDrawer() {

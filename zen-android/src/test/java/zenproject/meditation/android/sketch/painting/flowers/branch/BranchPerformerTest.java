@@ -38,7 +38,7 @@ public class BranchPerformerTest extends ZenTestBase {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         branchesList = BranchesList.newInstance();
-        branchesList.getBranchesList().add(branch);
+        branchesList.asList().add(branch);
 
         branchPerformer = new BranchPerformer(branchesList, flowerDrawer, rainbowDrawer, paintStepSkipper, brushOptionsPreferences);
     }

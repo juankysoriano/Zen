@@ -10,12 +10,17 @@ import com.novoda.notils.caster.Views;
 import de.hdodenhof.circleimageview.CircleImageView;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
-import zenproject.meditation.android.sketch.painting.ink.BrushColor;
 import zenproject.meditation.android.persistence.BrushOptionsPreferences;
+import zenproject.meditation.android.sketch.painting.ink.BrushColor;
 import zenproject.meditation.android.ui.menu.dialogs.brush.ColorSelectedListener;
 
-import static zenproject.meditation.android.sketch.painting.ink.BrushColor.*;
+import static zenproject.meditation.android.sketch.painting.ink.BrushColor.DARK;
+import static zenproject.meditation.android.sketch.painting.ink.BrushColor.ACCENT;
+import static zenproject.meditation.android.sketch.painting.ink.BrushColor.GREY;
+import static zenproject.meditation.android.sketch.painting.ink.BrushColor.PRIMARY;
+import static zenproject.meditation.android.sketch.painting.ink.BrushColor.ERASE;
 
+@SuppressWarnings("PMD.TooManyMethods")
 public class ColorListView extends LinearLayout {
     private static final int UNSELECTED_BORDER_SIZE = ContextRetriever.INSTANCE.getResources().getDimensionPixelSize(R.dimen.divider_weight);
     private static final int SELECTED_BORDER_SIZE = ContextRetriever.INSTANCE.getResources().getDimensionPixelSize(R.dimen.color_selected_weight);
