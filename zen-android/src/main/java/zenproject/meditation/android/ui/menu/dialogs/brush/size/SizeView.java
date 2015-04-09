@@ -12,6 +12,7 @@ import zenproject.meditation.android.R;
 import zenproject.meditation.android.persistence.BrushOptionsPreferences;
 import zenproject.meditation.android.ui.menu.dialogs.brush.SizeChangedListener;
 
+@SuppressWarnings("PMD.TooManyMethods")
 public class SizeView extends LinearLayout {
     private static final int MAX_DROP_SIZE = ContextRetriever.INSTANCE.getResources().getDimensionPixelSize(R.dimen.ink_drop_max_radius);
     private static final int MIN_DROP_SIZE = ContextRetriever.INSTANCE.getResources().getDimensionPixelSize(R.dimen.ink_drop_min_radius);

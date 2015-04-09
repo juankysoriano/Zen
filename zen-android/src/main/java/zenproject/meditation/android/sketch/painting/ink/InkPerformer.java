@@ -156,6 +156,7 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
         rainbowDrawer.strokeWeight(1);
     }
 
+    // TODO revisit this once RainbowImage has support for EmptyRainbowImage
     private boolean hasImage() {
         return image != NO_IMAGE;
     }

@@ -12,16 +12,9 @@ import com.oguzdev.circularfloatingactionmenu.library.CircularMenu;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.ui.menu.buttons.FloatingActionButton;
+import zenproject.meditation.android.ui.menu.buttons.MenuButton;
 
-import static zenproject.meditation.android.ui.menu.buttons.MenuButton.BRUSH;
-import static zenproject.meditation.android.ui.menu.buttons.MenuButton.FLOWER;
-import static zenproject.meditation.android.ui.menu.buttons.MenuButton.MENU;
-import static zenproject.meditation.android.ui.menu.buttons.MenuButton.MUSIC;
-import static zenproject.meditation.android.ui.menu.buttons.MenuButton.SHARE;
-import static zenproject.meditation.android.ui.menu.buttons.MenuButton.SCREENSHOT;
-import static zenproject.meditation.android.ui.menu.buttons.MenuButton.RESTART;
-
-public class FloatingActionCircularMenuCreator {
+public final class CircularMenuCreator {
     private static final int MENU_RADIUS = ContextRetriever.INSTANCE.getResources().getDimensionPixelSize(R.dimen.menu_floating_action_button_radius);
     private static final int BUTTON_SIZE = ContextRetriever.INSTANCE.getResources().getDimensionPixelSize(R.dimen.menu_floating_action_button_size);
     private static final int MARGIN = ContextRetriever.INSTANCE.getResources().getDimensionPixelOffset(R.dimen.action_button_margin);
@@ -29,22 +22,42 @@ public class FloatingActionCircularMenuCreator {
     private static final int START_ANGLE = 185;
     private static final int END_ANGLE = 85;
 
-    private FloatingActionCircularMenuCreator() {
+    private CircularMenuCreator() {
         //no-op
     }
 
     public static CircularMenu createWith(Context context) {
         return new CircularMenu.Builder(context)
                 .setRadius(MENU_RADIUS)
-                .addSubActionView(SubActionButtonCreator.createFrom(context, R.color.colorPrimary, R.drawable.brush, BRUSH.getId()))
-                .addSubActionView(SubActionButtonCreator.createFrom(context, R.color.colorPrimary, R.drawable.bunch_flowers, FLOWER.getId()))
-                .addSubActionView(SubActionButtonCreator.createFrom(context, R.color.colorPrimary, R.drawable.music, MUSIC.getId()))
-                .addSubActionView(SubActionButtonCreator.createFrom(context, R.color.colorPrimaryLight, R.drawable.share, SHARE.getId()))
-                .addSubActionView(SubActionButtonCreator.createFrom(context, R.color.colorPrimaryLight, R.drawable.save, SCREENSHOT.getId()))
-                .addSubActionView(SubActionButtonCreator.createFrom(context, R.color.colorAccent, R.drawable.restart, RESTART.getId()))
+                .addSubActionView(SubActionButtonCreator.createFrom(context,
+                        R.color.colorPrimary,
+                        R.drawable.brush,
+                        MenuButton.BRUSH.getId()))
+                .addSubActionView(SubActionButtonCreator.createFrom(context,
+                        R.color.colorPrimary,
+                        R.drawable.bunch_flowers,
+                        MenuButton.FLOWER.getId()))
+                .addSubActionView(SubActionButtonCreator.createFrom(context,
+                        R.color.colorPrimary,
+                        R.drawable.music,
+                        MenuButton.MUSIC.getId()))
+                .addSubActionView(SubActionButtonCreator.createFrom(context,
+                        R.color.colorPrimaryLight,
+                        R.drawable.share,
+                        MenuButton.SHARE.getId()))
+                .addSubActionView(SubActionButtonCreator.createFrom(context,
+                        R.color.colorPrimaryLight,
+                        R.drawable.save,
+                        MenuButton.SCREENSHOT.getId()))
+                .addSubActionView(SubActionButtonCreator.createFrom(context,
+                        R.color.colorAccent,
+                        R.drawable.restart,
+                        MenuButton.RESTART.getId()))
+                .attachTo(createMenuButtonWith(context,
+                        R.drawable.menu,
+                        MenuButton.MENU.getId()))
                 .setStartAngle(START_ANGLE)
                 .setEndAngle(END_ANGLE)
-                .attachTo(createMenuButtonWith(context, R.drawable.menu, MENU.getId()))
                 .build();
     }
 

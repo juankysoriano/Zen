@@ -14,11 +14,6 @@ import zenproject.meditation.android.persistence.BrushOptionsPreferences;
 import zenproject.meditation.android.sketch.painting.ink.BrushColor;
 import zenproject.meditation.android.ui.menu.dialogs.brush.ColorSelectedListener;
 
-import static zenproject.meditation.android.sketch.painting.ink.BrushColor.DARK;
-import static zenproject.meditation.android.sketch.painting.ink.BrushColor.ACCENT;
-import static zenproject.meditation.android.sketch.painting.ink.BrushColor.GREY;
-import static zenproject.meditation.android.sketch.painting.ink.BrushColor.PRIMARY;
-import static zenproject.meditation.android.sketch.painting.ink.BrushColor.ERASE;
 
 @SuppressWarnings("PMD.TooManyMethods")
 public class ColorListView extends LinearLayout {
@@ -72,56 +67,56 @@ public class ColorListView extends LinearLayout {
             @Override
             public void onClick(View v) {
                 setSelected((CircleImageView) v);
-                notifyColorSelected(DARK);
+                notifyColorSelected(BrushColor.DARK);
             }
         });
         greyColor.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 setSelected((CircleImageView) v);
-                notifyColorSelected(GREY);
+                notifyColorSelected(BrushColor.GREY);
             }
         });
         eraseColor.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 setSelected((CircleImageView) v);
-                notifyColorSelected(ERASE);
+                notifyColorSelected(BrushColor.ERASE);
             }
         });
         primaryColor.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 setSelected((CircleImageView) v);
-                notifyColorSelected(PRIMARY);
+                notifyColorSelected(BrushColor.PRIMARY);
             }
         });
         accentColor.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                setSelectedWithColor((CircleImageView) v, PRIMARY.toAndroidColor());
-                notifyColorSelected(ACCENT);
+                setSelectedWithColor((CircleImageView) v, BrushColor.PRIMARY.toAndroidColor());
+                notifyColorSelected(BrushColor.ACCENT);
             }
         });
     }
 
     private void setSelectedFrom(BrushColor brushColor) {
-        if (DARK == brushColor) {
+        if (BrushColor.DARK == brushColor) {
             setSelected(darkColor);
-        } else if (GREY == brushColor) {
+        } else if (BrushColor.GREY == brushColor) {
             setSelected(greyColor);
-        } else if (ERASE == brushColor) {
+        } else if (BrushColor.ERASE == brushColor) {
             setSelected(eraseColor);
-        } else if (PRIMARY == brushColor) {
+        } else if (BrushColor.PRIMARY == brushColor) {
             setSelected(primaryColor);
-        } else if (ACCENT == brushColor) {
-            setSelectedWithColor(accentColor, PRIMARY.toAndroidColor());
+        } else if (BrushColor.ACCENT == brushColor) {
+            setSelectedWithColor(accentColor, BrushColor.PRIMARY.toAndroidColor());
         }
     }
 
     private void setSelected(CircleImageView circleImageView) {
         unselectAll();
-        circleImageView.setBorderColor(ACCENT.toAndroidColor());
+        circleImageView.setBorderColor(BrushColor.ACCENT.toAndroidColor());
         circleImageView.setBorderWidth(SELECTED_BORDER_SIZE);
     }
 
