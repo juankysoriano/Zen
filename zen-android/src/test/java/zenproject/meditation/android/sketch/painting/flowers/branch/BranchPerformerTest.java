@@ -2,7 +2,6 @@ package zenproject.meditation.android.sketch.painting.flowers.branch;
 
 import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
 
-import org.fest.assertions.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,12 +14,11 @@ import zenproject.meditation.android.persistence.BrushOptionsPreferences;
 import zenproject.meditation.android.sketch.painting.PaintStepSkipper;
 import zenproject.meditation.android.sketch.painting.flowers.FlowerDrawer;
 
+import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @RunWith(RobolectricLauncherGradleTestRunner.class)
 public class BranchPerformerTest extends ZenTestBase {
-
-    private static final FlowerDrawer NO_FLOWER = null;
 
     private BranchesList branchesList;
     @Mock
@@ -87,20 +85,8 @@ public class BranchPerformerTest extends ZenTestBase {
 
         branchPerformer.doStep();
 
-        Assertions.assertThat(branchesList).isEmpty();
+        assertThat(branchesList).isEmpty();
 
-    }
-
-    @Test
-    public void testGivenThatPerformerIsEnabledDoesNotHaveToSkipStepAndHasNoFlowerThenWhenDoingStepBranchesListPrunedIfBranchIsDead() {
-        givenThatPerformerIsEnabled();
-        givenThatHasNotToSkipStep();
-        givenThatHasNoFlowers();
-        givenThatBranchIsDead();
-
-        branchPerformer.doStep();
-
-        Assertions.assertThat(branchesList).isEmpty();
     }
 
     @Test
@@ -112,7 +98,19 @@ public class BranchPerformerTest extends ZenTestBase {
 
         branchPerformer.doStep();
 
-        Assertions.assertThat(branchesList).isNotEmpty();
+        assertThat(branchesList).isNotEmpty();
+    }
+
+    @Test
+    public void testGivenThatPerformerIsEnabledDoesNotHaveToSkipStepAndHasNoFlowerThenWhenDoingStepBranchesListIsNotPrunedIfBranchIsDead() {
+        givenThatHasNoFlowers();
+        givenThatPerformerIsEnabled();
+        givenThatHasNotToSkipStep();
+        givenThatBranchIsDead();
+
+        branchPerformer.doStep();
+
+        assertThat(branchesList).isNotEmpty();
     }
 
     @Test
@@ -136,18 +134,6 @@ public class BranchPerformerTest extends ZenTestBase {
         branchPerformer.doStep();
 
         verify(rainbowDrawer).line(anyFloat(), anyFloat(), anyFloat(), anyFloat());
-    }
-
-    @Test
-    public void testGivenThatPerformerIsEnabledDoesNotHaveToSkipStepAndHasNoFlowerThenWhenDoingStepBranchIsPaintedWithBrushColor() {
-        givenThatPerformerIsEnabled();
-        givenThatHasNotToSkipStep();
-        givenThatHasNoFlowers();
-        givenThatBranchIsNotDead();
-
-        branchPerformer.doStep();
-
-        verify(brushOptionsPreferences).getBranchColor();
     }
 
     @Test
@@ -175,7 +161,7 @@ public class BranchPerformerTest extends ZenTestBase {
 
     @Test
     public void testThatNewInstanceReturnsNotNullBranchPerformer() {
-        Assertions.assertThat(BranchPerformer.newInstance(branchesList, rainbowDrawer)).isNotNull();
+        assertThat(BranchPerformer.newInstance(branchesList, rainbowDrawer)).isNotNull();
     }
 
     @Test
@@ -183,7 +169,7 @@ public class BranchPerformerTest extends ZenTestBase {
         BranchPerformer firstInstance = BranchPerformer.newInstance(branchesList, rainbowDrawer);
         BranchPerformer secondInstance = BranchPerformer.newInstance(branchesList, rainbowDrawer);
 
-        Assertions.assertThat(firstInstance).isNotEqualTo(secondInstance);
+        assertThat(firstInstance).isNotEqualTo(secondInstance);
     }
 
     private void givenThatPerformerIsEnabled() {
@@ -195,7 +181,7 @@ public class BranchPerformerTest extends ZenTestBase {
     }
 
     private void givenThatHasNoFlowers() {
-        flowerDrawer = NO_FLOWER;
+        branchPerformer = new BranchPerformer(branchesList, null, rainbowDrawer, paintStepSkipper, brushOptionsPreferences);
     }
 
     private void givenThatHasFlowers() {

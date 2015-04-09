@@ -46,7 +46,7 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
     public static InkPerformer newInstance(BranchesList branches,
                                            RainbowDrawer rainbowDrawer,
                                            RainbowInputController rainbowInputController) {
-        return new InkPerformer(InkDrop.newInstance(),
+        return new InkPerformer(InkDrop.newInstance(rainbowInputController),
                 branches,
                 rainbowDrawer,
                 rainbowInputController);
@@ -93,7 +93,7 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
                 new RainbowDrawer.PointDetectedListener() {
                     @Override
                     public void onPointDetected(float px, float py, float x, float y, RainbowDrawer rainbowDrawer) {
-                        inkDrop.updateInkRadiusFor(rainbowInputController);
+                        inkDrop.updateInkRadius();
                         drawInk(px, py, x, y);
                         attemptToBloomBranchAt(x, y);
                     }

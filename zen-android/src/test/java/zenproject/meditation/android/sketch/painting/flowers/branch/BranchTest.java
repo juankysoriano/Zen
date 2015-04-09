@@ -91,6 +91,5 @@ public class BranchTest extends ZenTestBase {
         assertThat(branch.getX()).isNotEqualTo(ANY_POSITION);
         assertThat(branch.getOldX()).isEqualTo(ANY_POSITION);
         assertThat(branch.getOldY()).isEqualTo(ANY_POSITION);
-
     }
 }
