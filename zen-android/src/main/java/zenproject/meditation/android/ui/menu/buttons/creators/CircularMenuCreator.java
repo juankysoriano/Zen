@@ -37,10 +37,11 @@ public final class CircularMenuCreator {
                         R.color.colorPrimary,
                         R.drawable.bunch_flowers,
                         MenuButton.FLOWER.getId()))
+            /*   TODO uncomment this code when the feature to select different music is implemented.
                 .addSubActionView(SubActionButtonCreator.createFrom(context,
                         R.color.colorPrimary,
                         R.drawable.music,
-                        MenuButton.MUSIC.getId()))
+                        MenuButton.MUSIC.getId()))  */
                 .addSubActionView(SubActionButtonCreator.createFrom(context,
                         R.color.colorPrimaryLight,
                         R.drawable.share,
