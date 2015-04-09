@@ -1,7 +1,5 @@
 package zenproject.meditation.android.sketch;
 
-import android.view.MotionEvent;
-
 import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
 import com.juankysoriano.rainbow.core.event.RainbowInputController;
 
@@ -22,7 +20,6 @@ import zenproject.meditation.android.sketch.painting.flowers.branch.BranchPerfor
 import zenproject.meditation.android.sketch.painting.flowers.branch.BranchesList;
 import zenproject.meditation.android.sketch.painting.ink.InkPerformer;
 
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricLauncherGradleTestRunner.class)
@@ -43,15 +40,19 @@ public class ZenSketchTest extends ZenTestBase {
     @Mock
     private RainbowInputController rainbowInputController;
     @Mock
-    private ZenSketch.OnPaintingListener listener;
-    @Mock
-    private MotionEvent motionEvent;
+    private SketchInteractionListener sketchInteractionListener;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        zenSketch = new ZenSketch(musicPerformer, inkPerformer, branchPerformer, branchesList, rainbowDrawer, rainbowInputController);
+        zenSketch = new ZenSketch(musicPerformer,
+                inkPerformer,
+                branchPerformer,
+                branchesList,
+                rainbowDrawer,
+                sketchInteractionListener,
+                rainbowInputController);
     }
 
     @Test
@@ -79,7 +80,7 @@ public class ZenSketchTest extends ZenTestBase {
     public void testThatOnSketchSetupSetsInteractionListenerOnRainbowInputController() {
         zenSketch.onSketchSetup();
 
-        verify(rainbowInputController).setRainbowInteractionListener(zenSketch);
+        verify(rainbowInputController).setRainbowInteractionListener(sketchInteractionListener);
     }
 
     @Test
@@ -108,53 +109,6 @@ public class ZenSketchTest extends ZenTestBase {
         zenSketch.onDrawingResume();
 
         verify(musicPerformer).enable();
-    }
-
-
-    @Test
-    public void testThatOnScreenTouchedPerformsResetOnInkPerformer() {
-        zenSketch.onSketchTouched(motionEvent, rainbowDrawer);
-
-        verify(inkPerformer).reset();
-    }
-
-    @Test
-    public void testThatIfHaveOnPaintingListenerThenOnScreenTouchFiresOnPaintingStart() {
-        givenThatHasPaintingListener();
-
-        zenSketch.onSketchTouched(motionEvent, rainbowDrawer);
-
-        verify(listener).onPaintingStart();
-    }
-
-    @Test
-    public void testThatIfDoesNotHaveOnPaintingListenerThenOnScreenTouchDoesNotFireOnPaintingStart() {
-        zenSketch.onSketchTouched(motionEvent, rainbowDrawer);
-
-        verify(listener, never()).onPaintingStart();
-    }
-
-    @Test
-    public void testThatIfHaveOnPaintingListenerThenOnScreenReleasedFiresOnPaintingEnd() {
-        givenThatHasPaintingListener();
-
-        zenSketch.onSketchReleased(motionEvent, rainbowDrawer);
-
-        verify(listener).onPaintingEnd();
-    }
-
-    @Test
-    public void testThatIfDoesNotHaveOnPaintingListenerThenOnScreenReleasedDoesNotFireOnPaintingEnd() {
-        zenSketch.onSketchReleased(motionEvent, rainbowDrawer);
-
-        verify(listener, never()).onPaintingEnd();
-    }
-
-    @Test
-    public void testThatOnFingerDraggedDoesStepOnInkPerformer() {
-        zenSketch.onFingerDragged(motionEvent, rainbowDrawer);
-
-        verify(inkPerformer).doStep();
     }
 
     @Test
@@ -189,9 +143,5 @@ public class ZenSketchTest extends ZenTestBase {
         ZenSketch secondInstance = ZenSketch.newInstance();
 
         Assertions.assertThat(firstInstance).isNotEqualTo(secondInstance);
-    }
-
-    private void givenThatHasPaintingListener() {
-        zenSketch.setOnPaintingListener(listener);
     }
 }
