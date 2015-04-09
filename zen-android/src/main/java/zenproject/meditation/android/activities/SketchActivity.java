@@ -190,7 +190,7 @@ public class SketchActivity extends ZenActivity implements View.OnAttachStateCha
 
     private final ZenSketchView.OnClearListener onClearListener = new ZenSketchView.OnClearListener() {
         @Override
-        public void onRevealed() {
+        public void onCleared() {
             sketchClearer.clearSketch();
         }
     };

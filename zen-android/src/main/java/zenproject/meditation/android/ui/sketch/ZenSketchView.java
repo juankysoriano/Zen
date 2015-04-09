@@ -102,15 +102,15 @@ public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintin
         this.onClearListener = onClearListener;
     }
 
-    private boolean hasOnRevealListener() {
+    private boolean hasOnClearListener() {
         return onClearListener != null;
     }
 
     private final Animator.AnimatorListener revealAnimatorListener = new AnimatorListenerAdapter() {
         @Override
         public void onAnimationEnd(Animator animation) {
-            if (hasOnRevealListener()) {
-                onClearListener.onRevealed();
+            if (hasOnClearListener()) {
+                onClearListener.onCleared();
             }
         }
     };
@@ -141,6 +141,6 @@ public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintin
     }
 
     public interface OnClearListener {
-        void onRevealed();
+        void onCleared();
     }
 }
