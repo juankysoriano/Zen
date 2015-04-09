@@ -17,7 +17,7 @@ import zenproject.meditation.android.ui.menu.buttons.MenuButton;
 import zenproject.meditation.android.ui.menu.buttons.creators.CircularMenuCreator;
 import zenproject.meditation.android.ui.sketch.clear.ClearView;
 
-@SuppressWarnings({ "PMD.FieldDeclarationsShouldBeAtStartOfClass", "PMD.TooManyMethods" })
+@SuppressWarnings({"PMD.FieldDeclarationsShouldBeAtStartOfClass", "PMD.TooManyMethods"})
 public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintingListener {
     private static final int MILLISECONDS_TO_HIDE = 150;
     private static final int MILLISECONDS_TO_SHOW = 150;
@@ -53,7 +53,12 @@ public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintin
     }
 
     public FloatingActionButton getButtonViewFor(MenuButton menuButton) {
-        return (FloatingActionButton) circularMenu.findSubActionViewWithId(menuButton.getId());
+        switch (menuButton) {
+            case MENU:
+                return (FloatingActionButton) circularMenu.getActionView();
+            default:
+                return (FloatingActionButton) circularMenu.findSubActionViewWithId(menuButton.getId());
+        }
     }
 
     private void hideControlsWithDelay() {

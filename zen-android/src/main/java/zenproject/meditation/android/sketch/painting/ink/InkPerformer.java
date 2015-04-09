@@ -166,10 +166,12 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
         inkDrop.resetRadius();
     }
 
+    @Override
     public void enable() {
         enabled = true;
     }
 
+    @Override
     public void disable() {
         enabled = false;
     }

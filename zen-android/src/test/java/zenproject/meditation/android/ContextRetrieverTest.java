@@ -30,6 +30,7 @@ public class ContextRetrieverTest extends ZenTestBase {
     @Test
     public void testThatWhenAnApplicationContextIsInjectedThenApplicationContextIsRetrieved() {
         ContextRetriever.INSTANCE.inject(application);
+
         ContextRetriever.INSTANCE.getApplicationContext();
 
         verify(application).getApplicationContext();

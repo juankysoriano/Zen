@@ -19,7 +19,6 @@ import zenproject.meditation.android.sketch.ZenSketch;
 
 import static org.mockito.Matchers.anyMapOf;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricLauncherGradleTestRunner.class)
 public class ScreenshotTakerTest extends ZenTestBase {
@@ -39,9 +38,8 @@ public class ScreenshotTakerTest extends ZenTestBase {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         AnalyticsTracker.INSTANCE.inject(tracker);
-        when(zenSketch.getRainbowDrawer()).thenReturn(rainbowDrawer);
 
-        screenshotTaker = new ScreenshotTaker(zenSketch);
+        screenshotTaker = new ScreenshotTaker(rainbowDrawer);
     }
 
     @Test
