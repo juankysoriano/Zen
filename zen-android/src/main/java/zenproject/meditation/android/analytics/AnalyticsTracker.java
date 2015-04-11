@@ -101,7 +101,7 @@ public enum AnalyticsTracker implements ZenAnalytics {
         GoogleAnalytics.getInstance(zenActivity).dispatchLocalHits();
     }
 
-    protected class SketchTracking {
+    protected final class SketchTracking {
         protected static final String SCREENSHOT = "Screenshot";
         protected static final String SKETCH = "Sketch";
         protected static final String CLEARED = "Cleared";
@@ -112,7 +112,7 @@ public enum AnalyticsTracker implements ZenAnalytics {
         }
     }
 
-    protected class BrushTracking {
+    protected final class BrushTracking {
         protected static final String BRUSH = "Brush";
         protected static final String COLOR_SELECTED = "Color selected";
         protected static final String SIZE_SELECTED = "Size selected";
@@ -123,7 +123,7 @@ public enum AnalyticsTracker implements ZenAnalytics {
         }
     }
 
-    protected class FlowerTracking {
+    protected final class FlowerTracking {
         protected static final String FLOWER = "Flower";
         protected static final String FLOWER_SELECTED = "Flower selected";
 
