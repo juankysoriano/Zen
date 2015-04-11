@@ -21,6 +21,7 @@ public class Branch {
     private static final float MAX_RADIUS_FACTOR = 1.1f;
     private static final float SHRINK = RainbowMath.random(0.94f, 0.96f);
     private float angle;
+
     private float radius;
     private RVector position;
     private final RVector previousPosition;
@@ -36,7 +37,7 @@ public class Branch {
 
     private static float generateRandomStep(Branch branch) {
         float randomStep = RainbowMath.random(MIN_STEP, MAX_STEP);
-        return branch.step < 0 ? -randomStep: randomStep;
+        return branch.step < 0 ? -randomStep : randomStep;
     }
 
     public static Branch createFrom(Branch branch) {

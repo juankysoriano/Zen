@@ -102,10 +102,14 @@ public enum AnalyticsTracker implements ZenAnalytics {
     }
 
     protected class SketchTracking {
+        protected static final String SCREENSHOT = "Screenshot";
         protected static final String SKETCH = "Sketch";
         protected static final String CLEARED = "Cleared";
         protected static final String SHARED = "Shared";
-        protected static final String SCREENSHOT = "Screenshot";
+
+        private SketchTracking() {
+            //no-op
+        }
     }
 
     protected class BrushTracking {
@@ -113,11 +117,19 @@ public enum AnalyticsTracker implements ZenAnalytics {
         protected static final String COLOR_SELECTED = "Color selected";
         protected static final String SIZE_SELECTED = "Size selected";
         protected static final String SIZE_VAR = "size_value";
+
+        private BrushTracking() {
+            //no-op
+        }
     }
 
     protected class FlowerTracking {
         protected static final String FLOWER = "Flower";
         protected static final String FLOWER_SELECTED = "Flower selected";
+
+        private FlowerTracking() {
+            //no-op
+        }
     }
 }
 
