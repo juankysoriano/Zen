@@ -8,7 +8,7 @@ import zenproject.meditation.android.R;
 
 /**
  * TODO
- * This class could be much better written, attention to the two constructors.
+ * This class could be much better written, attention to the constructors.
  * We could avoid writing so many sh*t there.
  */
 public class Branch {
@@ -20,38 +20,35 @@ public class Branch {
     private static final float MIN_RADIUS_FACTOR = 0.9f;
     private static final float MAX_RADIUS_FACTOR = 1.1f;
     private static final float SHRINK = RainbowMath.random(0.94f, 0.96f);
-    private float step;
     private float angle;
     private float radius;
     private RVector position;
-    private RVector previousPosition;
+    private final RVector previousPosition;
+    private final float step;
 
-    protected Branch(Branch branch) {
-        this(branch.position, branch.angle, branch.radius);
-        step = branch.step > 0 ? -generateRandomStep() : generateRandomStep();
-    }
-
-    protected Branch(RVector position, float angle, float radius) {
+    protected Branch(RVector position, float angle, float radius, float step) {
         this.position = new RVector(position.x, position.y);
         this.previousPosition = new RVector(this.position.x, this.position.y);
         this.angle = angle;
-        this.step = generateRandomStep();
+        this.step = step;
         this.radius = radius * RainbowMath.random(MIN_RADIUS_FACTOR, MAX_RADIUS_FACTOR);
     }
 
-    private float generateRandomStep() {
-        return RainbowMath.random(MIN_STEP, MAX_STEP);
+    private static float generateRandomStep(Branch branch) {
+        float randomStep = RainbowMath.random(MIN_STEP, MAX_STEP);
+        return branch.step < 0 ? -randomStep: randomStep;
     }
 
     public static Branch createFrom(Branch branch) {
-        return new Branch(branch);
+        return new Branch(branch.position,
+                branch.angle, branch.radius, generateRandomStep(branch));
     }
 
     public static Branch createAt(float x, float y) {
         float angle = RainbowMath.random(-RainbowMath.PI, RainbowMath.PI);
         RVector pos = new RVector(x, y);
 
-        return new Branch(pos, angle, DEFAULT_RADIUS);
+        return new Branch(pos, angle, DEFAULT_RADIUS, 0);
     }
 
     public boolean isDead() {

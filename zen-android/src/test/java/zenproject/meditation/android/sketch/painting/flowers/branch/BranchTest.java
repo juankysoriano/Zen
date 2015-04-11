@@ -45,35 +45,35 @@ public class BranchTest extends ZenTestBase {
 
     @Test
     public void testThatIsDeadReturnsTrueIfRadiusIsLowerThanMinRadius() {
-        branch = new Branch(new RVector(ANY_POSITION, ANY_POSITION), ANY_ANGLE, RADIUS_UNDER_MIN);
+        branch = new Branch(new RVector(ANY_POSITION, ANY_POSITION), ANY_ANGLE, RADIUS_UNDER_MIN, 0);
 
         assertThat(branch.isDead()).isTrue();
     }
 
     @Test
     public void testThatIsDeadReturnsFalseIFRadiusIsGreaterThanMinRadius() {
-        branch = new Branch(new RVector(ANY_POSITION, ANY_POSITION), ANY_ANGLE, RADIUS_OVER_MIN);
+        branch = new Branch(new RVector(ANY_POSITION, ANY_POSITION), ANY_ANGLE, RADIUS_OVER_MIN, 0);
 
         assertThat(branch.isDead()).isFalse();
     }
 
     @Test
     public void testThatCanBloomReturnsFalseIfRadiusIsLowerThanMinBloomRadius() {
-        branch = new Branch(new RVector(ANY_POSITION, ANY_POSITION), ANY_ANGLE, RADIUS_TO_BLOOM_UNDER_MIN);
+        branch = new Branch(new RVector(ANY_POSITION, ANY_POSITION), ANY_ANGLE, RADIUS_TO_BLOOM_UNDER_MIN, 0);
 
         assertThat(branch.canBloom()).isFalse();
     }
 
     @Test
     public void testThatIsDeadReturnsTrueIfRadiusIsGreaterThanMinBloomRadius() {
-        branch = new Branch(new RVector(ANY_POSITION, ANY_POSITION), ANY_ANGLE, RADIUS_TO_BLOOM_OVER_MIN);
+        branch = new Branch(new RVector(ANY_POSITION, ANY_POSITION), ANY_ANGLE, RADIUS_TO_BLOOM_OVER_MIN, 0);
 
         assertThat(branch.canBloom()).isTrue();
     }
 
     @Test
     public void testThatUpdateChangesPosition() {
-        branch = new Branch(new RVector(ANY_POSITION, ANY_POSITION), ANY_ANGLE, ANY_RADIUS);
+        branch = new Branch(new RVector(ANY_POSITION, ANY_POSITION), ANY_ANGLE, ANY_RADIUS, 0);
 
         branch.update();
 
@@ -83,7 +83,7 @@ public class BranchTest extends ZenTestBase {
 
     @Test
     public void testThatUpdateBacksUpPosition() {
-        branch = new Branch(new RVector(ANY_POSITION, ANY_POSITION), ANY_ANGLE, ANY_RADIUS);
+        branch = new Branch(new RVector(ANY_POSITION, ANY_POSITION), ANY_ANGLE, ANY_RADIUS, 0);
 
         branch.update();
 
