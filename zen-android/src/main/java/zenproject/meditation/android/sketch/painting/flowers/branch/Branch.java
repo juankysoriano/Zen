@@ -37,7 +37,7 @@ public class Branch {
 
     private static float generateRandomStep(Branch branch) {
         float randomStep = RainbowMath.random(MIN_STEP, MAX_STEP);
-        return branch.step < 0 ? -randomStep : randomStep;
+        return branch.step >= 0 ? -randomStep : randomStep;
     }
 
     public static Branch createFrom(Branch branch) {
