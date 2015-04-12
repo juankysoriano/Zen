@@ -55,7 +55,7 @@ public class ZenSketch extends Rainbow implements FlowerSelectedListener {
         return new ZenSketch(MusicPerformer.newInstance(rainbowInputController),
                 inkPerformer,
                 BranchPerformer.newInstance(branchesList, rainbowDrawer),
-                BranchesList.newInstance(),
+                branchesList,
                 rainbowDrawer,
                 SketchInteractionListener.newInstance(inkPerformer),
                 rainbowInputController);

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import zenproject.meditation.android.sketch.painting.flowers.Flower;
 import zenproject.meditation.android.persistence.FlowerOptionPreferences;
+import zenproject.meditation.android.sketch.painting.flowers.Flower;
 
 public class BranchesList implements Iterable<Branch> {
 

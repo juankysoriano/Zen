@@ -24,7 +24,7 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
     private static final float BRANCH_THRESHOLD_FAST = 0.725f * MAX_THRESHOLD;
     private static final float BRANCH_THRESHOLD_SLOW = 0.925f * MAX_THRESHOLD;
     private static final float INK_DROP_IMAGE_SCALE = 0.5f;
-    private static final int ALPHA = 250;
+    private static final int OPAQUE = 255;
     private final RainbowDrawer rainbowDrawer;
     private final RainbowInputController rainbowInputController;
     private final InkDrop inkDrop;
@@ -150,7 +150,7 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
     }
 
     private void paintDropWithoutImage(float px, float py, float x, float y) {
-        rainbowDrawer.stroke(inkDrop.getBrushColor().toAndroidColor(), ALPHA);
+        rainbowDrawer.stroke(inkDrop.getBrushColor().toAndroidColor(), OPAQUE);
         rainbowDrawer.strokeWeight(isErasing() ? inkDrop.getMaxRadius() * INK_DROP_IMAGE_SCALE : inkDrop.getRadius() * INK_DROP_IMAGE_SCALE);
         rainbowDrawer.line(px, py, x, y);
         rainbowDrawer.strokeWeight(1);
