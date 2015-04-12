@@ -156,6 +156,7 @@ public class BranchPerformer implements StepPerformer, FlowerSelectedListener {
             @Override
             protected Void doInBackground(Flower... flowers) {
                 flowerDrawer = FlowerDrawer.newInstance(flowers[0], rainbowDrawer);
+                flowerDrawer.init();
                 return null;
             }
         }.execute(flower);
