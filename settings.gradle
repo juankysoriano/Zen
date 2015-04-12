@@ -1,4 +1,2 @@
-include ':zen-android', ':circularmenu-library', ':rainbow-lib'
-project(':rainbow-lib').projectDir = new File(rootDir, '../rainbow/rainbow-lib')
-project(':circularmenu-library').projectDir = new File(rootDir, '../CircularFloatingActionMenu/circularmenu-library')
+include ':zen-android'
 

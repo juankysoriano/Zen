@@ -69,8 +69,8 @@ android {
     }
 
     dependencies {
-        compile project(':rainbow-lib')
-        compile project(':circularmenu-library')
+        compile 'com.github.juankysoriano:rainbow:v0.9.7'
+        compile 'com.github.juankysoriano:CircularFloatingActionMenu:v0.6.0'
         compile 'com.google.android.gms:play-services-analytics:7.0.0'
         compile 'com.nineoldandroids:library:2.4.0'
         compile 'com.android.support:support-annotations:20.0.0'
