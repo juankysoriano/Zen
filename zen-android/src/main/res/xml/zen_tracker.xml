@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools"
   tools:ignore="UnusedResources">
-<integer name="ga_sessionTimeout">300</integer>
 
-  <!-- Enable automatic Activity measurement -->
   <bool name="ga_autoActivityTracking">true</bool>
 
-  <!-- The screen names that will appear in reports -->
+  <string name="ga_sampleFrequency">99.8</string>
+
+  <integer name="ga_sessionTimeout">2000</integer>
+
+  <bool name="ga_anonymizeIp">true</bool>
+
+  <bool name="ga_reportUncaughtExceptions">true</bool>
+
   <screenName name="zenproject.meditation.android.activities.SketchActivity">
     Zen Sketch Activity
   </screenName>
 
+  <screenName name="zenproject.meditation.android.activities.ZenActivity">
+    Zen Activity
+  </screenName>
+
   <!--  The property id from google analytics platform -->
-  <string name="ga_trackingId">@string/trackingID</string>
+  <string name="ga_trackingId">UA-61421406-2</string>
 </resources>

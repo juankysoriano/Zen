@@ -46,8 +46,8 @@ public class SketchActivity extends ZenActivity implements View.OnAttachStateCha
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sketch);
 
+        setContentView(R.layout.sketch);
         zenSketchView = (ZenSketchView) findViewById(R.id.sketch);
         zenSketchView.addOnAttachStateChangeListener(this);
     }

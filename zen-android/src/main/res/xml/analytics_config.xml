@@ -2,17 +2,17 @@
 <resources xmlns:tools="http://schemas.android.com/tools"
   tools:ignore="UnusedResources">
   <!-- Application name -->
-  <string name="ga_appName">@string/app_name</string>
+  <string name="ga_appName">Zen</string>
 
   <!-- Application version -->
-  <string name="ga_appVersion">@string/applicationVersion</string>
+  <string name="ga_appVersion">0.1.0</string>
 
   <!-- the Local LogLevel for Analytics -->
-  <string name="ga_logLevel">@string/trackingLogLevel</string>
+  <string name="ga_logLevel">warning</string>
 
   <!-- how often the dispatcher should fire -->
-  <integer name="ga_dispatchPeriod">5</integer>
+  <integer name="ga_dispatchPeriod">1</integer>
 
   <!-- Treat events as test events and don't send to google -->
-  <bool name="ga_dryRun">@boolean/analyticsDisabled</bool>
+  <bool name="ga_dryRun">false</bool>
 </resources>

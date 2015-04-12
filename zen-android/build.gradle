@@ -34,9 +34,6 @@ android {
         versionCode rootProject.ext.VERSION_CODE
         versionName rootProject.ext.VERSION_NAME
 
-        resValue 'string', 'trackingID', googleAnalyticsId  //this value is from ~/.gradle/gradle.properties
-        resValue 'string', 'applicationVersion', rootProject.ext.VERSION_NAME
-
         proguardFile getDefaultProguardFile('proguard-android.txt')
         proguardFile 'proguard-rules.pro'
 
@@ -59,19 +56,15 @@ android {
         debug {
             minifyEnabled false
             shrinkResources false
-            testCoverageEnabled = true
 
-            resValue 'bool', 'analyticsDisabled', "true"
-            resValue 'string', 'trackingLogLevel', "verbose"
+            buildConfigField "Boolean", "ANALYTICS_DISABLED", "true"
         }
         release {
             jniDebuggable false
             shrinkResources true
             minifyEnabled true
-            testCoverageEnabled = false
 
-            resValue 'bool', 'analyticsDisabled', "false"
-            resValue 'string', 'trackingLogLevel', "error"
+            buildConfigField "Boolean", "ANALYTICS_DISABLED", "false"
         }
     }
 

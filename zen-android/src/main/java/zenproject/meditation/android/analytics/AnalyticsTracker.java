@@ -54,11 +54,6 @@ public enum AnalyticsTracker implements ZenAnalytics {
     }
 
     @Override
-    public void trackMusic() {
-        //no-op
-    }
-
-    @Override
     public void trackScreenshot() {
         tracker.send(new HitBuilders.EventBuilder()
                 .setCategory(SketchTracking.SKETCH)
@@ -88,17 +83,11 @@ public enum AnalyticsTracker implements ZenAnalytics {
     @Override
     public void trackActivityStart(ZenActivity zenActivity) {
         GoogleAnalytics.getInstance(zenActivity).reportActivityStart(zenActivity);
-        dispatch(zenActivity);
     }
 
     @Override
     public void trackActivityStop(ZenActivity zenActivity) {
         GoogleAnalytics.getInstance(zenActivity).reportActivityStop(zenActivity);
-        dispatch(zenActivity);
-    }
-
-    private void dispatch(ZenActivity zenActivity) {
-        GoogleAnalytics.getInstance(zenActivity).dispatchLocalHits();
     }
 
     @SuppressWarnings("PMD.UnusedModifier")

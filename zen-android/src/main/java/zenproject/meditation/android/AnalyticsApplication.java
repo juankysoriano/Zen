@@ -19,10 +19,11 @@ public class AnalyticsApplication extends Application {
 
         GoogleAnalytics analytics = GoogleAnalytics.getInstance(getApplicationContext());
         analytics.setAppOptOut(isAnalyticsDisabled());
+        analytics.setDryRun(isAnalyticsDisabled());
         AnalyticsTracker.INSTANCE.inject(analytics.newTracker(R.xml.zen_tracker));
     }
 
     private boolean isAnalyticsDisabled() {
-        return getResources().getBoolean(R.bool.analyticsDisabled);
+        return BuildConfig.ANALYTICS_DISABLED;
     }
 }

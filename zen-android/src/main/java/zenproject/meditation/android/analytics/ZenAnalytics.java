@@ -11,8 +11,6 @@ public interface ZenAnalytics {
 
     void trackFlower(Flower flower);
 
-    void trackMusic();
-
     void trackScreenshot();
 
     void trackShare();
