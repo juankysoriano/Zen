@@ -64,8 +64,8 @@ public class MusicPerformer implements StepPerformer {
         volume = MIN_VOLUME;
         if (isMediaPlayerReleased()) {
             init();
+            start();
         }
-        start();
     }
 
     @Override
