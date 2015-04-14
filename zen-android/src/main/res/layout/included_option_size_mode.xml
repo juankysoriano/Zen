@@ -40,8 +40,8 @@
         android:layout_weight="2"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
-        android:layout_marginStart="-6dp"
-        android:layout_marginLeft="-6dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginLeft="3dp"
         android:max="100" />
 
       <zenproject.meditation.android.ui.menu.dialogs.brush.size.BrushSizeImage
