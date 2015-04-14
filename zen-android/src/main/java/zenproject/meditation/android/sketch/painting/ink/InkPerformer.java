@@ -18,11 +18,11 @@ import static com.juankysoriano.rainbow.core.event.RainbowInputController.Moveme
 
 public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureListener {
     private static final RainbowImage NO_IMAGE = null;
-    private static final float MAX_THRESHOLD = 100;
-    private static final float INK_ISSUE_THRESHOLD = 0.99f * MAX_THRESHOLD;
+    private static final int MAX_THRESHOLD = 100;
+    private static final int INK_ISSUE_THRESHOLD = 98;
     private static final float INK_VELOCITY_THRESHOLD = ContextRetriever.INSTANCE.getResources().getDimension(R.dimen.ink_velocity_threshold);
-    private static final float BRANCH_THRESHOLD_FAST = 0.725f * MAX_THRESHOLD;
-    private static final float BRANCH_THRESHOLD_SLOW = 0.925f * MAX_THRESHOLD;
+    private static final int BRANCH_THRESHOLD_FAST = 73;
+    private static final int BRANCH_THRESHOLD_SLOW = 93;
     private static final float INK_DROP_IMAGE_SCALE = 0.5f;
     private static final int OPAQUE = 255;
     private final RainbowDrawer rainbowDrawer;
