@@ -42,13 +42,25 @@ public class MusicPerformerTest {
         verify(mediaPlayer).setVolume(MIN_VOLUME + MUSIC_STEP, MIN_VOLUME + MUSIC_STEP);
     }
 
+    private void givenThatIsPlaying() {
+        when(mediaPlayer.isPlaying()).thenReturn(true);
+    }
+
+    private void givenThatScreenIsTouched() {
+        when(rainbowInputController.isScreenTouched()).thenReturn(true);
+    }
+
     @Test
     public void testThatOnEveryStepIfScreenIsTouchedAndIsNotPlayingVolumeNotChanged() {
         givenThatIsNotPlaying();
         givenThatScreenIsTouched();
         musicPerformer.doStep();
 
-        verify(mediaPlayer,never()).setVolume(anyFloat(), anyFloat());
+        verify(mediaPlayer, never()).setVolume(anyFloat(), anyFloat());
+    }
+
+    private void givenThatIsNotPlaying() {
+        when(mediaPlayer.isPlaying()).thenReturn(false);
     }
 
     @Test
@@ -61,6 +73,16 @@ public class MusicPerformerTest {
         verify(mediaPlayer, times(2)).setVolume(MIN_VOLUME + MUSIC_STEP, MIN_VOLUME + MUSIC_STEP); //one when increasing, one decreasing down.
     }
 
+    private void givenThatVolumeIsTwoStepsOverInitial() {
+        when(rainbowInputController.isScreenTouched()).thenReturn(true);
+        musicPerformer.doStep();
+        musicPerformer.doStep();
+    }
+
+    private void givenThatScreenIsNotTouched() {
+        when(rainbowInputController.isScreenTouched()).thenReturn(false);
+    }
+
     @Test
     public void testThatOnEveryStepIfScreenIsNotTouchedAndIsNotPlayingVolumeNotChanged() {
         givenThatIsNotPlaying();
@@ -70,16 +92,12 @@ public class MusicPerformerTest {
         verify(mediaPlayer, never()).setVolume(anyFloat(), anyFloat());
     }
 
-    @Test
-    public void testThatWhenResetIsCalledIfItIsNotPlayingMusicStartIsCalled() {
-        givenThatIsNotPlaying();
-        musicPerformer.reset();
-
-        verify(mediaPlayer).start();
+    private void givenThatIsReleased() {
+        mediaPlayer = null;
     }
 
     @Test
-    public void testThatWhenResetIsCalledIfItIsPlayingMusicStartIsCalled() {
+    public void testThatWhenResetIsCalledIfItIsNotReleasedAndPlayingMusicStartIsNeverCalled() {
         givenThatIsPlaying();
         musicPerformer.reset();
 
@@ -87,16 +105,24 @@ public class MusicPerformerTest {
     }
 
     @Test
-    public void testThatWhenEnableIsCalledIfItIsNotPlayingMusicStartIsCalled() {
+    public void testThatWhenResetIsCalledIfItIsNotReleasedAndNotPlayingMusicStartIsNeverCalled() {
         givenThatIsNotPlaying();
-        musicPerformer.enable();
+        musicPerformer.reset();
 
-        verify(mediaPlayer).start();
+        verify(mediaPlayer, never()).start();
     }
 
     @Test
-    public void testThatWhenEnableIsCalledIfItIsPlayingMusicStartIsCalled() {
+    public void testThatWhenEnableIsCalledIfItIsNotReleasedAndPlayingdMusicStartIsNotCalled() {
         givenThatIsPlaying();
+        musicPerformer.enable();
+
+        verify(mediaPlayer, never()).start();
+    }
+
+    @Test
+    public void testThatWhenEnableIsCalledIfItIsNotReleasedAndNotPlayingdMusicStartIsNotCalled() {
+        givenThatIsNotPlaying();
         musicPerformer.enable();
 
         verify(mediaPlayer, never()).start();
@@ -145,27 +171,5 @@ public class MusicPerformerTest {
         MusicPerformer secondInstance = MusicPerformer.newInstance(rainbowInputController);
 
         Assertions.assertThat(firstInstance).isNotEqualTo(secondInstance);
-    }
-
-    private void givenThatIsPlaying() {
-        when(mediaPlayer.isPlaying()).thenReturn(true);
-    }
-
-    private void givenThatIsNotPlaying() {
-        when(mediaPlayer.isPlaying()).thenReturn(false);
-    }
-
-    private void givenThatScreenIsTouched() {
-        when(rainbowInputController.isScreenTouched()).thenReturn(true);
-    }
-
-    private void givenThatVolumeIsTwoStepsOverInitial() {
-        when(rainbowInputController.isScreenTouched()).thenReturn(true);
-        musicPerformer.doStep();
-        musicPerformer.doStep();
-    }
-
-    private void givenThatScreenIsNotTouched() {
-        when(rainbowInputController.isScreenTouched()).thenReturn(false);
     }
 }
