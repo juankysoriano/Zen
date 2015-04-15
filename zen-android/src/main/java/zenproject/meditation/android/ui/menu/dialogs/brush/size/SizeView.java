@@ -7,6 +7,8 @@ import android.widget.SeekBar;
 
 import com.novoda.notils.caster.Views;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.persistence.BrushOptionsPreferences;
@@ -19,10 +21,9 @@ public class SizeView extends LinearLayout {
 
     private static final float PERCENTAGE_FACTOR = 0.005f;
 
-    private SeekBar sizeSeekBar;
-    private BrushSizeImage inkDropImage;
+    @InjectView(R.id.brush_size_slider) SeekBar sizeSeekBar;
+    @InjectView(R.id.brush_size_image) BrushSizeImage inkDropImage;
     private BrushOptionsPreferences brushOptionsPreferences;
-
     private SizeChangedListener sizeChangedListener;
 
     public SizeView(Context context) {
@@ -39,8 +40,8 @@ public class SizeView extends LinearLayout {
 
     @Override
     protected void onFinishInflate() {
-        sizeSeekBar = Views.findById(this, R.id.brush_size_slider);
-        inkDropImage = Views.findById(this, R.id.brush_size_image);
+        ButterKnife.inject(this);
+
         brushOptionsPreferences = BrushOptionsPreferences.newInstance();
 
         sizeSeekBar.setProgress(brushOptionsPreferences.getBrushSize());

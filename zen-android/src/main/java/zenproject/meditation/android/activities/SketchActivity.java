@@ -1,8 +1,11 @@
 package zenproject.meditation.android.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.sketch.ZenSketch;
 import zenproject.meditation.android.sketch.actions.clear.SketchClearer;
@@ -14,13 +17,17 @@ import zenproject.meditation.android.ui.sketch.ZenSketchView;
 
 @SuppressWarnings({"PMD.TooManyMethods", "PMD.FieldDeclarationsShouldBeAtStartOfClass"})
 public class SketchActivity extends ZenActivity implements View.OnAttachStateChangeListener {
-
+    @InjectView(R.id.sketch) ZenSketchView zenSketchView;
     private final ZenSketch zenSketch;
     private final Navigator navigator;
     private final ScreenshotTaker screenshotTaker;
     private final SketchClearer sketchClearer;
     private final SketchSharer sketchSharer;
-    private ZenSketchView zenSketchView;
+
+    @Override
+    public Intent getIntent() {
+        return super.getIntent();
+    }
 
     public SketchActivity() {
         super();
@@ -46,8 +53,9 @@ public class SketchActivity extends ZenActivity implements View.OnAttachStateCha
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.sketch);
+        ButterKnife.inject(this);
+
         zenSketchView = (ZenSketchView) findViewById(R.id.sketch);
         zenSketchView.addOnAttachStateChangeListener(this);
     }

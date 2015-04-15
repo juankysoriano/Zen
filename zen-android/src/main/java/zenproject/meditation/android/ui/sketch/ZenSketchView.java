@@ -9,6 +9,8 @@ import android.widget.RelativeLayout;
 import com.juankysoriano.rainbow.utils.RainbowMath;
 import com.oguzdev.circularfloatingactionmenu.library.CircularMenu;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.sketch.ZenSketch;
@@ -21,7 +23,8 @@ import zenproject.meditation.android.ui.sketch.clear.ClearView;
 public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintingListener {
     private static final int MILLISECONDS_TO_HIDE = 150;
     private static final int MILLISECONDS_TO_SHOW = 150;
-    private ClearView clearView;
+
+    @InjectView(R.id.reveal_view) ClearView clearView;
     private OnClearListener onClearListener;
     private CircularMenu circularMenu;
     private FloatingActionButton menuButton;
@@ -37,7 +40,7 @@ public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintin
 
     @Override
     protected void onFinishInflate() {
-        clearView = (ClearView) findViewById(R.id.reveal_view);
+        ButterKnife.inject(this);
     }
 
     @Override

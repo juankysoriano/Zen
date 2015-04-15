@@ -68,9 +68,14 @@ android {
         }
     }
 
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+
     dependencies {
         compile 'com.github.juankysoriano:rainbow:v0.9.8-rc2'
         compile 'com.github.juankysoriano:CircularFloatingActionMenu:v0.6.0'
+        compile 'com.jakewharton:butterknife:6.1.0'
         compile 'com.google.android.gms:play-services-analytics:7.0.0'
         compile 'com.nineoldandroids:library:2.4.0'
         compile 'com.android.support:support-annotations:20.0.0'
