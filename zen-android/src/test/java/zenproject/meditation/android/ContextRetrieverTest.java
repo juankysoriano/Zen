@@ -10,7 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.robolectric.Robolectric;
+import org.robolectric.RuntimeEnvironment;
 
 import static org.mockito.Mockito.verify;
 
@@ -53,7 +53,7 @@ public class ContextRetrieverTest extends ZenTestBase {
 
     @After
     public void tearDown() {
-        ContextRetriever.INSTANCE.inject(Robolectric.application);
+        ContextRetriever.INSTANCE.inject(RuntimeEnvironment.application);
     }
 
 }

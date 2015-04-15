@@ -3,9 +3,6 @@ package zenproject.meditation.android.sketch.painting.flowers;
 import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
 import com.juankysoriano.rainbow.core.graphics.RainbowImage;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.fest.assertions.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,13 +10,22 @@ import org.junit.runner.RunWith;
 import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.robolectric.Robolectric;
+import org.robolectric.RuntimeEnvironment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import zenproject.meditation.android.RobolectricLauncherGradleTestRunner;
 import zenproject.meditation.android.ZenTestBase;
 import zenproject.meditation.android.sketch.painting.flowers.branch.Branch;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyFloat;
+import static org.mockito.Mockito.anyInt;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricLauncherGradleTestRunner.class)
 public class FlowerDrawerTest extends ZenTestBase {
@@ -41,7 +47,7 @@ public class FlowerDrawerTest extends ZenTestBase {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        when(rainbowDrawer.getContext()).thenReturn(Robolectric.application.getApplicationContext());
+        when(rainbowDrawer.getContext()).thenReturn(RuntimeEnvironment.application.getApplicationContext());
 
         flowerToPaint = Flower.POPPY;
         loadedImages = new ArrayList<>();

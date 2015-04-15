@@ -1,14 +1,14 @@
 package zenproject.meditation.android;
 
 import org.junit.runners.model.InitializationError;
-import org.robolectric.AndroidManifest;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
+import org.robolectric.manifest.AndroidManifest;
 import org.robolectric.res.Fs;
 
 public class RobolectricLauncherGradleTestRunner extends RobolectricTestRunner {
 
-    private static final int MAX_SDK_SUPPORTED_BY_ROBOLECTRIC = 18;
+    private static final int MAX_SDK_SUPPORTED_BY_ROBOLECTRIC = 21;
 
     public RobolectricLauncherGradleTestRunner(Class<?> testClass) throws InitializationError {
         super(testClass);
