@@ -55,9 +55,9 @@
         android:src="@drawable/cherry" />
 
       <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/ink_flower"
+        android:id="@+id/birdsfoot_flower"
         style="@style/BrushColorCircularView"
-        android:src="@drawable/ink_flower" />
+        android:src="@drawable/birdsfoot" />
 
 
     </zenproject.meditation.android.ui.menu.dialogs.flower.FlowerViewList>
