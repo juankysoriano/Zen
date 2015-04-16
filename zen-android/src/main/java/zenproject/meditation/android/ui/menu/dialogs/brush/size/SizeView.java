@@ -43,7 +43,7 @@ public class SizeView extends LinearLayout {
         inkDropImage = Views.findById(this, R.id.brush_size_image);
         brushOptionsPreferences = BrushOptionsPreferences.newInstance();
 
-        sizeSeekBar.setProgress(brushOptionsPreferences.getBrushSize());
+        sizeSeekBar.setProgress(brushOptionsPreferences.getBrushSizePercentage());
         updateInkDropImageColor(brushOptionsPreferences.getBrushColor().toAndroidColor());
     }
 
@@ -79,7 +79,7 @@ public class SizeView extends LinearLayout {
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
-        changeInkDropImageSize(brushOptionsPreferences.getBrushSize());
+        changeInkDropImageSize(brushOptionsPreferences.getBrushSizePercentage());
     }
 
     private void changeInkDropImageSize(int progress) {

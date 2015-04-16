@@ -80,14 +80,14 @@ public class InkDropSizeLimiterTest extends ZenTestBase {
     }
 
     private void givenAPercentageForAVeryLowRadius() {
-        Mockito.when(brushOptionsPreferences.getBrushSize()).thenReturn(-1);
+        Mockito.when(brushOptionsPreferences.getBrushSizePercentage()).thenReturn(-1);
     }
 
     private void givenAPercentageForAVeryHighRadius() {
-        Mockito.when(brushOptionsPreferences.getBrushSize()).thenReturn(200);
+        Mockito.when(brushOptionsPreferences.getBrushSizePercentage()).thenReturn(200);
     }
 
     private void givenAPercentageForARadiusInBetween() {
-        Mockito.when(brushOptionsPreferences.getBrushSize()).thenReturn(50);
+        Mockito.when(brushOptionsPreferences.getBrushSizePercentage()).thenReturn(50);
     }
 }

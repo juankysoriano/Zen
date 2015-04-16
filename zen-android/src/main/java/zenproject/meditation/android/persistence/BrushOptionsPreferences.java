@@ -12,6 +12,7 @@ public class BrushOptionsPreferences {
     private static final String PREF_NAME = "BrushPreferences";
     private static final String PREF_BRUSH_COLOR = PREF_NAME + "Color";
     private static final String PREF_BRUSH_SIZE = PREF_NAME + "Size";
+    private static final int DEFAULT_PERCENTAGE = 20;
 
     private final SharedPreferences sharedPreferences;
 
@@ -23,12 +24,12 @@ public class BrushOptionsPreferences {
         this.sharedPreferences = sharedPreferences;
     }
 
-    public void applyBrushSize(int percentage) {
+    public void applyBrushSizePercentage(int percentage) {
         sharedPreferences.edit().putInt(PREF_BRUSH_SIZE, percentage).apply();
     }
 
-    public int getBrushSize() {
-        return sharedPreferences.getInt(PREF_BRUSH_SIZE, 0);
+    public int getBrushSizePercentage() {
+        return sharedPreferences.getInt(PREF_BRUSH_SIZE, DEFAULT_PERCENTAGE);
     }
 
     public void applyBrushColor(BrushColor color) {

@@ -28,7 +28,7 @@ public class InkDropSizeLimiter {
     }
 
     public float getRadius() {
-        return constrain(RainbowMath.map(brushOptionsPreferences.getBrushSize(), PERCENTAGE_MIN, PERCENTAGE_MAX, MINIMUM_RADIUS, MAXIMUM_RADIUS));
+        return constrain(RainbowMath.map(brushOptionsPreferences.getBrushSizePercentage(), PERCENTAGE_MIN, PERCENTAGE_MAX, MINIMUM_RADIUS, MAXIMUM_RADIUS));
     }
 
     private float constrain(float radius) {

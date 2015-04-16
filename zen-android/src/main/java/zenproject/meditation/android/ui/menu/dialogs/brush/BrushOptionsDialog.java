@@ -22,7 +22,7 @@ public class BrushOptionsDialog extends ZenDialog implements ColorSelectedListen
     public static final String TAG = "BrushOptionsDialog";
 
     private BrushColor selectedColor = BrushOptionsPreferences.newInstance().getBrushColor();
-    private int selectedSize = BrushOptionsPreferences.newInstance().getBrushSize();
+    private int selectedSize = BrushOptionsPreferences.newInstance().getBrushSizePercentage();
     private SizeView sizeView;
 
     @NonNull
@@ -62,7 +62,7 @@ public class BrushOptionsDialog extends ZenDialog implements ColorSelectedListen
     private void storePreferences() {
         BrushOptionsPreferences brushOptionsPreferences = BrushOptionsPreferences.newInstance();
         brushOptionsPreferences.applyBrushColor(selectedColor);
-        brushOptionsPreferences.applyBrushSize(selectedSize);
+        brushOptionsPreferences.applyBrushSizePercentage(selectedSize);
     }
 
     @Override
