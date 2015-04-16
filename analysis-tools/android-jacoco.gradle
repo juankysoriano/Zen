@@ -22,10 +22,21 @@ task jacocoReport(type: JacocoReport, dependsOn: "testDebug") {
     classDirectories = fileTree(
             dir: 'build/intermediates/classes/debug',
             excludes: ['**/R.class',
-                       '**/R$*.class'
+                       '**/R$*.class',
+		       '**/*$ViewInjector*.class'
             ])
     sourceDirectories = files(coverageSourceDirs)
     executionData = files('build/jacoco/testDebug.exec')
+
+    // Bit hacky but fixes https://code.google.com/p/android/issues/detail?id=69174.
+    // We iterate through the compiled .class tree and rename $$ to $. 
+    doFirst {
+        new File('zen-android/build/intermediates/classes/').eachFileRecurse { file ->
+            if (file.name.contains('$$')) {
+                file.renameTo(file.path.replace('$$', '$'))
+            }
+        }
+    }
 
     doLast {
         project.REPORT_LOCATIONS += "JaCoCo wrote HTML report to: file:///$project.buildDir/reports/jacoco/jacocoReport/html/index.html \n"
