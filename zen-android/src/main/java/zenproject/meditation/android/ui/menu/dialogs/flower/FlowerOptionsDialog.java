@@ -8,20 +8,17 @@ import android.support.annotation.NonNull;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
+import zenproject.meditation.android.analytics.AnalyticsTracker;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
-import zenproject.meditation.android.analytics.AnalyticsTracker;
-import zenproject.meditation.android.persistence.FlowerOptionPreferences;
 import zenproject.meditation.android.sketch.painting.flowers.Flower;
+import zenproject.meditation.android.persistence.FlowerOptionPreferences;
 import zenproject.meditation.android.ui.menu.dialogs.ZenDialog;
 // ...
 
 public class FlowerOptionsDialog extends ZenDialog implements FlowerSelectedListener {
     public static final String TAG = "FlowerOptionsDialog";
 
-    @InjectView(R.id.flower_picker) FlowerViewList flowerViewList;
     private Flower selectedFlower = FlowerOptionPreferences.newInstance().getFlower();
     private FlowerSelectedListener flowerSelectedListener;
 
@@ -49,7 +46,7 @@ public class FlowerOptionsDialog extends ZenDialog implements FlowerSelectedList
                 })
                 .build();
 
-        ButterKnife.inject(this, materialDialog.getCustomView());
+        FlowerViewList flowerViewList = (FlowerViewList) materialDialog.getCustomView().findViewById(R.id.flower_picker);
         flowerViewList.setFlowerSelectedListener(this);
 
         return materialDialog;

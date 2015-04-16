@@ -7,8 +7,6 @@ import android.widget.LinearLayout;
 
 import com.novoda.notils.caster.Views;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 import de.hdodenhof.circleimageview.CircleImageView;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
@@ -23,11 +21,12 @@ public class ColorListView extends LinearLayout {
     private static final int SELECTED_BORDER_SIZE = ContextRetriever.INSTANCE.getResources().getDimensionPixelSize(R.dimen.color_selected_weight);
     private static final int DIVIDER = ContextRetriever.INSTANCE.getResources().getColor(R.color.divider);
 
-    @InjectView(R.id.dark_brush) CircleImageView darkColor;
-    @InjectView(R.id.grey_brush) CircleImageView greyColor;
-    @InjectView(R.id.erase_brush) CircleImageView eraseColor;
-    @InjectView(R.id.primary_brush) CircleImageView primaryColor;
-    @InjectView(R.id.accent_brush) CircleImageView accentColor;
+    private CircleImageView darkColor;
+    private CircleImageView greyColor;
+    private CircleImageView eraseColor;
+    private CircleImageView primaryColor;
+    private CircleImageView accentColor;
+
     private ColorSelectedListener colorSelectedListener;
 
     public ColorListView(Context context) {
@@ -44,7 +43,11 @@ public class ColorListView extends LinearLayout {
 
     @Override
     protected void onFinishInflate() {
-        ButterKnife.inject(this);
+        darkColor = Views.findById(this, R.id.dark_brush);
+        greyColor = Views.findById(this, R.id.grey_brush);
+        eraseColor = Views.findById(this, R.id.erase_brush);
+        primaryColor = Views.findById(this, R.id.primary_brush);
+        accentColor = Views.findById(this, R.id.accent_brush);
 
         setSelectedFrom(BrushOptionsPreferences.newInstance().getBrushColor());
     }

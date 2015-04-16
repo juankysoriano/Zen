@@ -7,8 +7,6 @@ import android.widget.LinearLayout;
 
 import com.novoda.notils.caster.Views;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 import de.hdodenhof.circleimageview.CircleImageView;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
@@ -26,11 +24,12 @@ public class FlowerViewList extends LinearLayout {
     private static final int SELECTED_BORDER_SIZE = ContextRetriever.INSTANCE.getResources().getDimensionPixelSize(R.dimen.color_selected_weight);
     private static final int DIVIDER = ContextRetriever.INSTANCE.getResources().getColor(R.color.divider);
 
-    @InjectView(R.id.no_flower) CircleImageView noneFlower;
-    @InjectView(R.id.cherry) CircleImageView cherryFlower;
-    @InjectView(R.id.meconopsis) CircleImageView meconopsisFlower;
-    @InjectView(R.id.poppy) CircleImageView poppyFlower;
-    @InjectView(R.id.birdsfoot_flower   ) CircleImageView birdsfootFlower;
+    private CircleImageView noneFlower;
+    private CircleImageView cherryFlower;
+    private CircleImageView meconopsisFlower;
+    private CircleImageView poppyFlower;
+    private CircleImageView birdsfootFlower;
+
     private FlowerSelectedListener flowerSelectedListener;
 
     public FlowerViewList(Context context) {
@@ -47,7 +46,11 @@ public class FlowerViewList extends LinearLayout {
 
     @Override
     protected void onFinishInflate() {
-        ButterKnife.inject(this);
+        noneFlower = Views.findById(this, R.id.no_flower);
+        cherryFlower = Views.findById(this, R.id.cherry);
+        meconopsisFlower = Views.findById(this, R.id.meconopsis);
+        poppyFlower = Views.findById(this, R.id.poppy);
+        birdsfootFlower = Views.findById(this, R.id.birdsfoot_flower);
 
         setSelectedFrom(FlowerOptionPreferences.newInstance().getFlower());
     }

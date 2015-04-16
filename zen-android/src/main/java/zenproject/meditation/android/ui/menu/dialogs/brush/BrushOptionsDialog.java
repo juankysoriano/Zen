@@ -9,13 +9,11 @@ import android.support.annotation.NonNull;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
+import zenproject.meditation.android.analytics.AnalyticsTracker;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
-import zenproject.meditation.android.analytics.AnalyticsTracker;
-import zenproject.meditation.android.persistence.BrushOptionsPreferences;
 import zenproject.meditation.android.sketch.painting.ink.BrushColor;
+import zenproject.meditation.android.persistence.BrushOptionsPreferences;
 import zenproject.meditation.android.ui.menu.dialogs.ZenDialog;
 import zenproject.meditation.android.ui.menu.dialogs.brush.color.ColorListView;
 import zenproject.meditation.android.ui.menu.dialogs.brush.size.SizeView;
@@ -23,10 +21,9 @@ import zenproject.meditation.android.ui.menu.dialogs.brush.size.SizeView;
 public class BrushOptionsDialog extends ZenDialog implements ColorSelectedListener, SizeChangedListener {
     public static final String TAG = "BrushOptionsDialog";
 
-    @InjectView(R.id.color_picker) ColorListView colorListView;
-    @InjectView(R.id.brush_size) SizeView sizeView;
     private BrushColor selectedColor = BrushOptionsPreferences.newInstance().getBrushColor();
     private int selectedSize = BrushOptionsPreferences.newInstance().getBrushSize();
+    private SizeView sizeView;
 
     @NonNull
     @Override
@@ -49,8 +46,10 @@ public class BrushOptionsDialog extends ZenDialog implements ColorSelectedListen
                 })
                 .build();
 
-        ButterKnife.inject(this, materialDialog.getCustomView());
+        ColorListView colorListView = (ColorListView) materialDialog.getCustomView().findViewById(R.id.color_picker);
         colorListView.setColorSelectedListener(this);
+
+        sizeView = (SizeView) materialDialog.getCustomView().findViewById(R.id.brush_size);
         sizeView.setSizeChangedListener(this);
 
         return materialDialog;
