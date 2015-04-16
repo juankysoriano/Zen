@@ -4,20 +4,6 @@
   xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd">
   <description>My very own special PMD ruleset.</description>
   <exclude-pattern>.*android/util/.*</exclude-pattern>
-  <exclude-pattern>.*com/etsy/.*</exclude-pattern>
-  <exclude-pattern>.*com/guava/.*</exclude-pattern>
-  <exclude-pattern>.*com/android/gallery3d/.*</exclude-pattern>
-  <exclude-pattern>.*com/android/internal/.*</exclude-pattern>
-  <exclude-pattern>.*com/android/photos/.*</exclude-pattern>
-  <exclude-pattern>.*com/android/launcher3/backup/.*</exclude-pattern>
-  <exclude-pattern>.*com/android/launcher3/config/.*</exclude-pattern>
-  <exclude-pattern>.*com/android/launcher3/.*</exclude-pattern>
-  <exclude-pattern>.*com/novoda/imageloader/.*</exclude-pattern>
-  <exclude-pattern>.*com/novoda/imageloader20/.*</exclude-pattern>
-  <exclude-pattern>.*com/guava/common/base/.*</exclude-pattern>
-  <exclude-pattern>.*com/tesco/cards/sync/RestartingCountDownTimer.java</exclude-pattern>
-  <include-pattern>.*com/android/launcher3/tesco/.*</include-pattern>
-  <include-pattern>.*com/android/launcher3/Tesco.*</include-pattern>
   <rule ref="rulesets/java/typeresolution.xml" />
   <rule ref="rulesets/java/braces.xml" />
   <rule ref="rulesets/java/design.xml">
@@ -32,9 +18,6 @@
   <rule ref="rulesets/java/optimizations.xml">
     <exclude name="LocalVariableCouldBeFinal" />
     <exclude name="MethodArgumentCouldBeFinal" />
-    <exclude name="AvoidInstantiatingObjectsInLoops" />
-    <exclude-pattern>.*com/tesco/cards/*/*Storage.*</exclude-pattern>
-    <exclude />
   </rule>
   <rule ref="rulesets/java/basic.xml" />
   <rule ref="rulesets/java/sunsecure.xml" />
@@ -59,10 +42,6 @@
     <exclude name="LongVariable" />
     <exclude name="ShortVariable" />
     <exclude name="AbstractNaming" />
-    <exclude name="ShortClassName">
-      <exclude-pattern>.*com/tesco/cards/*/Card.*</exclude-pattern>
-      <exclude-pattern>.*com/tesco/cards/*/Isbn.*</exclude-pattern>
-    </exclude>
   </rule>
   <rule ref="rulesets/java/codesize.xml" />
   <rule ref="rulesets/java/finalizers.xml" />
