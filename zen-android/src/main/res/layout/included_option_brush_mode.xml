@@ -37,7 +37,7 @@
         style="@style/BrushColorCircularView"
         android:layout_marginStart="0dp"
         android:layout_marginLeft="0dp"
-        android:src="@drawable/eraser" />
+        android:src="@drawable/eraser_color" />
 
       <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/dark_brush"
