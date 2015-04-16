@@ -48,4 +48,16 @@ public class BrushOptionsPreferences {
                 (int) (Color.green(color) / DARKENING_FACTOR),
                 (int) (Color.blue(color) / DARKENING_FACTOR));
     }
+
+    //TODO consider refactoring logic inside into a collaborator LeafColorRetriever or similar
+    public int getLeafColor() {
+        BrushColor brushColor = getBrushColor();
+        switch (brushColor) {
+            case PRIMARY: return BrushColor.ACCENT.toAndroidColor();
+            case ACCENT: return BrushColor.PRIMARY.toAndroidColor();
+            case DARK: return BrushColor.ACCENT.toAndroidColor();
+            case AMBER: return BrushColor.PRIMARY.toAndroidColor();
+            default: return BrushColor.PRIMARY.toAndroidColor();
+        }
+    }
 }

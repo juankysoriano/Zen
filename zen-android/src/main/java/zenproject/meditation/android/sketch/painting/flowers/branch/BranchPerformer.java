@@ -24,7 +24,6 @@ public class BranchPerformer implements StepPerformer, FlowerSelectedListener {
     private static final int MAX_THRESHOLD = 100;
     private static final int BLOOM_THRESHOLD = 90;
     private static final int FLOWER_THRESHOLD = 80;
-    private static final int LEAF_COLOR = ContextRetriever.INSTANCE.getResources().getColor(R.color.colorPrimaryDark);
     private static final float LEAF_SIZE = ContextRetriever.INSTANCE.getResources().getDimension(R.dimen.branch_default_radius) * 2;
 
     private final RainbowDrawer rainbowDrawer;
@@ -130,7 +129,7 @@ public class BranchPerformer implements StepPerformer, FlowerSelectedListener {
 
     private void paintLeafFor(Branch branch) {
         rainbowDrawer.strokeWeight(LEAF_SIZE);
-        rainbowDrawer.stroke(LEAF_COLOR, ALPHA);
+        rainbowDrawer.stroke(brushOptionsPreferences.getLeafColor(), ALPHA);
         rainbowDrawer.point(branch.getX(), branch.getY());
         rainbowDrawer.strokeWeight(1);
     }

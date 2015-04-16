@@ -45,11 +45,6 @@
         android:src="@color/dark_brush" />
 
       <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/grey_brush"
-        style="@style/BrushColorCircularView"
-        android:src="@color/grey_brush" />
-
-      <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/primary_brush"
         style="@style/BrushColorCircularView"
         android:src="@color/colorPrimary" />
@@ -58,6 +53,11 @@
         android:id="@+id/accent_brush"
         style="@style/BrushColorCircularView"
         android:src="@color/colorAccent" />
+
+      <de.hdodenhof.circleimageview.CircleImageView
+          android:id="@+id/amber_brush"
+          style="@style/BrushColorCircularView"
+          android:src="@color/amber_brush" />
 
     </zenproject.meditation.android.ui.menu.dialogs.brush.color.ColorListView>
   </LinearLayout>

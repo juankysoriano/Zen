@@ -18,6 +18,7 @@ import zenproject.meditation.android.ui.menu.dialogs.ZenDialog;
 import zenproject.meditation.android.ui.menu.dialogs.brush.color.ColorListView;
 import zenproject.meditation.android.ui.menu.dialogs.brush.size.SizeView;
 
+// TODO this class could be provided with the required collaborators and then tested.
 public class BrushOptionsDialog extends ZenDialog implements ColorSelectedListener, SizeChangedListener {
     public static final String TAG = "BrushOptionsDialog";
 

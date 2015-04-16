@@ -22,7 +22,7 @@ public class ColorListView extends LinearLayout {
     private static final int DIVIDER = ContextRetriever.INSTANCE.getResources().getColor(R.color.divider);
 
     private CircleImageView darkColor;
-    private CircleImageView greyColor;
+    private CircleImageView amberColor;
     private CircleImageView eraseColor;
     private CircleImageView primaryColor;
     private CircleImageView accentColor;
@@ -44,7 +44,7 @@ public class ColorListView extends LinearLayout {
     @Override
     protected void onFinishInflate() {
         darkColor = Views.findById(this, R.id.dark_brush);
-        greyColor = Views.findById(this, R.id.grey_brush);
+        amberColor = Views.findById(this, R.id.amber_brush);
         eraseColor = Views.findById(this, R.id.erase_brush);
         primaryColor = Views.findById(this, R.id.primary_brush);
         accentColor = Views.findById(this, R.id.accent_brush);
@@ -70,11 +70,11 @@ public class ColorListView extends LinearLayout {
                 notifyColorSelected(BrushColor.DARK);
             }
         });
-        greyColor.setOnClickListener(new OnClickListener() {
+        amberColor.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 setSelected((CircleImageView) v);
-                notifyColorSelected(BrushColor.GREY);
+                notifyColorSelected(BrushColor.AMBER);
             }
         });
         eraseColor.setOnClickListener(new OnClickListener() {
@@ -103,8 +103,8 @@ public class ColorListView extends LinearLayout {
     private void setSelectedFrom(BrushColor brushColor) {
         if (BrushColor.DARK == brushColor) {
             setSelected(darkColor);
-        } else if (BrushColor.GREY == brushColor) {
-            setSelected(greyColor);
+        } else if (BrushColor.AMBER == brushColor) {
+            setSelected(amberColor);
         } else if (BrushColor.ERASE == brushColor) {
             setSelected(eraseColor);
         } else if (BrushColor.PRIMARY == brushColor) {
@@ -128,13 +128,13 @@ public class ColorListView extends LinearLayout {
 
     private void deselectAll() {
         darkColor.setBorderColor(DIVIDER);
-        greyColor.setBorderColor(DIVIDER);
+        amberColor.setBorderColor(DIVIDER);
         eraseColor.setBorderColor(DIVIDER);
         primaryColor.setBorderColor(DIVIDER);
         accentColor.setBorderColor(DIVIDER);
 
         darkColor.setBorderWidth(UNSELECTED_BORDER_SIZE);
-        greyColor.setBorderWidth(UNSELECTED_BORDER_SIZE);
+        amberColor.setBorderWidth(UNSELECTED_BORDER_SIZE);
         eraseColor.setBorderWidth(UNSELECTED_BORDER_SIZE);
         primaryColor.setBorderWidth(UNSELECTED_BORDER_SIZE);
         accentColor.setBorderWidth(UNSELECTED_BORDER_SIZE);
@@ -145,7 +145,7 @@ public class ColorListView extends LinearLayout {
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         darkColor.setOnClickListener(null);
-        greyColor.setOnClickListener(null);
+        amberColor.setOnClickListener(null);
         eraseColor.setOnClickListener(null);
         primaryColor.setOnClickListener(null);
         accentColor.setOnClickListener(null);

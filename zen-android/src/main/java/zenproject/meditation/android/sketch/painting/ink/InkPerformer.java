@@ -87,7 +87,7 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
     }
 
     private void moveAndPaintInkDrop(final RainbowInputController rainbowInputController) {
-        rainbowDrawer.exploreLine(rainbowInputController.getPreviousSmoothX(),
+        rainbowDrawer.exploreLine(rainbowInputController.getPreviouowersSmoothX(),
                 rainbowInputController.getPreviousSmoothY(),
                 rainbowInputController.getSmoothX(),
                 rainbowInputController.getSmoothY(),
@@ -99,7 +99,7 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
                         drawInk(px, py, x, y);
                         attemptToBloomBranchAt(x, y);
                     }
-                });
+                }
     }
 
     private void attemptToBloomBranchAt(float x, float y) {
