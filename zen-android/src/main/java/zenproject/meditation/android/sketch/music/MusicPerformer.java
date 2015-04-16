@@ -10,7 +10,7 @@ import zenproject.meditation.android.sketch.actions.StepPerformer;
 
 public class MusicPerformer implements StepPerformer {
     private static final MediaPlayer RELEASED_MUSIC_PERFORMER = null;
-    private static final float MUSIC_STEP = 0.01f;
+    private static final float MUSIC_STEP = 0.005f;
     private static final float MIN_VOLUME = 0.05f;
     private MediaPlayer mediaPlayer;
     private final RainbowInputController rainbowInputController;
