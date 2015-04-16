@@ -115,18 +115,18 @@ public class ColorListView extends LinearLayout {
     }
 
     private void setSelected(CircleImageView circleImageView) {
-        unselectAll();
+        deselectAll();
         circleImageView.setBorderColor(BrushColor.ACCENT.toAndroidColor());
         circleImageView.setBorderWidth(SELECTED_BORDER_SIZE);
     }
 
     private void setSelectedWithColor(CircleImageView circleImageView, int color) {
-        unselectAll();
+        deselectAll();
         circleImageView.setBorderColor(color);
         circleImageView.setBorderWidth(SELECTED_BORDER_SIZE);
     }
 
-    private void unselectAll() {
+    private void deselectAll() {
         darkColor.setBorderColor(DIVIDER);
         greyColor.setBorderColor(DIVIDER);
         eraseColor.setBorderColor(DIVIDER);
