@@ -14,7 +14,6 @@ import zenproject.meditation.android.R;
 import zenproject.meditation.android.sketch.painting.flowers.Flower;
 import zenproject.meditation.android.persistence.FlowerOptionPreferences;
 import zenproject.meditation.android.ui.menu.dialogs.ZenDialog;
-// ...
 
 public class FlowerOptionsDialog extends ZenDialog implements FlowerSelectedListener {
     public static final String TAG = "FlowerOptionsDialog";
