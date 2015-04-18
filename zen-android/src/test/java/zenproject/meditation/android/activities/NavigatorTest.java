@@ -12,6 +12,7 @@ import org.mockito.MockitoAnnotations;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.RobolectricLauncherGradleTestRunner;
 import zenproject.meditation.android.ZenTestBase;
+import zenproject.meditation.android.ui.menu.dialogs.Navigator;
 import zenproject.meditation.android.ui.menu.dialogs.brush.BrushOptionsDialog;
 import zenproject.meditation.android.ui.menu.dialogs.flower.FlowerOptionsDialog;
 import zenproject.meditation.android.ui.menu.dialogs.flower.FlowerSelectedListener;

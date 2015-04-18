@@ -9,7 +9,7 @@ import com.novoda.notils.caster.Views;
 
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
-import zenproject.meditation.android.persistence.BrushOptionsPreferences;
+import zenproject.meditation.android.preferences.BrushOptionsPreferences;
 import zenproject.meditation.android.ui.menu.dialogs.brush.SizeChangedListener;
 
 @SuppressWarnings("PMD.TooManyMethods")

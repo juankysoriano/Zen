@@ -5,7 +5,7 @@ import com.juankysoriano.rainbow.utils.RainbowMath;
 
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
-import zenproject.meditation.android.persistence.BrushOptionsPreferences;
+import zenproject.meditation.android.preferences.BrushOptionsPreferences;
 
 public class InkDrop {
 

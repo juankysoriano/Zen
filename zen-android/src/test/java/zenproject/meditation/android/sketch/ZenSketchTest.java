@@ -15,6 +15,7 @@ import zenproject.meditation.android.R;
 import zenproject.meditation.android.RobolectricLauncherGradleTestRunner;
 import zenproject.meditation.android.ZenTestBase;
 import zenproject.meditation.android.sketch.music.MusicPerformer;
+import zenproject.meditation.android.sketch.painting.SketchInteractionListener;
 import zenproject.meditation.android.sketch.painting.flowers.Flower;
 import zenproject.meditation.android.sketch.painting.flowers.branch.BranchPerformer;
 import zenproject.meditation.android.sketch.painting.flowers.branch.BranchesList;
@@ -23,6 +24,7 @@ import zenproject.meditation.android.sketch.painting.ink.InkPerformer;
 import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricLauncherGradleTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class ZenSketchTest extends ZenTestBase {
     private static final int DEFAULT_COLOR = ContextRetriever.INSTANCE.getResources().getColor(R.color.colorSketch);
 

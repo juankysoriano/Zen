@@ -1,14 +1,15 @@
-package zenproject.meditation.android.sketch;
+package zenproject.meditation.android.sketch.painting;
 
 import android.view.MotionEvent;
 
 import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
 import com.juankysoriano.rainbow.core.event.RainbowInputController;
 
+import zenproject.meditation.android.sketch.ZenSketch;
 import zenproject.meditation.android.sketch.actions.StepPerformer;
 
 public class SketchInteractionListener implements RainbowInputController.RainbowInteractionListener {
-    private ZenSketch.OnPaintingListener onPaintingListener;
+    private ZenSketch.PaintListener paintListener;
     private final StepPerformer inkPerformer;
 
     protected SketchInteractionListener(StepPerformer inkPerformer) {
@@ -21,22 +22,13 @@ public class SketchInteractionListener implements RainbowInputController.Rainbow
 
     @Override
     public void onSketchTouched(MotionEvent event, RainbowDrawer rainbowDrawer) {
-        if (hasOnPaintingListener()) {
-            onPaintingListener.onPaintingStart();
-        }
-
+        paintListener.onPaintingStart();
         inkPerformer.reset();
-    }
-
-    private boolean hasOnPaintingListener() {
-        return this.onPaintingListener != null;
     }
 
     @Override
     public void onSketchReleased(MotionEvent event, RainbowDrawer rainbowDrawer) {
-        if (hasOnPaintingListener()) {
-            onPaintingListener.onPaintingEnd();
-        }
+        paintListener.onPaintingEnd();
     }
 
     @Override
@@ -49,7 +41,7 @@ public class SketchInteractionListener implements RainbowInputController.Rainbow
         //no-op
     }
 
-    public void setOnPaintingListener(ZenSketch.OnPaintingListener onPaintingListener) {
-        this.onPaintingListener = onPaintingListener;
+    public void setPaintListener(ZenSketch.PaintListener paintListener) {
+        this.paintListener = paintListener;
     }
 }

@@ -12,9 +12,10 @@ import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.RobolectricLauncherGradleTestRunner;
 import zenproject.meditation.android.ZenTestBase;
-import zenproject.meditation.android.persistence.BrushOptionsPreferences;
+import zenproject.meditation.android.preferences.BrushOptionsPreferences;
 
 @RunWith(RobolectricLauncherGradleTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class InkDropSizeLimiterTest extends ZenTestBase {
     private static final float MINIMUM_RADIUS = ContextRetriever.INSTANCE.getResources().getDimension(R.dimen.ink_drop_min_radius);
     private static final float MAXIMUM_RADIUS = ContextRetriever.INSTANCE.getResources().getDimension(R.dimen.ink_drop_max_radius);

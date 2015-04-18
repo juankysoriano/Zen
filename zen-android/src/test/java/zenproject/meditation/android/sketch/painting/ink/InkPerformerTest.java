@@ -23,6 +23,7 @@ import static org.mockito.Matchers.anyFloat;
 import static org.mockito.Mockito.*;
 
 @RunWith(RobolectricLauncherGradleTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class InkPerformerTest extends ZenTestBase {
 
     @Mock

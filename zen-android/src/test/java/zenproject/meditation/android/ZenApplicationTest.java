@@ -5,10 +5,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import zenproject.meditation.android.persistence.BrushOptionsPreferences;
+import zenproject.meditation.android.preferences.BrushOptionsPreferences;
 import zenproject.meditation.android.sketch.painting.ink.BrushColor;
 
 @RunWith(RobolectricLauncherGradleTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class ZenApplicationTest extends ZenTestBase {
 
     private ZenApplication zenApplication;

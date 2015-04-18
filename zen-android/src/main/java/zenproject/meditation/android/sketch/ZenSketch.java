@@ -10,6 +10,7 @@ import zenproject.meditation.android.R;
 import zenproject.meditation.android.SketchRetriever;
 import zenproject.meditation.android.sketch.actions.StepPerformer;
 import zenproject.meditation.android.sketch.music.MusicPerformer;
+import zenproject.meditation.android.sketch.painting.SketchInteractionListener;
 import zenproject.meditation.android.sketch.painting.flowers.Flower;
 import zenproject.meditation.android.sketch.painting.flowers.branch.BranchPerformer;
 import zenproject.meditation.android.sketch.painting.ink.InkDrop;
@@ -88,21 +89,21 @@ public class ZenSketch extends Rainbow implements FlowerSelectedListener {
     }
 
     public void clear() {
-        rainbowDrawer.background(DEFAULT_COLOR);
         branchPerformer.reset();
+        rainbowDrawer.background(DEFAULT_COLOR);
     }
 
-    public void setOnPaintingListener(OnPaintingListener onPaintingListener) {
-        sketchInteractionListener.setOnPaintingListener(onPaintingListener);
+    public void setOnPaintingListener(PaintListener paintListener) {
+        sketchInteractionListener.setPaintListener(paintListener);
     }
 
     @Override
     public void onFlowerSelected(Flower flower) {
-        BranchPerformer performer = Classes.from(this.branchPerformer);
+        BranchPerformer performer = Classes.from(branchPerformer);
         performer.onFlowerSelected(flower);
     }
 
-    public interface OnPaintingListener {
+    public interface PaintListener {
         void onPaintingStart();
 
         void onPaintingEnd();

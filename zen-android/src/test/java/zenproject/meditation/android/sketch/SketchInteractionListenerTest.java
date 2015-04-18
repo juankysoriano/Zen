@@ -13,19 +13,21 @@ import org.mockito.MockitoAnnotations;
 
 import zenproject.meditation.android.RobolectricLauncherGradleTestRunner;
 import zenproject.meditation.android.ZenTestBase;
+import zenproject.meditation.android.sketch.painting.SketchInteractionListener;
 import zenproject.meditation.android.sketch.painting.ink.InkPerformer;
 
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricLauncherGradleTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class SketchInteractionListenerTest extends ZenTestBase {
     @Mock
     private InkPerformer inkPerformer;
     @Mock
     private RainbowDrawer rainbowDrawer;
     @Mock
-    private ZenSketch.OnPaintingListener listener;
+    private ZenSketch.PaintListener listener;
     @Mock
     private MotionEvent motionEvent;
 
@@ -98,7 +100,7 @@ public class SketchInteractionListenerTest extends ZenTestBase {
     }
 
     private void givenThatHasPaintingListener() {
-        sketchInteractionListener.setOnPaintingListener(listener);
+        sketchInteractionListener.setPaintListener(listener);
     }
 
 }

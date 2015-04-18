@@ -13,7 +13,7 @@ import zenproject.meditation.android.analytics.AnalyticsTracker;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.sketch.painting.ink.BrushColor;
-import zenproject.meditation.android.persistence.BrushOptionsPreferences;
+import zenproject.meditation.android.preferences.BrushOptionsPreferences;
 import zenproject.meditation.android.ui.menu.dialogs.ZenDialog;
 import zenproject.meditation.android.ui.menu.dialogs.brush.color.ColorListView;
 import zenproject.meditation.android.ui.menu.dialogs.brush.size.SizeView;

@@ -8,6 +8,7 @@ import zenproject.meditation.android.RobolectricLauncherGradleTestRunner;
 import zenproject.meditation.android.ZenTestBase;
 
 @RunWith(RobolectricLauncherGradleTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class BrushColorTest extends ZenTestBase {
 
     private static final int UNKNOW_COLOR = -1;

@@ -12,7 +12,7 @@ import zenproject.meditation.android.analytics.AnalyticsTracker;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.sketch.painting.flowers.Flower;
-import zenproject.meditation.android.persistence.FlowerOptionPreferences;
+import zenproject.meditation.android.preferences.FlowerOptionPreferences;
 import zenproject.meditation.android.ui.menu.dialogs.ZenDialog;
 
 // TODO this class could be provided with the required collaborators and then tested.

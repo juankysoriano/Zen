@@ -11,7 +11,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.sketch.painting.flowers.Flower;
-import zenproject.meditation.android.persistence.FlowerOptionPreferences;
+import zenproject.meditation.android.preferences.FlowerOptionPreferences;
 
 import static zenproject.meditation.android.sketch.painting.ink.BrushColor.ACCENT;
 

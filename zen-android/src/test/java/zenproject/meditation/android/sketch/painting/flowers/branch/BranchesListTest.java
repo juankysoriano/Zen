@@ -12,13 +12,14 @@ import org.mockito.MockitoAnnotations;
 
 import zenproject.meditation.android.RobolectricLauncherGradleTestRunner;
 import zenproject.meditation.android.ZenTestBase;
-import zenproject.meditation.android.persistence.FlowerOptionPreferences;
+import zenproject.meditation.android.preferences.FlowerOptionPreferences;
 import zenproject.meditation.android.sketch.painting.flowers.Flower;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricLauncherGradleTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class BranchesListTest extends ZenTestBase {
     private static final int MAX_BRANCHES = 1000;
 

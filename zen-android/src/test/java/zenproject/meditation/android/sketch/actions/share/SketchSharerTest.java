@@ -25,6 +25,7 @@ import static org.mockito.Matchers.anyMapOf;
 import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricLauncherGradleTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class SketchSharerTest extends ZenTestBase {
     @Mock
     private ZenSketch zenSketch;

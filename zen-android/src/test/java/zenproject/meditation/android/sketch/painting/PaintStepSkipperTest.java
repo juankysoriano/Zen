@@ -9,6 +9,7 @@ import zenproject.meditation.android.RobolectricLauncherGradleTestRunner;
 import zenproject.meditation.android.ZenTestBase;
 
 @RunWith(RobolectricLauncherGradleTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class PaintStepSkipperTest extends ZenTestBase {
 
     private PaintStepSkipper paintStepSkipper;

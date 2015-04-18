@@ -13,6 +13,7 @@ import zenproject.meditation.android.ZenTestBase;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 @RunWith(RobolectricLauncherGradleTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class BranchTest extends ZenTestBase {
     private static final float ANY_POSITION = 10;
     private static final float MIN_RADIUS = ContextRetriever.INSTANCE.getResources().getDimension(R.dimen.branch_min_radius);

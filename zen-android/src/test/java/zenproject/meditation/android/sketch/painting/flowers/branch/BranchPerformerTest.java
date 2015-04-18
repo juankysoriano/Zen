@@ -10,7 +10,7 @@ import org.mockito.MockitoAnnotations;
 
 import zenproject.meditation.android.RobolectricLauncherGradleTestRunner;
 import zenproject.meditation.android.ZenTestBase;
-import zenproject.meditation.android.persistence.BrushOptionsPreferences;
+import zenproject.meditation.android.preferences.BrushOptionsPreferences;
 import zenproject.meditation.android.sketch.painting.PaintStepSkipper;
 import zenproject.meditation.android.sketch.painting.flowers.FlowerDrawer;
 
@@ -18,6 +18,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @RunWith(RobolectricLauncherGradleTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class BranchPerformerTest extends ZenTestBase {
 
     private BranchesList branchesList;

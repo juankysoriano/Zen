@@ -12,7 +12,7 @@
 
   <bool name="ga_reportUncaughtExceptions">true</bool>
 
-  <screenName name="zenproject.meditation.android.activities.ZenSketchActivity">
+  <screenName name="zenproject.meditation.android.activities.SketchActivity">
     Zen Sketch Activity
   </screenName>
 

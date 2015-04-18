@@ -12,8 +12,8 @@ import java.util.List;
 
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
-import zenproject.meditation.android.persistence.BrushOptionsPreferences;
-import zenproject.meditation.android.persistence.FlowerOptionPreferences;
+import zenproject.meditation.android.preferences.BrushOptionsPreferences;
+import zenproject.meditation.android.preferences.FlowerOptionPreferences;
 import zenproject.meditation.android.sketch.actions.StepPerformer;
 import zenproject.meditation.android.sketch.painting.PaintStepSkipper;
 import zenproject.meditation.android.sketch.painting.flowers.Flower;

@@ -1,4 +1,4 @@
-package zenproject.meditation.android.activities;
+package zenproject.meditation.android.ui.menu.dialogs;
 
 import android.app.FragmentManager;
 

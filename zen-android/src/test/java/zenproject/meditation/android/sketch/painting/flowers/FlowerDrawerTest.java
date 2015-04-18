@@ -28,6 +28,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricLauncherGradleTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class FlowerDrawerTest extends ZenTestBase {
     private static final RainbowImage NO_IMAGE = null;
     private static final int BRANCH_X = 10;

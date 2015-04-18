@@ -1,4 +1,4 @@
-package zenproject.meditation.android.persistence;
+package zenproject.meditation.android.preferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;

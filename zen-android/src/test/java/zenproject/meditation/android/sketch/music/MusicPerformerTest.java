@@ -12,12 +12,13 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import zenproject.meditation.android.RobolectricLauncherGradleTestRunner;
-import zenproject.meditation.android.persistence.BrushOptionsPreferences;
+import zenproject.meditation.android.preferences.BrushOptionsPreferences;
 
 import static org.mockito.Matchers.anyFloat;
 import static org.mockito.Mockito.*;
 
 @RunWith(RobolectricLauncherGradleTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class MusicPerformerTest {
     private static final float MUSIC_STEP = 0.01f;
     private static final float MIN_VOLUME = 0.05f;
