@@ -5,7 +5,7 @@ import zenproject.meditation.android.R;
 
 public enum BrushColor {
     DARK(ContextRetriever.INSTANCE.getResources().getColor(R.color.dark_brush)),
-    GREY(ContextRetriever.INSTANCE.getResources().getColor(R.color.grey_brush)),
+    AMBER(ContextRetriever.INSTANCE.getResources().getColor(R.color.amber_brush)),
     PRIMARY(ContextRetriever.INSTANCE.getResources().getColor(R.color.colorPrimary)),
     ACCENT(ContextRetriever.INSTANCE.getResources().getColor(R.color.colorAccent)),
     ERASE(ContextRetriever.INSTANCE.getResources().getColor(R.color.colorSketch));
@@ -27,5 +27,10 @@ public enum BrushColor {
 
     public int toAndroidColor() {
         return color;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }

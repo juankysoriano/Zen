@@ -43,7 +43,7 @@ public class BrushOptionsPreferencesTest extends ZenTestBase {
 
     @Test
     public void testThatApplyBrushSizePutsValuesInEditor() {
-        brushOptionsPreferences.applyBrushSize(ANY_PERCENTAGE);
+        brushOptionsPreferences.applyBrushSizePercentage(ANY_PERCENTAGE);
 
         verify(editor).putInt(PREF_BRUSH_SIZE, ANY_PERCENTAGE);
     }
@@ -52,7 +52,7 @@ public class BrushOptionsPreferencesTest extends ZenTestBase {
     public void testThatGetBrushSizeReturnsGetsValueFromSharedPreferences() {
         givenThatSizeWasApplied();
 
-        Assertions.assertThat(brushOptionsPreferences.getBrushSize()).isEqualTo(ANY_PERCENTAGE);
+        Assertions.assertThat(brushOptionsPreferences.getBrushSizePercentage()).isEqualTo(ANY_PERCENTAGE);
     }
 
     private void givenThatSizeWasApplied() {
@@ -61,7 +61,7 @@ public class BrushOptionsPreferencesTest extends ZenTestBase {
 
     @Test
     public void testThatApplyBrushSizeAppliesChanges() {
-        brushOptionsPreferences.applyBrushSize(ANY_PERCENTAGE);
+        brushOptionsPreferences.applyBrushSizePercentage(ANY_PERCENTAGE);
 
         verify(editor).apply();
     }
@@ -93,7 +93,7 @@ public class BrushOptionsPreferencesTest extends ZenTestBase {
 
     @Test
     public void testThatApplyBrushColorAppliesChanges() {
-        brushOptionsPreferences.applyBrushSize(ANY_PERCENTAGE);
+        brushOptionsPreferences.applyBrushSizePercentage(ANY_PERCENTAGE);
 
         verify(editor).apply();
     }

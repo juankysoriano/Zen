@@ -6,6 +6,6 @@
   <color name="colorPrimaryDark">#303F9F</color>
   <color name="colorSketch">#FFFDE7</color>
   <color name="dark_brush">#212121</color>
-  <color name="grey_brush">#616161</color>
+  <color name="amber_brush">#FFC107</color>
   <color name="divider">#21212121</color>
 </resources>

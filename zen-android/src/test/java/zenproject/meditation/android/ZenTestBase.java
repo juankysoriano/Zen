@@ -1,9 +1,9 @@
 package zenproject.meditation.android;
 
-import org.robolectric.Robolectric;
+import org.robolectric.RuntimeEnvironment;
 
 public class ZenTestBase {
     static {
-        ContextRetriever.INSTANCE.inject(Robolectric.application);
+        ContextRetriever.INSTANCE.inject(RuntimeEnvironment.application);
     }
 }

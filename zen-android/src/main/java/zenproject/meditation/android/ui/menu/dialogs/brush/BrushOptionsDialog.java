@@ -18,11 +18,12 @@ import zenproject.meditation.android.ui.menu.dialogs.ZenDialog;
 import zenproject.meditation.android.ui.menu.dialogs.brush.color.ColorListView;
 import zenproject.meditation.android.ui.menu.dialogs.brush.size.SizeView;
 
+// TODO this class could be provided with the required collaborators and then tested.
 public class BrushOptionsDialog extends ZenDialog implements ColorSelectedListener, SizeChangedListener {
     public static final String TAG = "BrushOptionsDialog";
 
     private BrushColor selectedColor = BrushOptionsPreferences.newInstance().getBrushColor();
-    private int selectedSize = BrushOptionsPreferences.newInstance().getBrushSize();
+    private int selectedSize = BrushOptionsPreferences.newInstance().getBrushSizePercentage();
     private SizeView sizeView;
 
     @NonNull
@@ -62,7 +63,7 @@ public class BrushOptionsDialog extends ZenDialog implements ColorSelectedListen
     private void storePreferences() {
         BrushOptionsPreferences brushOptionsPreferences = BrushOptionsPreferences.newInstance();
         brushOptionsPreferences.applyBrushColor(selectedColor);
-        brushOptionsPreferences.applyBrushSize(selectedSize);
+        brushOptionsPreferences.applyBrushSizePercentage(selectedSize);
     }
 
     @Override

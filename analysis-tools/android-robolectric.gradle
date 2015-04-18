@@ -20,9 +20,12 @@ robolectric {
     }
 
     dependencies {
+        testCompile('org.robolectric:robolectric:3.0-rc2') {
+            exclude group: 'commons-logging', module: 'commons-logging'
+            exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+        }
         testCompile 'org.mockito:mockito-all:1.10.19'
-        testCompile 'org.robolectric:robolectric:2.4'
-        testCompile 'junit:junit:4.12'
         testCompile 'com.squareup:fest-android:1.0.8'
+        testCompile 'junit:junit:4.12'
     }
 }

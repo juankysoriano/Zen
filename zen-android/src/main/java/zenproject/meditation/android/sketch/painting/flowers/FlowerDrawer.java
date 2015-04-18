@@ -15,8 +15,6 @@ public class FlowerDrawer implements RainbowImage.LoadPictureListener {
     protected static final int WHITE = 255;
     public static final int NORMAL = 1;
     public static final int REVERSE = -1;
-    public static final int HUNDRED = 100;
-    public static final int FIFTY = 50;
 
     private final Flower flower;
     private final List<RainbowImage> flowerImages;
@@ -79,7 +77,7 @@ public class FlowerDrawer implements RainbowImage.LoadPictureListener {
     }
 
     private boolean flipCoin() {
-        return RainbowMath.random(HUNDRED) >= FIFTY;
+        return RainbowMath.random(100) >= 50;
     }
 
     private float getFlowerSize() {
