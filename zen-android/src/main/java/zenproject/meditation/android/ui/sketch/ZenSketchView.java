@@ -9,22 +9,22 @@ import android.widget.RelativeLayout;
 import com.juankysoriano.rainbow.utils.RainbowMath;
 import com.oguzdev.circularfloatingactionmenu.library.CircularMenu;
 
-import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.sketch.ZenSketch;
 import zenproject.meditation.android.ui.menu.buttons.FloatingActionButton;
 import zenproject.meditation.android.ui.menu.buttons.MenuButton;
 import zenproject.meditation.android.ui.menu.buttons.creators.CircularMenuCreator;
 import zenproject.meditation.android.ui.sketch.clear.ClearView;
+import zenproject.meditation.android.ui.sketch.clear.SketchClearListener;
 
 @SuppressWarnings({"PMD.FieldDeclarationsShouldBeAtStartOfClass", "PMD.TooManyMethods"})
-public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintingListener {
+public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintingListener, CircularMenu.MenuStateChangeListener {
     private static final int MILLISECONDS_TO_HIDE = 150;
     private static final int MILLISECONDS_TO_SHOW = 150;
     private ClearView clearView;
-    private OnClearListener onClearListener;
     private CircularMenu circularMenu;
     private FloatingActionButton menuButton;
+    private SketchClearListener sketchClearListener;
     private boolean isPainting;
 
     public ZenSketchView(Context context, AttributeSet attrs) {
@@ -43,8 +43,8 @@ public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintin
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        circularMenu = CircularMenuCreator.createWith(ContextRetriever.INSTANCE.getApplicationContext());
-        circularMenu.setStateChangeListener(menuStateChangeListener);
+        circularMenu = CircularMenuCreator.create();
+        circularMenu.setStateChangeListener(this);
         menuButton = (FloatingActionButton) circularMenu.getActionView();
     }
 
@@ -92,35 +92,19 @@ public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintin
         menuButton.show();
     }
 
-    private final CircularMenu.MenuStateChangeListener menuStateChangeListener = new CircularMenu.MenuStateChangeListener() {
-        @Override
-        public void onMenuOpened(CircularMenu circularMenu) {
-            if (isPainting) {
-                hideControlsWithDelay();
-            }
-        }
-
-        @Override
-        public void onMenuClosed(CircularMenu circularMenu) {
-            if (isPainting) {
-                menuButton.hide();
-            }
-        }
-    };
-
-    public void setOnClearListener(OnClearListener onClearListener) {
-        this.onClearListener = onClearListener;
+    public void setSketchClearListener(SketchClearListener onClearListener) {
+        this.sketchClearListener = onClearListener;
     }
 
-    private boolean hasOnClearListener() {
-        return onClearListener != null;
+    private boolean hasSketchClearListener() {
+        return sketchClearListener != null;
     }
 
     private final Animator.AnimatorListener revealAnimatorListener = new AnimatorListenerAdapter() {
         @Override
         public void onAnimationEnd(Animator animation) {
-            if (hasOnClearListener()) {
-                onClearListener.onCleared();
+            if (hasSketchClearListener()) {
+                sketchClearListener.onSketchCleared();
             }
         }
     };
@@ -150,7 +134,17 @@ public class ZenSketchView extends RelativeLayout implements ZenSketch.OnPaintin
         showControlsWithDelay();
     }
 
-    public interface OnClearListener {
-        void onCleared();
+    @Override
+    public void onMenuOpened(CircularMenu circularMenu) {
+        if (isPainting) {
+            hideControlsWithDelay();
+        }
+    }
+
+    @Override
+    public void onMenuClosed(CircularMenu circularMenu) {
+        if (isPainting) {
+            menuButton.hide();
+        }
     }
 }

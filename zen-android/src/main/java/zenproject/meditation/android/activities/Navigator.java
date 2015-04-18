@@ -2,7 +2,9 @@ package zenproject.meditation.android.activities;
 
 import android.app.FragmentManager;
 
-import zenproject.meditation.android.ContextRetriever;
+import com.novoda.notils.caster.Classes;
+
+import zenproject.meditation.android.SketchRetriever;
 import zenproject.meditation.android.analytics.AnalyticsTracker;
 import zenproject.meditation.android.ui.menu.dialogs.brush.BrushOptionsDialog;
 import zenproject.meditation.android.ui.menu.dialogs.flower.FlowerOptionsDialog;
@@ -12,30 +14,28 @@ public class Navigator {
 
     private final BrushOptionsDialog brushOptionsDialog;
     private final FlowerOptionsDialog flowerOptionsDialog;
-    private final FragmentManager fragmentManager;
 
-    protected Navigator(FragmentManager fragmentManager, BrushOptionsDialog brushOptionsDialog, FlowerOptionsDialog flowerOptionsDialog) {
-        this.fragmentManager = fragmentManager;
+    protected Navigator(BrushOptionsDialog brushOptionsDialog, FlowerOptionsDialog flowerOptionsDialog) {
         this.brushOptionsDialog = brushOptionsDialog;
         this.flowerOptionsDialog = flowerOptionsDialog;
     }
 
-    public static Navigator newInstance(FlowerSelectedListener flowerSelectedListener) {
+    public static Navigator newInstance() {
         BrushOptionsDialog brushOptionsDialog = new BrushOptionsDialog();
         FlowerOptionsDialog flowerOptionsDialog = new FlowerOptionsDialog();
+        FlowerSelectedListener flowerSelectedListener = Classes.from(SketchRetriever.INSTANCE.getZenSketch());
         flowerOptionsDialog.setFlowerSelectedListener(flowerSelectedListener);
-        FragmentManager fragmentManager = ContextRetriever.INSTANCE.getActivity().getFragmentManager();
-        return new Navigator(fragmentManager, brushOptionsDialog, flowerOptionsDialog);
+        return new Navigator(brushOptionsDialog, flowerOptionsDialog);
     }
 
-    public void openBrushSelectionDialog() {
+    public void openBrushSelectionDialogWith(FragmentManager fragmentManager) {
         if (!brushOptionsDialog.isAdded()) {
             brushOptionsDialog.show(fragmentManager, BrushOptionsDialog.TAG);
             AnalyticsTracker.INSTANCE.trackDialogOpened(BrushOptionsDialog.TAG);
         }
     }
 
-    public void openFlowerSelectionDialog() {
+    public void openFlowerSelectionDialogWith(FragmentManager fragmentManager) {
         if (!flowerOptionsDialog.isAdded()) {
             flowerOptionsDialog.show(fragmentManager, FlowerOptionsDialog.TAG);
             AnalyticsTracker.INSTANCE.trackDialogOpened(FlowerOptionsDialog.TAG);

@@ -11,7 +11,6 @@ public enum MenuButton {
     SHARE(6),
     MENU(7);
 
-    @IdRes
     private final int id;
 
     MenuButton(@IdRes int id) {

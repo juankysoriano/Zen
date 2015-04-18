@@ -31,45 +31,45 @@ public class SketchActivityTest extends ZenTestBase {
     @Mock
     private ZenSketchView zenSketchView;
 
-    private SketchActivity sketchActivity;
+    private ZenSketchActivity zenSketchActivity;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        sketchActivity = new SketchActivity(zenSketch, navigator, screenshotTaker, sketchClearer, sketchSharer);
+        zenSketchActivity = new ZenSketchActivity(zenSketch, navigator, screenshotTaker, sketchClearer, sketchSharer);
     }
 
     @Test
     public void testThatOnStartZenSketchIsStarted() {
-        sketchActivity.onStart();
+        zenSketchActivity.onStart();
 
         verify(zenSketch).start();
     }
 
     @Test
     public void testThatOnResumeZenSketchIsResumed() {
-        sketchActivity.onResume();
+        zenSketchActivity.onResume();
 
         verify(zenSketch).resume();
     }
 
     @Test
     public void testThatOnPauseZenSketchIsPaused() {
-        sketchActivity.onPause();
+        zenSketchActivity.onPause();
 
         verify(zenSketch).pause();
     }
 
     @Test
     public void testThatOnStopZenSketchIsStopped() {
-        sketchActivity.onStop();
+        zenSketchActivity.onStop();
 
         verify(zenSketch).stop();
     }
 
     @Test
     public void testThatOnDestroyZenSketchIsDestroyed() {
-        sketchActivity.onDestroy();
+        zenSketchActivity.onDestroy();
 
         verify(zenSketch).destroy();
     }

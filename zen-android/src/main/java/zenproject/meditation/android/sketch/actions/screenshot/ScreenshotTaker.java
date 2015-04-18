@@ -5,8 +5,8 @@ import com.novoda.notils.logger.toast.Toaster;
 
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
+import zenproject.meditation.android.SketchRetriever;
 import zenproject.meditation.android.analytics.AnalyticsTracker;
-import zenproject.meditation.android.sketch.ZenSketch;
 
 public class ScreenshotTaker {
     private static final String ZEN = ContextRetriever.INSTANCE.getResources().getString(R.string.app_name);
@@ -17,8 +17,8 @@ public class ScreenshotTaker {
         this.rainbowDrawer = rainbowDrawer;
     }
 
-    public static ScreenshotTaker newInstance(ZenSketch zenSketch) {
-        return new ScreenshotTaker(zenSketch.getRainbowDrawer());
+    public static ScreenshotTaker newInstance() {
+        return new ScreenshotTaker(SketchRetriever.INSTANCE.getZenSketch().getRainbowDrawer());
     }
 
     public void takeScreenshot() {

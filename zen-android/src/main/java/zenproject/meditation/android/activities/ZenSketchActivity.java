@@ -11,9 +11,10 @@ import zenproject.meditation.android.sketch.actions.share.SketchSharer;
 import zenproject.meditation.android.ui.menu.buttons.FloatingActionButton;
 import zenproject.meditation.android.ui.menu.buttons.MenuButton;
 import zenproject.meditation.android.ui.sketch.ZenSketchView;
+import zenproject.meditation.android.ui.sketch.clear.SketchClearListener;
 
 @SuppressWarnings({"PMD.TooManyMethods", "PMD.FieldDeclarationsShouldBeAtStartOfClass"})
-public class SketchActivity extends ZenActivity implements View.OnAttachStateChangeListener {
+public class ZenSketchActivity extends ZenActivity implements View.OnAttachStateChangeListener {
 
     private final ZenSketch zenSketch;
     private final Navigator navigator;
@@ -22,21 +23,19 @@ public class SketchActivity extends ZenActivity implements View.OnAttachStateCha
     private final SketchSharer sketchSharer;
     private ZenSketchView zenSketchView;
 
-    public SketchActivity() {
-        super();
-        zenSketch = ZenSketch.newInstance();
-        navigator = Navigator.newInstance(zenSketch);
-        screenshotTaker = ScreenshotTaker.newInstance(zenSketch);
-        sketchClearer = SketchClearer.newInstance(zenSketch);
-        sketchSharer = SketchSharer.newInstance(zenSketch);
+    public ZenSketchActivity() {
+        this(ZenSketch.newInstance(),
+                Navigator.newInstance(),
+                ScreenshotTaker.newInstance(),
+                SketchClearer.newInstance(),
+                SketchSharer.newInstance());
     }
 
-    protected SketchActivity(ZenSketch zenSketch,
-                             Navigator navigator,
-                             ScreenshotTaker screenshotTaker,
-                             SketchClearer sketchClearer,
-                             SketchSharer sketchSharer) {
-        super();
+    protected ZenSketchActivity(ZenSketch zenSketch,
+                                Navigator navigator,
+                                ScreenshotTaker screenshotTaker,
+                                SketchClearer sketchClearer,
+                                SketchSharer sketchSharer) {
         this.zenSketch = zenSketch;
         this.navigator = navigator;
         this.screenshotTaker = screenshotTaker;
@@ -72,13 +71,13 @@ public class SketchActivity extends ZenActivity implements View.OnAttachStateCha
     }
 
     private void attachListeners() {
-        zenSketchView.setOnClearListener(onClearListener);
-        zenSketchView.getButtonViewFor(MenuButton.BRUSH).setOnClickListener(onBrushListener);
-        zenSketchView.getButtonViewFor(MenuButton.FLOWER).setOnClickListener(onFlowersListener);
-        zenSketchView.getButtonViewFor(MenuButton.RESTART).setOnClickListener(onRestartListener);
-        zenSketchView.getButtonViewFor(MenuButton.MENU).setOnClickListener(onMenuToggleListener);
-        zenSketchView.getButtonViewFor(MenuButton.SCREENSHOT).setOnClickListener(onScreenshotListener);
-        zenSketchView.getButtonViewFor(MenuButton.SHARE).setOnClickListener(onShareListener);
+        zenSketchView.setSketchClearListener(sketchClearListener);
+        zenSketchView.getButtonViewFor(MenuButton.BRUSH).setOnClickListener(brushOptionsListener);
+        zenSketchView.getButtonViewFor(MenuButton.FLOWER).setOnClickListener(flowerOptionsListener);
+        zenSketchView.getButtonViewFor(MenuButton.RESTART).setOnClickListener(restartListener);
+        zenSketchView.getButtonViewFor(MenuButton.MENU).setOnClickListener(menuToggleListener);
+        zenSketchView.getButtonViewFor(MenuButton.SCREENSHOT).setOnClickListener(screenshotListener);
+        zenSketchView.getButtonViewFor(MenuButton.SHARE).setOnClickListener(shareListener);
         zenSketch.setOnPaintingListener(zenSketchView);
     }
 
@@ -106,7 +105,7 @@ public class SketchActivity extends ZenActivity implements View.OnAttachStateCha
     }
 
     private void detachListeners() {
-        zenSketchView.setOnClearListener(null);
+        zenSketchView.setSketchClearListener(null);
         zenSketchView.getButtonViewFor(MenuButton.BRUSH).setOnClickListener(null);
         zenSketchView.getButtonViewFor(MenuButton.FLOWER).setOnClickListener(null);
         zenSketchView.getButtonViewFor(MenuButton.RESTART).setOnClickListener(null);
@@ -120,7 +119,7 @@ public class SketchActivity extends ZenActivity implements View.OnAttachStateCha
      * Listeners which controls painting flow and menu operations.
      * TODO Consider extracting this listeners into classes. This way they can be tested.
      */
-    private final View.OnClickListener onMenuToggleListener = new View.OnClickListener() {
+    private final View.OnClickListener menuToggleListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             zenSketchView.getCircularMenu().toggle(true);
@@ -128,45 +127,46 @@ public class SketchActivity extends ZenActivity implements View.OnAttachStateCha
         }
     };
 
-    private final View.OnClickListener onRestartListener = new View.OnClickListener() {
+    private final View.OnClickListener restartListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             zenSketchView.startClearAnimation((FloatingActionButton) view);
         }
     };
 
-    private final View.OnClickListener onBrushListener = new View.OnClickListener() {
+    private final View.OnClickListener brushOptionsListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            navigator.openBrushSelectionDialog();
+            navigator.openBrushSelectionDialogWith(getFragmentManager());
         }
     };
 
-    private final View.OnClickListener onFlowersListener = new View.OnClickListener() {
+    private final View.OnClickListener flowerOptionsListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            navigator.openFlowerSelectionDialog();
+            navigator.openFlowerSelectionDialogWith(getFragmentManager());
         }
     };
 
-    private final View.OnClickListener onShareListener = new View.OnClickListener() {
+    private final View.OnClickListener shareListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             sketchSharer.shareSketch();
         }
     };
 
-    private final View.OnClickListener onScreenshotListener = new View.OnClickListener() {
+    private final View.OnClickListener screenshotListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             screenshotTaker.takeScreenshot();
         }
     };
 
-    private final ZenSketchView.OnClearListener onClearListener = new ZenSketchView.OnClearListener() {
+    private final SketchClearListener sketchClearListener = new SketchClearListener() {
         @Override
-        public void onCleared() {
+        public void onSketchCleared() {
             sketchClearer.clearSketch();
         }
     };
+
 }

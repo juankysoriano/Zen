@@ -26,11 +26,15 @@ import zenproject.meditation.android.R;
 
 @SuppressWarnings("TooManyMethods")
 public class FloatingActionButton extends View {
-    private static final float FAB_SHADOW_TOUCH = ContextRetriever.INSTANCE.getResources().getDimensionPixelSize(R.dimen.shadow_fab_touch);
-    private static final float FAB_SHADOW_UNTOUCH = ContextRetriever.INSTANCE.getResources().getDimensionPixelSize(R.dimen.shadow_fab_untouch);
-    private static final int DURATION = 400;
-    private static final int ROTATED = 90;
-    private static final int NOT_ROTATED = 0;
+    private static final float SHADOW_RADIUS_TOUCHED = ContextRetriever.INSTANCE.getResources().getDimensionPixelSize(R.dimen.shadow_fab_touch);
+    private static final float SHADOW_RADIUS_RELEASED = ContextRetriever.INSTANCE.getResources().getDimensionPixelSize(R.dimen.shadow_fab_untouch);
+    private static final float SHADOW_OFFSET_X = 0f;
+    private static final float SHADOW_OFFSET_Y = 0f;
+    private static final int SHADOW_COLOR_TOUCHED = Color.argb(150, 0, 0, 0);
+    private static final int SHADOW_COLOR_RELEASED = Color.argb(100, 0, 0, 0);
+    private static final int ROTATION_TIME_MILLISECONDS = 400;
+    private static final int TOUCHED_ROTATION = 90;
+    private static final int RELEASED_ROTATION = 0;
     private final Paint buttonPaint;
     private final Paint drawablePaint;
     private Bitmap bitmap;
@@ -40,11 +44,12 @@ public class FloatingActionButton extends View {
     private boolean rotating;
     private int color;
     private int pressedColor;
-    private float angle = NOT_ROTATED;
+    private float angle = RELEASED_ROTATION;
 
     public FloatingActionButton(Context context) {
         super(context);
         setWillNotDraw(false);
+        setClickable(true);
         setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         buttonPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         buttonPaint.setStyle(Paint.Style.FILL);
@@ -66,8 +71,10 @@ public class FloatingActionButton extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        setClickable(true);
-        buttonPaint.setShadowLayer(touching ? FAB_SHADOW_TOUCH : FAB_SHADOW_UNTOUCH, 0.0f, 3.5f, Color.argb(touching ? 150 : 100, 0, 0, 0));
+        buttonPaint.setShadowLayer(touching ? SHADOW_RADIUS_TOUCHED : SHADOW_RADIUS_RELEASED,
+                SHADOW_OFFSET_X,
+                SHADOW_OFFSET_Y,
+                touching ? SHADOW_COLOR_TOUCHED : SHADOW_COLOR_RELEASED);
         buttonPaint.setColor(touching ? pressedColor : color);
 
         canvas.drawCircle(getWidth() / 2f, getHeight() / 2f, getWidth() / 2.6f, buttonPaint);
@@ -98,6 +105,10 @@ public class FloatingActionButton extends View {
         }
     }
 
+    public boolean isHidden() {
+        return hidden;
+    }
+
     public void show() {
         if (isHidden()) {
             ViewPropertyAnimator.animate(this).setInterpolator(new AccelerateDecelerateInterpolator())
@@ -108,11 +119,11 @@ public class FloatingActionButton extends View {
 
     public void rotate() {
         if (!rotating) {
-            float startAngle = rotated ? ROTATED : NOT_ROTATED;
-            float endAngle = rotated ? NOT_ROTATED : ROTATED;
+            float startAngle = rotated ? TOUCHED_ROTATION : RELEASED_ROTATION;
+            float endAngle = rotated ? RELEASED_ROTATION : TOUCHED_ROTATION;
             Animator animator = ObjectAnimator.ofFloat(this, "angle", startAngle, endAngle);
             animator.setInterpolator(new AccelerateDecelerateInterpolator());
-            animator.setDuration(DURATION);
+            animator.setDuration(ROTATION_TIME_MILLISECONDS);
             animator.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationStart(Animator animation) {
@@ -132,10 +143,6 @@ public class FloatingActionButton extends View {
 
     }
 
-    public boolean isHidden() {
-        return hidden;
-    }
-
     public Point getCentre() {
         return new Point((int) getX() + getWidth() / 2,
                 (int) getY() + getHeight() / 2);
@@ -151,20 +158,24 @@ public class FloatingActionButton extends View {
     }
 
     public static class Builder {
+        private final int size;
+        private final float scale;
         private int id;
         private FrameLayout.LayoutParams params;
         private int gravity = Gravity.BOTTOM | Gravity.END;
         private Drawable drawable;
         private int color = Color.WHITE;
         private int pressedColor;
-        private final int size;
-        private final float scale;
 
         public Builder(Context context) {
             scale = context.getResources().getDisplayMetrics().density;
             size = convertToPixels(72, scale); // default size is 72dp by 72dp
             params = new FrameLayout.LayoutParams(size, size);
             params.gravity = gravity;
+        }
+
+        private int convertToPixels(int dp, float scale) {
+            return (int) (dp * scale + 0.5f);
         }
 
         /**
@@ -192,16 +203,16 @@ public class FloatingActionButton extends View {
         }
 
         /**
+         * Set the Tag
+         */
+
+        /**
          * Sets the ID
          */
         public Builder withId(final int id) {
             this.id = id;
             return this;
         }
-
-        /**
-         * Set the Tag
-         */
 
         /**
          * Sets the FAB color
@@ -229,6 +240,7 @@ public class FloatingActionButton extends View {
 
         /**
          * Creates a FloatingActionButton and attaches it to the rootView.
+         *
          * @param rootView
          * @return
          */
@@ -246,10 +258,6 @@ public class FloatingActionButton extends View {
 
         private int getDarkerFrom(int color) {
             return Color.rgb((int) (Color.red(color) / 1.1f), (int) (Color.green(color) / 1.1f), (int) (Color.blue(color) / 1.1f));
-        }
-
-        private int convertToPixels(int dp, float scale) {
-            return (int) (dp * scale + 0.5f);
         }
     }
 }

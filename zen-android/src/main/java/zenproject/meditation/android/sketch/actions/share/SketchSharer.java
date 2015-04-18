@@ -7,8 +7,8 @@ import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
 
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
+import zenproject.meditation.android.SketchRetriever;
 import zenproject.meditation.android.analytics.AnalyticsTracker;
-import zenproject.meditation.android.sketch.ZenSketch;
 
 public class SketchSharer {
     private static final String INTENT_TYPE = "image/png";
@@ -20,8 +20,8 @@ public class SketchSharer {
         this.rainbowDrawer = rainbowDrawer;
     }
 
-    public static SketchSharer newInstance(ZenSketch zenSketch) {
-        return new SketchSharer(zenSketch.getRainbowDrawer());
+    public static SketchSharer newInstance() {
+        return new SketchSharer(SketchRetriever.INSTANCE.getZenSketch().getRainbowDrawer());
     }
 
     public void shareSketch() {

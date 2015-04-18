@@ -8,46 +8,34 @@ import com.juankysoriano.rainbow.core.graphics.RainbowImage;
 import com.juankysoriano.rainbow.utils.RainbowMath;
 import com.novoda.notils.exception.DeveloperError;
 
-import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.sketch.actions.StepPerformer;
-import zenproject.meditation.android.sketch.painting.flowers.branch.Branch;
-import zenproject.meditation.android.sketch.painting.flowers.branch.BranchesList;
-
-import static com.juankysoriano.rainbow.core.event.RainbowInputController.MovementDirection;
 
 public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureListener {
     private static final RainbowImage NO_IMAGE = null;
     private static final int MAX_THRESHOLD = 100;
     private static final int INK_ISSUE_THRESHOLD = 98;
-    private static final float INK_VELOCITY_THRESHOLD = ContextRetriever.INSTANCE.getResources().getDimension(R.dimen.ink_velocity_threshold);
-    private static final int BRANCH_THRESHOLD_FAST = 73;
-    private static final int BRANCH_THRESHOLD_SLOW = 93;
     private static final float INK_DROP_IMAGE_SCALE = 0.5f;
     private static final int OPAQUE = 255;
     private final RainbowDrawer rainbowDrawer;
     private final RainbowInputController rainbowInputController;
     private final InkDrop inkDrop;
-    private final BranchesList branches;
     private RainbowImage image;
     private boolean enabled = true;
     private boolean initialised;
 
     protected InkPerformer(InkDrop inkDrop,
-                           BranchesList branches,
                            RainbowDrawer rainbowDrawer,
                            RainbowInputController rainbowInputController) {
         this.inkDrop = inkDrop;
-        this.branches = branches;
         this.rainbowDrawer = rainbowDrawer;
         this.rainbowInputController = rainbowInputController;
     }
 
-    public static InkPerformer newInstance(BranchesList branches,
+    public static InkPerformer newInstance(InkDrop inkDrop,
                                            RainbowDrawer rainbowDrawer,
                                            RainbowInputController rainbowInputController) {
-        return new InkPerformer(InkDrop.newInstance(rainbowInputController),
-                branches,
+        return new InkPerformer(inkDrop,
                 rainbowDrawer,
                 rainbowInputController);
     }
@@ -97,34 +85,8 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
                     public void onPointDetected(float px, float py, float x, float y, RainbowDrawer rainbowDrawer) {
                         inkDrop.updateInkRadius();
                         drawInk(px, py, x, y);
-                        attemptToBloomBranchAt(x, y);
                     }
                 });
-    }
-
-    private void attemptToBloomBranchAt(float x, float y) {
-        if (!isErasing()) {
-            float bloomBranchThreshold = rainbowInputController.getFingerVelocity() > INK_VELOCITY_THRESHOLD
-                    ? BRANCH_THRESHOLD_FAST
-                    : BRANCH_THRESHOLD_SLOW;
-            if (RainbowMath.random(MAX_THRESHOLD) > bloomBranchThreshold && !hasToPaintDropImage()) {
-                createBranchAt(x, y);
-            }
-        }
-    }
-
-    private boolean isErasing() {
-        return BrushColor.ERASE == inkDrop.getBrushColor();
-    }
-
-    private void createBranchAt(float x, float y) {
-        MovementDirection verticalMovement = rainbowInputController.getVerticalDirection();
-        MovementDirection horizontalMovement = rainbowInputController.getHorizontalDirection();
-        float radius = inkDrop.getRadius() / 4;
-        float verticalOffset = verticalMovement == MovementDirection.DOWN ? radius : -radius;
-        float horizontalOffset = horizontalMovement == MovementDirection.RIGHT ? radius : -radius;
-
-        branches.bloomFrom(Branch.createAt(x + horizontalOffset, y + verticalOffset));
     }
 
     private void drawInk(float px, float py, float x, float y) {
@@ -132,6 +94,13 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
         if (hasToPaintDropImage()) {
             paintDropWithImage(x, y);
         }
+    }
+
+    private void paintDropWithoutImage(float px, float py, float x, float y) {
+        rainbowDrawer.stroke(inkDrop.getBrushColor().toAndroidColor(), OPAQUE);
+        rainbowDrawer.strokeWeight(isErasing() ? inkDrop.getMaxRadius() * INK_DROP_IMAGE_SCALE : inkDrop.getRadius() * INK_DROP_IMAGE_SCALE);
+        rainbowDrawer.line(px, py, x, y);
+        rainbowDrawer.strokeWeight(1);
     }
 
     private boolean hasToPaintDropImage() {
@@ -149,11 +118,8 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
         rainbowDrawer.popMatrix();
     }
 
-    private void paintDropWithoutImage(float px, float py, float x, float y) {
-        rainbowDrawer.stroke(inkDrop.getBrushColor().toAndroidColor(), OPAQUE);
-        rainbowDrawer.strokeWeight(isErasing() ? inkDrop.getMaxRadius() * INK_DROP_IMAGE_SCALE : inkDrop.getRadius() * INK_DROP_IMAGE_SCALE);
-        rainbowDrawer.line(px, py, x, y);
-        rainbowDrawer.strokeWeight(1);
+    private boolean isErasing() {
+        return BrushColor.ERASE == inkDrop.getBrushColor();
     }
 
     // TODO revisit this once RainbowImage has support for EmptyRainbowImage

@@ -3,6 +3,7 @@ package zenproject.meditation.android.sketch.painting.flowers.branch;
 import android.os.AsyncTask;
 
 import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
+import com.juankysoriano.rainbow.core.event.RainbowInputController;
 import com.juankysoriano.rainbow.utils.RainbowMath;
 import com.novoda.notils.exception.DeveloperError;
 
@@ -17,6 +18,8 @@ import zenproject.meditation.android.sketch.actions.StepPerformer;
 import zenproject.meditation.android.sketch.painting.PaintStepSkipper;
 import zenproject.meditation.android.sketch.painting.flowers.Flower;
 import zenproject.meditation.android.sketch.painting.flowers.FlowerDrawer;
+import zenproject.meditation.android.sketch.painting.ink.BrushColor;
+import zenproject.meditation.android.sketch.painting.ink.InkDrop;
 import zenproject.meditation.android.ui.menu.dialogs.flower.FlowerSelectedListener;
 
 public class BranchPerformer implements StepPerformer, FlowerSelectedListener {
@@ -24,6 +27,9 @@ public class BranchPerformer implements StepPerformer, FlowerSelectedListener {
     private static final int MAX_THRESHOLD = 100;
     private static final int BLOOM_THRESHOLD = 90;
     private static final int FLOWER_THRESHOLD = 80;
+    private static final float INK_VELOCITY_THRESHOLD = ContextRetriever.INSTANCE.getResources().getDimension(R.dimen.ink_velocity_threshold);
+    private static final int BRANCH_THRESHOLD_FAST = 73;
+    private static final int BRANCH_THRESHOLD_SLOW = 93;
     private static final int LEAF_COLOR = ContextRetriever.INSTANCE.getResources().getColor(R.color.colorPrimaryDark);
     private static final float LEAF_SIZE = ContextRetriever.INSTANCE.getResources().getDimension(R.dimen.branch_default_radius) * 2;
 
@@ -31,28 +37,41 @@ public class BranchPerformer implements StepPerformer, FlowerSelectedListener {
     private final BranchesList branchesList;
     private final PaintStepSkipper paintStepSkipper;
     private final BrushOptionsPreferences brushOptionsPreferences;
+    private final InkDrop inkDrop;
+    private final RainbowInputController rainbowInputController;
     private FlowerDrawer flowerDrawer;
     private boolean enabled = true;
     private boolean initialised;
 
-    protected BranchPerformer(BranchesList branchesList,
+    protected BranchPerformer(InkDrop inkDrop,
+                              BranchesList branchesList,
                               FlowerDrawer flowerDrawer,
-                              RainbowDrawer rainbowDrawer,
                               PaintStepSkipper paintStepSkipper,
-                              BrushOptionsPreferences brushOptionsPreferences) {
+                              BrushOptionsPreferences brushOptionsPreferences,
+                              RainbowDrawer rainbowDrawer,
+                              RainbowInputController rainbowInputController) {
+        this.inkDrop = inkDrop;
         this.branchesList = branchesList;
         this.flowerDrawer = flowerDrawer;
         this.rainbowDrawer = rainbowDrawer;
         this.paintStepSkipper = paintStepSkipper;
         this.brushOptionsPreferences = brushOptionsPreferences;
+        this.rainbowInputController = rainbowInputController;
     }
 
-    public static BranchPerformer newInstance(BranchesList branchesList, RainbowDrawer rainbowDrawer) {
-        return new BranchPerformer(branchesList,
-                FlowerDrawer.newInstance(FlowerOptionPreferences.newInstance().getFlower(), rainbowDrawer),
-                rainbowDrawer,
-                new PaintStepSkipper(),
-                BrushOptionsPreferences.newInstance());
+    public static BranchPerformer newInstance(InkDrop inkDrop,
+                                              RainbowDrawer rainbowDrawer,
+                                              RainbowInputController rainbowInputController) {
+        BrushOptionsPreferences brushOptionsPreferences = BrushOptionsPreferences.newInstance();
+        BranchesList branchesList = BranchesList.newInstance();
+        FlowerOptionPreferences flowerOptionPreferences = FlowerOptionPreferences.newInstance();
+        Flower flower = flowerOptionPreferences.getFlower();
+        FlowerDrawer flowerDrawer = FlowerDrawer.newInstance(flower, rainbowDrawer);
+        return new BranchPerformer(inkDrop,
+                branchesList,
+                flowerDrawer,
+                new PaintStepSkipper(), brushOptionsPreferences, rainbowDrawer,
+                rainbowInputController);
     }
 
     @Override
@@ -78,6 +97,7 @@ public class BranchPerformer implements StepPerformer, FlowerSelectedListener {
             if (!paintStepSkipper.hasToSkipStep() && hasFlower()) {
                 paintAndUpdateBranches();
             }
+            attemptToBloomBranch();
             paintStepSkipper.recordStep();
         }
 
@@ -105,8 +125,12 @@ public class BranchPerformer implements StepPerformer, FlowerSelectedListener {
         }
     }
 
-    private void paintFlowerFor(Branch branch) {
-        flowerDrawer.paintFlowerFor(branch);
+    private void bloomFlowerIfLuck(Branch branch) {
+        if (RainbowMath.random(MAX_THRESHOLD) > FLOWER_THRESHOLD) {
+            paintFlowerFor(branch);
+        } else {
+            paintLeafFor(branch);
+        }
     }
 
     private void performBranchPainting(Branch branch) {
@@ -120,12 +144,8 @@ public class BranchPerformer implements StepPerformer, FlowerSelectedListener {
         }
     }
 
-    private void bloomFlowerIfLuck(Branch branch) {
-        if (RainbowMath.random(MAX_THRESHOLD) > FLOWER_THRESHOLD) {
-            paintFlowerFor(branch);
-        } else {
-            paintLeafFor(branch);
-        }
+    private void paintFlowerFor(Branch branch) {
+        flowerDrawer.paintFlowerFor(branch);
     }
 
     private void paintLeafFor(Branch branch) {
@@ -135,9 +155,28 @@ public class BranchPerformer implements StepPerformer, FlowerSelectedListener {
         rainbowDrawer.strokeWeight(1);
     }
 
+    private void attemptToBloomBranch() {
+        float bloomBranchThreshold = rainbowInputController.getFingerVelocity() > INK_VELOCITY_THRESHOLD
+                ? BRANCH_THRESHOLD_FAST
+                : BRANCH_THRESHOLD_SLOW;
+        if (!isErasing() && rainbowInputController.isScreenTouched() && RainbowMath.random(MAX_THRESHOLD) > bloomBranchThreshold) {
+            createBranchAt(rainbowInputController.getSmoothX(), rainbowInputController.getSmoothY());
+        }
+    }
+
+    private void createBranchAt(float x, float y) {
+        RainbowInputController.MovementDirection verticalMovement = rainbowInputController.getVerticalDirection();
+        RainbowInputController.MovementDirection horizontalMovement = rainbowInputController.getHorizontalDirection();
+        float radius = inkDrop.getRadius() / 4;
+        float verticalOffset = verticalMovement == RainbowInputController.MovementDirection.DOWN ? radius : -radius;
+        float horizontalOffset = horizontalMovement == RainbowInputController.MovementDirection.RIGHT ? radius : -radius;
+
+        branchesList.bloomFrom(Branch.createAt(x + horizontalOffset, y + verticalOffset));
+    }
+
     @Override
-    public void reset() {
-        //no-op
+    public void enable() {
+        enabled = true;
     }
 
     @Override
@@ -146,8 +185,12 @@ public class BranchPerformer implements StepPerformer, FlowerSelectedListener {
     }
 
     @Override
-    public void enable() {
-        enabled = true;
+    public void reset() {
+        branchesList.clear();
+    }
+
+    private boolean isErasing() {
+        return BrushColor.ERASE == brushOptionsPreferences.getBrushColor();
     }
 
     @Override

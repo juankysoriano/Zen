@@ -26,7 +26,8 @@ public final class CircularMenuCreator {
         //no-op
     }
 
-    public static CircularMenu createWith(Context context) {
+    public static CircularMenu create() {
+        Context context = ContextRetriever.INSTANCE.getApplicationContext();
         return new CircularMenu.Builder(context)
                 .setRadius(MENU_RADIUS)
                 .addSubActionView(SubActionButtonCreator.createFrom(context,

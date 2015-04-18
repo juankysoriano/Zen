@@ -1,5 +1,6 @@
 package zenproject.meditation.android.sketch.actions.clear;
 
+import zenproject.meditation.android.SketchRetriever;
 import zenproject.meditation.android.analytics.AnalyticsTracker;
 import zenproject.meditation.android.sketch.ZenSketch;
 
@@ -10,8 +11,8 @@ public class SketchClearer {
         this.zenSketch = zenSketch;
     }
 
-    public static SketchClearer newInstance(ZenSketch zenSketch) {
-        return new SketchClearer(zenSketch);
+    public static SketchClearer newInstance() {
+        return new SketchClearer(SketchRetriever.INSTANCE.getZenSketch());
     }
 
     public void clearSketch() {

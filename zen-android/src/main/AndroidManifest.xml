@@ -16,7 +16,7 @@
     android:hardwareAccelerated="true">
 
     <activity
-      android:name="zenproject.meditation.android.activities.SketchActivity"
+      android:name=".activities.ZenSketchActivity"
       android:screenOrientation="landscape"
       android:label="@string/app_name">
       <intent-filter>
