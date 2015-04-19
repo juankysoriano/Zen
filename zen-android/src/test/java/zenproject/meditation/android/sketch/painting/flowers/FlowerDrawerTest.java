@@ -52,6 +52,15 @@ public class FlowerDrawerTest extends ZenTestBase {
     }
 
     @Test
+    public void testThatInitDoesLoadImageForEveryImageOnFlower() {
+        flowerDrawer.init();
+
+        for (Integer flowerImageId : flowerToPaint.getFlowerLeafRes()) {
+            verify(rainbowDrawer).loadImage(flowerImageId, RainbowImage.LOAD_ORIGINAL_SIZE, flowerDrawer);
+        }
+    }
+
+    @Test
     public void testThatOnLoadSuccessIncludesRainbowImageOnFlowerList() {
         flowerDrawer.onLoadSucceed(rainbowImage);
 
