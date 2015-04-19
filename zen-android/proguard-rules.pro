@@ -18,7 +18,7 @@
 
 -dontwarn com.squareup.picasso.**
 -dontwarn com.squareup.okhttp.**
--keep class zenproject.meditation.android.views.reveal.RevealDrawable {
+-keep class zenproject.meditation.android.ui.sketch.clear.ClearDrawable {
     void set*(***);
     *** get*();
 }
