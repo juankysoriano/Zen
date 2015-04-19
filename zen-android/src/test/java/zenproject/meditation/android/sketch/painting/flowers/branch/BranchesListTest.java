@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.annotation.Config;
 
@@ -79,9 +80,31 @@ public class BranchesListTest extends ZenTestBase {
     }
 
     @Test
+    public void testThatWhenFlowerIsOtherThanNoneAndNotEnoughOnListThenFlowerIsNotIncludedIntoListIfBranchCantBloom() {
+        Branch branch = givenABranchThatCannotBloom();
+        branchesList.bloomFrom(branch);
+
+        Assertions.assertThat(branchesList).hasSize(0);
+    }
+
+    private Branch givenABranchThatCannotBloom() {
+        Branch branch = Mockito.mock(Branch.class);
+        when(branch.canBloom()).thenReturn(false);
+        return branch;
+    }
+
+    @Test
     public void testThatPruneRemovesBranch() {
         Branch branch = givenThatHasBranch();
         branchesList.prune(branch);
+
+        Assertions.assertThat(branchesList).isEmpty();
+    }
+
+    @Test
+    public void testThatClearDelegatesOnInternalList() {
+        givenThatHasBranch();
+        branchesList.clear();
 
         Assertions.assertThat(branchesList).isEmpty();
     }
