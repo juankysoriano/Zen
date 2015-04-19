@@ -53,6 +53,13 @@ public class SketchClearerTest extends ZenTestBase {
         verify(tracker).send(anyMapOf(String.class, String.class));
     }
 
+    @Test
+    public void testOnSketchClearedClearsZenSketch() {
+        sketchClearer.onSketchCleared();
+
+        verify(zenSketch).clear();
+    }
+
     /**
      * "Test everything that you could possibly break"
      * - Kent Beck's
