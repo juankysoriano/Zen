@@ -3,8 +3,6 @@ Zen! An open source meditation sketch for Android
 
 ![](http://media.virbcdn.com/cdn_images/resize_1600x1600/92/d65d52c322f4a89a-zen-screenshot.png)
 
-This application uses a modified* MVP architecture however it might be a bit hidden as I hate naming classes like `blablablaPresenter` or `bleblebleInteractor`. I rather orientating my name convention to the domain that I am working with, like `ZenSketch` or `SketchClearer`. Anyway if you are familiar with MVP you should be able to identify it quickly.
-
 Compiling it is easy, just do `./gradlew clean zen` and it will compile it, execute the unit tests and run all the code analysis tools that it provides.
 
 You are free to open Pull Requests, actually you are more than welcome to do it!
