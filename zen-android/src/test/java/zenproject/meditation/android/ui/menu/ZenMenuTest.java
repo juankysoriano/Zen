@@ -134,6 +134,19 @@ public class ZenMenuTest extends ZenTestBase {
         verify(menuButton, times(1)).hide();
     }
 
+    @Test
+    public void testThatNewInstanceReturnsNotNullInstance() {
+        Assertions.assertThat(ZenMenu.newInstance(zenSketchView)).isNotNull();
+    }
+
+    @Test
+    public void testThatNewInstanceReturnsANewInstance() {
+        ZenMenu firstInstance = ZenMenu.newInstance(zenSketchView);
+        ZenMenu secondInstance = ZenMenu.newInstance(zenSketchView);
+
+        Assertions.assertThat(firstInstance).isNotEqualTo(secondInstance);
+    }
+
     private void givenThatMenuIsClosed() {
         when(circularMenu.isOpen()).thenReturn(false);
     }
