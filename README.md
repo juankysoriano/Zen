@@ -35,11 +35,10 @@ This project uses the following open source libraries:
 1. https://github.com/juankysoriano/rainbow/
 2. https://github.com/juankysoriano/CircularFloatingActionMenu
 3. https://github.com/novoda/notils
-4. https://github.com/square/picasso
-5. https://github.com/JakeWharton/NineOldAndroids
-6. https://github.com/afollestad/material-dialogs
-7. :https://github.com/hdodenhof/CircleImageView
-8. https://github.com/mockito/mockito
-9. :https://github.com/robolectric/robolectric
+4. https://github.com/JakeWharton/NineOldAndroids
+5. https://github.com/afollestad/material-dialogs
+6. :https://github.com/hdodenhof/CircleImageView
+7. https://github.com/mockito/mockito
+8. :https://github.com/robolectric/robolectric
 
 I am sorry if I miss any one!
