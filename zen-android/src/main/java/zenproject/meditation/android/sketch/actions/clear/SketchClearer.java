@@ -20,7 +20,7 @@ public class SketchClearer implements SketchClearListener {
     }
 
     public void clearSketch() {
-        zenSketchView.clearView();
+        zenSketchView.clear();
         AnalyticsTracker.INSTANCE.trackClearSketch();
     }
 

@@ -43,7 +43,7 @@ public class SketchClearerTest extends ZenTestBase {
     public void testThatWhenClearSketchIsPerformedThenZenSketchIsCleared() {
         sketchClearer.clearSketch();
 
-        verify(zenSketchView).clearView();
+        verify(zenSketchView).clear();
     }
 
     @Test

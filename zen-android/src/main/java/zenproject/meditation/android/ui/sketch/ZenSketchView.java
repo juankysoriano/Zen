@@ -63,7 +63,7 @@ public class ZenSketchView extends RelativeLayout {
         }
     };
 
-    public void clearView() {
+    public void clear() {
         if (!clearView.isClearing()) {
             clearView.startClearWith(revealAnimatorListener);
             FloatingActionButton menu = (FloatingActionButton) (circularMenu.findSubActionViewWithId(MenuButton.RESTART.getId()));
