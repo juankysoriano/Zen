@@ -26,8 +26,8 @@ android {
     buildToolsVersion rootProject.ext.BUILD_TOOLS
 
     defaultConfig {
-        applicationId 'zenproject.meditation.android'
-        testApplicationId 'zenproject.meditation.android.tests'
+        applicationId 'zen.meditation.android'
+        testApplicationId 'zen.meditation.android.tests'
 
         minSdkVersion rootProject.ext.MIN_SDK
         targetSdkVersion rootProject.ext.TARGET_SDK
