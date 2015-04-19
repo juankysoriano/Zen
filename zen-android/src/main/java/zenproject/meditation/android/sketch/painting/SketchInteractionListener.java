@@ -22,13 +22,17 @@ public class SketchInteractionListener implements RainbowInputController.Rainbow
 
     @Override
     public void onSketchTouched(MotionEvent event, RainbowDrawer rainbowDrawer) {
-        paintListener.onPaintingStart();
+        if (hasPaintListener()) {
+            paintListener.onPaintingStart();
+        }
         inkPerformer.reset();
     }
 
     @Override
     public void onSketchReleased(MotionEvent event, RainbowDrawer rainbowDrawer) {
-        paintListener.onPaintingEnd();
+        if (hasPaintListener()) {
+            paintListener.onPaintingEnd();
+        }
     }
 
     @Override
@@ -43,5 +47,9 @@ public class SketchInteractionListener implements RainbowInputController.Rainbow
 
     public void setPaintListener(ZenSketch.PaintListener paintListener) {
         this.paintListener = paintListener;
+    }
+
+    private boolean hasPaintListener() {
+        return paintListener != null;
     }
 }

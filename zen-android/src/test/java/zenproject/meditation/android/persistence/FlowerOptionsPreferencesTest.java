@@ -18,6 +18,7 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
 @RunWith(RobolectricLauncherGradleTestRunner.class)
+
 public class FlowerOptionsPreferencesTest extends ZenTestBase {
     private static final String PREF_NAME = "FlowerOptionPreferences";
     private static final String PREF_FLOWER = PREF_NAME + "Flower";

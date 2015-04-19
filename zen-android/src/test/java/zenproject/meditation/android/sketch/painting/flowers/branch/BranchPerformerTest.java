@@ -1,18 +1,22 @@
 package zenproject.meditation.android.sketch.painting.flowers.branch;
 
 import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
+import com.juankysoriano.rainbow.core.event.RainbowInputController;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.robolectric.annotation.Config;
 
+import zenproject.meditation.android.BuildConfig;
 import zenproject.meditation.android.RobolectricLauncherGradleTestRunner;
 import zenproject.meditation.android.ZenTestBase;
 import zenproject.meditation.android.preferences.BrushOptionsPreferences;
 import zenproject.meditation.android.sketch.painting.PaintStepSkipper;
 import zenproject.meditation.android.sketch.painting.flowers.FlowerDrawer;
+import zenproject.meditation.android.sketch.painting.ink.InkDrop;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -27,11 +31,16 @@ public class BranchPerformerTest extends ZenTestBase {
     @Mock
     private RainbowDrawer rainbowDrawer;
     @Mock
+    private RainbowInputController rainbowInputController;
+    @Mock
     private PaintStepSkipper paintStepSkipper;
     @Mock
     private Branch branch;
     @Mock
     private BrushOptionsPreferences brushOptionsPreferences;
+    @Mock
+    private InkDrop inkDrop;
+
 
     private BranchPerformer branchPerformer;
 
@@ -41,7 +50,13 @@ public class BranchPerformerTest extends ZenTestBase {
         branchesList = BranchesList.newInstance();
         branchesList.asList().add(branch);
 
-        branchPerformer = new BranchPerformer(branchesList, flowerDrawer, rainbowDrawer, paintStepSkipper, brushOptionsPreferences);
+        branchPerformer = new BranchPerformer(inkDrop,
+                branchesList,
+                flowerDrawer,
+                paintStepSkipper,
+                brushOptionsPreferences,
+                rainbowDrawer,
+                rainbowInputController);
     }
 
     @Test
@@ -162,13 +177,13 @@ public class BranchPerformerTest extends ZenTestBase {
 
     @Test
     public void testThatNewInstanceReturnsNotNullBranchPerformer() {
-        assertThat(BranchPerformer.newInstance(branchesList, rainbowDrawer)).isNotNull();
+        assertThat(BranchPerformer.newInstance(inkDrop, rainbowDrawer, rainbowInputController)).isNotNull();
     }
 
     @Test
     public void testThatNewInstanceReturnsANewInstance() {
-        BranchPerformer firstInstance = BranchPerformer.newInstance(branchesList, rainbowDrawer);
-        BranchPerformer secondInstance = BranchPerformer.newInstance(branchesList, rainbowDrawer);
+        BranchPerformer firstInstance = BranchPerformer.newInstance(inkDrop, rainbowDrawer, rainbowInputController);
+        BranchPerformer secondInstance = BranchPerformer.newInstance(inkDrop, rainbowDrawer, rainbowInputController);
 
         assertThat(firstInstance).isNotEqualTo(secondInstance);
     }
@@ -182,7 +197,13 @@ public class BranchPerformerTest extends ZenTestBase {
     }
 
     private void givenThatHasNoFlowers() {
-        branchPerformer = new BranchPerformer(branchesList, null, rainbowDrawer, paintStepSkipper, brushOptionsPreferences);
+        branchPerformer = new BranchPerformer(inkDrop,
+                branchesList,
+                null,
+                paintStepSkipper,
+                brushOptionsPreferences,
+                rainbowDrawer,
+                rainbowInputController);
     }
 
     private void givenThatHasFlowers() {

@@ -4,6 +4,7 @@ import org.fest.assertions.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.annotation.Config;
 
 import zenproject.meditation.android.preferences.BrushOptionsPreferences;
 import zenproject.meditation.android.sketch.painting.ink.BrushColor;

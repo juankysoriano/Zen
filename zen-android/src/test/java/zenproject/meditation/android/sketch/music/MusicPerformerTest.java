@@ -10,7 +10,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.robolectric.annotation.Config;
 
+import zenproject.meditation.android.BuildConfig;
 import zenproject.meditation.android.RobolectricLauncherGradleTestRunner;
 import zenproject.meditation.android.preferences.BrushOptionsPreferences;
 
@@ -20,7 +22,7 @@ import static org.mockito.Mockito.*;
 @RunWith(RobolectricLauncherGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class MusicPerformerTest {
-    private static final float MUSIC_STEP = 0.01f;
+    private static final float MUSIC_STEP = 0.005f;
     private static final float MIN_VOLUME = 0.05f;
     @Mock
     private RainbowInputController rainbowInputController;

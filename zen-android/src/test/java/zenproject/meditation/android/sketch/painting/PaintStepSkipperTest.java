@@ -4,7 +4,9 @@ import org.fest.assertions.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.annotation.Config;
 
+import zenproject.meditation.android.BuildConfig;
 import zenproject.meditation.android.RobolectricLauncherGradleTestRunner;
 import zenproject.meditation.android.ZenTestBase;
 
@@ -32,19 +34,12 @@ public class PaintStepSkipperTest extends ZenTestBase {
     }
 
     @Test
-    public void testThatWhenTwoStepsAreRecordedThenShouldSkipStep() {
+    public void testThatFirstFourthStepsShouldBeSkippedButNotTheFifth() {
+        for(int i = 0; i < 4 ; i ++) {
+            paintStepSkipper.recordStep();
+            Assertions.assertThat(paintStepSkipper.hasToSkipStep()).isTrue();
+        }
         paintStepSkipper.recordStep();
-        paintStepSkipper.recordStep();
-
-        Assertions.assertThat(paintStepSkipper.hasToSkipStep()).isTrue();
-    }
-
-    @Test
-    public void testThatWhenThreeStepsAreRecordedThenShouldNotSkipStep() {
-        paintStepSkipper.recordStep();
-        paintStepSkipper.recordStep();
-        paintStepSkipper.recordStep();
-
         Assertions.assertThat(paintStepSkipper.hasToSkipStep()).isFalse();
     }
 }

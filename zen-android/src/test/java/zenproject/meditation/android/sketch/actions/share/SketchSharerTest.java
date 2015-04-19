@@ -13,7 +13,9 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.robolectric.annotation.Config;
 
+import zenproject.meditation.android.BuildConfig;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.RobolectricLauncherGradleTestRunner;
 import zenproject.meditation.android.ZenTestBase;
@@ -67,13 +69,13 @@ public class SketchSharerTest extends ZenTestBase {
 
     @Test
     public void testThatNewInstanceReturnsNotNullSketchSharer() {
-        assertThat(SketchSharer.newInstance(zenSketch)).isNotNull();
+        assertThat(SketchSharer.newInstance()).isNotNull();
     }
 
     @Test
     public void testThatNewInstanceReturnsANewInstance() {
-        SketchSharer secondInstance = SketchSharer.newInstance(zenSketch);
-        SketchSharer firstInstance = SketchSharer.newInstance(zenSketch);
+        SketchSharer secondInstance = SketchSharer.newInstance();
+        SketchSharer firstInstance = SketchSharer.newInstance();
 
         assertThat(firstInstance).isNotEqualTo(secondInstance);
     }

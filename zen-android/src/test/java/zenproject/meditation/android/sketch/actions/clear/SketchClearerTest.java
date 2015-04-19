@@ -8,11 +8,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.robolectric.annotation.Config;
 
+import zenproject.meditation.android.BuildConfig;
 import zenproject.meditation.android.RobolectricLauncherGradleTestRunner;
 import zenproject.meditation.android.ZenTestBase;
 import zenproject.meditation.android.analytics.AnalyticsTracker;
 import zenproject.meditation.android.sketch.ZenSketch;
+import zenproject.meditation.android.ui.sketch.ZenSketchView;
 
 import static org.mockito.Matchers.anyMapOf;
 import static org.mockito.Mockito.verify;
@@ -23,6 +26,8 @@ public class SketchClearerTest extends ZenTestBase {
     @Mock
     private ZenSketch zenSketch;
     @Mock
+    private ZenSketchView zenSketchView;
+    @Mock
     private Tracker tracker;
 
     private SketchClearer sketchClearer;
@@ -31,15 +36,14 @@ public class SketchClearerTest extends ZenTestBase {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         AnalyticsTracker.INSTANCE.inject(tracker);
-
-        sketchClearer = new SketchClearer(zenSketch);
+        sketchClearer = new SketchClearer(zenSketch, zenSketchView);
     }
 
     @Test
     public void testThatWhenClearSketchIsPerformedThenZenSketchIsCleared() {
         sketchClearer.clearSketch();
 
-        verify(zenSketch).clear();
+        verify(zenSketchView).clearView();
     }
 
     @Test
@@ -56,13 +60,13 @@ public class SketchClearerTest extends ZenTestBase {
 
     @Test
     public void testThatNewInstanceReturnsNotNullSketchClearer() {
-        Assertions.assertThat(SketchClearer.newInstance(zenSketch)).isNotNull();
+        Assertions.assertThat(SketchClearer.newInstance(zenSketchView)).isNotNull();
     }
 
     @Test
     public void testThatNewInstanceReturnsANewInstance() {
-        SketchClearer firstInstance = SketchClearer.newInstance(zenSketch);
-        SketchClearer secondInstance = SketchClearer.newInstance(zenSketch);
+        SketchClearer firstInstance = SketchClearer.newInstance(zenSketchView);
+        SketchClearer secondInstance = SketchClearer.newInstance(zenSketchView);
 
         Assertions.assertThat(firstInstance).isNotEqualTo(secondInstance);
     }

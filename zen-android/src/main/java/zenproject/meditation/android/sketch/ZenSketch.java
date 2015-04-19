@@ -34,8 +34,8 @@ public class ZenSketch extends Rainbow implements FlowerSelectedListener {
             InkPerformer inkPerformer,
             BranchPerformer branchPerformer,
             RainbowDrawer rainbowDrawer,
-            SketchInteractionListener sketchInteractionListener,
-            RainbowInputController rainbowInputController) {
+            RainbowInputController rainbowInputController,
+            SketchInteractionListener sketchInteractionListener) {
         super(rainbowDrawer, rainbowInputController);
         this.musicPerformer = musicPerformer;
         this.inkPerformer = inkPerformer;
@@ -57,8 +57,8 @@ public class ZenSketch extends Rainbow implements FlowerSelectedListener {
                 inkPerformer,
                 branchPerformer,
                 rainbowDrawer,
-                sketchInteractionListener,
-                rainbowInputController);
+                rainbowInputController, sketchInteractionListener
+        );
 
         SketchRetriever.INSTANCE.inject(zenSketch);
 

@@ -1,4 +1,4 @@
-package zenproject.meditation.android.activities;
+package zenproject.meditation.android.ui.menu.dialogs;
 
 import android.app.FragmentManager;
 
@@ -8,11 +8,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.robolectric.annotation.Config;
 
+import zenproject.meditation.android.BuildConfig;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.RobolectricLauncherGradleTestRunner;
 import zenproject.meditation.android.ZenTestBase;
-import zenproject.meditation.android.ui.menu.dialogs.Navigator;
+import zenproject.meditation.android.activities.ZenActivity;
 import zenproject.meditation.android.ui.menu.dialogs.brush.BrushOptionsDialog;
 import zenproject.meditation.android.ui.menu.dialogs.flower.FlowerOptionsDialog;
 import zenproject.meditation.android.ui.menu.dialogs.flower.FlowerSelectedListener;
@@ -20,6 +22,7 @@ import zenproject.meditation.android.ui.menu.dialogs.flower.FlowerSelectedListen
 import static org.mockito.Mockito.*;
 
 @RunWith(RobolectricLauncherGradleTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class NavigatorTest extends ZenTestBase {
     @Mock
     private BrushOptionsDialog brushOptionsDialog;
@@ -85,15 +88,15 @@ public class NavigatorTest extends ZenTestBase {
     public void testThatNewInstanceReturnsNotNullNavigator() {
         givenThatHasActivity();
 
-        Assertions.assertThat(Navigator.newInstance(flowerSelectedListener)).isNotNull();
+        Assertions.assertThat(Navigator.newInstance()).isNotNull();
     }
 
     @Test
     public void testThatNewInstanceReturnsANewInstance() {
         givenThatHasActivity();
 
-        Navigator firstInstance = Navigator.newInstance(flowerSelectedListener);
-        Navigator secondInstance = Navigator.newInstance(flowerSelectedListener);
+        Navigator firstInstance = Navigator.newInstance();
+        Navigator secondInstance = Navigator.newInstance();
 
         Assertions.assertThat(firstInstance).isNotEqualTo(secondInstance);
     }

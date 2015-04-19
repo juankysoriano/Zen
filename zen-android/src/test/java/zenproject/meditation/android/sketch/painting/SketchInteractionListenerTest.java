@@ -1,4 +1,4 @@
-package zenproject.meditation.android.sketch;
+package zenproject.meditation.android.sketch.painting;
 
 import android.view.MotionEvent;
 
@@ -10,10 +10,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.robolectric.annotation.Config;
 
+import zenproject.meditation.android.BuildConfig;
 import zenproject.meditation.android.RobolectricLauncherGradleTestRunner;
 import zenproject.meditation.android.ZenTestBase;
-import zenproject.meditation.android.sketch.painting.SketchInteractionListener;
+import zenproject.meditation.android.sketch.ZenSketch;
 import zenproject.meditation.android.sketch.painting.ink.InkPerformer;
 
 import static org.mockito.Mockito.never;

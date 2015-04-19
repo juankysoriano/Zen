@@ -12,7 +12,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
+import org.robolectric.annotation.Config;
 
+import zenproject.meditation.android.BuildConfig;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.RobolectricLauncherGradleTestRunner;
 import zenproject.meditation.android.ZenTestBase;
@@ -43,9 +45,9 @@ public class InkPerformerTest extends ZenTestBase {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         when(inkDrop.getBrushColor()).thenReturn(BrushColor.DARK);
-        disableRainbowDrawerInvokations();
+        disableRainbowDrawerInvocations();
 
-        inkPerformer = new InkPerformer(inkDrop, branchesList, rainbowDrawer, rainbowInputController);
+        inkPerformer = new InkPerformer(inkDrop, rainbowDrawer, rainbowInputController);
     }
 
     @Test
@@ -139,13 +141,13 @@ public class InkPerformerTest extends ZenTestBase {
 
     @Test
     public void testThatNewInstanceReturnsNotNullInkPerformer() {
-        assertThat(InkPerformer.newInstance(branchesList, rainbowDrawer, rainbowInputController)).isNotNull();
+        assertThat(InkPerformer.newInstance(inkDrop, rainbowDrawer, rainbowInputController)).isNotNull();
     }
 
     @Test
     public void testThatNewInstanceReturnsANewInstance() {
-        InkPerformer firstInstance = InkPerformer.newInstance(branchesList, rainbowDrawer, rainbowInputController);
-        InkPerformer secondInstance = InkPerformer.newInstance(branchesList, rainbowDrawer, rainbowInputController);
+        InkPerformer firstInstance = InkPerformer.newInstance(inkDrop, rainbowDrawer, rainbowInputController);
+        InkPerformer secondInstance = InkPerformer.newInstance(inkDrop, rainbowDrawer, rainbowInputController);
 
         assertThat(firstInstance).isNotEqualTo(secondInstance);
     }
@@ -157,7 +159,7 @@ public class InkPerformerTest extends ZenTestBase {
         when(rainbowInputController.getSmoothY()).thenReturn(2f);
     }
 
-    private void disableRainbowDrawerInvokations() {
+    private void disableRainbowDrawerInvocations() {
         Mockito.doNothing().when(rainbowDrawer).noStroke();
         Mockito.doNothing().when(rainbowDrawer).smooth();
         Mockito.doNothing().when(rainbowDrawer).loadImage(anyInt(), anyInt(), any(RainbowImage.LoadPictureListener.class));

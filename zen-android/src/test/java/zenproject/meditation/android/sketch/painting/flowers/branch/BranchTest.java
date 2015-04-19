@@ -4,7 +4,9 @@ import com.juankysoriano.rainbow.core.matrix.RVector;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.annotation.Config;
 
+import zenproject.meditation.android.BuildConfig;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.RobolectricLauncherGradleTestRunner;

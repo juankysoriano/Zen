@@ -135,14 +135,14 @@ public class SketchActivity extends ZenActivity implements View.OnAttachStateCha
     private final View.OnClickListener brushOptionsListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            navigator.openBrushSelectionDialogWith(getFragmentManager());
+            navigator.openBrushSelectionDialog();
         }
     };
 
     private final View.OnClickListener flowerOptionsListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            navigator.openFlowerSelectionDialogWith(getFragmentManager());
+            navigator.openFlowerSelectionDialog();
         }
     };
 

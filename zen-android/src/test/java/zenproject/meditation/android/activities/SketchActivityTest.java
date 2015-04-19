@@ -5,39 +5,27 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.robolectric.annotation.Config;
 
+import zenproject.meditation.android.BuildConfig;
 import zenproject.meditation.android.RobolectricLauncherGradleTestRunner;
 import zenproject.meditation.android.ZenTestBase;
-import zenproject.meditation.android.ui.menu.dialogs.Navigator;
 import zenproject.meditation.android.sketch.ZenSketch;
-import zenproject.meditation.android.sketch.actions.clear.SketchClearer;
-import zenproject.meditation.android.sketch.actions.screenshot.ScreenshotTaker;
-import zenproject.meditation.android.sketch.actions.share.SketchSharer;
-import zenproject.meditation.android.ui.sketch.ZenSketchView;
 
 import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricLauncherGradleTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class SketchActivityTest extends ZenTestBase {
     @Mock
     private ZenSketch zenSketch;
-    @Mock
-    private SketchClearer sketchClearer;
-    @Mock
-    private ScreenshotTaker screenshotTaker;
-    @Mock
-    private SketchSharer sketchSharer;
-    @Mock
-    private Navigator navigator;
-    @Mock
-    private ZenSketchView zenSketchView;
 
     private SketchActivity sketchActivity;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        sketchActivity = new SketchActivity(zenSketch, navigator, screenshotTaker, sketchClearer, sketchSharer);
+        sketchActivity = new SketchActivity(zenSketch);
     }
 
     @Test

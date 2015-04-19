@@ -9,7 +9,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.robolectric.annotation.Config;
 
+import zenproject.meditation.android.BuildConfig;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.RobolectricLauncherGradleTestRunner;
@@ -51,10 +53,9 @@ public class ZenSketchTest extends ZenTestBase {
         zenSketch = new ZenSketch(musicPerformer,
                 inkPerformer,
                 branchPerformer,
-                branchesList,
                 rainbowDrawer,
-                sketchInteractionListener,
-                rainbowInputController);
+                rainbowInputController,
+                sketchInteractionListener);
     }
 
     @Test
@@ -76,13 +77,6 @@ public class ZenSketchTest extends ZenTestBase {
         zenSketch.onSketchSetup();
 
         verify(musicPerformer).init();
-    }
-
-    @Test
-    public void testThatOnSketchSetupSetsInteractionListenerOnRainbowInputController() {
-        zenSketch.onSketchSetup();
-
-        verify(rainbowInputController).setRainbowInteractionListener(sketchInteractionListener);
     }
 
     @Test
@@ -128,10 +122,10 @@ public class ZenSketchTest extends ZenTestBase {
     }
 
     @Test
-    public void testThatClearPerformsClearOfBranchesList() {
+    public void testThatClearPerformsResetOnBranchPerformer() {
         zenSketch.clear();
 
-        verify(branchesList).clear();
+        verify(branchPerformer).reset();
     }
 
     @Test

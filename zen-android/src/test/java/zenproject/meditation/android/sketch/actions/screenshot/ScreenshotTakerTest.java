@@ -9,7 +9,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.robolectric.annotation.Config;
 
+import zenproject.meditation.android.BuildConfig;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.RobolectricLauncherGradleTestRunner;
@@ -59,13 +61,13 @@ public class ScreenshotTakerTest extends ZenTestBase {
 
     @Test
     public void testThatNewInstanceReturnsNotNullSketchClearer() {
-        Assertions.assertThat(ScreenshotTaker.newInstance(zenSketch)).isNotNull();
+        Assertions.assertThat(ScreenshotTaker.newInstance()).isNotNull();
     }
 
     @Test
     public void testThatNewInstanceReturnsANewInstance() {
-        ScreenshotTaker secondInstance = ScreenshotTaker.newInstance(zenSketch);
-        ScreenshotTaker firstInstance = ScreenshotTaker.newInstance(zenSketch);
+        ScreenshotTaker secondInstance = ScreenshotTaker.newInstance();
+        ScreenshotTaker firstInstance = ScreenshotTaker.newInstance();
 
         Assertions.assertThat(firstInstance).isNotEqualTo(secondInstance);
     }
