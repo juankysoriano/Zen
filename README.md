@@ -3,7 +3,7 @@ Zen! An open source meditation sketch for Android
 
 ![](http://media.virbcdn.com/cdn_images/resize_1600x1600/92/d65d52c322f4a89a-zen-screenshot.png)
 
-Compiling it is easy, just do `./gradlew clean zen` and it will compile it, execute the unit tests and run all the code analysis tools that it provides.
+Building is easy, just do `./gradlew clean zen` and it will build the apk, execute the unit tests and run a few code analysis tools.
 
 You are free to open Pull Requests, actually you are more than welcome to do it!
 
