@@ -35,7 +35,7 @@ public class ZenApplicationTest extends ZenTestBase {
     }
 
     @Test
-    public void testThatWhenOnCreateIsCalledIfColorIsOtherThanEraseItIsPreserverd() {
+    public void testThatWhenOnCreateIsCalledIfColorIsOtherThanEraseItIsPreserved() {
         brushOptionsPreferences.applyBrushColor(BrushColor.ACCENT);
 
         zenApplication.onCreate();
