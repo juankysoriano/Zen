@@ -7,17 +7,17 @@ import zenproject.meditation.android.ui.menu.buttons.FloatingActionButton;
 import zenproject.meditation.android.ui.menu.buttons.MenuButton;
 import zenproject.meditation.android.ui.sketch.ZenSketchView;
 
-public class Menu implements CircularMenu.MenuStateChangeListener, ZenSketch.PaintListener {
+public class ZenMenu implements CircularMenu.MenuStateChangeListener, ZenSketch.PaintListener {
 
     private final ZenSketchView zenSketchView;
     private boolean isPainting;
 
-    protected Menu(ZenSketchView zenSketchView) {
+    protected ZenMenu(ZenSketchView zenSketchView) {
         this.zenSketchView = zenSketchView;
     }
 
-    public static Menu newInstance(ZenSketchView zenSketchView) {
-        return new Menu(zenSketchView);
+    public static ZenMenu newInstance(ZenSketchView zenSketchView) {
+        return new ZenMenu(zenSketchView);
     }
 
     public void toggle() {
@@ -44,7 +44,7 @@ public class Menu implements CircularMenu.MenuStateChangeListener, ZenSketch.Pai
 
     private void hide() {
         if (getCircularMenu().isOpen()) {
-            getCircularMenu().close(true);
+            getCircularMenu().toggle(true);
             getMenuButton().rotate();
         } else {
             getMenuButton().hide();

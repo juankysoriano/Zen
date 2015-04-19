@@ -6,7 +6,7 @@ import android.view.View;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.ui.menu.dialogs.Navigator;
 import zenproject.meditation.android.sketch.ZenSketch;
-import zenproject.meditation.android.ui.menu.Menu;
+import zenproject.meditation.android.ui.menu.ZenMenu;
 import zenproject.meditation.android.sketch.actions.clear.SketchClearer;
 import zenproject.meditation.android.sketch.actions.screenshot.ScreenshotTaker;
 import zenproject.meditation.android.sketch.actions.share.SketchSharer;
@@ -18,7 +18,7 @@ import zenproject.meditation.android.ui.sketch.ZenSketchView;
 public class SketchActivity extends ZenActivity implements View.OnAttachStateChangeListener {
 
     private final ZenSketch zenSketch;
-    private Menu menu;
+    private ZenMenu zenMenu;
     private Navigator navigator;
     private ScreenshotTaker screenshotTaker;
     private SketchClearer sketchClearer;
@@ -40,7 +40,7 @@ public class SketchActivity extends ZenActivity implements View.OnAttachStateCha
         zenSketchView = (ZenSketchView) findViewById(R.id.sketch);
         zenSketchView.addOnAttachStateChangeListener(this);
 
-        menu = Menu.newInstance(zenSketchView);
+        zenMenu = ZenMenu.newInstance(zenSketchView);
         navigator = Navigator.newInstance();
         screenshotTaker = ScreenshotTaker.newInstance();
         sketchClearer = SketchClearer.newInstance(zenSketchView);
@@ -66,7 +66,7 @@ public class SketchActivity extends ZenActivity implements View.OnAttachStateCha
     }
 
     private void attachListeners() {
-        zenSketch.setOnPaintingListener(menu);
+        zenSketch.setOnPaintingListener(zenMenu);
         zenSketchView.setSketchClearListener(sketchClearer);
         getMenuOptionViewFor(MenuButton.BRUSH).setOnClickListener(brushOptionsListener);
         getMenuOptionViewFor(MenuButton.FLOWER).setOnClickListener(flowerOptionsListener);
@@ -77,7 +77,7 @@ public class SketchActivity extends ZenActivity implements View.OnAttachStateCha
     }
 
     private FloatingActionButton getMenuOptionViewFor(MenuButton menuButton) {
-        return menu.getButtonViewFor(menuButton);
+        return zenMenu.getButtonViewFor(menuButton);
     }
 
     @Override
@@ -121,7 +121,7 @@ public class SketchActivity extends ZenActivity implements View.OnAttachStateCha
     private final View.OnClickListener menuToggleListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            menu.toggle();
+            zenMenu.toggle();
         }
     };
 
