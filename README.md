@@ -1,4 +1,4 @@
-# Zen
+# Zen!
 Zen! An open source meditation sketch for Android
 
 ![](http://media.virbcdn.com/cdn_images/resize_1600x1600/92/d65d52c322f4a89a-zen-screenshot.png)
