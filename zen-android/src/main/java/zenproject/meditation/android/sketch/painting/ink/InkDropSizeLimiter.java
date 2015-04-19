@@ -8,8 +8,8 @@ import zenproject.meditation.android.preferences.BrushOptionsPreferences;
 
 public class InkDropSizeLimiter {
 
-    private static final float MINIMUM_RADIUS = ContextRetriever.INSTANCE.getResources().getDimension(R.dimen.ink_drop_min_radius);
-    private static final float MAXIMUM_RADIUS = ContextRetriever.INSTANCE.getResources().getDimension(R.dimen.ink_drop_max_radius);
+    private static final float RADIUS_MIN = ContextRetriever.INSTANCE.getResources().getDimension(R.dimen.ink_drop_min_radius);
+    private static final float RADIUS_MAX = ContextRetriever.INSTANCE.getResources().getDimension(R.dimen.ink_drop_max_radius);
     private static final float PERCENTAGE_MIN = 0;
     private static final float PERCENTAGE_MAX = 100;
     private static final float SCALE_FACTOR = 3;
@@ -24,15 +24,19 @@ public class InkDropSizeLimiter {
     }
 
     public float getMinimumRadius() {
-        return RainbowMath.max(MINIMUM_RADIUS, getRadius() / calculateRadiusFactorForMinimum());
+        return RainbowMath.max(RADIUS_MIN, getRadius() / calculateRadiusFactorForMinimum());
     }
 
     public float getRadius() {
-        return constrain(RainbowMath.map(brushOptionsPreferences.getBrushSizePercentage(), PERCENTAGE_MIN, PERCENTAGE_MAX, MINIMUM_RADIUS, MAXIMUM_RADIUS));
+        return constrain(RainbowMath.map(brushOptionsPreferences.getBrushSizePercentage(),
+                PERCENTAGE_MIN,
+                PERCENTAGE_MAX,
+                RADIUS_MIN,
+                RADIUS_MAX));
     }
 
     private float constrain(float radius) {
-        return Math.min(MAXIMUM_RADIUS, Math.max(MINIMUM_RADIUS, radius));
+        return Math.min(RADIUS_MAX, Math.max(RADIUS_MIN, radius));
     }
 
     private float calculateRadiusFactorForMinimum() {
@@ -40,6 +44,6 @@ public class InkDropSizeLimiter {
     }
 
     public float getMaximumRadius() {
-        return Math.min(MAXIMUM_RADIUS, getRadius());
+        return Math.min(RADIUS_MAX, getRadius());
     }
 }
