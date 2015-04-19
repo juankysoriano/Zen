@@ -13,7 +13,7 @@ public class BrushOptionsPreferences {
     private static final String PREF_BRUSH_COLOR = PREF_NAME + "Color";
     private static final String PREF_BRUSH_SIZE = PREF_NAME + "Size";
     private static final int DEFAULT_PERCENTAGE = 20;
-
+    private static final int LEAF_COLOR = Color.rgb(59, 158, 58);
     private final SharedPreferences sharedPreferences;
 
     public static BrushOptionsPreferences newInstance() {
@@ -49,15 +49,7 @@ public class BrushOptionsPreferences {
                 (int) (Color.blue(color) / DARKENING_FACTOR));
     }
 
-    //TODO consider refactoring logic inside into a collaborator LeafColorRetriever or similar
     public int getLeafColor() {
-        BrushColor brushColor = getBrushColor();
-        switch (brushColor) {
-            case PRIMARY: return BrushColor.ACCENT.toAndroidColor();
-            case ACCENT: return BrushColor.PRIMARY.toAndroidColor();
-            case DARK: return BrushColor.ACCENT.toAndroidColor();
-            case AMBER: return BrushColor.PRIMARY.toAndroidColor();
-            default: return BrushColor.PRIMARY.toAndroidColor();
-        }
+        return LEAF_COLOR;
     }
 }

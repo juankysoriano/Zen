@@ -72,12 +72,22 @@ public class ZenMenu implements CircularMenu.MenuStateChangeListener, ZenSketch.
     @Override
     public void onPaintingStart() {
         isPainting = true;
-        hide();
+        zenSketchView.post(new Runnable() {
+            @Override
+            public void run() {
+                hide();
+            }
+        });
     }
 
     @Override
     public void onPaintingEnd() {
         isPainting = false;
-        show();
+        zenSketchView.post(new Runnable() {
+            @Override
+            public void run() {
+                show();
+            }
+        });
     }
 }

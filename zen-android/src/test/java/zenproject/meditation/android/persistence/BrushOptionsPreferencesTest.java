@@ -1,6 +1,7 @@
 package zenproject.meditation.android.preferences;
 
 import android.content.SharedPreferences;
+import android.graphics.Color;
 
 import org.fest.assertions.api.Assertions;
 import org.junit.Before;
@@ -24,6 +25,8 @@ public class BrushOptionsPreferencesTest extends ZenTestBase {
     private static final String PREF_BRUSH_SIZE = PREF_NAME + "Size";
     private static final int ANY_PERCENTAGE = 10;
     private static final BrushColor ANY_COLOR = BrushColor.ACCENT;
+    private static final int LEAF_COLOR = Color.rgb(59, 158, 58);
+
     @Mock
     private SharedPreferences sharedPreferences;
     @Mock
@@ -96,6 +99,11 @@ public class BrushOptionsPreferencesTest extends ZenTestBase {
         brushOptionsPreferences.applyBrushSizePercentage(ANY_PERCENTAGE);
 
         verify(editor).apply();
+    }
+
+    @Test
+    public void testThatGetLeafColorReturnsCorrectColor() {
+        Assertions.assertThat(brushOptionsPreferences.getLeafColor()).isEqualTo(LEAF_COLOR);
     }
 
     @Test
