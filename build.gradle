@@ -45,5 +45,5 @@ ext {
     BUILD_TOOLS = "22.0.1"
 
     VERSION_CODE = 1644101
-    VERSION_NAME = "1.0.1"
+    VERSION_NAME = "1.0.2"
 }
