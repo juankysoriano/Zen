@@ -20,11 +20,11 @@ dependencies {
 }
 
 android {
+    def crashLyticsApiKey = project.hasProperty('crashLyticsApiKey') ? crashLyticsApiKey : '' //this value is from ~/.gradle/gradle.properties
     project.archivesBaseName = "$rootProject.name";
 
     compileSdkVersion rootProject.ext.COMPILE_SDK
     buildToolsVersion rootProject.ext.BUILD_TOOLS
-
     defaultConfig {
         applicationId 'zen.meditation.android'
         testApplicationId 'zen.meditation.android.tests'
@@ -37,9 +37,7 @@ android {
         proguardFile getDefaultProguardFile('proguard-android.txt')
         proguardFile 'proguard-rules.pro'
 
-        def crashLyticsApiKey = crashLyticsApiKey //this value is from ~/.gradle/gradle.properties
         manifestPlaceholders = [crashLyticsApiKey: crashLyticsApiKey]
-
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -56,14 +54,14 @@ android {
         debug {
             minifyEnabled false
             shrinkResources false
-
+            ext.enableCrashlytics = crashLyticsApiKey != ''
             buildConfigField "Boolean", "ANALYTICS_DISABLED", "true"
         }
         release {
             jniDebuggable false
             shrinkResources true
             minifyEnabled true
-
+            ext.enableCrashlytics = crashLyticsApiKey != ''
             buildConfigField "Boolean", "ANALYTICS_DISABLED", "false"
         }
     }
