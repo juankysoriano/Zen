@@ -37,8 +37,8 @@ This project uses the following open source libraries:
 3. https://github.com/novoda/notils
 4. https://github.com/JakeWharton/NineOldAndroids
 5. https://github.com/afollestad/material-dialogs
-6. :https://github.com/hdodenhof/CircleImageView
+6. https://github.com/hdodenhof/CircleImageView
 7. https://github.com/mockito/mockito
-8. :https://github.com/robolectric/robolectric
+8. https://github.com/robolectric/robolectric
 
 I am sorry if I miss any one!
