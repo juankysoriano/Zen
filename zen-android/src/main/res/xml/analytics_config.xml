@@ -5,7 +5,7 @@
   <string name="ga_appName">Zen</string>
 
   <!-- Application version -->
-  <string name="ga_appVersion">1.0.1</string>
+  <string name="ga_appVersion">1.0.2</string>
 
   <!-- the Local LogLevel for Analytics -->
   <string name="ga_logLevel">warning</string>
