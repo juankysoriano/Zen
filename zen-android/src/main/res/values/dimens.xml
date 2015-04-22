@@ -11,7 +11,7 @@
   <dimen name="ink_drop_min_radius">0.75dp</dimen>
   <dimen name="ink_drop_max_radius">120dp</dimen>
   <dimen name="ink_drop_step">0.5dp</dimen>
-  <dimen name="ink_velocity_threshold">8dp</dimen>
+  <dimen name="ink_velocity_threshold">16dp</dimen>
   <dimen name="branch_min_radius">0.25dp</dimen>
   <dimen name="branch_min_bloom_radius">1.5dp</dimen>
   <dimen name="branch_default_radius">3dp</dimen>
