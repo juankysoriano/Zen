@@ -118,10 +118,12 @@ public class InkDropTest extends ZenTestBase {
     }
 
     private void givenThatFingerIsMovingSlow() {
+        when(rainbowInputController.isFingerMoving()).thenReturn(true);
         when(rainbowInputController.getFingerVelocity()).thenReturn(-1f);
     }
 
     private void givenThatFingerIsMovingFast() {
+        when(rainbowInputController.isFingerMoving()).thenReturn(true);
         when(rainbowInputController.getFingerVelocity()).thenReturn(INK_VELOCITY_THRESHOLD+1f);
     }
 
@@ -130,6 +132,7 @@ public class InkDropTest extends ZenTestBase {
     }
 
     private void givenThatScreenIsNotTouched() {
+        when(rainbowInputController.isFingerMoving()).thenReturn(false);
         when(rainbowInputController.isScreenTouched()).thenReturn(false);
     }
 
