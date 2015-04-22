@@ -70,11 +70,11 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
     @Override
     public void doStep() {
         if (enabled) {
-            moveAndPaintInkDrop(rainbowInputController);
+            moveAndPaintInkDrop();
         }
     }
 
-    private void moveAndPaintInkDrop(final RainbowInputController rainbowInputController) {
+    private void moveAndPaintInkDrop() {
         rainbowDrawer.exploreLine(rainbowInputController.getPreviousSmoothX(),
                 rainbowInputController.getPreviousSmoothY(),
                 rainbowInputController.getSmoothX(),
