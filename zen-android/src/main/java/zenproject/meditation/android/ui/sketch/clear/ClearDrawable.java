@@ -95,6 +95,8 @@ public class ClearDrawable extends Drawable {
         Animator animator = generateAlphaAnimation();
         animator.addListener(animatorListener);
         animator.setInterpolator(new AccelerateDecelerateInterpolator());
+        animator.setStartDelay(100);
+        animator.setDuration(200);
         animator.start();
     }
 
