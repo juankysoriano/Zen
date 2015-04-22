@@ -58,24 +58,24 @@ public class InkDrop {
     }
 
     private boolean radiusShouldIncrease() {
-        return rainbowInputController.isScreenTouched() && isFingerMovingSlow();
+        return isFingerMovingSlow();
     }
 
     private void constrainRadius() {
-        reachedRadiusAfterReset = reachedRadiusAfterReset || radius >= inkDropSizeLimiter.getRadius() / 2;
+        reachedRadiusAfterReset = reachedRadiusAfterReset || radius >= calculateRadiusToBeReach();
         radius = RainbowMath.constrain(radius, getMinimumRadius(), inkDropSizeLimiter.getMaximumRadius());
+    }
+
+    private float calculateRadiusToBeReach() {
+        return inkDropSizeLimiter.getRadius() / 2;
     }
 
     private float getMinimumRadius() {
         return reachedRadiusAfterReset || !rainbowInputController.isScreenTouched() ? inkDropSizeLimiter.getMinimumRadius() : ABSOLUTE_MIN_RADIUS;
     }
 
-    private boolean isFingerMovingFast() {
-        return rainbowInputController.getFingerVelocity() > INK_VELOCITY_THRESHOLD;
-    }
-
     private boolean isFingerMovingSlow() {
-        return !isFingerMovingFast();
+        return rainbowInputController.isFingerMoving() && rainbowInputController.getFingerVelocity() < INK_VELOCITY_THRESHOLD;
     }
 
     public void resetRadius() {
