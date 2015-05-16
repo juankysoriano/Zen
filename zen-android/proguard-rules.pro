@@ -22,4 +22,5 @@
     void set*(***);
     *** get*();
 }
+-keepattributes SourceFile,LineNumberTable
 

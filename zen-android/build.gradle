@@ -67,12 +67,12 @@ android {
     }
 
     dependencies {
-        compile 'com.github.juankysoriano:rainbow:v0.9.17'
+        compile 'com.github.juankysoriano:rainbow:v0.9.18'
         compile 'com.github.juankysoriano:CircularFloatingActionMenu:v0.6.0'
-        compile 'com.google.android.gms:play-services-analytics:7.0.0'
+        compile 'com.google.android.gms:play-services-analytics:7.3.0'
         compile 'com.nineoldandroids:library:2.4.0'
         compile 'com.android.support:support-annotations:20.0.0'
-        compile 'com.android.support:appcompat-v7:22.0.0'
+        compile 'com.android.support:appcompat-v7:22.1.1'
         compile 'com.afollestad:material-dialogs:0.6.3.3'
         compile 'de.hdodenhof:circleimageview:1.2.2'
         compile('com.novoda:notils:2.2.11') {
