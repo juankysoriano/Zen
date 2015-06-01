@@ -1,6 +1,5 @@
 package zenproject.meditation.android.sketch.painting.ink;
 
-import com.juankysoriano.rainbow.core.drawing.LineExplorer;
 import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
 import com.juankysoriano.rainbow.core.event.RainbowInputController;
 import com.juankysoriano.rainbow.core.graphics.RainbowGraphics;
@@ -75,18 +74,11 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
     }
 
     private void moveAndPaintInkDrop() {
-        rainbowDrawer.exploreLine(rainbowInputController.getPreviousSmoothX(),
+        drawInk(rainbowInputController.getPreviousSmoothX(),
                 rainbowInputController.getPreviousSmoothY(),
                 rainbowInputController.getSmoothX(),
-                rainbowInputController.getSmoothY(),
-                LineExplorer.Precision.LOW,
-                new RainbowDrawer.PointDetectedListener() {
-                    @Override
-                    public void onPointDetected(float px, float py, float x, float y, RainbowDrawer rainbowDrawer) {
-                        inkDrop.updateInkRadius();
-                        drawInk(px, py, x, y);
-                    }
-                });
+                rainbowInputController.getSmoothY());
+        inkDrop.updateInkRadius();
     }
 
     private void drawInk(float px, float py, float x, float y) {
@@ -100,7 +92,6 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
         rainbowDrawer.stroke(inkDrop.getBrushColor().toAndroidColor(), OPAQUE);
         rainbowDrawer.strokeWeight(isErasing() ? inkDrop.getMaxRadius() * INK_DROP_IMAGE_SCALE : inkDrop.getRadius() * INK_DROP_IMAGE_SCALE);
         rainbowDrawer.line(px, py, x, y);
-        rainbowDrawer.strokeWeight(1);
     }
 
     private boolean hasToPaintDropImage() {
