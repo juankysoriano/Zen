@@ -1,7 +1,7 @@
 package zenproject.meditation.android.sketch.painting;
 
 public class PaintStepSkipper {
-    private static final int FRAMES_TO_SKIP = 4;
+    private static final int FRAMES_TO_SKIP = 2;
 
     private int step;
 

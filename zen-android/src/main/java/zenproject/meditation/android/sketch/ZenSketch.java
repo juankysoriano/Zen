@@ -46,9 +46,9 @@ public class ZenSketch extends Rainbow implements FlowerSelectedListener {
 
     public static ZenSketch newInstance() {
         RainbowDrawer rainbowDrawer = new RainbowDrawer();
-        RainbowInputController rainbowInputController = new RainbowInputController();
+        RainbowInputController rainbowInputController = RainbowInputController.newInstance();
         InkDrop inkDrop = InkDrop.newInstance(rainbowInputController);
-        InkPerformer inkPerformer = InkPerformer.newInstance(inkDrop, rainbowDrawer, rainbowInputController);
+        InkPerformer inkPerformer = InkPerformer.newInstance(inkDrop, rainbowInputController.getRainbowDrawer(), rainbowInputController);
         BranchPerformer branchPerformer = BranchPerformer.newInstance(inkDrop, rainbowDrawer, rainbowInputController);
         SketchInteractionListener sketchInteractionListener = SketchInteractionListener.newInstance(inkPerformer);
         rainbowInputController.setRainbowInteractionListener(sketchInteractionListener);
@@ -67,9 +67,9 @@ public class ZenSketch extends Rainbow implements FlowerSelectedListener {
 
     @Override
     public void onSketchSetup() {
-        this.inkPerformer.init();
-        this.branchPerformer.init();
-        this.musicPerformer.init();
+        inkPerformer.init();
+        branchPerformer.init();
+        musicPerformer.init();
     }
 
     @Override
