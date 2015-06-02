@@ -34,8 +34,8 @@ public class PaintStepSkipperTest extends ZenTestBase {
     }
 
     @Test
-    public void testThatFirstFourthStepsShouldBeSkippedButNotTheFifth() {
-        for(int i = 0; i < 4 ; i ++) {
+    public void testThatFirstTwoStepsShouldBeSkippedButNotTheThird() {
+        for(int i = 0; i < 2 ; i ++) {
             paintStepSkipper.recordStep();
             Assertions.assertThat(paintStepSkipper.hasToSkipStep()).isTrue();
         }

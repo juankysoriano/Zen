@@ -1,6 +1,5 @@
 package zenproject.meditation.android.sketch.painting.ink;
 
-import com.juankysoriano.rainbow.core.drawing.LineExplorer;
 import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
 import com.juankysoriano.rainbow.core.event.RainbowInputController;
 import com.juankysoriano.rainbow.core.graphics.RainbowImage;
@@ -60,37 +59,6 @@ public class InkPerformerTest extends ZenTestBase {
     }
 
     @Test
-    public void testThatWhenDoStepIfEnabledThenLineWillBeExplored() {
-        inkPerformer.enable();
-
-        inkPerformer.doStep();
-
-        verify(rainbowDrawer, atLeast(1)).exploreLine(
-                anyFloat(),
-                anyFloat(),
-                anyFloat(),
-                anyFloat(),
-                any(LineExplorer.Precision.class),
-                any(RainbowDrawer.PointDetectedListener.class));
-    }
-
-    @Test
-    public void testThatWhenDoStepIfDisabledThenLineWillNotBeExplored() {
-        inkPerformer.enable();
-        inkPerformer.disable();
-
-        inkPerformer.doStep();
-
-        verify(rainbowDrawer, never()).exploreLine(
-                anyFloat(),
-                anyFloat(),
-                anyFloat(),
-                anyFloat(),
-                any(LineExplorer.Precision.class),
-                any(RainbowDrawer.PointDetectedListener.class));
-    }
-
-    @Test
     public void testThatWhenDoStepIfEnabledThenInkDropRadiusIsUpdated() {
         givenThatFingerHasMoved();
         inkPerformer.enable();
@@ -98,6 +66,27 @@ public class InkPerformerTest extends ZenTestBase {
         inkPerformer.doStep();
 
         verify(inkDrop, atLeast(1)).updateInkRadius();
+    }
+
+    @Test
+    public void testThatWhenDoStepIfDisabledThenDropWithoutImageIsPainted() {
+        givenThatFingerHasMoved();
+        inkPerformer.onLoadFail();
+        inkPerformer.disable();
+
+        inkPerformer.doStep();
+
+        verify(rainbowDrawer, never()).line(anyFloat(), anyFloat(), anyFloat(), anyFloat());
+    }
+
+    @Test
+    public void testThatWhenDoStepIfDisabledThenInkDropRadiusINotsUpdated() {
+        givenThatFingerHasMoved();
+        inkPerformer.disable();
+
+        inkPerformer.doStep();
+
+        verify(inkDrop, never()).updateInkRadius();
     }
 
     @Test
@@ -112,7 +101,7 @@ public class InkPerformerTest extends ZenTestBase {
     }
 
     @Test
-    public void testThatWhenDoStepIfEnabledAndLoadSucessThenDropWithoutImageIsPainted() {
+    public void testThatWhenDoStepIfEnabledAndLoadSuccessThenDropWithoutImageIsPainted() {
         givenThatFingerHasMoved();
         inkPerformer.onLoadSucceed(loadedImage);
         inkPerformer.enable();
