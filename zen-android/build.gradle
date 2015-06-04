@@ -67,7 +67,7 @@ android {
     }
 
     dependencies {
-        compile 'com.github.juankysoriano:rainbow:v0.9.18'
+        compile 'com.github.juankysoriano:rainbow:v0.9.9'
         compile 'com.github.juankysoriano:CircularFloatingActionMenu:v0.6.0'
         compile 'com.google.android.gms:play-services-analytics:7.3.0'
         compile 'com.nineoldandroids:library:2.4.0'
@@ -78,6 +78,11 @@ android {
         compile('com.novoda:notils:2.2.11') {
             exclude module: 'support-v4'
         }
+
+        testCompile 'org.robolectric:robolectric:3.0-rc3'
+        testCompile 'org.mockito:mockito-all:1.10.19'
+        testCompile 'com.squareup:fest-android:1.0.8'
+        testCompile 'junit:junit:4.12'
     }
 }
 
