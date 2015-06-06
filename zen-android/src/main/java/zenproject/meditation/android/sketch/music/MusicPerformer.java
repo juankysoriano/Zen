@@ -3,6 +3,7 @@ package zenproject.meditation.android.sketch.music;
 import android.media.MediaPlayer;
 
 import com.juankysoriano.rainbow.core.event.RainbowInputController;
+import com.novoda.notils.logger.simple.Log;
 
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
@@ -86,7 +87,16 @@ public class MusicPerformer implements StepPerformer {
     }
 
     private boolean isPlaying() {
-        return !isMediaPlayerReleased() && mediaPlayer.isPlaying();
+        if (isMediaPlayerReleased()) {
+            return false;
+        }
+
+        try {
+            return mediaPlayer.isPlaying();
+        } catch (IllegalStateException e) {
+            Log.e("Trying to access a mediaPlayer which is released or not initialised!!", e);
+            return false;
+        }
     }
 
     private void releaseMediaPlayer() {
