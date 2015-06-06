@@ -44,6 +44,6 @@ public class BranchesList implements Iterable<Branch> {
     }
 
     public List<Branch> asList() {
-        return list;
+        return new ArrayList<>(list);
     }
 }
