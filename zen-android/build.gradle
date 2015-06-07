@@ -67,7 +67,7 @@ android {
     }
 
     dependencies {
-        compile 'com.github.juankysoriano:rainbow:v1.0.0-rc2'
+        compile 'com.github.juankysoriano:rainbow:v1.0.0-rc3'
         compile 'com.github.juankysoriano:CircularFloatingActionMenu:v0.6.0'
         compile 'com.google.android.gms:play-services-analytics:7.3.0'
         compile 'com.nineoldandroids:library:2.4.0'
