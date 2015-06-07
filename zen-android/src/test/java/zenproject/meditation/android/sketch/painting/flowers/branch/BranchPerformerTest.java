@@ -3,6 +3,9 @@ package zenproject.meditation.android.sketch.painting.flowers.branch;
 import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
 import com.juankysoriano.rainbow.core.event.RainbowInputController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,6 +28,8 @@ import static org.mockito.Mockito.*;
 @Config(constants = BuildConfig.class)
 public class BranchPerformerTest extends ZenTestBase {
 
+    private List<Branch> internalList;
+    @Mock
     private BranchesList branchesList;
     @Mock
     private FlowerDrawer flowerDrawer;
@@ -41,14 +46,12 @@ public class BranchPerformerTest extends ZenTestBase {
     @Mock
     private InkDrop inkDrop;
 
-
     private BranchPerformer branchPerformer;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        branchesList = BranchesList.newInstance();
-        branchesList.asList().add(branch);
+        givenThatHasBranch();
 
         branchPerformer = new BranchPerformer(inkDrop,
                 branchesList,
@@ -101,7 +104,7 @@ public class BranchPerformerTest extends ZenTestBase {
 
         branchPerformer.doStep();
 
-        assertThat(branchesList).isEmpty();
+        verify(branchesList).prune(branch);
 
     }
 
@@ -114,7 +117,7 @@ public class BranchPerformerTest extends ZenTestBase {
 
         branchPerformer.doStep();
 
-        assertThat(branchesList).isNotEmpty();
+        verify(branchesList, never()).prune(any(Branch.class));
     }
 
     @Test
@@ -126,7 +129,7 @@ public class BranchPerformerTest extends ZenTestBase {
 
         branchPerformer.doStep();
 
-        assertThat(branchesList).isNotEmpty();
+        verify(branchesList, never()).prune(any(Branch.class));
     }
 
     @Test
@@ -208,6 +211,12 @@ public class BranchPerformerTest extends ZenTestBase {
 
     private void givenThatHasFlowers() {
         //no-op, just for legibility
+    }
+
+    private void givenThatHasBranch() {
+        internalList = new ArrayList<>();
+        internalList.add(branch);
+        when(branchesList.asList()).thenReturn(internalList);
     }
 
     private void givenThatHasToSkipStep() {
