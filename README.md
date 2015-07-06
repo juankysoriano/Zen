@@ -10,8 +10,6 @@ You are free to open Pull Requests, actually you are more than welcome to do it!
 
 I hope you like it, fork it, play with it, or whatever you want!
 
-*: Modified because the nature of Rainbow, the library used as drawing engine, which needs to be refactorised in order to be more MVP-friendly.
-
 License
 --------
 
