@@ -30,7 +30,7 @@ License
 
 This project uses the following open source libraries:
 
-1. https://github.com/juankysoriano/rainbow/
+1. https://github.com/juankysoriano/rainbow/ :rainbow: :100:
 2. https://github.com/juankysoriano/CircularFloatingActionMenu
 3. https://github.com/novoda/notils
 4. https://github.com/JakeWharton/NineOldAndroids
