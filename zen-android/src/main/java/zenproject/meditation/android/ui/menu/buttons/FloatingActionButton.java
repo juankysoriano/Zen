@@ -11,7 +11,6 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,8 +18,7 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.FrameLayout;
 
-import com.nineoldandroids.view.ViewPropertyAnimator;
-
+import androidx.annotation.NonNull;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 
@@ -99,7 +97,7 @@ public class FloatingActionButton extends View {
 
     public void hide() {
         if (!isHidden()) {
-            ViewPropertyAnimator.animate(this).setInterpolator(new AccelerateDecelerateInterpolator())
+            animate().setInterpolator(new AccelerateDecelerateInterpolator())
                     .translationY(-getBottom());
             hidden = true;
         }
@@ -111,7 +109,7 @@ public class FloatingActionButton extends View {
 
     public void show() {
         if (isHidden()) {
-            ViewPropertyAnimator.animate(this).setInterpolator(new AccelerateDecelerateInterpolator())
+            animate().setInterpolator(new AccelerateDecelerateInterpolator())
                     .translationY(0);
             hidden = false;
         }

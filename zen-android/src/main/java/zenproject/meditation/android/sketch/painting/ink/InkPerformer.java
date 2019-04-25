@@ -1,8 +1,8 @@
 package zenproject.meditation.android.sketch.painting.ink;
 
+import com.juankysoriano.rainbow.core.drawing.Modes;
 import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
 import com.juankysoriano.rainbow.core.event.RainbowInputController;
-import com.juankysoriano.rainbow.core.graphics.RainbowGraphics;
 import com.juankysoriano.rainbow.core.graphics.RainbowImage;
 import com.juankysoriano.rainbow.utils.RainbowMath;
 import com.novoda.notils.exception.DeveloperError;
@@ -34,9 +34,11 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
     public static InkPerformer newInstance(InkDrop inkDrop,
                                            RainbowDrawer rainbowDrawer,
                                            RainbowInputController rainbowInputController) {
-        return new InkPerformer(inkDrop,
+        return new InkPerformer(
+                inkDrop,
                 rainbowDrawer,
-                rainbowInputController);
+                rainbowInputController
+        );
     }
 
     @Override
@@ -53,7 +55,7 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
     private void configureDrawer() {
         rainbowDrawer.noStroke();
         rainbowDrawer.smooth();
-        rainbowDrawer.loadImage(R.drawable.brush_ink, RainbowImage.LOAD_ORIGINAL_SIZE, this);
+        rainbowDrawer.loadImage(R.drawable.brush_ink, Modes.LoadMode.LOAD_ORIGINAL_SIZE, this);
     }
 
     @Override
@@ -74,10 +76,12 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
     }
 
     private void moveAndPaintInkDrop() {
-        drawInk(rainbowInputController.getPreviousSmoothX(),
+        drawInk(
+                rainbowInputController.getPreviousSmoothX(),
                 rainbowInputController.getPreviousSmoothY(),
                 rainbowInputController.getSmoothX(),
-                rainbowInputController.getSmoothY());
+                rainbowInputController.getSmoothY()
+        );
         inkDrop.updateInkRadius();
     }
 
@@ -100,7 +104,7 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
 
     private void paintDropWithImage(float x, float y) {
         rainbowDrawer.tint(inkDrop.getBrushColor().toAndroidColor());
-        rainbowDrawer.imageMode(RainbowGraphics.CENTER);
+        rainbowDrawer.imageMode(Modes.Draw.CENTER);
 
         rainbowDrawer.pushMatrix();
         rainbowDrawer.translate(x, y);

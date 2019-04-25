@@ -1,7 +1,7 @@
 package zenproject.meditation.android.sketch.painting.flowers;
 
+import com.juankysoriano.rainbow.core.drawing.Modes;
 import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
-import com.juankysoriano.rainbow.core.graphics.RainbowGraphics;
 import com.juankysoriano.rainbow.core.graphics.RainbowImage;
 import com.juankysoriano.rainbow.utils.RainbowMath;
 
@@ -12,15 +12,15 @@ import zenproject.meditation.android.sketch.painting.flowers.branch.Branch;
 
 public class FlowerDrawer implements RainbowImage.LoadPictureListener {
     private static final RainbowImage NO_IMAGE = null;
-    protected static final int WHITE = 255;
-    public static final int NORMAL = 1;
-    public static final int REVERSE = -1;
+    private static final int WHITE = 255;
+    private static final int NORMAL = 1;
+    private static final int REVERSE = -1;
 
     private final Flower flower;
     private final List<RainbowImage> flowerImages;
     private final RainbowDrawer rainbowDrawer;
 
-    protected FlowerDrawer(Flower flower, List<RainbowImage> flowerImages, RainbowDrawer rainbowDrawer) {
+    FlowerDrawer(Flower flower, List<RainbowImage> flowerImages, RainbowDrawer rainbowDrawer) {
         this.flower = flower;
         this.flowerImages = flowerImages;
         this.rainbowDrawer = rainbowDrawer;
@@ -33,7 +33,7 @@ public class FlowerDrawer implements RainbowImage.LoadPictureListener {
 
     public void init() {
         for (Integer leafRes : flower.getFlowerLeafRes()) {
-            rainbowDrawer.loadImage(leafRes, RainbowImage.LOAD_ORIGINAL_SIZE, this);
+            rainbowDrawer.loadImage(leafRes, Modes.LoadMode.LOAD_ORIGINAL_SIZE, this);
         }
     }
 
@@ -52,7 +52,7 @@ public class FlowerDrawer implements RainbowImage.LoadPictureListener {
             float flowerSize = getFlowerSize();
             float rotation = RainbowMath.random(RainbowMath.QUARTER_PI);
             rainbowDrawer.tint(WHITE);
-            rainbowDrawer.imageMode(RainbowGraphics.CENTER);
+            rainbowDrawer.imageMode(Modes.Draw.CENTER);
             rainbowDrawer.pushMatrix();
             rainbowDrawer.translate(branch.getX(), branch.getY());
             rainbowDrawer.rotate(rotation);

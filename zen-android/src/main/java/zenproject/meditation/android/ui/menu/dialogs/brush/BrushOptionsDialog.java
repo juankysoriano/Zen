@@ -4,16 +4,16 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 
-import zenproject.meditation.android.analytics.AnalyticsTracker;
+import androidx.annotation.NonNull;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
-import zenproject.meditation.android.sketch.painting.ink.BrushColor;
+import zenproject.meditation.android.analytics.AnalyticsTracker;
 import zenproject.meditation.android.preferences.BrushOptionsPreferences;
+import zenproject.meditation.android.sketch.painting.ink.BrushColor;
 import zenproject.meditation.android.ui.menu.dialogs.ZenDialog;
 import zenproject.meditation.android.ui.menu.dialogs.brush.color.ColorListView;
 import zenproject.meditation.android.ui.menu.dialogs.brush.size.SizeView;
@@ -47,10 +47,10 @@ public class BrushOptionsDialog extends ZenDialog implements ColorSelectedListen
                 })
                 .build();
 
-        ColorListView colorListView = (ColorListView) materialDialog.getCustomView().findViewById(R.id.color_picker);
+        ColorListView colorListView = materialDialog.getCustomView().findViewById(R.id.color_picker);
         colorListView.setColorSelectedListener(this);
 
-        sizeView = (SizeView) materialDialog.getCustomView().findViewById(R.id.brush_size);
+        sizeView = materialDialog.getCustomView().findViewById(R.id.brush_size);
         sizeView.setSizeChangedListener(this);
 
         return materialDialog;

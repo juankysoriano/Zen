@@ -1,10 +1,8 @@
 package zenproject.meditation.android.sketch.painting.flowers;
-
-import android.support.annotation.DrawableRes;
-
 import java.util.Arrays;
 import java.util.List;
 
+import androidx.annotation.DrawableRes;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 

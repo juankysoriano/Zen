@@ -32,6 +32,7 @@ public class MusicPerformer implements StepPerformer {
             mediaPlayer = MediaPlayer.create(ContextRetriever.INSTANCE.getApplicationContext(), R.raw.zen);
             mediaPlayer.setVolume(volume, volume);
             mediaPlayer.setLooping(true);
+            mediaPlayer.start();
         }
     }
 

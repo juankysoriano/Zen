@@ -3,16 +3,16 @@ package zenproject.meditation.android.ui.menu.dialogs.flower;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 
-import zenproject.meditation.android.analytics.AnalyticsTracker;
+import androidx.annotation.NonNull;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
-import zenproject.meditation.android.sketch.painting.flowers.Flower;
+import zenproject.meditation.android.analytics.AnalyticsTracker;
 import zenproject.meditation.android.preferences.FlowerOptionPreferences;
+import zenproject.meditation.android.sketch.painting.flowers.Flower;
 import zenproject.meditation.android.ui.menu.dialogs.ZenDialog;
 
 // TODO this class could be provided with the required collaborators and then tested.

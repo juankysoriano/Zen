@@ -2,7 +2,6 @@ package zenproject.meditation.android.sketch.painting;
 
 import android.view.MotionEvent;
 
-import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
 import com.juankysoriano.rainbow.core.event.RainbowInputController;
 
 import zenproject.meditation.android.sketch.ZenSketch;
@@ -12,7 +11,7 @@ public class SketchInteractionListener implements RainbowInputController.Rainbow
     private ZenSketch.PaintListener paintListener;
     private final StepPerformer inkPerformer;
 
-    protected SketchInteractionListener(StepPerformer inkPerformer) {
+    SketchInteractionListener(StepPerformer inkPerformer) {
         this.inkPerformer = inkPerformer;
     }
 
@@ -21,7 +20,7 @@ public class SketchInteractionListener implements RainbowInputController.Rainbow
     }
 
     @Override
-    public void onSketchTouched(MotionEvent event, RainbowDrawer rainbowDrawer) {
+    public void onSketchTouched(MotionEvent event) {
         if (hasPaintListener()) {
             paintListener.onPaintingStart();
         }
@@ -29,19 +28,19 @@ public class SketchInteractionListener implements RainbowInputController.Rainbow
     }
 
     @Override
-    public void onSketchReleased(MotionEvent event, RainbowDrawer rainbowDrawer) {
+    public void onSketchReleased(MotionEvent event) {
         if (hasPaintListener()) {
             paintListener.onPaintingEnd();
         }
     }
 
     @Override
-    public void onFingerDragged(MotionEvent event, RainbowDrawer rainbowDrawer) {
+    public void onFingerDragged(MotionEvent event) {
         inkPerformer.doStep();
     }
 
     @Override
-    public void onMotionEvent(MotionEvent event, RainbowDrawer rainbowDrawer) {
+    public void onMotionEvent(MotionEvent event) {
         //no-op
     }
 

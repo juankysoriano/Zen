@@ -9,9 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.robolectric.annotation.Config;
 
-import zenproject.meditation.android.BuildConfig;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.RobolectricLauncherGradleTestRunner;
@@ -20,13 +18,11 @@ import zenproject.meditation.android.sketch.music.MusicPerformer;
 import zenproject.meditation.android.sketch.painting.SketchInteractionListener;
 import zenproject.meditation.android.sketch.painting.flowers.Flower;
 import zenproject.meditation.android.sketch.painting.flowers.branch.BranchPerformer;
-import zenproject.meditation.android.sketch.painting.flowers.branch.BranchesList;
 import zenproject.meditation.android.sketch.painting.ink.InkPerformer;
 
 import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricLauncherGradleTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class ZenSketchTest extends ZenTestBase {
     private static final int DEFAULT_COLOR = ContextRetriever.INSTANCE.getResources().getColor(R.color.colorSketch);
 
@@ -38,8 +34,6 @@ public class ZenSketchTest extends ZenTestBase {
     @Mock
     private BranchPerformer branchPerformer;
     @Mock
-    private BranchesList branchesList;
-    @Mock
     private RainbowDrawer rainbowDrawer;
     @Mock
     private RainbowInputController rainbowInputController;
@@ -50,12 +44,28 @@ public class ZenSketchTest extends ZenTestBase {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        zenSketch = new ZenSketch(musicPerformer,
+        zenSketch = new ZenSketch(
+                musicPerformer,
                 inkPerformer,
                 branchPerformer,
                 rainbowDrawer,
                 rainbowInputController,
-                sketchInteractionListener);
+                sketchInteractionListener
+        );
+    }
+
+    @Test
+    public void testThatOnSketchSetupAttachesInteractionListener() {
+        zenSketch.onSketchSetup();
+
+        verify(rainbowInputController).attach(sketchInteractionListener);
+    }
+
+    @Test
+    public void testThatOnSketchSetupSetsDefaultBackgroundColor() {
+        zenSketch.onSketchSetup();
+
+        verify(rainbowDrawer).background(0);
     }
 
     @Test
@@ -80,15 +90,15 @@ public class ZenSketchTest extends ZenTestBase {
     }
 
     @Test
-    public void testThatOnDrawingStepPerformsStepOnBranchPerformer() {
-        zenSketch.onDrawingStep();
+    public void testThatOnStepPerformsStepOnMusicPerformer() {
+        zenSketch.onStep();
 
         verify(branchPerformer).doStep();
     }
 
     @Test
-    public void testThatOnDrawingStepPerformsStepOnMusicPerformer() {
-        zenSketch.onDrawingStep();
+    public void testThatOnFramePerformsStepOnMusicPerformer() {
+        zenSketch.onFrame();
 
         verify(musicPerformer).doStep();
     }
@@ -105,6 +115,13 @@ public class ZenSketchTest extends ZenTestBase {
         zenSketch.onDrawingResume();
 
         verify(musicPerformer).enable();
+    }
+
+    @Test
+    public void testThatOnSketchDestroyedDetachesInteractionListener() {
+        zenSketch.onSketchDestroy();
+
+        verify(rainbowInputController).detach();
     }
 
     @Test

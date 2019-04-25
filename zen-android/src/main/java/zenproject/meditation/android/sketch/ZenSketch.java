@@ -51,13 +51,14 @@ public class ZenSketch extends Rainbow implements FlowerSelectedListener {
         InkPerformer inkPerformer = InkPerformer.newInstance(inkDrop, rainbowInputController.getRainbowDrawer(), rainbowInputController);
         BranchPerformer branchPerformer = BranchPerformer.newInstance(inkDrop, rainbowDrawer, rainbowInputController);
         SketchInteractionListener sketchInteractionListener = SketchInteractionListener.newInstance(inkPerformer);
-        rainbowInputController.setRainbowInteractionListener(sketchInteractionListener);
 
-        ZenSketch zenSketch = new ZenSketch(MusicPerformer.newInstance(rainbowInputController),
+        ZenSketch zenSketch = new ZenSketch(
+                MusicPerformer.newInstance(rainbowInputController),
                 inkPerformer,
                 branchPerformer,
                 rainbowDrawer,
-                rainbowInputController, sketchInteractionListener
+                rainbowInputController,
+                sketchInteractionListener
         );
 
         SketchRetriever.INSTANCE.inject(zenSketch);
@@ -67,15 +68,26 @@ public class ZenSketch extends Rainbow implements FlowerSelectedListener {
 
     @Override
     public void onSketchSetup() {
+        getRainbowInputController().attach(sketchInteractionListener);
+        rainbowDrawer.background(DEFAULT_COLOR);
         inkPerformer.init();
         branchPerformer.init();
         musicPerformer.init();
     }
 
     @Override
-    public void onDrawingStep() {
-        branchPerformer.doStep();
+    public void onStep() {
         musicPerformer.doStep();
+    }
+
+    @Override
+    public void onFrame() {
+        branchPerformer.doStep();
+    }
+
+    @Override
+    public void onDrawingResume() {
+        musicPerformer.enable();
     }
 
     @Override
@@ -83,9 +95,11 @@ public class ZenSketch extends Rainbow implements FlowerSelectedListener {
         musicPerformer.disable();
     }
 
+
     @Override
-    public void onDrawingResume() {
-        musicPerformer.enable();
+    public void onSketchDestroy() {
+        super.onSketchDestroy();
+        getRainbowInputController().detach();
     }
 
     public void clear() {

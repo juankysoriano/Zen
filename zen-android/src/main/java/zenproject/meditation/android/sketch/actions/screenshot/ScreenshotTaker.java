@@ -13,7 +13,7 @@ public class ScreenshotTaker {
     private static final String PICTURE_TITLE = ContextRetriever.INSTANCE.getResources().getString(R.string.picture_title);
     private final RainbowDrawer rainbowDrawer;
 
-    protected ScreenshotTaker(RainbowDrawer rainbowDrawer) {
+    ScreenshotTaker(RainbowDrawer rainbowDrawer) {
         this.rainbowDrawer = rainbowDrawer;
     }
 
@@ -22,7 +22,7 @@ public class ScreenshotTaker {
     }
 
     public void takeScreenshot() {
-        rainbowDrawer.save(ZEN, PICTURE_TITLE);
+        //rainbowDrawer.save(ZEN, PICTURE_TITLE);
         Toaster.newInstance(ContextRetriever.INSTANCE.getApplicationContext()).popToast(R.string.save_sketch);
         AnalyticsTracker.INSTANCE.trackScreenshot();
     }

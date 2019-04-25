@@ -1,6 +1,6 @@
 package zenproject.meditation.android.ui.menu.buttons;
 
-import android.support.annotation.IdRes;
+import androidx.annotation.IdRes;
 
 public enum MenuButton {
     BRUSH(1),

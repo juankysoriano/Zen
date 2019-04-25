@@ -1,44 +1,29 @@
-buildscript {
-    repositories {
-        maven { url 'https://maven.fabric.io/public' }
-    }
-
-    dependencies {
-        classpath 'org.robolectric:robolectric-gradle-plugin:1.0.1'
-        classpath 'io.fabric.tools:gradle:1.18.0'
-    }
-}
-
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
-
-
-dependencies {
-    compile('com.crashlytics.sdk.android:crashlytics:2.2.2@aar') {
-        transitive = true;
-    }
-}
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 
 android {
-    def crashLyticsApiKey = project.hasProperty('crashLyticsApiKey') ? crashLyticsApiKey : '' //this value is from ~/.gradle/gradle.properties
-    project.archivesBaseName = "$rootProject.name";
-
-    compileSdkVersion rootProject.ext.COMPILE_SDK
-    buildToolsVersion rootProject.ext.BUILD_TOOLS
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
     defaultConfig {
         applicationId 'zen.meditation.android'
         testApplicationId 'zen.meditation.android.tests'
 
-        minSdkVersion rootProject.ext.MIN_SDK
-        targetSdkVersion rootProject.ext.TARGET_SDK
+        minSdkVersion 21
+        targetSdkVersion 28
         versionCode rootProject.ext.VERSION_CODE
         versionName rootProject.ext.VERSION_NAME
 
         proguardFile getDefaultProguardFile('proguard-android.txt')
         proguardFile 'proguard-rules.pro'
 
-        manifestPlaceholders = [crashLyticsApiKey: crashLyticsApiKey]
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
     }
 
     signingConfigs {
@@ -54,64 +39,59 @@ android {
         debug {
             minifyEnabled false
             shrinkResources false
-            ext.enableCrashlytics = crashLyticsApiKey != ''
-            buildConfigField "Boolean", "ANALYTICS_DISABLED", "true"
         }
         release {
             jniDebuggable false
             shrinkResources true
             minifyEnabled true
-            ext.enableCrashlytics = crashLyticsApiKey != ''
-            buildConfigField "Boolean", "ANALYTICS_DISABLED", "false"
         }
     }
 
     dependencies {
-        compile 'com.github.juankysoriano:rainbow:v1.0.0-rc3'
-        compile 'com.github.juankysoriano:CircularFloatingActionMenu:v0.6.0'
-        compile 'com.google.android.gms:play-services-analytics:7.3.0'
-        compile 'com.nineoldandroids:library:2.4.0'
-        compile 'com.android.support:support-annotations:20.0.0'
-        compile 'com.android.support:appcompat-v7:22.1.1'
-        compile 'com.afollestad:material-dialogs:0.7.5.5'
-        compile 'de.hdodenhof:circleimageview:1.2.2'
-        compile('com.novoda:notils:2.2.11') {
+        implementation 'com.github.juankysoriano:rainbow:f24762e040'
+        implementation 'com.github.juankysoriano:CircularFloatingActionMenu:v0.6.0'
+        implementation 'com.android.support:support-annotations:28.0.0'
+        implementation 'com.android.support:appcompat-v7:28.0.0'
+        implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
+        implementation 'de.hdodenhof:circleimageview:3.0.0'
+        implementation('com.novoda:notils:2.2.11') {
             exclude module: 'support-v4'
         }
 
-        testCompile 'org.robolectric:robolectric:3.0-rc3'
-        testCompile 'org.mockito:mockito-all:1.10.19'
-        testCompile 'com.squareup:fest-android:1.0.8'
-        testCompile 'junit:junit:4.12'
+        testImplementation 'org.robolectric:robolectric:4.2'
+        testImplementation 'org.mockito:mockito-all:1.10.19'
+        testImplementation 'com.squareup:fest-android:1.0.8'
+        testImplementation 'junit:junit:4.12'
     }
 }
-
-ext {
-    REPORT_LOCATIONS = ""
+dependencies {
+    implementation "androidx.core:core-ktx:1.0.1"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }
 
-def buildTimeFormatted() {
-    Calendar instance = Calendar.getInstance()
-    instance.setTimeInMillis(System.currentTimeMillis())
-    instance.getTime()
-}
-
-apply from: "$project.rootDir/analysis-tools/android-robolectric.gradle"
-apply from: "$project.rootDir/analysis-tools/android-jacoco.gradle"
-apply from: "$project.rootDir/analysis-tools/android-checkstyle.gradle"
-apply from: "$project.rootDir/analysis-tools/android-pmd.gradle"
-apply from: "$project.rootDir/analysis-tools/android-findbugs.gradle"
-
-task zenCheck dependsOn("check") {
-    println "Finished at: " + new Date();
-
-    println "\n"
-    println REPORT_LOCATIONS
-}
-
-task zen dependsOn("build") {
-}
-
-zen.dependsOn("zenCheck")
+//ext {
+//    REPORT_LOCATIONS = ""
+//}
+//
+////apply from: "$project.rootDir/analysis-tools/android-robolectric.gradle"
+////apply from: "$project.rootDir/analysis-tools/android-jacoco.gradle"
+////apply from: "$project.rootDir/analysis-tools/android-checkstyle.gradle"
+////apply from: "$project.rootDir/analysis-tools/android-pmd.gradle"
+////apply from: "$project.rootDir/analysis-tools/android-findbugs.gradle"
+//
+//task zenCheck dependsOn("check") {
+//    println "Finished at: " + new Date();
+//
+//    println "\n"
+//    println REPORT_LOCATIONS
+//}
+//
+//task zen dependsOn("build") {
+//}
+//
+//zen.dependsOn("zenCheck")
 
 

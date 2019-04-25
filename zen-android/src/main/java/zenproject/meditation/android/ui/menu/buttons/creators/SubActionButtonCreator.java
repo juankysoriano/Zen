@@ -1,18 +1,17 @@
 package zenproject.meditation.android.ui.menu.buttons.creators;
 
-import android.content.Context;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.IdRes;
-import android.support.v4.content.ContextCompat;
-import android.view.Gravity;
+import android.content.Context;import android.view.Gravity;
 import android.view.ViewGroup;
 
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.IdRes;
+import androidx.core.content.ContextCompat;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.ui.menu.buttons.FloatingActionButton;
 
-public final class SubActionButtonCreator {
+final class SubActionButtonCreator {
     private static final int SIZE = ContextRetriever.INSTANCE.getResources().getDimensionPixelSize(R.dimen.sub_floating_action_button_size);
     private static final int MARGIN = ContextRetriever.INSTANCE.getResources().getDimensionPixelSize(R.dimen.sub_floating_action_button_margin);
 
@@ -20,7 +19,7 @@ public final class SubActionButtonCreator {
         //no-op
     }
 
-    public static FloatingActionButton createFrom(Context context, @ColorRes int color, @DrawableRes int drawableId, @IdRes int resId) {
+    static FloatingActionButton createFrom(Context context, @ColorRes int color, @DrawableRes int drawableId, @IdRes int resId) {
         return new FloatingActionButton.Builder(context)
                 .withButtonSize(SIZE)
                 .withMargins(MARGIN, MARGIN, MARGIN, MARGIN)
