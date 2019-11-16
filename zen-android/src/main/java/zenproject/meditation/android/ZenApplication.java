@@ -1,13 +1,11 @@
 package zenproject.meditation.android;
 
-import android.app.Application;
-
 import com.novoda.notils.logger.simple.Log;
 
 import zenproject.meditation.android.preferences.BrushOptionsPreferences;
 import zenproject.meditation.android.sketch.painting.ink.BrushColor;
 
-public class ZenApplication extends Application {
+public class ZenApplication extends AnalyticsApplication {
 
     @Override
     public void onCreate() {

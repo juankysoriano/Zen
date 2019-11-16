@@ -39,11 +39,13 @@ android {
         debug {
             minifyEnabled false
             shrinkResources false
+            buildConfigField "Boolean", "ANALYTICS_DISABLED", "true"
         }
         release {
             jniDebuggable false
             shrinkResources true
             minifyEnabled true
+            buildConfigField "Boolean", "ANALYTICS_DISABLED", "false"
         }
     }
 
