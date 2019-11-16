@@ -3,21 +3,21 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion "28.0.3"
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId 'zen.meditation.android'
         testApplicationId 'zen.meditation.android.tests'
 
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode rootProject.ext.VERSION_CODE
         versionName rootProject.ext.VERSION_NAME
 
         proguardFile getDefaultProguardFile('proguard-android.txt')
         proguardFile 'proguard-rules.pro'
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     testOptions {
@@ -48,10 +48,11 @@ android {
     }
 
     dependencies {
+        implementation 'androidx.core:core-ktx:1.1.0'
+        implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
         implementation 'com.github.juankysoriano:rainbow:f24762e040'
         implementation 'com.github.juankysoriano:CircularFloatingActionMenu:v0.6.0'
         implementation 'com.android.support:support-annotations:28.0.0'
-        implementation 'com.android.support:appcompat-v7:28.0.0'
         implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
         implementation 'de.hdodenhof:circleimageview:3.0.0'
         implementation('com.novoda:notils:2.2.11') {
@@ -63,13 +64,6 @@ android {
         testImplementation 'com.squareup:fest-android:1.0.8'
         testImplementation 'junit:junit:4.12'
     }
-}
-dependencies {
-    implementation "androidx.core:core-ktx:1.0.1"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-}
-repositories {
-    mavenCentral()
 }
 
 //ext {
