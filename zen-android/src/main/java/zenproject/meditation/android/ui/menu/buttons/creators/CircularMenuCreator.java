@@ -48,10 +48,6 @@ public final class CircularMenuCreator {
                         R.drawable.share,
                         MenuButton.SHARE.getId()))
                 .addSubActionView(SubActionButtonCreator.createFrom(context,
-                        R.color.colorPrimaryLight,
-                        R.drawable.save,
-                        MenuButton.SCREENSHOT.getId()))
-                .addSubActionView(SubActionButtonCreator.createFrom(context,
                         R.color.colorAccent,
                         R.drawable.restart,
                         MenuButton.RESTART.getId()))

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <id name="button_brush">brush</id>
+  <id name="button_restart">restart</id>
+  <id name="button_music">music</id>
+  <id name="button_flower">flower</id>
+  <id name="button_share">share</id>
+  <id name="button_menu">menu</id>
+</resources>

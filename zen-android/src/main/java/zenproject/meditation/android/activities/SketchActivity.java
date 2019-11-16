@@ -4,14 +4,13 @@ import android.os.Bundle;
 import android.view.View;
 
 import zenproject.meditation.android.R;
-import zenproject.meditation.android.ui.menu.dialogs.Navigator;
 import zenproject.meditation.android.sketch.ZenSketch;
-import zenproject.meditation.android.ui.menu.ZenMenu;
 import zenproject.meditation.android.sketch.actions.clear.SketchClearer;
-import zenproject.meditation.android.sketch.actions.screenshot.ScreenshotTaker;
 import zenproject.meditation.android.sketch.actions.share.SketchSharer;
+import zenproject.meditation.android.ui.menu.ZenMenu;
 import zenproject.meditation.android.ui.menu.buttons.FloatingActionButton;
 import zenproject.meditation.android.ui.menu.buttons.MenuButton;
+import zenproject.meditation.android.ui.menu.dialogs.Navigator;
 import zenproject.meditation.android.ui.sketch.ZenSketchView;
 
 @SuppressWarnings({"PMD.TooManyMethods", "PMD.FieldDeclarationsShouldBeAtStartOfClass"})
@@ -20,7 +19,6 @@ public class SketchActivity extends ZenActivity implements View.OnAttachStateCha
     private final ZenSketch zenSketch;
     private ZenMenu zenMenu;
     private Navigator navigator;
-    private ScreenshotTaker screenshotTaker;
     private SketchClearer sketchClearer;
     private SketchSharer sketchSharer;
     private ZenSketchView zenSketchView;
@@ -37,12 +35,11 @@ public class SketchActivity extends ZenActivity implements View.OnAttachStateCha
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.sketch);
-        zenSketchView = (ZenSketchView) findViewById(R.id.sketch);
+        zenSketchView = findViewById(R.id.sketch);
         zenSketchView.addOnAttachStateChangeListener(this);
 
         zenMenu = ZenMenu.newInstance(zenSketchView);
         navigator = Navigator.newInstance();
-        screenshotTaker = ScreenshotTaker.newInstance();
         sketchClearer = SketchClearer.newInstance(zenSketchView);
         sketchSharer = SketchSharer.newInstance();
     }
@@ -72,7 +69,6 @@ public class SketchActivity extends ZenActivity implements View.OnAttachStateCha
         getMenuOptionViewFor(MenuButton.FLOWER).setOnClickListener(flowerOptionsListener);
         getMenuOptionViewFor(MenuButton.RESTART).setOnClickListener(restartListener);
         getMenuOptionViewFor(MenuButton.MENU).setOnClickListener(menuToggleListener);
-        getMenuOptionViewFor(MenuButton.SCREENSHOT).setOnClickListener(screenshotListener);
         getMenuOptionViewFor(MenuButton.SHARE).setOnClickListener(shareListener);
     }
 
@@ -92,7 +88,6 @@ public class SketchActivity extends ZenActivity implements View.OnAttachStateCha
         getMenuOptionViewFor(MenuButton.FLOWER).setOnClickListener(null);
         getMenuOptionViewFor(MenuButton.RESTART).setOnClickListener(null);
         getMenuOptionViewFor(MenuButton.MENU).setOnClickListener(null);
-        getMenuOptionViewFor(MenuButton.SCREENSHOT).setOnClickListener(null);
         getMenuOptionViewFor(MenuButton.SHARE).setOnClickListener(null);
     }
 
@@ -153,10 +148,4 @@ public class SketchActivity extends ZenActivity implements View.OnAttachStateCha
         }
     };
 
-    private final View.OnClickListener screenshotListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            screenshotTaker.takeScreenshot();
-        }
-    };
 }

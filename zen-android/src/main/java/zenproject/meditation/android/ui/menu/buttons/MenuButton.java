@@ -1,19 +1,18 @@
 package zenproject.meditation.android.ui.menu.buttons;
 
-import androidx.annotation.IdRes;
+import zenproject.meditation.android.R;
 
 public enum MenuButton {
-    BRUSH(1),
-    RESTART(2),
-    MUSIC(3),
-    FLOWER(4),
-    SCREENSHOT(5),
-    SHARE(6),
-    MENU(7);
+    BRUSH(R.id.button_brush),
+    RESTART(R.id.button_restart),
+    MUSIC(R.id.button_music),
+    FLOWER(R.id.button_flower),
+    SHARE(R.id.button_share),
+    MENU(R.id.button_menu);
 
     private final int id;
 
-    MenuButton(@IdRes int id) {
+    MenuButton(int id) {
         this.id = id;
     }
 
