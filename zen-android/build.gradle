@@ -58,6 +58,7 @@ android {
         implementation('com.novoda:notils:2.2.11') {
             exclude module: 'support-v4'
         }
+        implementation 'com.google.android.gms:play-services-analytics:17.0.0'
 
         testImplementation 'org.robolectric:robolectric:4.2'
         testImplementation 'org.mockito:mockito-all:1.10.19'

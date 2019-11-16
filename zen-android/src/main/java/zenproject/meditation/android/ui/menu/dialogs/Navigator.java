@@ -17,7 +17,7 @@ public class Navigator {
     private final BrushOptionsDialog brushOptionsDialog;
     private final FlowerOptionsDialog flowerOptionsDialog;
 
-    protected Navigator(FragmentManager fragmentManager, BrushOptionsDialog brushOptionsDialog, FlowerOptionsDialog flowerOptionsDialog) {
+    Navigator(FragmentManager fragmentManager, BrushOptionsDialog brushOptionsDialog, FlowerOptionsDialog flowerOptionsDialog) {
         this.fragmentManager = fragmentManager;
         this.brushOptionsDialog = brushOptionsDialog;
         this.flowerOptionsDialog = flowerOptionsDialog;
