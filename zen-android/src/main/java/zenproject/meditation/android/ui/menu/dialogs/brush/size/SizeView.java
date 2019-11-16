@@ -39,6 +39,7 @@ public class SizeView extends LinearLayout {
 
     @Override
     protected void onFinishInflate() {
+        super.onFinishInflate();
         sizeSeekBar = Views.findById(this, R.id.brush_size_slider);
         inkDropImage = Views.findById(this, R.id.brush_size_image);
         brushOptionsPreferences = BrushOptionsPreferences.newInstance();

@@ -12,7 +12,6 @@ import org.robolectric.annotation.Config;
 
 import zenproject.meditation.android.BuildConfig;
 import zenproject.meditation.android.ContextRetriever;
-import zenproject.meditation.android.RobolectricLauncherGradleTestRunner;
 import zenproject.meditation.android.ZenTestBase;
 import zenproject.meditation.android.activities.ZenActivity;
 import zenproject.meditation.android.ui.menu.dialogs.brush.BrushOptionsDialog;

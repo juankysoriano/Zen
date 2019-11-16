@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 29
@@ -69,26 +69,23 @@ android {
     }
 }
 
-//ext {
-//    REPORT_LOCATIONS = ""
-//}
-//
-////apply from: "$project.rootDir/analysis-tools/android-robolectric.gradle"
-////apply from: "$project.rootDir/analysis-tools/android-jacoco.gradle"
-////apply from: "$project.rootDir/analysis-tools/android-checkstyle.gradle"
-////apply from: "$project.rootDir/analysis-tools/android-pmd.gradle"
-////apply from: "$project.rootDir/analysis-tools/android-findbugs.gradle"
-//
-//task zenCheck dependsOn("check") {
-//    println "Finished at: " + new Date();
-//
-//    println "\n"
-//    println REPORT_LOCATIONS
-//}
-//
-//task zen dependsOn("build") {
-//}
-//
-//zen.dependsOn("zenCheck")
+ext {
+    REPORT_LOCATIONS = ""
+}
+
+apply from: "$project.rootDir/analysis-tools/android-checkstyle.gradle"
+apply from: "$project.rootDir/analysis-tools/android-pmd.gradle"
+
+task zenCheck dependsOn("check") {
+    println "Finished at: " + new Date()
+
+    println "\n"
+    println REPORT_LOCATIONS
+}
+
+task zen dependsOn("build") {
+}
+
+zen.dependsOn("zenCheck")
 
 

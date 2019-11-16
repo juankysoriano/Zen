@@ -43,6 +43,7 @@ public class ColorListView extends LinearLayout {
 
     @Override
     protected void onFinishInflate() {
+        super.onFinishInflate();
         darkColor = Views.findById(this, R.id.dark_brush);
         amberColor = Views.findById(this, R.id.amber_brush);
         eraseColor = Views.findById(this, R.id.erase_brush);

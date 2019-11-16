@@ -9,7 +9,6 @@ import org.robolectric.annotation.Config;
 import zenproject.meditation.android.BuildConfig;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
-import zenproject.meditation.android.RobolectricLauncherGradleTestRunner;
 import zenproject.meditation.android.ZenTestBase;
 
 import static org.fest.assertions.api.Assertions.assertThat;

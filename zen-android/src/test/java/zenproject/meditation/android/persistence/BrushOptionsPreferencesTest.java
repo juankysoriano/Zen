@@ -10,7 +10,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import zenproject.meditation.android.RobolectricLauncherGradleTestRunner;
 import zenproject.meditation.android.ZenTestBase;
 import zenproject.meditation.android.sketch.painting.ink.BrushColor;
 

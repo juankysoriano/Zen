@@ -46,6 +46,7 @@ public class FlowerViewList extends LinearLayout {
 
     @Override
     protected void onFinishInflate() {
+        super.onFinishInflate();
         noneFlower = Views.findById(this, R.id.no_flower);
         cherryFlower = Views.findById(this, R.id.cherry);
         meconopsisFlower = Views.findById(this, R.id.meconopsis);

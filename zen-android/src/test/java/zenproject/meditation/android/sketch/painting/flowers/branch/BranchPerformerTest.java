@@ -14,7 +14,6 @@ import org.mockito.MockitoAnnotations;
 import org.robolectric.annotation.Config;
 
 import zenproject.meditation.android.BuildConfig;
-import zenproject.meditation.android.RobolectricLauncherGradleTestRunner;
 import zenproject.meditation.android.ZenTestBase;
 import zenproject.meditation.android.preferences.BrushOptionsPreferences;
 import zenproject.meditation.android.sketch.painting.PaintStepSkipper;

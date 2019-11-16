@@ -20,6 +20,7 @@ public class ClearView extends View {
 
     @Override
     protected void onFinishInflate() {
+        super.onFinishInflate();
         clearDrawable = ClearDrawable.newInstance(getContext());
         setBackground(clearDrawable);
     }

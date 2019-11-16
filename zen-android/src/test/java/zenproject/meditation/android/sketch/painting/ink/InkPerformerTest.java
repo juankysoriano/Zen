@@ -15,7 +15,6 @@ import org.robolectric.annotation.Config;
 
 import zenproject.meditation.android.BuildConfig;
 import zenproject.meditation.android.R;
-import zenproject.meditation.android.RobolectricLauncherGradleTestRunner;
 import zenproject.meditation.android.ZenTestBase;
 import zenproject.meditation.android.sketch.painting.flowers.branch.BranchesList;
 

@@ -12,7 +12,6 @@ import org.mockito.MockitoAnnotations;
 
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
-import zenproject.meditation.android.RobolectricLauncherGradleTestRunner;
 import zenproject.meditation.android.ZenTestBase;
 import zenproject.meditation.android.sketch.music.MusicPerformer;
 import zenproject.meditation.android.sketch.painting.SketchInteractionListener;

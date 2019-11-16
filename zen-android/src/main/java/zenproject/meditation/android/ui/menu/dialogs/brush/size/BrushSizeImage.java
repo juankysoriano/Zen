@@ -17,6 +17,7 @@ public class BrushSizeImage extends View {
 
     @Override
     protected void onFinishInflate() {
+        super.onFinishInflate();
         brushSizeDrawable = BrushSizeDrawable.newInstance();
         setBackground(brushSizeDrawable);
     }
