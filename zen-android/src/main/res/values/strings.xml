@@ -9,9 +9,11 @@
   <string name="option_done">Done</string>
   <string name="option_cancel">Cancel</string>
   <string name="brush_options_title">Brush options</string>
-  <string name="picture_title">Zen Sketch Screenshot</string>
+  <string name="screenshot_name">Zen Sketch Screenshot.png</string>
   <string name="share_with_friends">Zen! to your friends</string>
   <string name="share_subjet">My Zen! Sketch</string>
   <string name="share_text">I tried Zen! for Android. It\'s relaxing!\nCheck it out at http://www.juankysoriano.com/zen</string>
+
+  <string name="file_provider">"zenproject.meditation.android.fileprovider"</string>
 
 </resources>

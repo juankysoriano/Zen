@@ -32,7 +32,8 @@ public class ZenSketchView extends RelativeLayout {
 
     @Override
     protected void onFinishInflate() {
-        clearView = (ClearView) findViewById(R.id.reveal_view);
+        super.onFinishInflate();
+        clearView = findViewById(R.id.reveal_view);
     }
 
     @Override

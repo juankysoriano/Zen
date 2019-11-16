@@ -16,7 +16,7 @@ android {
 
         proguardFile getDefaultProguardFile('proguard-android.txt')
         proguardFile 'proguard-rules.pro'
-
+        
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
