@@ -8,15 +8,12 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import zenproject.meditation.android.ContextRetriever;
-import zenproject.meditation.android.R;
 import zenproject.meditation.android.ZenTestBase;
 import zenproject.meditation.android.sketch.ZenSketch;
 import zenproject.meditation.android.sketch.painting.ink.InkPerformer;
 
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 public class SketchInteractionListenerTest extends ZenTestBase {
     @Mock

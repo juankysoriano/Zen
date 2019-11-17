@@ -15,9 +15,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class InkDropTest extends ZenTestBase {
-    private static final float INITIAL_RADIUS = 0.75f;
-    private static final float INK_VELOCITY_THRESHOLD = 16f;
-    private static final float RADIUS_STEP = 1f;
+    private static final float INITIAL_RADIUS = INK_DROP_MIN_RADIUS;
     private static final float BIG_RADIUS = 10f;
 
     @Mock
@@ -73,7 +71,7 @@ public class InkDropTest extends ZenTestBase {
 
         inkDrop.updateInkRadius();
 
-        assertThat(inkDrop.getRadius()).isEqualTo(RADIUS_STEP + INITIAL_RADIUS);
+        assertThat(inkDrop.getRadius()).isEqualTo(INK_DROP_STEP + INITIAL_RADIUS);
     }
 
     @Test
@@ -84,7 +82,7 @@ public class InkDropTest extends ZenTestBase {
 
         inkDrop.updateInkRadius();
 
-        assertThat(inkDrop.getRadius()).isEqualTo(RADIUS_STEP + INITIAL_RADIUS);
+        assertThat(inkDrop.getRadius()).isEqualTo(INK_DROP_STEP + INITIAL_RADIUS);
     }
 
     @Test

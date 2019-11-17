@@ -9,7 +9,6 @@ import static org.fest.assertions.api.Assertions.assertThat;
 public class BrushColorTest extends ZenTestBase {
 
     private static final int UNKNOW_COLOR = -1;
-    private static final int ACCENT_COLOR = BrushColor.ACCENT.toAndroidColor();
 
     @Test
     public void testThatGettingBrushColorFromUnknownColorReturnsDARK() {
@@ -18,6 +17,10 @@ public class BrushColorTest extends ZenTestBase {
 
     @Test
     public void testThatGettingFlowerFromKnownOrdinalReturnsCorrectFlower() {
-        assertThat(BrushColor.from(ACCENT_COLOR)).isEqualTo(BrushColor.ACCENT);
+        assertThat(BrushColor.from(BRUSH_PRIMARY_COLOR)).isEqualTo(BrushColor.PRIMARY);
+        assertThat(BrushColor.from(BRUSH_ACCENT_COLOR)).isEqualTo(BrushColor.ACCENT);
+        assertThat(BrushColor.from(DARK_BRUSH_COLOR)).isEqualTo(BrushColor.DARK);
+        assertThat(BrushColor.from(AMBER_BRUSH_COLOR)).isEqualTo(BrushColor.AMBER);
+        assertThat(BrushColor.from(SKETCH_COLOR)).isEqualTo(BrushColor.ERASE);
     }
 }

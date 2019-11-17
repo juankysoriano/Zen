@@ -8,12 +8,9 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.robolectric.annotation.Config;
 
-import zenproject.meditation.android.BuildConfig;
 import zenproject.meditation.android.ZenTestBase;
 import zenproject.meditation.android.preferences.BrushOptionsPreferences;
 import zenproject.meditation.android.sketch.painting.PaintStepSkipper;
@@ -21,11 +18,14 @@ import zenproject.meditation.android.sketch.painting.flowers.FlowerDrawer;
 import zenproject.meditation.android.sketch.painting.ink.InkDrop;
 
 import static org.fest.assertions.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyFloat;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class BranchPerformerTest extends ZenTestBase {
 
-    private List<Branch> internalList;
     @Mock
     private BranchesList branchesList;
     @Mock
@@ -211,7 +211,7 @@ public class BranchPerformerTest extends ZenTestBase {
     }
 
     private void givenThatHasBranch() {
-        internalList = new ArrayList<>();
+        List<Branch> internalList = new ArrayList<>();
         internalList.add(branch);
         when(branchesList.asList()).thenReturn(internalList);
     }

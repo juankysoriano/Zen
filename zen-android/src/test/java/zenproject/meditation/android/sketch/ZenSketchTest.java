@@ -19,7 +19,6 @@ import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 
 public class ZenSketchTest extends ZenTestBase {
-    private static final int DEFAULT_COLOR = 4;
 
     private ZenSketch zenSketch;
     @Mock
@@ -60,7 +59,7 @@ public class ZenSketchTest extends ZenTestBase {
     public void testThatOnSketchSetupSetsDefaultBackgroundColor() {
         zenSketch.onSketchSetup();
 
-        verify(rainbowDrawer).background(0);
+        verify(rainbowDrawer).background(SKETCH_COLOR);
     }
 
     @Test
@@ -130,7 +129,7 @@ public class ZenSketchTest extends ZenTestBase {
     public void testThatClearRestoresDefaultColorToRainbowDrawer() {
         zenSketch.clear();
 
-        verify(rainbowDrawer).background(0);
+        verify(rainbowDrawer).background(SKETCH_COLOR);
     }
 
     @Test

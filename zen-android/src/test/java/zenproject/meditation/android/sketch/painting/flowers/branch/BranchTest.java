@@ -10,10 +10,10 @@ import static org.fest.assertions.api.Assertions.assertThat;
 
 public class BranchTest extends ZenTestBase {
     private static final float ANY_POSITION = 10;
-    private static final float RADIUS_OVER_MIN = 100;
-    private static final float RADIUS_UNDER_MIN = 0;
-    private static final float RADIUS_TO_BLOOM_OVER_MIN = 100;
-    private static final float RADIUS_TO_BLOOM_UNDER_MIN = 0;
+    private static final float RADIUS_OVER_MIN = BRANCH_MIN_RADIUS * 2;
+    private static final float RADIUS_UNDER_MIN = BRANCH_MIN_RADIUS / 2;
+    private static final float RADIUS_TO_BLOOM_OVER_MIN = BRANCH_MIN_BLOOM_RADIUS*2;
+    private static final float RADIUS_TO_BLOOM_UNDER_MIN = BRANCH_MIN_BLOOM_RADIUS/2;
     private static final float ANY_RADIUS = 2;
     private static final float ANY_ANGLE = 2;
 

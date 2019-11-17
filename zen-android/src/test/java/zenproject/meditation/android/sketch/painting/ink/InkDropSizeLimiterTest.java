@@ -12,9 +12,6 @@ import zenproject.meditation.android.preferences.BrushOptionsPreferences;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 public class InkDropSizeLimiterTest extends ZenTestBase {
-    private static final float MINIMUM_RADIUS = 0.75f;
-    private static final float MAXIMUM_RADIUS = 120f;
-
     @Mock
     private BrushOptionsPreferences brushOptionsPreferences;
 
@@ -31,35 +28,35 @@ public class InkDropSizeLimiterTest extends ZenTestBase {
     public void getMinimumRadiusReturnsMinimum() {
         givenAPercentageForAVeryLowRadius();
 
-        assertThat(inkDropSizeLimiter.getMinimumRadius()).isEqualTo(MINIMUM_RADIUS);
+        assertThat(inkDropSizeLimiter.getMinimumRadius()).isEqualTo(INK_DROP_MIN_RADIUS);
     }
 
     @Test
     public void getMaximumRadiusReturnsMaximum() {
         givenAPercentageForAVeryHighRadius();
 
-        assertThat(inkDropSizeLimiter.getMaximumRadius()).isEqualTo(MAXIMUM_RADIUS);
+        assertThat(inkDropSizeLimiter.getMaximumRadius()).isEqualTo(INK_DROP_MAX_RADIUS);
     }
 
     @Test
     public void testThatWhenRadiusIsLowerThatMinimumThenMinimumIsReturned() {
         givenAPercentageForAVeryLowRadius();
 
-        assertThat(inkDropSizeLimiter.getRadius()).isEqualTo(MINIMUM_RADIUS);
+        assertThat(inkDropSizeLimiter.getRadius()).isEqualTo(INK_DROP_MIN_RADIUS);
     }
 
     @Test
     public void testThatWhenRadiusIsGreaterThatMaximumThenMaximumIsReturned() {
         givenAPercentageForAVeryHighRadius();
 
-        assertThat(inkDropSizeLimiter.getRadius()).isEqualTo(MAXIMUM_RADIUS);
+        assertThat(inkDropSizeLimiter.getRadius()).isEqualTo(INK_DROP_MAX_RADIUS);
     }
 
     @Test
     public void testThatWhenRadiusIsBetweenMaxAndMinRadiusIsReturned() {
         givenAPercentageForARadiusInBetween();
 
-        assertThat(inkDropSizeLimiter.getRadius()).isLessThan(MAXIMUM_RADIUS).isGreaterThan(MINIMUM_RADIUS);
+        assertThat(inkDropSizeLimiter.getRadius()).isLessThan(INK_DROP_MAX_RADIUS).isGreaterThan(INK_DROP_MIN_RADIUS);
     }
 
     @Test
