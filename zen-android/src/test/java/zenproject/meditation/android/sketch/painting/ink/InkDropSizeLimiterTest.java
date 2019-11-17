@@ -1,25 +1,19 @@
 package zenproject.meditation.android.sketch.painting.ink;
 
-import org.fest.assertions.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.robolectric.annotation.Config;
 
-import zenproject.meditation.android.BuildConfig;
-import zenproject.meditation.android.ContextRetriever;
-import zenproject.meditation.android.R;
 import zenproject.meditation.android.ZenTestBase;
 import zenproject.meditation.android.preferences.BrushOptionsPreferences;
 
-@RunWith(RobolectricLauncherGradleTestRunner.class)
-@Config(constants = BuildConfig.class)
+import static org.fest.assertions.api.Assertions.assertThat;
+
 public class InkDropSizeLimiterTest extends ZenTestBase {
-    private static final float MINIMUM_RADIUS = ContextRetriever.INSTANCE.getResources().getDimension(R.dimen.ink_drop_min_radius);
-    private static final float MAXIMUM_RADIUS = ContextRetriever.INSTANCE.getResources().getDimension(R.dimen.ink_drop_max_radius);
+    private static final float MINIMUM_RADIUS = 0.75f;
+    private static final float MAXIMUM_RADIUS = 120f;
 
     @Mock
     private BrushOptionsPreferences brushOptionsPreferences;
@@ -37,40 +31,40 @@ public class InkDropSizeLimiterTest extends ZenTestBase {
     public void getMinimumRadiusReturnsMinimum() {
         givenAPercentageForAVeryLowRadius();
 
-        Assertions.assertThat(inkDropSizeLimiter.getMinimumRadius()).isEqualTo(MINIMUM_RADIUS);
+        assertThat(inkDropSizeLimiter.getMinimumRadius()).isEqualTo(MINIMUM_RADIUS);
     }
 
     @Test
     public void getMaximumRadiusReturnsMaximum() {
         givenAPercentageForAVeryHighRadius();
 
-        Assertions.assertThat(inkDropSizeLimiter.getMaximumRadius()).isEqualTo(MAXIMUM_RADIUS);
+        assertThat(inkDropSizeLimiter.getMaximumRadius()).isEqualTo(MAXIMUM_RADIUS);
     }
 
     @Test
     public void testThatWhenRadiusIsLowerThatMinimumThenMinimumIsReturned() {
         givenAPercentageForAVeryLowRadius();
 
-        Assertions.assertThat(inkDropSizeLimiter.getRadius()).isEqualTo(MINIMUM_RADIUS);
+        assertThat(inkDropSizeLimiter.getRadius()).isEqualTo(MINIMUM_RADIUS);
     }
 
     @Test
     public void testThatWhenRadiusIsGreaterThatMaximumThenMaximumIsReturned() {
         givenAPercentageForAVeryHighRadius();
 
-        Assertions.assertThat(inkDropSizeLimiter.getRadius()).isEqualTo(MAXIMUM_RADIUS);
+        assertThat(inkDropSizeLimiter.getRadius()).isEqualTo(MAXIMUM_RADIUS);
     }
 
     @Test
     public void testThatWhenRadiusIsBetweenMaxAndMinRadiusIsReturned() {
         givenAPercentageForARadiusInBetween();
 
-        Assertions.assertThat(inkDropSizeLimiter.getRadius()).isLessThan(MAXIMUM_RADIUS).isGreaterThan(MINIMUM_RADIUS);
+        assertThat(inkDropSizeLimiter.getRadius()).isLessThan(MAXIMUM_RADIUS).isGreaterThan(MINIMUM_RADIUS);
     }
 
     @Test
     public void testThatNewInstanceReturnsNotNullInkDropSizeLimiter() {
-        Assertions.assertThat(InkDropSizeLimiter.newInstance(brushOptionsPreferences)).isNotNull();
+        assertThat(InkDropSizeLimiter.newInstance(brushOptionsPreferences)).isNotNull();
     }
 
     @Test
@@ -78,7 +72,7 @@ public class InkDropSizeLimiterTest extends ZenTestBase {
         InkDropSizeLimiter firstInstance = InkDropSizeLimiter.newInstance(brushOptionsPreferences);
         InkDropSizeLimiter secondInstance = InkDropSizeLimiter.newInstance(brushOptionsPreferences);
 
-        Assertions.assertThat(firstInstance).isNotEqualTo(secondInstance);
+        assertThat(firstInstance).isNotEqualTo(secondInstance);
     }
 
     private void givenAPercentageForAVeryLowRadius() {

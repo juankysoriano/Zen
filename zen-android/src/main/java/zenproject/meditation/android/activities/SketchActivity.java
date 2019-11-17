@@ -16,25 +16,18 @@ import zenproject.meditation.android.ui.sketch.ZenSketchView;
 @SuppressWarnings({"PMD.TooManyMethods", "PMD.FieldDeclarationsShouldBeAtStartOfClass"})
 public class SketchActivity extends ZenActivity implements View.OnAttachStateChangeListener {
 
-    private final ZenSketch zenSketch;
+    private ZenSketch zenSketch;
     private ZenMenu zenMenu;
     private Navigator navigator;
     private SketchClearer sketchClearer;
     private SketchSharer sketchSharer;
     private ZenSketchView zenSketchView;
 
-    public SketchActivity() {
-        this(ZenSketch.newInstance());
-    }
-
-    protected SketchActivity(ZenSketch zenSketch) {
-        this.zenSketch = zenSketch;
-    }
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.sketch);
+        zenSketch = ZenSketch.newInstance();
         zenSketchView = findViewById(R.id.sketch);
         zenSketchView.addOnAttachStateChangeListener(this);
 

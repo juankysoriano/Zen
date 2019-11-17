@@ -1,5 +1,6 @@
 package zenproject.meditation.android.sketch.painting.flowers;
 
+import com.juankysoriano.rainbow.core.drawing.Modes;
 import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
 import com.juankysoriano.rainbow.core.graphics.RainbowImage;
 
@@ -9,21 +10,20 @@ import java.util.List;
 import org.fest.assertions.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.robolectric.RuntimeEnvironment;
-import org.robolectric.annotation.Config;
 
-import zenproject.meditation.android.BuildConfig;
 import zenproject.meditation.android.ZenTestBase;
 import zenproject.meditation.android.sketch.painting.flowers.branch.Branch;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyFloat;
+import static org.mockito.Mockito.anyInt;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 
-@RunWith(RobolectricLauncherGradleTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class FlowerDrawerTest extends ZenTestBase {
     private static final RainbowImage NO_IMAGE = null;
     private static final int BRANCH_X = 10;
@@ -43,8 +43,6 @@ public class FlowerDrawerTest extends ZenTestBase {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        when(rainbowDrawer.getContext()).thenReturn(RuntimeEnvironment.application.getApplicationContext());
-
         flowerToPaint = Flower.POPPY;
         loadedImages = new ArrayList<>();
         flowerDrawer = new FlowerDrawer(flowerToPaint, loadedImages, rainbowDrawer);
@@ -55,7 +53,7 @@ public class FlowerDrawerTest extends ZenTestBase {
         flowerDrawer.init();
 
         for (Integer flowerImageId : flowerToPaint.getFlowerLeafRes()) {
-            verify(rainbowDrawer).loadImage(flowerImageId, RainbowImage.LOAD_ORIGINAL_SIZE, flowerDrawer);
+            verify(rainbowDrawer).loadImage(flowerImageId, Modes.LoadMode.LOAD_ORIGINAL_SIZE, flowerDrawer);
         }
     }
 

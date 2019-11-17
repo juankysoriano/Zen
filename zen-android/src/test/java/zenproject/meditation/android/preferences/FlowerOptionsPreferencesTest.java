@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import org.fest.assertions.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -14,9 +13,9 @@ import zenproject.meditation.android.sketch.painting.flowers.Flower;
 
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.*;
-
-@RunWith(RobolectricLauncherGradleTestRunner.class)
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class FlowerOptionsPreferencesTest extends ZenTestBase {
     private static final String PREF_NAME = "FlowerOptionPreferences";

@@ -3,26 +3,17 @@ package zenproject.meditation.android.sketch.painting.flowers.branch;
 import com.juankysoriano.rainbow.core.matrix.RVector;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.annotation.Config;
 
-import zenproject.meditation.android.BuildConfig;
-import zenproject.meditation.android.ContextRetriever;
-import zenproject.meditation.android.R;
 import zenproject.meditation.android.ZenTestBase;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
-@RunWith(RobolectricLauncherGradleTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class BranchTest extends ZenTestBase {
     private static final float ANY_POSITION = 10;
-    private static final float MIN_RADIUS = ContextRetriever.INSTANCE.getResources().getDimension(R.dimen.branch_min_radius);
-    private static final float RADIUS_OVER_MIN = MIN_RADIUS * 2;
-    private static final float RADIUS_UNDER_MIN = MIN_RADIUS / 2;
-    private static final float MIN_RADIUS_TO_BLOOM = ContextRetriever.INSTANCE.getResources().getDimension(R.dimen.branch_min_bloom_radius);
-    private static final float RADIUS_TO_BLOOM_OVER_MIN = MIN_RADIUS_TO_BLOOM * 2;
-    private static final float RADIUS_TO_BLOOM_UNDER_MIN = MIN_RADIUS_TO_BLOOM / 2;
+    private static final float RADIUS_OVER_MIN = 100;
+    private static final float RADIUS_UNDER_MIN = 0;
+    private static final float RADIUS_TO_BLOOM_OVER_MIN = 100;
+    private static final float RADIUS_TO_BLOOM_UNDER_MIN = 0;
     private static final float ANY_RADIUS = 2;
     private static final float ANY_ANGLE = 2;
 

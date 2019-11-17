@@ -15,8 +15,6 @@ import org.robolectric.annotation.Config;
 
 import static org.mockito.Mockito.verify;
 
-@RunWith(RobolectricLauncherGradleTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class ContextRetrieverTest extends ZenTestBase {
 
     @Mock

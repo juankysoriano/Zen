@@ -5,12 +5,9 @@ import com.google.android.gms.analytics.Tracker;
 import org.fest.assertions.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.robolectric.annotation.Config;
 
-import zenproject.meditation.android.BuildConfig;
 import zenproject.meditation.android.ZenTestBase;
 import zenproject.meditation.android.analytics.AnalyticsTracker;
 import zenproject.meditation.android.sketch.ZenSketch;
@@ -19,8 +16,6 @@ import zenproject.meditation.android.ui.sketch.ZenSketchView;
 import static org.mockito.Matchers.anyMapOf;
 import static org.mockito.Mockito.verify;
 
-@RunWith(RobolectricLauncherGradleTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class SketchClearerTest extends ZenTestBase {
     @Mock
     private ZenSketch zenSketch;

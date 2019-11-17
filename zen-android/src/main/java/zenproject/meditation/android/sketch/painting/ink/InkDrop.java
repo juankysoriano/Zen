@@ -16,7 +16,7 @@ public class InkDrop {
     private final InkDropSizeLimiter inkDropSizeLimiter;
     private final BrushOptionsPreferences brushOptionsPreferences;
     private final RainbowInputController rainbowInputController;
-    private float radius = ABSOLUTE_MIN_RADIUS;
+    private float radius;
     private boolean reachedRadiusAfterReset;
 
     public static InkDrop newInstance(RainbowInputController rainbowInputController) {
@@ -26,9 +26,9 @@ public class InkDrop {
         return new InkDrop(inkDropSizeLimiter, brushOptionsPreferences, rainbowInputController);
     }
 
-    protected InkDrop(InkDropSizeLimiter inkDropSizeLimiter,
-                      BrushOptionsPreferences brushOptionsPreferences,
-                      RainbowInputController rainbowInputController) {
+    InkDrop(InkDropSizeLimiter inkDropSizeLimiter,
+            BrushOptionsPreferences brushOptionsPreferences,
+            RainbowInputController rainbowInputController) {
         this.inkDropSizeLimiter = inkDropSizeLimiter;
         this.brushOptionsPreferences = brushOptionsPreferences;
         this.rainbowInputController = rainbowInputController;
@@ -43,11 +43,11 @@ public class InkDrop {
         return brushOptionsPreferences.getBrushColor();
     }
 
-    public float getMaxRadius() {
+    float getMaxRadius() {
         return inkDropSizeLimiter.getMaximumRadius();
     }
 
-    public void updateInkRadius() {
+    void updateInkRadius() {
         if (radiusShouldIncrease()) {
             radius += RADIUS_STEP;
         } else {

@@ -1,15 +1,11 @@
 package zenproject.meditation.android.sketch.painting.ink;
 
-import org.fest.assertions.api.Assertions;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.annotation.Config;
 
-import zenproject.meditation.android.BuildConfig;
 import zenproject.meditation.android.ZenTestBase;
 
-@RunWith(RobolectricLauncherGradleTestRunner.class)
-@Config(constants = BuildConfig.class)
+import static org.fest.assertions.api.Assertions.assertThat;
+
 public class BrushColorTest extends ZenTestBase {
 
     private static final int UNKNOW_COLOR = -1;
@@ -17,11 +13,11 @@ public class BrushColorTest extends ZenTestBase {
 
     @Test
     public void testThatGettingBrushColorFromUnknownColorReturnsDARK() {
-        Assertions.assertThat(BrushColor.from(UNKNOW_COLOR)).isEqualTo(BrushColor.DARK);
+        assertThat(BrushColor.from(UNKNOW_COLOR)).isEqualTo(BrushColor.DARK);
     }
 
     @Test
     public void testThatGettingFlowerFromKnownOrdinalReturnsCorrectFlower() {
-        Assertions.assertThat(BrushColor.from(ACCENT_COLOR)).isEqualTo(BrushColor.ACCENT);
+        assertThat(BrushColor.from(ACCENT_COLOR)).isEqualTo(BrushColor.ACCENT);
     }
 }

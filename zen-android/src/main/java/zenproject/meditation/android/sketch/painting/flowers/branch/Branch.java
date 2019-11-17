@@ -27,7 +27,7 @@ public class Branch {
     private final RVector previousPosition;
     private final float step;
 
-    protected Branch(RVector position, float angle, float radius, float step) {
+    Branch(RVector position, float angle, float radius, float step) {
         this.position = new RVector(position.x, position.y);
         this.previousPosition = new RVector(this.position.x, this.position.y);
         this.angle = angle;
@@ -40,7 +40,7 @@ public class Branch {
         return branch.step >= 0 ? -randomStep : randomStep;
     }
 
-    public static Branch createFrom(Branch branch) {
+    static Branch createFrom(Branch branch) {
         return new Branch(branch.position,
                 branch.angle, branch.radius, generateRandomStep(branch));
     }
@@ -52,15 +52,15 @@ public class Branch {
         return new Branch(pos, angle, DEFAULT_RADIUS, 0);
     }
 
-    public boolean isDead() {
+    boolean isDead() {
         return RainbowMath.abs(radius) < MIN_RADIUS;
     }
 
-    public boolean canBloom() {
+    boolean canBloom() {
         return RainbowMath.abs(radius) > MIN_RADIUS_TO_BLOOM;
     }
 
-    public void update() {
+    void update() {
         backupPosition();
         updatePosition();
         updateAngle();
@@ -93,11 +93,11 @@ public class Branch {
         return position.y;
     }
 
-    public float getOldX() {
+    float getOldX() {
         return previousPosition.x;
     }
 
-    public float getOldY() {
+    float getOldY() {
         return previousPosition.y;
     }
 

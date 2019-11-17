@@ -2,38 +2,32 @@ package zenproject.meditation.android.sketch.painting;
 
 import android.view.MotionEvent;
 
-import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
-
 import org.fest.assertions.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.robolectric.annotation.Config;
 
-import zenproject.meditation.android.BuildConfig;
+import zenproject.meditation.android.ContextRetriever;
+import zenproject.meditation.android.R;
 import zenproject.meditation.android.ZenTestBase;
 import zenproject.meditation.android.sketch.ZenSketch;
 import zenproject.meditation.android.sketch.painting.ink.InkPerformer;
 
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-@RunWith(RobolectricLauncherGradleTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class SketchInteractionListenerTest extends ZenTestBase {
     @Mock
     private InkPerformer inkPerformer;
-    @Mock
-    private RainbowDrawer rainbowDrawer;
     @Mock
     private ZenSketch.PaintListener listener;
     @Mock
     private MotionEvent motionEvent;
 
     private SketchInteractionListener sketchInteractionListener;
-
+    
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -43,7 +37,7 @@ public class SketchInteractionListenerTest extends ZenTestBase {
 
     @Test
     public void testThatOnScreenTouchedPerformsResetOnInkPerformer() {
-        sketchInteractionListener.onSketchTouched(motionEvent, rainbowDrawer);
+        sketchInteractionListener.onSketchTouched(motionEvent);
 
         verify(inkPerformer).reset();
     }
@@ -52,14 +46,14 @@ public class SketchInteractionListenerTest extends ZenTestBase {
     public void testThatIfHaveOnPaintingListenerThenOnScreenTouchFiresOnPaintingStart() {
         givenThatHasPaintingListener();
 
-        sketchInteractionListener.onSketchTouched(motionEvent, rainbowDrawer);
+        sketchInteractionListener.onSketchTouched(motionEvent);
 
         verify(listener).onPaintingStart();
     }
 
     @Test
     public void testThatIfDoesNotHaveOnPaintingListenerThenOnScreenTouchDoesNotFireOnPaintingStart() {
-        sketchInteractionListener.onSketchTouched(motionEvent, rainbowDrawer);
+        sketchInteractionListener.onSketchTouched(motionEvent);
 
         verify(listener, never()).onPaintingStart();
     }
@@ -68,21 +62,21 @@ public class SketchInteractionListenerTest extends ZenTestBase {
     public void testThatIfHaveOnPaintingListenerThenOnScreenReleasedFiresOnPaintingEnd() {
         givenThatHasPaintingListener();
 
-        sketchInteractionListener.onSketchReleased(motionEvent, rainbowDrawer);
+        sketchInteractionListener.onSketchReleased(motionEvent);
 
         verify(listener).onPaintingEnd();
     }
 
     @Test
     public void testThatIfDoesNotHaveOnPaintingListenerThenOnScreenReleasedDoesNotFireOnPaintingEnd() {
-        sketchInteractionListener.onSketchReleased(motionEvent, rainbowDrawer);
+        sketchInteractionListener.onSketchReleased(motionEvent);
 
         verify(listener, never()).onPaintingEnd();
     }
 
     @Test
     public void testThatOnFingerDraggedDoesStepOnInkPerformer() {
-        sketchInteractionListener.onFingerDragged(motionEvent, rainbowDrawer);
+        sketchInteractionListener.onFingerDragged(motionEvent);
 
         verify(inkPerformer).doStep();
     }

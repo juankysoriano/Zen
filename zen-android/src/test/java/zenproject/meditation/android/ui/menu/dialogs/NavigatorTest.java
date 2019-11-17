@@ -5,23 +5,21 @@ import android.app.FragmentManager;
 import org.fest.assertions.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.robolectric.annotation.Config;
 
-import zenproject.meditation.android.BuildConfig;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.ZenTestBase;
 import zenproject.meditation.android.activities.ZenActivity;
 import zenproject.meditation.android.ui.menu.dialogs.brush.BrushOptionsDialog;
 import zenproject.meditation.android.ui.menu.dialogs.flower.FlowerOptionsDialog;
-import zenproject.meditation.android.ui.menu.dialogs.flower.FlowerSelectedListener;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-@RunWith(RobolectricLauncherGradleTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class NavigatorTest extends ZenTestBase {
     @Mock
     private BrushOptionsDialog brushOptionsDialog;
@@ -29,8 +27,6 @@ public class NavigatorTest extends ZenTestBase {
     private FlowerOptionsDialog flowerOptionsDialog;
     @Mock
     private FragmentManager fragmentManager;
-    @Mock
-    private FlowerSelectedListener flowerSelectedListener;
     @Mock
     private ZenActivity zenActivity;
 

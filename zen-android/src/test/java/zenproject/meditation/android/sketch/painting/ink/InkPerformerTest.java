@@ -1,37 +1,34 @@
 package zenproject.meditation.android.sketch.painting.ink;
 
+import com.juankysoriano.rainbow.core.drawing.Modes;
 import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
 import com.juankysoriano.rainbow.core.event.RainbowInputController;
 import com.juankysoriano.rainbow.core.graphics.RainbowImage;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
-import org.robolectric.annotation.Config;
 
-import zenproject.meditation.android.BuildConfig;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.ZenTestBase;
-import zenproject.meditation.android.sketch.painting.flowers.branch.BranchesList;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Matchers.anyFloat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyInt;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-@RunWith(RobolectricLauncherGradleTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class InkPerformerTest extends ZenTestBase {
-
+    private static final BrushColor COLOR = BrushColor.DARK;
     @Mock
     private InkDrop inkDrop;
     @Mock
-    private BranchesList branchesList;
-    @Spy
-    private RainbowDrawer rainbowDrawer = new RainbowDrawer();
+    private RainbowDrawer rainbowDrawer;
     @Mock
     private RainbowInputController rainbowInputController;
     @Mock
@@ -42,7 +39,7 @@ public class InkPerformerTest extends ZenTestBase {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        when(inkDrop.getBrushColor()).thenReturn(BrushColor.DARK);
+        when(inkDrop.getBrushColor()).thenReturn(COLOR);
         disableRainbowDrawerInvocations();
 
         inkPerformer = new InkPerformer(inkDrop, rainbowDrawer, rainbowInputController);
@@ -54,7 +51,7 @@ public class InkPerformerTest extends ZenTestBase {
 
         verify(rainbowDrawer).noStroke();
         verify(rainbowDrawer).smooth();
-        verify(rainbowDrawer).loadImage(R.drawable.brush_ink, RainbowImage.LOAD_ORIGINAL_SIZE, inkPerformer);
+        verify(rainbowDrawer).loadImage(R.drawable.brush_ink, Modes.LoadMode.LOAD_ORIGINAL_SIZE, inkPerformer);
     }
 
     @Test
@@ -150,16 +147,12 @@ public class InkPerformerTest extends ZenTestBase {
     private void disableRainbowDrawerInvocations() {
         Mockito.doNothing().when(rainbowDrawer).noStroke();
         Mockito.doNothing().when(rainbowDrawer).smooth();
-        Mockito.doNothing().when(rainbowDrawer).loadImage(anyInt(), anyInt(), any(RainbowImage.LoadPictureListener.class));
-
         Mockito.doNothing().when(rainbowDrawer).tint(anyInt());
-        Mockito.doNothing().when(rainbowDrawer).imageMode(anyInt());
         Mockito.doNothing().when(rainbowDrawer).pushMatrix();
         Mockito.doNothing().when(rainbowDrawer).translate(anyFloat(), anyFloat());
         Mockito.doNothing().when(rainbowDrawer).rotate(anyFloat());
         Mockito.doNothing().when(rainbowDrawer).image(any(RainbowImage.class), anyFloat(), anyFloat(), anyFloat(), anyFloat());
         Mockito.doNothing().when(rainbowDrawer).tint(anyInt());
-
         Mockito.doNothing().when(rainbowDrawer).stroke(anyInt(), anyFloat());
         Mockito.doNothing().when(rainbowDrawer).strokeWeight(anyFloat());
         Mockito.doNothing().when(rainbowDrawer).line(anyFloat(), anyFloat(), anyFloat(), anyFloat());

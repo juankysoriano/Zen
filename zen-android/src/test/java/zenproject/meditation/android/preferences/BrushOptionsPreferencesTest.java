@@ -3,21 +3,21 @@ package zenproject.meditation.android.preferences;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 
-import org.fest.assertions.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import zenproject.meditation.android.ZenTestBase;
 import zenproject.meditation.android.sketch.painting.ink.BrushColor;
 
+import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-@RunWith(RobolectricLauncherGradleTestRunner.class)
 public class BrushOptionsPreferencesTest extends ZenTestBase {
     private static final String PREF_NAME = "BrushPreferences";
     private static final String PREF_BRUSH_COLOR = PREF_NAME + "Color";
@@ -54,7 +54,7 @@ public class BrushOptionsPreferencesTest extends ZenTestBase {
     public void testThatGetBrushSizeReturnsGetsValueFromSharedPreferences() {
         givenThatSizeWasApplied();
 
-        Assertions.assertThat(brushOptionsPreferences.getBrushSizePercentage()).isEqualTo(ANY_PERCENTAGE);
+        assertThat(brushOptionsPreferences.getBrushSizePercentage()).isEqualTo(ANY_PERCENTAGE);
     }
 
     private void givenThatSizeWasApplied() {
@@ -72,7 +72,7 @@ public class BrushOptionsPreferencesTest extends ZenTestBase {
     public void testThatGetBrushColorReturnsGetsValueFromSharedPreferences() {
         givenThatColorWasApplied();
 
-        Assertions.assertThat(brushOptionsPreferences.getBrushColor()).isEqualTo(ANY_COLOR);
+        assertThat(brushOptionsPreferences.getBrushColor()).isEqualTo(ANY_COLOR);
     }
 
     @Test
@@ -102,12 +102,12 @@ public class BrushOptionsPreferencesTest extends ZenTestBase {
 
     @Test
     public void testThatGetLeafColorReturnsCorrectColor() {
-        Assertions.assertThat(brushOptionsPreferences.getLeafColor()).isEqualTo(LEAF_COLOR);
+        assertThat(brushOptionsPreferences.getLeafColor()).isEqualTo(LEAF_COLOR);
     }
 
     @Test
     public void testThatNewInstanceReturnsNotNullBrushOptionsPreferences() {
-        Assertions.assertThat(BrushOptionsPreferences.newInstance()).isNotNull();
+        assertThat(BrushOptionsPreferences.newInstance()).isNotNull();
     }
 
     @Test
@@ -115,6 +115,6 @@ public class BrushOptionsPreferencesTest extends ZenTestBase {
         BrushOptionsPreferences firstInstance = BrushOptionsPreferences.newInstance();
         BrushOptionsPreferences secondInstance = BrushOptionsPreferences.newInstance();
 
-        Assertions.assertThat(firstInstance).isNotEqualTo(secondInstance);
+        assertThat(firstInstance).isNotEqualTo(secondInstance);
     }
 }

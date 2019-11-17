@@ -4,15 +4,9 @@ import com.juankysoriano.rainbow.core.event.RainbowInputController;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.robolectric.annotation.Config;
 
-import zenproject.meditation.android.BuildConfig;
-import zenproject.meditation.android.ContextRetriever;
-import zenproject.meditation.android.R;
-import zenproject.meditation.android.RobolectricLauncherGradleTestRunner;
 import zenproject.meditation.android.ZenTestBase;
 import zenproject.meditation.android.preferences.BrushOptionsPreferences;
 
@@ -20,12 +14,10 @@ import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(RobolectricLauncherGradleTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class InkDropTest extends ZenTestBase {
-    private static final float INITIAL_RADIUS = ContextRetriever.INSTANCE.getResources().getDimension(R.dimen.ink_drop_min_radius);
-    private static final float INK_VELOCITY_THRESHOLD = ContextRetriever.INSTANCE.getResources().getDimension(R.dimen.ink_velocity_threshold);
-    private static final float RADIUS_STEP = ContextRetriever.INSTANCE.getResources().getDimension(R.dimen.ink_drop_step);
+    private static final float INITIAL_RADIUS = 0.75f;
+    private static final float INK_VELOCITY_THRESHOLD = 16f;
+    private static final float RADIUS_STEP = 1f;
     private static final float BIG_RADIUS = 10f;
 
     @Mock

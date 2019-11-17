@@ -12,6 +12,7 @@ import java.io.File;
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.R;
 import zenproject.meditation.android.SketchRetriever;
+import zenproject.meditation.android.analytics.AnalyticsTracker;
 
 public class SketchSharer {
     private static final String INTENT_TYPE = "image/*";
@@ -45,7 +46,7 @@ public class SketchSharer {
                 .putExtra(Intent.EXTRA_STREAM, shareUri);
 
         ContextRetriever.INSTANCE.getActivity().startActivity(intent);
-        //AnalyticsTracker.INSTANCE.trackShare();
+        AnalyticsTracker.INSTANCE.trackShare();
     }
 }
 

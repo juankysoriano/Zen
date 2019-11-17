@@ -23,8 +23,6 @@ import zenproject.meditation.android.sketch.painting.ink.InkDrop;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-@RunWith(RobolectricLauncherGradleTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class BranchPerformerTest extends ZenTestBase {
 
     private List<Branch> internalList;

@@ -7,20 +7,19 @@ import com.juankysoriano.rainbow.core.event.RainbowInputController;
 import org.fest.assertions.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.robolectric.annotation.Config;
 
-import zenproject.meditation.android.BuildConfig;
+import zenproject.meditation.android.ZenTestBase;
 import zenproject.meditation.android.preferences.BrushOptionsPreferences;
 
 import static org.mockito.Matchers.anyFloat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-@RunWith(RobolectricLauncherGradleTestRunner.class)
-@Config(constants = BuildConfig.class)
-public class MusicPerformerTest {
+public class MusicPerformerTest extends ZenTestBase {
     private static final float MUSIC_STEP = 0.005f;
     private static final float MIN_VOLUME = 0.05f;
     @Mock

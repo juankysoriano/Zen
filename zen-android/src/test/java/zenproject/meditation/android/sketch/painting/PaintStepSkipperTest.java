@@ -3,14 +3,9 @@ package zenproject.meditation.android.sketch.painting;
 import org.fest.assertions.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.annotation.Config;
 
-import zenproject.meditation.android.BuildConfig;
 import zenproject.meditation.android.ZenTestBase;
 
-@RunWith(RobolectricLauncherGradleTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class PaintStepSkipperTest extends ZenTestBase {
 
     private PaintStepSkipper paintStepSkipper;

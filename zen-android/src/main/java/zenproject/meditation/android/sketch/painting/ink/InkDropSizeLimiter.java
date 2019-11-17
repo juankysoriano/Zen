@@ -19,15 +19,15 @@ public class InkDropSizeLimiter {
         return new InkDropSizeLimiter(brushOptionsPreferences);
     }
 
-    protected InkDropSizeLimiter(BrushOptionsPreferences brushOptionsPreferences) {
+    InkDropSizeLimiter(BrushOptionsPreferences brushOptionsPreferences) {
         this.brushOptionsPreferences = brushOptionsPreferences;
     }
 
-    public float getMinimumRadius() {
+    float getMinimumRadius() {
         return RainbowMath.max(RADIUS_MIN, getRadius() / calculateRadiusFactorForMinimum());
     }
 
-    public float getRadius() {
+    float getRadius() {
         return constrain(RainbowMath.map(brushOptionsPreferences.getBrushSizePercentage(),
                 PERCENTAGE_MIN,
                 PERCENTAGE_MAX,
@@ -43,7 +43,7 @@ public class InkDropSizeLimiter {
         return SCALE_FACTOR;
     }
 
-    public float getMaximumRadius() {
+    float getMaximumRadius() {
         return Math.min(RADIUS_MAX, getRadius());
     }
 }

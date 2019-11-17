@@ -5,21 +5,20 @@ import com.oguzdev.circularfloatingactionmenu.library.CircularMenu;
 import org.fest.assertions.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.robolectric.annotation.Config;
 
-import zenproject.meditation.android.BuildConfig;
 import zenproject.meditation.android.ZenTestBase;
 import zenproject.meditation.android.ui.menu.buttons.FloatingActionButton;
 import zenproject.meditation.android.ui.menu.buttons.MenuButton;
 import zenproject.meditation.android.ui.sketch.ZenSketchView;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-@RunWith(RobolectricLauncherGradleTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class ZenMenuTest extends ZenTestBase {
     @Mock
     private ZenSketchView zenSketchView;

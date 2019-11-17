@@ -3,15 +3,11 @@ package zenproject.meditation.android.sketch;
 import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
 import com.juankysoriano.rainbow.core.event.RainbowInputController;
 
-import org.fest.assertions.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import zenproject.meditation.android.ContextRetriever;
-import zenproject.meditation.android.R;
 import zenproject.meditation.android.ZenTestBase;
 import zenproject.meditation.android.sketch.music.MusicPerformer;
 import zenproject.meditation.android.sketch.painting.SketchInteractionListener;
@@ -19,11 +15,11 @@ import zenproject.meditation.android.sketch.painting.flowers.Flower;
 import zenproject.meditation.android.sketch.painting.flowers.branch.BranchPerformer;
 import zenproject.meditation.android.sketch.painting.ink.InkPerformer;
 
+import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 
-@RunWith(RobolectricLauncherGradleTestRunner.class)
 public class ZenSketchTest extends ZenTestBase {
-    private static final int DEFAULT_COLOR = ContextRetriever.INSTANCE.getResources().getColor(R.color.colorSketch);
+    private static final int DEFAULT_COLOR = 4;
 
     private ZenSketch zenSketch;
     @Mock
@@ -92,14 +88,14 @@ public class ZenSketchTest extends ZenTestBase {
     public void testThatOnStepPerformsStepOnMusicPerformer() {
         zenSketch.onStep();
 
-        verify(branchPerformer).doStep();
+        verify(musicPerformer).doStep();
     }
 
     @Test
-    public void testThatOnFramePerformsStepOnMusicPerformer() {
+    public void testThatOnFramePerformsStepOnBranchPerformer() {
         zenSketch.onFrame();
 
-        verify(musicPerformer).doStep();
+        verify(branchPerformer).doStep();
     }
 
     @Test
@@ -134,7 +130,7 @@ public class ZenSketchTest extends ZenTestBase {
     public void testThatClearRestoresDefaultColorToRainbowDrawer() {
         zenSketch.clear();
 
-        verify(rainbowDrawer).background(DEFAULT_COLOR);
+        verify(rainbowDrawer).background(0);
     }
 
     @Test
@@ -146,7 +142,7 @@ public class ZenSketchTest extends ZenTestBase {
 
     @Test
     public void testThatNewInstanceReturnsNotNullBrushOptionsPreferences() {
-        Assertions.assertThat(ZenSketch.newInstance()).isNotNull();
+        assertThat(ZenSketch.newInstance()).isNotNull();
     }
 
     @Test
@@ -154,6 +150,6 @@ public class ZenSketchTest extends ZenTestBase {
         ZenSketch firstInstance = ZenSketch.newInstance();
         ZenSketch secondInstance = ZenSketch.newInstance();
 
-        Assertions.assertThat(firstInstance).isNotEqualTo(secondInstance);
+        assertThat(firstInstance).isNotEqualTo(secondInstance);
     }
 }
