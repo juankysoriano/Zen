@@ -32,3 +32,5 @@ proguard/
 .*
 
 *.log
+
+zen-android/google-services.json
