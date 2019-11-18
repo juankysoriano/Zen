@@ -33,17 +33,17 @@ public class BrushOptionsPreferences {
     }
 
     public void applyBrushColor(BrushColor color) {
-        sharedPreferences.edit().putInt(PREF_BRUSH_COLOR, color.toAndroidColor()).apply();
+        sharedPreferences.edit().putInt(PREF_BRUSH_COLOR, color.color()).apply();
     }
 
     public BrushColor getBrushColor() {
-        int defaultColor = BrushColor.DARK.toAndroidColor();
+        int defaultColor = BrushColor.DARK.color();
         int color = sharedPreferences.getInt(PREF_BRUSH_COLOR, defaultColor);
         return BrushColor.from(color);
     }
 
     public int getBranchColor() {
-        int color = getBrushColor().toAndroidColor();
+        int color = getBrushColor().color();
         return Color.rgb((int) (Color.red(color) / DARKENING_FACTOR),
                 (int) (Color.green(color) / DARKENING_FACTOR),
                 (int) (Color.blue(color) / DARKENING_FACTOR));

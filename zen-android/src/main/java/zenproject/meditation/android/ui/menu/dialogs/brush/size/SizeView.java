@@ -45,7 +45,7 @@ public class SizeView extends LinearLayout {
         brushOptionsPreferences = BrushOptionsPreferences.newInstance();
 
         sizeSeekBar.setProgress(brushOptionsPreferences.getBrushSizePercentage());
-        updateInkDropImageColor(brushOptionsPreferences.getBrushColor().toAndroidColor());
+        updateInkDropImageColor(brushOptionsPreferences.getBrushColor().color());
     }
 
     private boolean hasSizeChangedListener() {

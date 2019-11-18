@@ -25,7 +25,7 @@ public enum BrushColor {
         return DARK;
     }
 
-    public int toAndroidColor() {
+    public int color() {
         return color;
     }
 

@@ -85,14 +85,14 @@ public class ZenSketchTest extends ZenTestBase {
 
     @Test
     public void testThatOnStepPerformsStepOnMusicPerformer() {
-        zenSketch.onStep();
+        zenSketch.onDrawingStep();
 
         verify(musicPerformer).doStep();
     }
 
     @Test
     public void testThatOnFramePerformsStepOnBranchPerformer() {
-        zenSketch.onFrame();
+        zenSketch.onDrawingStep();
 
         verify(branchPerformer).doStep();
     }

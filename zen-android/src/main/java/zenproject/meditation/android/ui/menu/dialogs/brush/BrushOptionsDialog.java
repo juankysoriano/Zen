@@ -74,7 +74,7 @@ public class BrushOptionsDialog extends ZenDialog implements ColorSelectedListen
     @Override
     public void onColorSelected(BrushColor color) {
         selectedColor = color;
-        sizeView.updateInkDropImageColor(color.toAndroidColor());
+        sizeView.updateInkDropImageColor(color.color());
     }
 
     @Override

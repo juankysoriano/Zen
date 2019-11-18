@@ -120,7 +120,7 @@ public class FlowerViewList extends LinearLayout {
 
     private void setSelected(CircleImageView circleImageView) {
         unselectAll();
-        circleImageView.setBorderColor(ACCENT.toAndroidColor());
+        circleImageView.setBorderColor(ACCENT.color());
         circleImageView.setBorderWidth(SELECTED_BORDER_SIZE);
     }
 

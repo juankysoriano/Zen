@@ -83,14 +83,14 @@ public class BrushOptionsPreferencesTest extends ZenTestBase {
     }
 
     private void givenThatColorWasApplied() {
-        when(sharedPreferences.getInt(eq(PREF_BRUSH_COLOR), anyInt())).thenReturn(BrushColor.ACCENT.toAndroidColor());
+        when(sharedPreferences.getInt(eq(PREF_BRUSH_COLOR), anyInt())).thenReturn(BrushColor.ACCENT.color());
     }
 
     @Test
     public void testThatApplyBrushColorPutsValuesInEditor() {
         brushOptionsPreferences.applyBrushColor(ANY_COLOR);
 
-        verify(editor).putInt(PREF_BRUSH_COLOR, ANY_COLOR.toAndroidColor());
+        verify(editor).putInt(PREF_BRUSH_COLOR, ANY_COLOR.color());
     }
 
     @Test

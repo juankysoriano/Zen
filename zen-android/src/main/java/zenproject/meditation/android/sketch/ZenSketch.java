@@ -76,12 +76,8 @@ public class ZenSketch extends Rainbow implements FlowerSelectedListener {
     }
 
     @Override
-    public void onStep() {
+    public void onDrawingStep() {
         musicPerformer.doStep();
-    }
-
-    @Override
-    public void onFrame() {
         branchPerformer.doStep();
     }
 

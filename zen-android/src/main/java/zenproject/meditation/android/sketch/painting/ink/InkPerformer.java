@@ -93,7 +93,7 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
     }
 
     private void paintDropWithoutImage(float px, float py, float x, float y) {
-        rainbowDrawer.stroke(inkDrop.getBrushColor().toAndroidColor(), OPAQUE);
+        rainbowDrawer.stroke(inkDrop.getBrushColor().color(), OPAQUE);
         rainbowDrawer.strokeWeight(isErasing() ? inkDrop.getMaxRadius() * INK_DROP_IMAGE_SCALE : inkDrop.getRadius() * INK_DROP_IMAGE_SCALE);
         rainbowDrawer.line(px, py, x, y);
     }
@@ -103,7 +103,7 @@ public class InkPerformer implements StepPerformer, RainbowImage.LoadPictureList
     }
 
     private void paintDropWithImage(float x, float y) {
-        rainbowDrawer.tint(inkDrop.getBrushColor().toAndroidColor());
+        rainbowDrawer.tint(inkDrop.getBrushColor().color());
         rainbowDrawer.imageMode(Modes.Draw.CENTER);
 
         rainbowDrawer.pushMatrix();

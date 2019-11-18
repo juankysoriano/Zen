@@ -95,7 +95,7 @@ public class ColorListView extends LinearLayout {
         accentColor.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                setSelectedWithColor((CircleImageView) v, BrushColor.PRIMARY.toAndroidColor());
+                setSelectedWithColor((CircleImageView) v, BrushColor.PRIMARY.color());
                 notifyColorSelected(BrushColor.ACCENT);
             }
         });
@@ -111,13 +111,13 @@ public class ColorListView extends LinearLayout {
         } else if (BrushColor.PRIMARY == brushColor) {
             setSelected(primaryColor);
         } else if (BrushColor.ACCENT == brushColor) {
-            setSelectedWithColor(accentColor, BrushColor.PRIMARY.toAndroidColor());
+            setSelectedWithColor(accentColor, BrushColor.PRIMARY.color());
         }
     }
 
     private void setSelected(CircleImageView circleImageView) {
         deselectAll();
-        circleImageView.setBorderColor(BrushColor.ACCENT.toAndroidColor());
+        circleImageView.setBorderColor(BrushColor.ACCENT.color());
         circleImageView.setBorderWidth(SELECTED_BORDER_SIZE);
     }
 
