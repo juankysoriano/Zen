@@ -4,10 +4,8 @@ import android.app.Application;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 
-import com.google.android.gms.analytics.Tracker;
 import com.juankysoriano.rainbow.core.drawing.RainbowDrawer;
 
-import zenproject.meditation.android.analytics.AnalyticsTracker;
 import zenproject.meditation.android.sketch.ZenSketch;
 
 import static org.mockito.Matchers.anyInt;
@@ -54,7 +52,5 @@ public class ZenTestBase {
         RainbowDrawer mockDrawer = mock(RainbowDrawer.class);
         when(mockSketch.getRainbowDrawer()).thenReturn(mockDrawer);
         SketchRetriever.INSTANCE.inject(mockSketch);
-        Tracker mockTracker = mock(Tracker.class);
-        AnalyticsTracker.INSTANCE.inject(mockTracker);
     }
 }

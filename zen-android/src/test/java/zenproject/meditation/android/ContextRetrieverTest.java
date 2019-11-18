@@ -4,14 +4,10 @@ import android.app.Activity;
 import android.app.Application;
 
 import org.fest.assertions.api.Assertions;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.robolectric.RuntimeEnvironment;
-import org.robolectric.annotation.Config;
 
 import static org.mockito.Mockito.verify;
 
@@ -50,10 +46,4 @@ public class ContextRetrieverTest extends ZenTestBase {
 
         verify(application).getResources();
     }
-
-    @After
-    public void tearDown() {
-        ContextRetriever.INSTANCE.inject(RuntimeEnvironment.application);
-    }
-
 }

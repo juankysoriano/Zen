@@ -1,12 +1,14 @@
 package zenproject.meditation.android.analytics;
 
-import com.google.android.gms.analytics.GoogleAnalytics;
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
+import android.os.Bundle;
 
-import zenproject.meditation.android.activities.ZenActivity;
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 import zenproject.meditation.android.sketch.painting.flowers.Flower;
 import zenproject.meditation.android.sketch.painting.ink.BrushColor;
+
+import static com.google.firebase.analytics.FirebaseAnalytics.Event;
+import static com.google.firebase.analytics.FirebaseAnalytics.Param;
 
 /**
  * TODO having AnalyticsTracker implementing ZenAnalytics interface then it is mockable so we should pass this as collaborator and test interactions.
@@ -14,76 +16,73 @@ import zenproject.meditation.android.sketch.painting.ink.BrushColor;
 public enum AnalyticsTracker implements ZenAnalytics {
     INSTANCE;
 
-    private Tracker tracker;
+    public static final String VALUE = "value";
+    private FirebaseAnalytics analytics;
 
-    public void inject(Tracker tracker) {
-        this.tracker = tracker;
+    public void inject(FirebaseAnalytics analytics) {
+        this.analytics = analytics;
     }
 
     @Override
     public void trackDialogOpened(String dialogTag) {
-        tracker.setScreenName(dialogTag);
-        tracker.send(new HitBuilders.ScreenViewBuilder().build());
+        if (analytics == null) return;
+
+        Bundle bundle = new Bundle();
+        bundle.putString(Param.ITEM_CATEGORY, "screen");
+        bundle.putString(Param.ITEM_NAME, "dialog");
+        analytics.logEvent(Event.VIEW_ITEM, bundle);
     }
 
     @Override
     public void trackBrush(BrushColor color, int size) {
-        tracker.send(new HitBuilders.EventBuilder()
-                .setCategory(BrushTracking.BRUSH)
-                .setAction(BrushTracking.COLOR_SELECTED)
-                .setLabel(color.name())
-                .setValue(1)
-                .build());
+        if (analytics == null) return;
 
-        tracker.send(new HitBuilders.EventBuilder()
-                .setCategory(BrushTracking.BRUSH)
-                .setAction(BrushTracking.SIZE_SELECTED)
-                .setLabel("Brush size " + size + "%")
-                .set(BrushTracking.SIZE_VAR, String.valueOf(size))
-                .build());
+        Bundle colorBundle = new Bundle();
+        colorBundle.putString(Param.ITEM_CATEGORY, BrushTracking.BRUSH);
+        colorBundle.putString(Param.ITEM_NAME, BrushTracking.COLOR);
+        colorBundle.putString(VALUE, color.name());
+        analytics.logEvent("color_changed_event", colorBundle);
+
+        Bundle sizeBundle = new Bundle();
+        sizeBundle.putString(Param.ITEM_CATEGORY, BrushTracking.BRUSH);
+        sizeBundle.putString(Param.ITEM_NAME, BrushTracking.SIZE);
+        sizeBundle.putInt(VALUE, size);
+        analytics.logEvent("size_changed_event", sizeBundle);
     }
 
     @Override
     public void trackFlower(Flower flower) {
-        tracker.send(new HitBuilders.EventBuilder()
-                .setCategory(FlowerTracking.FLOWER)
-                .setAction(FlowerTracking.FLOWER_SELECTED)
-                .setLabel(flower.name())
-                .setValue(1)
-                .build());
+        if (analytics == null) return;
+
+        Bundle bundle = new Bundle();
+        bundle.putString(Param.ITEM_CATEGORY, FlowerTracking.FLOWER);
+        bundle.putString(Param.ITEM_NAME, FlowerTracking.SPECIES);
+        bundle.putString(VALUE, flower.name());
+        analytics.logEvent("species_changed_event", bundle);
     }
 
     @Override
     public void trackShare() {
-       tracker.send(new HitBuilders.EventBuilder()
-               .setCategory(SketchTracking.SKETCH)
-               .setAction(SketchTracking.SHARED)
-               .setValue(1)
-               .build());
+        if (analytics == null) return;
+
+        Bundle bundle = new Bundle();
+        bundle.putString(Param.ITEM_CATEGORY, SketchTracking.SKETCH);
+        bundle.putString(Param.ITEM_NAME, SketchTracking.SHARED);
+        analytics.logEvent("share_event", bundle);
     }
 
     @Override
     public void trackClearSketch() {
-       tracker.send(new HitBuilders.EventBuilder()
-               .setCategory(SketchTracking.SKETCH)
-               .setAction(SketchTracking.CLEARED)
-               .setValue(1)
-               .build());
-    }
+        if (analytics == null) return;
 
-    @Override
-    public void trackActivityStart(ZenActivity zenActivity) {
-        GoogleAnalytics.getInstance(zenActivity).reportActivityStart(zenActivity);
-    }
-
-    @Override
-    public void trackActivityStop(ZenActivity zenActivity) {
-        GoogleAnalytics.getInstance(zenActivity).reportActivityStop(zenActivity);
+        Bundle bundle = new Bundle();
+        bundle.putString(Param.ITEM_CATEGORY, SketchTracking.SKETCH);
+        bundle.putString(Param.ITEM_NAME, SketchTracking.CLEARED);
+        analytics.logEvent("clear_event", bundle);
     }
 
     @SuppressWarnings("PMD.UnusedModifier")
     protected static final class SketchTracking {
-        private static final String SCREENSHOT = "Screenshot";
         private static final String SKETCH = "Sketch";
         private static final String CLEARED = "Cleared";
         private static final String SHARED = "Shared";
@@ -96,9 +95,8 @@ public enum AnalyticsTracker implements ZenAnalytics {
     @SuppressWarnings("PMD.UnusedModifier")
     protected static final class BrushTracking {
         private static final String BRUSH = "Brush";
-        private static final String COLOR_SELECTED = "Color selected";
-        private static final String SIZE_SELECTED = "Size selected";
-        private static final String SIZE_VAR = "size_value";
+        private static final String COLOR = "Color";
+        private static final String SIZE = "Size";
 
         private BrushTracking() {
             //no-op
@@ -108,7 +106,7 @@ public enum AnalyticsTracker implements ZenAnalytics {
     @SuppressWarnings("PMD.UnusedModifier")
     protected static final class FlowerTracking {
         private static final String FLOWER = "Flower";
-        private static final String FLOWER_SELECTED = "Flower selected";
+        private static final String SPECIES = "Species";
 
         private FlowerTracking() {
             //no-op

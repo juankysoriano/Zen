@@ -6,13 +6,10 @@ import java.util.List;
 import org.fest.assertions.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.robolectric.annotation.Config;
 
-import zenproject.meditation.android.BuildConfig;
 import zenproject.meditation.android.ZenTestBase;
 import zenproject.meditation.android.preferences.FlowerOptionPreferences;
 import zenproject.meditation.android.sketch.painting.flowers.Flower;

@@ -37,6 +37,11 @@
         android:name="android.support.FILE_PROVIDER_PATHS"
         android:resource="@xml/screenshots" />
     </provider>
+
+    <meta-data
+      android:name="firebase_analytics_collection_deactivated"
+      android:value="@bool/ANALYTICS_DISABLED" />
+
   </application>
 
 </manifest>
