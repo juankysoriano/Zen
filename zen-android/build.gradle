@@ -43,10 +43,16 @@ android {
 
     buildTypes {
         debug {
-            ext.enableCrashlytics = false
             minifyEnabled false
             shrinkResources false
             resValue("bool", "ANALYTICS_DISABLED", "true")
+        }
+        releaseTest {
+            jniDebuggable true
+            shrinkResources true
+            minifyEnabled true
+            resValue("bool", "ANALYTICS_DISABLED", "true")
+            signingConfig signingConfigs.debug
         }
         release {
             jniDebuggable false
