@@ -65,7 +65,7 @@ android {
     dependencies {
         implementation 'androidx.core:core-ktx:1.1.0'
         implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-        implementation 'com.github.juankysoriano:rainbow:3f01fde773'
+        implementation 'com.github.juankysoriano:rainbow:-SNAPSHOT'
         implementation 'com.github.juankysoriano:CircularFloatingActionMenu:v0.6.0'
         implementation 'com.android.support:support-annotations:28.0.0'
         implementation 'com.afollestad.material-dialogs:core:0.9.6.0'

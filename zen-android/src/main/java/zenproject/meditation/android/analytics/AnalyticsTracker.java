@@ -40,13 +40,13 @@ public enum AnalyticsTracker implements ZenAnalytics {
         Bundle colorBundle = new Bundle();
         colorBundle.putString(Param.ITEM_CATEGORY, BrushTracking.BRUSH);
         colorBundle.putString(Param.ITEM_NAME, BrushTracking.COLOR);
-        colorBundle.putString(VALUE, color.name());
+        colorBundle.putString(Param.VALUE, color.name());
         analytics.logEvent("color_changed_event", colorBundle);
 
         Bundle sizeBundle = new Bundle();
         sizeBundle.putString(Param.ITEM_CATEGORY, BrushTracking.BRUSH);
         sizeBundle.putString(Param.ITEM_NAME, BrushTracking.SIZE);
-        sizeBundle.putInt(VALUE, size);
+        sizeBundle.putInt(Param.VALUE, size);
         analytics.logEvent("size_changed_event", sizeBundle);
     }
 
@@ -57,7 +57,7 @@ public enum AnalyticsTracker implements ZenAnalytics {
         Bundle bundle = new Bundle();
         bundle.putString(Param.ITEM_CATEGORY, FlowerTracking.FLOWER);
         bundle.putString(Param.ITEM_NAME, FlowerTracking.SPECIES);
-        bundle.putString(VALUE, flower.name());
+        bundle.putString(Param.VALUE, flower.name());
         analytics.logEvent("species_changed_event", bundle);
     }
 
