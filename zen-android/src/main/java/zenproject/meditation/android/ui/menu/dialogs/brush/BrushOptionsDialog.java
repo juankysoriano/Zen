@@ -38,12 +38,9 @@ public class BrushOptionsDialog extends ZenDialog implements ColorSelectedListen
                 .negativeText(ContextRetriever.INSTANCE.getResources().getString(R.string.option_cancel))
                 .negativeColorRes(R.color.colorAccent)
                 .theme(Theme.LIGHT)
-                .callback(new MaterialDialog.ButtonCallback() {
-                    @Override
-                    public void onPositive(MaterialDialog dialog) {
-                        trackPreferences();
-                        storePreferences();
-                    }
+                .onPositive((dialog, which) -> {
+                    trackPreferences();
+                    storePreferences();
                 })
                 .build();
 
@@ -57,7 +54,8 @@ public class BrushOptionsDialog extends ZenDialog implements ColorSelectedListen
     }
 
     private void trackPreferences() {
-        AnalyticsTracker.INSTANCE.trackBrush(selectedColor, selectedSize);
+        AnalyticsTracker.INSTANCE.trackBrushColor(selectedColor);
+        AnalyticsTracker.INSTANCE.trackBrushSize(selectedSize);
     }
 
     private void storePreferences() {

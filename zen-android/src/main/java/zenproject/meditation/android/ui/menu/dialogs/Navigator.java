@@ -6,7 +6,6 @@ import com.novoda.notils.caster.Classes;
 
 import zenproject.meditation.android.ContextRetriever;
 import zenproject.meditation.android.SketchRetriever;
-import zenproject.meditation.android.analytics.AnalyticsTracker;
 import zenproject.meditation.android.ui.menu.dialogs.brush.BrushOptionsDialog;
 import zenproject.meditation.android.ui.menu.dialogs.flower.FlowerOptionsDialog;
 import zenproject.meditation.android.ui.menu.dialogs.flower.FlowerSelectedListener;
@@ -35,14 +34,12 @@ public class Navigator {
     public void openBrushSelectionDialog() {
         if (!brushOptionsDialog.isAdded()) {
             brushOptionsDialog.show(fragmentManager, BrushOptionsDialog.TAG);
-            AnalyticsTracker.INSTANCE.trackDialogOpened(BrushOptionsDialog.TAG);
         }
     }
 
     public void openFlowerSelectionDialog() {
         if (!flowerOptionsDialog.isAdded()) {
             flowerOptionsDialog.show(fragmentManager, FlowerOptionsDialog.TAG);
-            AnalyticsTracker.INSTANCE.trackDialogOpened(FlowerOptionsDialog.TAG);
         }
     }
 }

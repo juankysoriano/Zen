@@ -34,15 +34,12 @@ public class FlowerOptionsDialog extends ZenDialog implements FlowerSelectedList
                 .negativeText(ContextRetriever.INSTANCE.getResources().getString(R.string.option_cancel))
                 .negativeColorRes(R.color.colorAccent)
                 .theme(Theme.LIGHT)
-                .callback(new MaterialDialog.ButtonCallback() {
-                    @Override
-                    public void onPositive(MaterialDialog dialog) {
-                        if (hasFlowerSelectedListener()) {
-                            flowerSelectedListener.onFlowerSelected(selectedFlower);
-                        }
-                        trackPreferences();
-                        storePreferences();
+                .onPositive((dialog, which) -> {
+                    if (hasFlowerSelectedListener()) {
+                        flowerSelectedListener.onFlowerSelected(selectedFlower);
                     }
+                    trackPreferences();
+                    storePreferences();
                 })
                 .build();
 
