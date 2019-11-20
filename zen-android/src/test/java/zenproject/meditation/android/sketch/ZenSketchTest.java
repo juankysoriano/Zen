@@ -14,6 +14,7 @@ import zenproject.meditation.android.sketch.painting.SketchInteractionListener;
 import zenproject.meditation.android.sketch.painting.flowers.Flower;
 import zenproject.meditation.android.sketch.painting.flowers.branch.BranchPerformer;
 import zenproject.meditation.android.sketch.painting.ink.InkPerformer;
+import zenproject.meditation.android.ui.sketch.ZenSketchView;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
@@ -28,11 +29,15 @@ public class ZenSketchTest extends ZenTestBase {
     @Mock
     private BranchPerformer branchPerformer;
     @Mock
+    private ZenSketchView zenSketchView;
+    @Mock
     private RainbowDrawer rainbowDrawer;
     @Mock
     private RainbowInputController rainbowInputController;
     @Mock
     private SketchInteractionListener sketchInteractionListener;
+    @Mock
+    private ZenSketch.Listener sketchListener;
 
     @Before
     public void setUp() {
@@ -42,9 +47,11 @@ public class ZenSketchTest extends ZenTestBase {
                 musicPerformer,
                 inkPerformer,
                 branchPerformer,
+                zenSketchView,
                 rainbowDrawer,
                 rainbowInputController,
-                sketchInteractionListener
+                sketchInteractionListener,
+                sketchListener
         );
     }
 
@@ -140,14 +147,28 @@ public class ZenSketchTest extends ZenTestBase {
     }
 
     @Test
+    public void testThatNotifiesSketchStart() {
+        zenSketch.onDrawingStart();
+
+        verify(sketchListener).onSketchStart();
+    }
+
+    @Test
+    public void testThatNotifiesSketchStop() {
+        zenSketch.onDrawingStop();
+
+        verify(sketchListener).onSketchStop();
+    }
+
+    @Test
     public void testThatNewInstanceReturnsNotNullBrushOptionsPreferences() {
-        assertThat(ZenSketch.newInstance()).isNotNull();
+        assertThat(ZenSketch.newInstance(zenSketchView, sketchListener)).isNotNull();
     }
 
     @Test
     public void testThatNewInstanceReturnsANewInstance() {
-        ZenSketch firstInstance = ZenSketch.newInstance();
-        ZenSketch secondInstance = ZenSketch.newInstance();
+        ZenSketch firstInstance = ZenSketch.newInstance(zenSketchView, sketchListener);
+        ZenSketch secondInstance = ZenSketch.newInstance(zenSketchView, sketchListener);
 
         assertThat(firstInstance).isNotEqualTo(secondInstance);
     }

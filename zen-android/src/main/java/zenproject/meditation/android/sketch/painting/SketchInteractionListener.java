@@ -30,7 +30,7 @@ public class SketchInteractionListener implements RainbowInputController.Rainbow
     @Override
     public void onSketchReleased(MotionEvent event) {
         if (hasPaintListener()) {
-            paintListener.onPaintingEnd();
+            paintListener.onPaintingStop();
         }
     }
 

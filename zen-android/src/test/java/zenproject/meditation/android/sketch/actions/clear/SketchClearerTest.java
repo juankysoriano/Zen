@@ -10,6 +10,8 @@ import zenproject.meditation.android.ZenTestBase;
 import zenproject.meditation.android.sketch.ZenSketch;
 import zenproject.meditation.android.ui.sketch.ZenSketchView;
 
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 public class SketchClearerTest extends ZenTestBase {
@@ -34,10 +36,21 @@ public class SketchClearerTest extends ZenTestBase {
     }
 
     @Test
-    public void testOnSketchClearedClearsZenSketch() {
+    public void testOnSketchClearedClearsZenSketchIfSetUp() {
+        given(zenSketch.isSetup()).willReturn(true);
+
         sketchClearer.onSketchCleared();
 
         verify(zenSketch).clear();
+    }
+
+    @Test
+    public void testOnSketchClearedDoesNotClearsZenSketchIfNotSetUp() {
+        given(zenSketch.isSetup()).willReturn(false);
+
+        sketchClearer.onSketchCleared();
+
+        verify(zenSketch, never()).clear();
     }
 
     /**

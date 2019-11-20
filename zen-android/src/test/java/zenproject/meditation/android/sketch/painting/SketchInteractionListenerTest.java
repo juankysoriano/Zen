@@ -61,14 +61,14 @@ public class SketchInteractionListenerTest extends ZenTestBase {
 
         sketchInteractionListener.onSketchReleased(motionEvent);
 
-        verify(listener).onPaintingEnd();
+        verify(listener).onPaintingStop();
     }
 
     @Test
     public void testThatIfDoesNotHaveOnPaintingListenerThenOnScreenReleasedDoesNotFireOnPaintingEnd() {
         sketchInteractionListener.onSketchReleased(motionEvent);
 
-        verify(listener, never()).onPaintingEnd();
+        verify(listener, never()).onPaintingStop();
     }
 
     @Test

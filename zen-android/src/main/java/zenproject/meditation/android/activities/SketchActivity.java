@@ -26,7 +26,7 @@ public class SketchActivity extends ZenActivity {
 
         setContentView(R.layout.sketch);
         zenSketchView = findViewById(R.id.sketch);
-        zenSketch = ZenSketch.newInstance(zenSketchView);
+        zenSketch = ZenSketch.newInstance(zenSketchView, sketchListener);
         zenMenu = ZenMenu.newInstance(zenSketchView);
         navigator = Navigator.newInstance();
         sketchClearer = SketchClearer.newInstance(zenSketchView);
@@ -37,13 +37,6 @@ public class SketchActivity extends ZenActivity {
     protected void onStart() {
         super.onStart();
         zenSketch.start();
-        zenSketch.setOnPaintingListener(zenMenu);
-        zenSketchView.setSketchClearListener(sketchClearer);
-        zenMenu.getButtonViewFor(MenuButton.BRUSH).setOnClickListener(v -> navigator.openBrushSelectionDialog());
-        zenMenu.getButtonViewFor(MenuButton.FLOWER).setOnClickListener(v -> navigator.openFlowerSelectionDialog());
-        zenMenu.getButtonViewFor(MenuButton.RESTART).setOnClickListener(view -> sketchClearer.clearSketch());
-        zenMenu.getButtonViewFor(MenuButton.MENU).setOnClickListener(v -> zenMenu.toggle());
-        zenMenu.getButtonViewFor(MenuButton.SHARE).setOnClickListener(v -> sketchSharer.shareSketch());
     }
 
     @Override
@@ -51,6 +44,35 @@ public class SketchActivity extends ZenActivity {
         super.onResume();
         zenSketch.resume();
     }
+
+    private final ZenSketch.Listener sketchListener = new ZenSketch.Listener() {
+        @Override
+        public void onSketchStart() {
+            zenSketch.setOnPaintingListener(zenMenu);
+            zenSketchView.setSketchClearListener(sketchClearer);
+            runOnUiThread(() -> {
+                zenMenu.getButtonViewFor(MenuButton.BRUSH).setOnClickListener(v -> navigator.openBrushSelectionDialog());
+                zenMenu.getButtonViewFor(MenuButton.FLOWER).setOnClickListener(v -> navigator.openFlowerSelectionDialog());
+                zenMenu.getButtonViewFor(MenuButton.RESTART).setOnClickListener(view -> sketchClearer.clearSketch());
+                zenMenu.getButtonViewFor(MenuButton.MENU).setOnClickListener(v -> zenMenu.toggle());
+                zenMenu.getButtonViewFor(MenuButton.SHARE).setOnClickListener(v -> sketchSharer.shareSketch());
+            });
+
+        }
+
+        @Override
+        public void onSketchStop() {
+            zenSketch.setOnPaintingListener(null);
+            zenSketchView.setSketchClearListener(null);
+            runOnUiThread(() -> {
+                zenMenu.getButtonViewFor(MenuButton.BRUSH).setOnClickListener(null);
+                zenMenu.getButtonViewFor(MenuButton.FLOWER).setOnClickListener(null);
+                zenMenu.getButtonViewFor(MenuButton.RESTART).setOnClickListener(null);
+                zenMenu.getButtonViewFor(MenuButton.MENU).setOnClickListener(null);
+                zenMenu.getButtonViewFor(MenuButton.SHARE).setOnClickListener(null);
+            });
+        }
+    };
 
     @Override
     protected void onPause() {
@@ -61,13 +83,6 @@ public class SketchActivity extends ZenActivity {
     @Override
     protected void onStop() {
         zenSketch.stop();
-        zenSketch.setOnPaintingListener(null);
-        zenSketchView.setSketchClearListener(null);
-        zenMenu.getButtonViewFor(MenuButton.BRUSH).setOnClickListener(null);
-        zenMenu.getButtonViewFor(MenuButton.FLOWER).setOnClickListener(null);
-        zenMenu.getButtonViewFor(MenuButton.RESTART).setOnClickListener(null);
-        zenMenu.getButtonViewFor(MenuButton.MENU).setOnClickListener(null);
-        zenMenu.getButtonViewFor(MenuButton.SHARE).setOnClickListener(null);
         super.onStop();
     }
 

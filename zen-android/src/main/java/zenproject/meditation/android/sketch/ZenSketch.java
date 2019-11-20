@@ -29,6 +29,7 @@ public class ZenSketch extends Rainbow implements FlowerSelectedListener {
     private final StepPerformer branchPerformer;
     private final StepPerformer musicPerformer;
     private final SketchInteractionListener sketchInteractionListener;
+    private final Listener sketchListener;
 
     protected ZenSketch(
             MusicPerformer musicPerformer,
@@ -37,16 +38,19 @@ public class ZenSketch extends Rainbow implements FlowerSelectedListener {
             ZenSketchView zenSketchView,
             RainbowDrawer rainbowDrawer,
             RainbowInputController rainbowInputController,
-            SketchInteractionListener sketchInteractionListener) {
+            SketchInteractionListener sketchInteractionListener,
+            Listener sketchListener) {
         super(zenSketchView, rainbowDrawer, rainbowInputController);
         this.musicPerformer = musicPerformer;
         this.inkPerformer = inkPerformer;
         this.branchPerformer = branchPerformer;
         this.rainbowDrawer = rainbowDrawer;
         this.sketchInteractionListener = sketchInteractionListener;
+        this.sketchListener = sketchListener;
     }
 
-    public static ZenSketch newInstance(ZenSketchView zenSketchView) {
+    public static ZenSketch newInstance(ZenSketchView zenSketchView,
+                                        Listener sketchListener) {
         RainbowDrawer rainbowDrawer = new RainbowDrawer();
         RainbowInputController rainbowInputController = RainbowInputController.newInstance();
         InkDrop inkDrop = InkDrop.newInstance(rainbowInputController);
@@ -61,7 +65,8 @@ public class ZenSketch extends Rainbow implements FlowerSelectedListener {
                 zenSketchView,
                 rainbowDrawer,
                 rainbowInputController,
-                sketchInteractionListener
+                sketchInteractionListener,
+                sketchListener
         );
 
         SketchRetriever.INSTANCE.inject(zenSketch);
@@ -79,6 +84,12 @@ public class ZenSketch extends Rainbow implements FlowerSelectedListener {
     }
 
     @Override
+    public void onDrawingStart() {
+        super.onDrawingStart();
+        sketchListener.onSketchStart();
+    }
+
+    @Override
     public void onDrawingResume() {
         musicPerformer.enable();
     }
@@ -93,7 +104,13 @@ public class ZenSketch extends Rainbow implements FlowerSelectedListener {
     public void onDrawingPause() {
         musicPerformer.disable();
     }
-    
+
+    @Override
+    public void onDrawingStop() {
+        super.onDrawingStop();
+        sketchListener.onSketchStop();
+    }
+
     @Override
     public void onSketchDestroy() {
         super.onSketchDestroy();
@@ -117,8 +134,12 @@ public class ZenSketch extends Rainbow implements FlowerSelectedListener {
 
     public interface PaintListener {
         void onPaintingStart();
+        void onPaintingStop();
+    }
 
-        void onPaintingEnd();
+    public interface Listener {
+        void onSketchStart();
+        void onSketchStop();
     }
 
 }

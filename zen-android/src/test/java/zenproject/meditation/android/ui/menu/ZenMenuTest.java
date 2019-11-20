@@ -61,7 +61,7 @@ public class ZenMenuTest extends ZenTestBase {
 
     @Test
     public void testThatOnPaintingStopPostsRunnable() {
-        zenMenu.onPaintingEnd();
+        zenMenu.onPaintingStop();
 
         verify(zenSketchView).post(any(Runnable.class));
     }
@@ -108,7 +108,7 @@ public class ZenMenuTest extends ZenTestBase {
     @Test
     public void testThatOnMenuOpenedDoesNothingIfNotPainting() {
         givenThatMenuIsOpened();
-        zenMenu.onPaintingEnd();
+        zenMenu.onPaintingStop();
         zenMenu.onMenuOpened(circularMenu);
 
         verify(circularMenu, never()).toggle(true);
@@ -118,7 +118,7 @@ public class ZenMenuTest extends ZenTestBase {
 
     @Test
     public void testThatOnMenuClosedDoesNothingIfNotPainting() {
-        zenMenu.onPaintingEnd();
+        zenMenu.onPaintingStop();
         zenMenu.onMenuClosed(circularMenu);
 
         verify(menuButton, never()).hide();
