@@ -10,7 +10,7 @@ import zenproject.meditation.android.sketch.painting.ink.BrushColor;
 import static com.google.firebase.analytics.FirebaseAnalytics.Param;
 
 /**
- * TODO having AnalyticsTracker implementing ZenAnalytics interface then it is mockable so we should pass this as collaborator and test interactions.
+ * TODO test interactions.
  */
 public enum AnalyticsTracker implements ZenAnalytics {
     INSTANCE;
