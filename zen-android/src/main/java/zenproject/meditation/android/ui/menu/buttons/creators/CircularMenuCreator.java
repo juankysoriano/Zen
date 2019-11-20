@@ -44,7 +44,7 @@ public final class CircularMenuCreator {
                         R.drawable.music,
                         MenuButton.MUSIC.getId()))  */
                 .addSubActionView(SubActionButtonCreator.createFrom(context,
-                        R.color.colorPrimaryLight,
+                        R.color.colorPrimary,
                         R.drawable.share,
                         MenuButton.SHARE.getId()))
                 .addSubActionView(SubActionButtonCreator.createFrom(context,
