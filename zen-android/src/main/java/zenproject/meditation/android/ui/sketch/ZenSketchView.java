@@ -36,14 +36,10 @@ public class ZenSketchView extends RelativeLayout {
         clearView = findViewById(R.id.reveal_view);
     }
 
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        circularMenu = CircularMenuCreator.create();
-
-    }
-
     public CircularMenu getCircularMenu() {
+        if (circularMenu == null) {
+            circularMenu = CircularMenuCreator.create();
+        }
         return circularMenu;
     }
 

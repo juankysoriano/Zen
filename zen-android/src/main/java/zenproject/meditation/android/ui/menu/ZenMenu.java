@@ -12,7 +12,7 @@ public class ZenMenu implements CircularMenu.MenuStateChangeListener, ZenSketch.
     private final ZenSketchView zenSketchView;
     private boolean isPainting;
 
-    protected ZenMenu(ZenSketchView zenSketchView) {
+    ZenMenu(ZenSketchView zenSketchView) {
         this.zenSketchView = zenSketchView;
     }
 
@@ -72,22 +72,12 @@ public class ZenMenu implements CircularMenu.MenuStateChangeListener, ZenSketch.
     @Override
     public void onPaintingStart() {
         isPainting = true;
-        zenSketchView.post(new Runnable() {
-            @Override
-            public void run() {
-                hide();
-            }
-        });
+        zenSketchView.post(this::hide);
     }
 
     @Override
     public void onPaintingEnd() {
         isPainting = false;
-        zenSketchView.post(new Runnable() {
-            @Override
-            public void run() {
-                show();
-            }
-        });
+        zenSketchView.post(this::show);
     }
 }

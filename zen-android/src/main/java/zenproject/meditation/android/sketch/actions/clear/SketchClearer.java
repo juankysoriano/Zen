@@ -10,7 +10,7 @@ public class SketchClearer implements SketchClearListener {
     private final ZenSketch zenSketch;
     private final ZenSketchView zenSketchView;
 
-    protected SketchClearer(ZenSketch zenSketch, ZenSketchView zenSketchView) {
+    SketchClearer(ZenSketch zenSketch, ZenSketchView zenSketchView) {
         this.zenSketch = zenSketch;
         this.zenSketchView = zenSketchView;
     }
@@ -26,6 +26,8 @@ public class SketchClearer implements SketchClearListener {
 
     @Override
     public void onSketchCleared() {
-        zenSketch.clear();
+        if (zenSketch.isSetup()) {
+            zenSketch.clear();
+        }
     }
 }

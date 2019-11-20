@@ -16,6 +16,7 @@ import zenproject.meditation.android.sketch.painting.flowers.branch.BranchPerfor
 import zenproject.meditation.android.sketch.painting.ink.InkDrop;
 import zenproject.meditation.android.sketch.painting.ink.InkPerformer;
 import zenproject.meditation.android.ui.menu.dialogs.flower.FlowerSelectedListener;
+import zenproject.meditation.android.ui.sketch.ZenSketchView;
 
 /**
  * Orchestration class for all the performers responsible for specific artistic (lol) operations.
@@ -33,10 +34,11 @@ public class ZenSketch extends Rainbow implements FlowerSelectedListener {
             MusicPerformer musicPerformer,
             InkPerformer inkPerformer,
             BranchPerformer branchPerformer,
+            ZenSketchView zenSketchView,
             RainbowDrawer rainbowDrawer,
             RainbowInputController rainbowInputController,
             SketchInteractionListener sketchInteractionListener) {
-        super(rainbowDrawer, rainbowInputController);
+        super(zenSketchView, rainbowDrawer, rainbowInputController);
         this.musicPerformer = musicPerformer;
         this.inkPerformer = inkPerformer;
         this.branchPerformer = branchPerformer;
@@ -44,7 +46,7 @@ public class ZenSketch extends Rainbow implements FlowerSelectedListener {
         this.sketchInteractionListener = sketchInteractionListener;
     }
 
-    public static ZenSketch newInstance() {
+    public static ZenSketch newInstance(ZenSketchView zenSketchView) {
         RainbowDrawer rainbowDrawer = new RainbowDrawer();
         RainbowInputController rainbowInputController = RainbowInputController.newInstance();
         InkDrop inkDrop = InkDrop.newInstance(rainbowInputController);
@@ -56,6 +58,7 @@ public class ZenSketch extends Rainbow implements FlowerSelectedListener {
                 MusicPerformer.newInstance(rainbowInputController),
                 inkPerformer,
                 branchPerformer,
+                zenSketchView,
                 rainbowDrawer,
                 rainbowInputController,
                 sketchInteractionListener
@@ -76,22 +79,21 @@ public class ZenSketch extends Rainbow implements FlowerSelectedListener {
     }
 
     @Override
+    public void onDrawingResume() {
+        musicPerformer.enable();
+    }
+
+    @Override
     public void onDrawingStep() {
         musicPerformer.doStep();
         branchPerformer.doStep();
     }
 
     @Override
-    public void onDrawingResume() {
-        musicPerformer.enable();
-    }
-
-    @Override
     public void onDrawingPause() {
         musicPerformer.disable();
     }
-
-
+    
     @Override
     public void onSketchDestroy() {
         super.onSketchDestroy();
@@ -118,4 +120,5 @@ public class ZenSketch extends Rainbow implements FlowerSelectedListener {
 
         void onPaintingEnd();
     }
+
 }
