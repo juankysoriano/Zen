@@ -2,7 +2,13 @@
 Zen! An open source meditation sketch for Android
 
 ![](http://media.virbcdn.com/cdn_images/resize_1600x1600/92/d65d52c322f4a89a-zen-screenshot.png)
-[![Zen is on Google Play](http://developer.android.com/images/brand/en_generic_rgb_wo_60.png)](https://play.google.com/store/apps/details?id=zen.meditation.android)
+
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+     alt="Get it on F-Droid"
+     height="80">](https://f-droid.org/packages/zen.meditation.android/)
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
+     alt="Get it on Google Play"
+     height="80">](https://play.google.com/store/apps/details?id=zen.meditation.android)
 
 Building is easy, just do `./gradlew clean zen` and it will build the apk, execute the unit tests and run a few code analysis tools.
 
