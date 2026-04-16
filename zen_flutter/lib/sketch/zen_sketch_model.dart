@@ -8,7 +8,6 @@ class ZenSketchModel extends ChangeNotifier {
   ZenAssets? assets;
   BrushColor brushColor = BrushColor.dark;
   BrushSize brushSize = BrushSize.medium;
-  BrushStyle brushStyle = BrushStyle.classic;
   Flower flower = Flower.poppy;
   final FingerPositionSmoother _smoother = FingerPositionSmoother();
   Offset _rawPoint = Offset.zero;
@@ -129,18 +128,14 @@ class ZenSketchModel extends ChangeNotifier {
     if (brushColor == BrushColor.erase) {
       return maxRadius * 0.5;
     }
-    return switch (brushStyle) {
-      BrushStyle.classic => _radius * 0.5,
-      BrushStyle.still => _radius * 0.38,
-      BrushStyle.wild => _radius * 0.62,
-    };
+    return _radius * 0.5;
   }
 
   void _paintInkTexture(Offset point, double width) {
     final brushInk = assets?.brushInk;
     if (brushColor != BrushColor.erase &&
         brushInk != null &&
-        _random.nextInt(100) > _inkStampThreshold) {
+        _random.nextInt(100) > 98) {
       _commands.add(
         ImageCommand(
           image: brushInk,
@@ -152,9 +147,7 @@ class ZenSketchModel extends ChangeNotifier {
         ),
       );
     }
-    if (brushColor != BrushColor.erase &&
-        brushStyle != BrushStyle.still &&
-        _random.nextInt(100) > _bleedThreshold) {
+    if (brushColor != BrushColor.erase && _random.nextInt(100) > 94) {
       _commands.add(
         InkBleedCommand(
           center:
@@ -169,22 +162,6 @@ class ZenSketchModel extends ChangeNotifier {
         ),
       );
     }
-  }
-
-  int get _inkStampThreshold {
-    return switch (brushStyle) {
-      BrushStyle.classic => 98,
-      BrushStyle.still => 100,
-      BrushStyle.wild => 90,
-    };
-  }
-
-  int get _bleedThreshold {
-    return switch (brushStyle) {
-      BrushStyle.classic => 94,
-      BrushStyle.still => 100,
-      BrushStyle.wild => 78,
-    };
   }
 
   void _updateRadius() {

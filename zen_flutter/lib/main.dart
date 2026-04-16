@@ -8,6 +8,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -101,11 +102,6 @@ class _ZenScreenState extends State<ZenScreen>
         prefs.getInt(Prefs.brushSize),
         BrushSize.medium,
       )
-      ..brushStyle = _enumValue(
-        BrushStyle.values,
-        prefs.getInt(Prefs.brushStyle),
-        BrushStyle.classic,
-      )
       ..flower = _enumValue(
         Flower.values,
         prefs.getInt(Prefs.flower),
@@ -170,11 +166,6 @@ class _ZenScreenState extends State<ZenScreen>
   Future<void> _setBrushSize(BrushSize size) async {
     setState(() => _sketch.brushSize = size);
     await _preferences?.setInt(Prefs.brushSize, size.index);
-  }
-
-  Future<void> _setBrushStyle(BrushStyle style) async {
-    setState(() => _sketch.brushStyle = style);
-    await _preferences?.setInt(Prefs.brushStyle, style.index);
   }
 
   Future<void> _setFlower(Flower flower) async {
@@ -347,7 +338,11 @@ class _ZenScreenState extends State<ZenScreen>
           ),
           OptionRow(
             label: 'Erase',
-            icon: Image.asset('assets/images/eraser.png', width: 40),
+            icon: const Icon(
+              LucideIcons.eraser,
+              color: ZenColors.darkBrush,
+              size: 32,
+            ),
             selected: _sketch.brushColor == BrushColor.erase,
             onTap: () {
               Navigator.pop(context);
@@ -363,25 +358,6 @@ class _ZenScreenState extends State<ZenScreen>
               onTap: () {
                 Navigator.pop(context);
                 _setBrushSize(size);
-              },
-            ),
-          const Divider(height: 1),
-          for (final style in BrushStyle.values)
-            OptionRow(
-              label: style.label,
-              icon: Icon(
-                switch (style) {
-                  BrushStyle.classic => Icons.spa_rounded,
-                  BrushStyle.still => Icons.edit_rounded,
-                  BrushStyle.wild => Icons.gesture_rounded,
-                },
-                color: ZenColors.darkBrush,
-                size: 32,
-              ),
-              selected: _sketch.brushStyle == style,
-              onTap: () {
-                Navigator.pop(context);
-                _setBrushStyle(style);
               },
             ),
         ],
@@ -424,9 +400,7 @@ class _ZenScreenState extends State<ZenScreen>
             OptionRow(
               label: track.label,
               icon: Icon(
-                track == _track
-                    ? Icons.music_note_rounded
-                    : Icons.library_music_rounded,
+                track == _track ? LucideIcons.music : LucideIcons.listMusic,
                 color: ZenColors.darkBrush,
                 size: 34,
               ),

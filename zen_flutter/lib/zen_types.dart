@@ -27,16 +27,6 @@ enum BrushSize {
   double get previewDiameter => math.max(12, radius / 3);
 }
 
-enum BrushStyle {
-  classic('Classic'),
-  still('Still'),
-  wild('Wild');
-
-  const BrushStyle(this.label);
-
-  final String label;
-}
-
 enum Flower {
   none('None', null, 18, 25),
   birdsfoot('Birdsfoot', 'assets/images/birdsfoot.png', 18 * 1.2, 25 * 1.2),
@@ -92,7 +82,6 @@ class SketchMetrics {
 class Prefs {
   static const brushColor = 'brush_color';
   static const brushSize = 'brush_size';
-  static const brushStyle = 'brush_style';
   static const flower = 'flower';
   static const musicEnabled = 'music_enabled';
   static const track = 'track';

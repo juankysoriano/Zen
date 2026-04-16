@@ -46,7 +46,7 @@ class OptionRow extends StatelessWidget {
     return ListTile(
       leading: SizedBox(width: 52, height: 52, child: Center(child: icon)),
       title: Text(label),
-      trailing: selected ? const Icon(Icons.check) : null,
+      trailing: selected ? const Icon(LucideIcons.check) : null,
       onTap: onTap,
     );
   }

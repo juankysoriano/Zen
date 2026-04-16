@@ -33,21 +33,21 @@ class ZenMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final primaryActions = [
-      MenuAction(Icons.undo_rounded, 'Undo', onUndo, disabled: !canUndo),
-      MenuAction.asset('assets/images/brush.png', 'Brush', onBrush),
-      MenuAction.asset('assets/images/flower_option.png', 'Flowers', onFlowers),
-      MenuAction.asset(
-        'assets/images/music.png',
+      MenuAction(LucideIcons.undo2, 'Undo', onUndo, disabled: !canUndo),
+      MenuAction(LucideIcons.brush, 'Brush', onBrush),
+      MenuAction(LucideIcons.flower2, 'Flowers', onFlowers),
+      MenuAction(
+        musicEnabled ? LucideIcons.volume2 : LucideIcons.volumeX,
         'Sound',
         onMusic,
         dimmed: !musicEnabled,
       ),
     ];
     final secondaryActions = [
-      MenuAction(Icons.queue_music_rounded, 'Tracks', onTracks),
-      MenuAction.asset('assets/images/share.png', 'Share', onShare),
-      MenuAction.asset('assets/images/save.png', 'Save', onSave),
-      MenuAction.asset('assets/images/restart.png', 'Clear', onClear),
+      MenuAction(LucideIcons.listMusic, 'Tracks', onTracks),
+      MenuAction(LucideIcons.share2, 'Share', onShare),
+      MenuAction(LucideIcons.download, 'Save', onSave),
+      MenuAction(LucideIcons.trash2, 'Clear', onClear),
     ];
     return Material(
       color: Colors.transparent,
@@ -129,8 +129,9 @@ class MenuToggleButton extends StatelessWidget {
         ),
         alignment: Alignment.center,
         child: Icon(
-          open ? Icons.close_rounded : Icons.tune_rounded,
+          open ? LucideIcons.x : LucideIcons.slidersHorizontal,
           color: ZenColors.paper,
+          size: 23,
         ),
       ),
     );
@@ -163,17 +164,7 @@ class MenuButton extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (action.asset == null)
-              Icon(action.icon, size: 20, color: foreground)
-            else
-              Opacity(
-                opacity: action.disabled
-                    ? 0.28
-                    : action.dimmed
-                    ? 0.52
-                    : 0.9,
-                child: Image.asset(action.asset!, width: 21, height: 21),
-              ),
+            Icon(action.icon, size: 21, color: foreground),
             const SizedBox(height: 2),
             Text(
               action.label,
@@ -201,18 +192,9 @@ class MenuAction {
     this.onTap, {
     this.dimmed = false,
     this.disabled = false,
-  }) : asset = null;
-
-  MenuAction.asset(
-    this.asset,
-    this.label,
-    this.onTap, {
-    this.dimmed = false,
-    this.disabled = false,
-  }) : icon = Icons.circle;
+  });
 
   final IconData icon;
-  final String? asset;
   final String label;
   final VoidCallback onTap;
   final bool dimmed;
