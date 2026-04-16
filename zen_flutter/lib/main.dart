@@ -22,12 +22,8 @@ part 'ui/options.dart';
 part 'ui/clear_wash_overlay.dart';
 part 'zen_types.dart';
 
-Future<void> main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.landscapeLeft,
-    DeviceOrientation.landscapeRight,
-  ]);
   runApp(const ZenApp());
 }
 
@@ -413,6 +409,7 @@ class _ZenScreenState extends State<ZenScreen>
             RepaintBoundary(
               key: _canvasKey,
               child: Listener(
+                behavior: HitTestBehavior.opaque,
                 onPointerDown: _pointerDown,
                 onPointerMove: _pointerMove,
                 onPointerUp: _pointerUp,
