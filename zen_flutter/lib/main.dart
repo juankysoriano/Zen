@@ -296,70 +296,50 @@ class _ZenScreenState extends State<ZenScreen>
   void _openBrushOptions() {
     showModalBottomSheet<void>(
       context: context,
-      backgroundColor: ZenColors.paper,
+      backgroundColor: Colors.transparent,
       builder: (context) => OptionsSheet(
         title: 'Brush',
         children: [
-          OptionRow(
-            label: 'Dark',
-            icon: const ColorDot(color: ZenColors.darkBrush),
-            selected: _sketch.brushColor == BrushColor.dark,
-            onTap: () {
-              Navigator.pop(context);
-              _setBrushColor(BrushColor.dark);
-            },
-          ),
-          OptionRow(
-            label: 'Amber',
-            icon: const ColorDot(color: ZenColors.amberBrush),
-            selected: _sketch.brushColor == BrushColor.amber,
-            onTap: () {
-              Navigator.pop(context);
-              _setBrushColor(BrushColor.amber);
-            },
-          ),
-          OptionRow(
-            label: 'Blue',
-            icon: const ColorDot(color: ZenColors.primary),
-            selected: _sketch.brushColor == BrushColor.primary,
-            onTap: () {
-              Navigator.pop(context);
-              _setBrushColor(BrushColor.primary);
-            },
-          ),
-          OptionRow(
-            label: 'Red',
-            icon: const ColorDot(color: ZenColors.accent),
-            selected: _sketch.brushColor == BrushColor.accent,
-            onTap: () {
-              Navigator.pop(context);
-              _setBrushColor(BrushColor.accent);
-            },
-          ),
-          OptionRow(
-            label: 'Erase',
-            icon: const Icon(
-              LucideIcons.eraser,
-              color: ZenColors.darkBrush,
-              size: 32,
+          OptionsSection(
+            label: 'Ink',
+            child: OptionGrid(
+              children: [
+                for (final color in BrushColor.values)
+                  ChoiceTile(
+                    label: color.label,
+                    preview: color == BrushColor.erase
+                        ? const Icon(
+                            LucideIcons.eraser,
+                            color: ZenColors.darkBrush,
+                            size: 30,
+                          )
+                        : ColorDot(color: color.color),
+                    selected: _sketch.brushColor == color,
+                    onTap: () {
+                      Navigator.pop(context);
+                      _setBrushColor(color);
+                    },
+                  ),
+              ],
             ),
-            selected: _sketch.brushColor == BrushColor.erase,
-            onTap: () {
-              Navigator.pop(context);
-              _setBrushColor(BrushColor.erase);
-            },
           ),
-          const Divider(height: 1),
-          for (final size in BrushSize.values)
-            OptionRow(
-              label: size.label,
-              icon: BrushSizePreview(size: size),
-              selected: _sketch.brushSize == size,
-              onTap: () {
-                Navigator.pop(context);
-                _setBrushSize(size);
-              },
+          OptionsSection(
+            label: 'Weight',
+            child: OptionGrid(
+              children: [
+                for (final size in BrushSize.values)
+                  ChoiceTile(
+                    label: size.label,
+                    preview: BrushSizePreview(size: size),
+                    selected: _sketch.brushSize == size,
+                    onTap: () {
+                      Navigator.pop(context);
+                      _setBrushSize(size);
+                    },
+                  ),
+              ],
             ),
+          ),
         ],
       ),
     );
@@ -368,22 +348,27 @@ class _ZenScreenState extends State<ZenScreen>
   void _openFlowerOptions() {
     showModalBottomSheet<void>(
       context: context,
-      backgroundColor: ZenColors.paper,
+      backgroundColor: Colors.transparent,
       builder: (context) => OptionsSheet(
         title: 'Flowers',
         children: [
-          for (final flower in Flower.values)
-            OptionRow(
-              label: flower.label,
-              icon: flower.previewAsset == null
-                  ? Image.asset('assets/images/none.png', width: 40)
-                  : Image.asset(flower.previewAsset!, width: 40),
-              selected: _sketch.flower == flower,
-              onTap: () {
-                Navigator.pop(context);
-                _setFlower(flower);
-              },
+          OptionsSection(
+            label: 'Bloom',
+            child: OptionGrid(
+              children: [
+                for (final flower in Flower.values)
+                  ChoiceTile(
+                    label: flower.label,
+                    preview: FlowerPreview(flower: flower),
+                    selected: _sketch.flower == flower,
+                    onTap: () {
+                      Navigator.pop(context);
+                      _setFlower(flower);
+                    },
+                  ),
+              ],
             ),
+          ),
         ],
       ),
     );
@@ -392,24 +377,26 @@ class _ZenScreenState extends State<ZenScreen>
   void _openMusicOptions() {
     showModalBottomSheet<void>(
       context: context,
-      backgroundColor: ZenColors.paper,
+      backgroundColor: Colors.transparent,
       builder: (context) => OptionsSheet(
-        title: 'Music',
+        title: 'Tracks',
         children: [
-          for (final track in ZenTrack.values)
-            OptionRow(
-              label: track.label,
-              icon: Icon(
-                track == _track ? LucideIcons.music : LucideIcons.listMusic,
-                color: ZenColors.darkBrush,
-                size: 34,
-              ),
-              selected: _track == track,
-              onTap: () {
-                Navigator.pop(context);
-                _setTrack(track);
-              },
+          OptionsSection(
+            label: 'Sound',
+            child: Column(
+              children: [
+                for (final track in ZenTrack.values)
+                  TrackChoiceTile(
+                    track: track,
+                    selected: _track == track,
+                    onTap: () {
+                      Navigator.pop(context);
+                      _setTrack(track);
+                    },
+                  ),
+              ],
             ),
+          ),
         ],
       ),
     );

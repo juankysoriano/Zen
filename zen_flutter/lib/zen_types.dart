@@ -1,14 +1,15 @@
 part of 'main.dart';
 
 enum BrushColor {
-  dark(ZenColors.darkBrush),
-  amber(ZenColors.amberBrush),
-  primary(ZenColors.primary),
-  accent(ZenColors.accent),
-  erase(ZenColors.paper);
+  dark('Dark', ZenColors.darkBrush),
+  amber('Amber', ZenColors.amberBrush),
+  primary('Blue', ZenColors.primary),
+  accent('Red', ZenColors.accent),
+  erase('Erase', ZenColors.paper);
 
-  const BrushColor(this.color);
+  const BrushColor(this.label, this.color);
 
+  final String label;
   final Color color;
 }
 
