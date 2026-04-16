@@ -120,7 +120,7 @@ class ZenSketchModel extends ChangeNotifier {
         1,
       ),
     );
-    _paintInkTexture(_smoother.position, width);
+    _paintInkTexture(_smoother.position);
     _updateRadius();
   }
 
@@ -131,34 +131,19 @@ class ZenSketchModel extends ChangeNotifier {
     return _radius * 0.5;
   }
 
-  void _paintInkTexture(Offset point, double width) {
+  void _paintInkTexture(Offset point) {
     final brushInk = assets?.brushInk;
     if (brushColor != BrushColor.erase &&
         brushInk != null &&
-        _random.nextInt(100) > 98) {
+        _random.nextInt(100) > 96) {
       _commands.add(
         ImageCommand(
           image: brushInk,
-          center: point + Offset(_randomInRange(-3, 3), _randomInRange(-3, 3)),
-          size: Size.square(_radius * _randomInRange(0.65, 1.35)),
+          center: point,
+          size: Size.square(_radius),
           rotation: _random.nextDouble() * math.pi * 2,
-          tint: brushColor.color.withValues(alpha: _randomInRange(0.3, 0.75)),
-          flipX: _random.nextBool(),
-        ),
-      );
-    }
-    if (brushColor != BrushColor.erase && _random.nextInt(100) > 94) {
-      _commands.add(
-        InkBleedCommand(
-          center:
-              point +
-              Offset(
-                _randomInRange(-width, width),
-                _randomInRange(-width, width),
-              ),
-          radius: _randomInRange(width * 0.12, width * 0.38),
-          color: brushColor.color,
-          opacity: _randomInRange(0.05, 0.16),
+          tint: brushColor.color,
+          flipX: false,
         ),
       );
     }
