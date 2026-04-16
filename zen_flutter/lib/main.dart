@@ -22,8 +22,12 @@ part 'ui/options.dart';
 part 'ui/clear_wash_overlay.dart';
 part 'zen_types.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.landscapeLeft,
+    DeviceOrientation.landscapeRight,
+  ]);
   runApp(const ZenApp());
 }
 
@@ -297,23 +301,18 @@ class _ZenScreenState extends State<ZenScreen>
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: Colors.transparent,
+      isScrollControlled: true,
       builder: (context) => OptionsSheet(
         title: 'Brush',
         children: [
           OptionsSection(
             label: 'Ink',
-            child: OptionGrid(
+            child: HorizontalOptionStrip(
               children: [
                 for (final color in BrushColor.values)
-                  ChoiceTile(
+                  InkChoice(
                     label: color.label,
-                    preview: color == BrushColor.erase
-                        ? const Icon(
-                            LucideIcons.eraser,
-                            color: ZenColors.darkBrush,
-                            size: 30,
-                          )
-                        : ColorDot(color: color.color),
+                    color: color,
                     selected: _sketch.brushColor == color,
                     onTap: () {
                       Navigator.pop(context);
@@ -325,12 +324,12 @@ class _ZenScreenState extends State<ZenScreen>
           ),
           OptionsSection(
             label: 'Weight',
-            child: OptionGrid(
+            child: Column(
               children: [
                 for (final size in BrushSize.values)
-                  ChoiceTile(
+                  WeightChoice(
                     label: size.label,
-                    preview: BrushSizePreview(size: size),
+                    size: size,
                     selected: _sketch.brushSize == size,
                     onTap: () {
                       Navigator.pop(context);
@@ -349,17 +348,17 @@ class _ZenScreenState extends State<ZenScreen>
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: Colors.transparent,
+      isScrollControlled: true,
       builder: (context) => OptionsSheet(
         title: 'Flowers',
         children: [
           OptionsSection(
             label: 'Bloom',
-            child: OptionGrid(
+            child: Column(
               children: [
                 for (final flower in Flower.values)
-                  ChoiceTile(
-                    label: flower.label,
-                    preview: FlowerPreview(flower: flower),
+                  FlowerChoice(
+                    flower: flower,
                     selected: _sketch.flower == flower,
                     onTap: () {
                       Navigator.pop(context);
@@ -378,6 +377,7 @@ class _ZenScreenState extends State<ZenScreen>
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: Colors.transparent,
+      isScrollControlled: true,
       builder: (context) => OptionsSheet(
         title: 'Tracks',
         children: [

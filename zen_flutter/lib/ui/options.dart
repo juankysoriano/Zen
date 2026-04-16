@@ -8,61 +8,98 @@ class OptionsSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
+    final isWide = size.width > size.height;
     return SafeArea(
       top: false,
       child: Align(
-        alignment: Alignment.bottomCenter,
+        alignment: isWide ? Alignment.centerRight : Alignment.bottomCenter,
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 430),
+          constraints: BoxConstraints(
+            maxWidth: isWide ? 420 : size.width - 20,
+            maxHeight: isWide ? size.height - 28 : size.height * 0.74,
+          ),
           child: Container(
-            margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-            padding: const EdgeInsets.fromLTRB(14, 10, 14, 16),
+            margin: EdgeInsets.fromLTRB(10, 10, isWide ? 16 : 10, 12),
             decoration: BoxDecoration(
-              color: ZenColors.paper,
-              border: Border.all(color: ZenColors.panelBorder),
+              color: const Color(0xFFFFFBEA),
+              border: Border.all(color: const Color(0x24212121)),
               borderRadius: BorderRadius.circular(8),
               boxShadow: const [
                 BoxShadow(
-                  blurRadius: 22,
+                  blurRadius: 24,
                   offset: Offset(0, 10),
-                  color: Color(0x26000000),
+                  color: Color(0x30000000),
                 ),
               ],
             ),
-            child: SingleChildScrollView(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Center(
-                    child: Container(
-                      width: 38,
-                      height: 4,
-                      decoration: BoxDecoration(
-                        color: ZenColors.darkBrush.withValues(alpha: 0.18),
-                        borderRadius: BorderRadius.circular(8),
+                  _DrawerHeader(title: title),
+                  Flexible(
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.fromLTRB(14, 12, 14, 14),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: children,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 12),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                    child: Text(
-                      title,
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: ZenColors.darkBrush,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 0,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  ...children,
                 ],
               ),
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _DrawerHeader extends StatelessWidget {
+  const _DrawerHeader({required this.title});
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(16, 14, 12, 12),
+      decoration: const BoxDecoration(
+        border: Border(bottom: BorderSide(color: Color(0x16212121))),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(
+              title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                color: ZenColors.darkBrush,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 0,
+                height: 1,
+              ),
+            ),
+          ),
+          Container(
+            width: 34,
+            height: 34,
+            decoration: BoxDecoration(
+              color: ZenColors.darkBrush.withValues(alpha: 0.06),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Icon(
+              LucideIcons.chevronDown,
+              color: ZenColors.darkBrush.withValues(alpha: 0.66),
+              size: 19,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -77,17 +114,17 @@ class OptionsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 14),
+      padding: const EdgeInsets.only(bottom: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(4, 0, 4, 8),
+            padding: const EdgeInsets.fromLTRB(2, 0, 2, 8),
             child: Text(
               label,
-              style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                color: ZenColors.darkBrush.withValues(alpha: 0.62),
-                fontWeight: FontWeight.w700,
+              style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                color: ZenColors.darkBrush.withValues(alpha: 0.52),
+                fontWeight: FontWeight.w800,
                 letterSpacing: 0,
               ),
             ),
@@ -99,34 +136,158 @@ class OptionsSection extends StatelessWidget {
   }
 }
 
-class OptionGrid extends StatelessWidget {
-  const OptionGrid({required this.children, this.columns = 3, super.key});
+class HorizontalOptionStrip extends StatelessWidget {
+  const HorizontalOptionStrip({required this.children, super.key});
 
   final List<Widget> children;
-  final int columns;
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        const spacing = 8.0;
-        final tileWidth =
-            (constraints.maxWidth - spacing * (columns - 1)) / columns;
-        return Wrap(
-          spacing: spacing,
-          runSpacing: spacing,
-          children: [
-            for (final child in children)
-              SizedBox(width: tileWidth, child: child),
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      clipBehavior: Clip.none,
+      child: Row(
+        children: [
+          for (var index = 0; index < children.length; index++) ...[
+            children[index],
+            if (index != children.length - 1) const SizedBox(width: 10),
           ],
-        );
-      },
+        ],
+      ),
     );
   }
 }
 
-class ChoiceTile extends StatelessWidget {
-  const ChoiceTile({
+class InkChoice extends StatelessWidget {
+  const InkChoice({
+    required this.label,
+    required this.color,
+    required this.selected,
+    required this.onTap,
+    super.key,
+  });
+
+  final String label;
+  final BrushColor color;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final isErase = color == BrushColor.erase;
+    return InkWell(
+      borderRadius: BorderRadius.circular(8),
+      onTap: onTap,
+      child: SizedBox(
+        width: 62,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 160),
+              curve: Curves.easeOutCubic,
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                color: isErase ? Colors.transparent : color.color,
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: selected
+                      ? ZenColors.darkBrush
+                      : ZenColors.darkBrush.withValues(alpha: 0.18),
+                  width: selected ? 2 : 1,
+                ),
+                boxShadow: selected
+                    ? const [
+                        BoxShadow(
+                          blurRadius: 10,
+                          offset: Offset(0, 4),
+                          color: Color(0x22000000),
+                        ),
+                      ]
+                    : null,
+              ),
+              child: isErase
+                  ? const Icon(
+                      LucideIcons.eraser,
+                      color: ZenColors.darkBrush,
+                      size: 22,
+                    )
+                  : null,
+            ),
+            const SizedBox(height: 7),
+            Text(
+              label,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: ZenColors.darkBrush.withValues(
+                  alpha: selected ? 0.88 : 0.52,
+                ),
+                fontSize: 11,
+                height: 1,
+                letterSpacing: 0,
+                fontWeight: selected ? FontWeight.w800 : FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class WeightChoice extends StatelessWidget {
+  const WeightChoice({
+    required this.label,
+    required this.size,
+    required this.selected,
+    required this.onTap,
+    super.key,
+  });
+
+  final String label;
+  final BrushSize size;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return PreviewRow(
+      label: label,
+      selected: selected,
+      onTap: onTap,
+      preview: BrushStrokePreview(size: size),
+    );
+  }
+}
+
+class FlowerChoice extends StatelessWidget {
+  const FlowerChoice({
+    required this.flower,
+    required this.selected,
+    required this.onTap,
+    super.key,
+  });
+
+  final Flower flower;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return PreviewRow(
+      label: flower.label,
+      selected: selected,
+      onTap: onTap,
+      preview: FlowerPreview(flower: flower),
+    );
+  }
+}
+
+class PreviewRow extends StatelessWidget {
+  const PreviewRow({
     required this.label,
     required this.preview,
     required this.selected,
@@ -141,56 +302,58 @@ class ChoiceTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final borderColor = selected
-        ? ZenColors.darkBrush
-        : ZenColors.panelBorder.withValues(alpha: 0.8);
-    return InkWell(
-      borderRadius: BorderRadius.circular(8),
-      onTap: onTap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 140),
-        curve: Curves.easeOutCubic,
-        height: 96,
-        padding: const EdgeInsets.fromLTRB(8, 8, 8, 7),
-        decoration: BoxDecoration(
-          color: selected
-              ? Colors.white.withValues(alpha: 0.82)
-              : Colors.white.withValues(alpha: 0.48),
-          border: Border.all(color: borderColor, width: selected ? 1.4 : 1),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Stack(
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(child: Center(child: preview)),
-                const SizedBox(height: 6),
-                Text(
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 6),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(8),
+        onTap: onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 140),
+          curve: Curves.easeOutCubic,
+          constraints: const BoxConstraints(minHeight: 54),
+          padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
+          decoration: BoxDecoration(
+            color: selected
+                ? ZenColors.darkBrush.withValues(alpha: 0.055)
+                : Colors.transparent,
+            border: Border.all(
+              color: selected
+                  ? ZenColors.darkBrush.withValues(alpha: 0.34)
+                  : Colors.transparent,
+            ),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Row(
+            children: [
+              SizedBox(width: 96, child: preview),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
                   label,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: ZenColors.darkBrush.withValues(alpha: 0.86),
-                    fontSize: 12,
+                    color: ZenColors.darkBrush.withValues(
+                      alpha: selected ? 0.92 : 0.68,
+                    ),
+                    fontSize: 15,
                     height: 1,
                     letterSpacing: 0,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: selected ? FontWeight.w800 : FontWeight.w600,
                   ),
                 ),
-              ],
-            ),
-            if (selected)
-              Align(
-                alignment: Alignment.topRight,
-                child: Icon(
+              ),
+              AnimatedOpacity(
+                duration: const Duration(milliseconds: 140),
+                opacity: selected ? 1 : 0,
+                child: const Icon(
                   LucideIcons.check,
-                  size: 16,
-                  color: ZenColors.darkBrush.withValues(alpha: 0.74),
+                  color: ZenColors.darkBrush,
+                  size: 18,
                 ),
               ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -211,112 +374,35 @@ class TrackChoiceTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(8),
-        onTap: onTap,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 140),
-          curve: Curves.easeOutCubic,
-          constraints: const BoxConstraints(minHeight: 62),
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-          decoration: BoxDecoration(
-            color: selected
-                ? Colors.white.withValues(alpha: 0.82)
-                : Colors.white.withValues(alpha: 0.48),
-            border: Border.all(
-              color: selected
-                  ? ZenColors.darkBrush
-                  : ZenColors.panelBorder.withValues(alpha: 0.8),
-              width: selected ? 1.4 : 1,
-            ),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Row(
-            children: [
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: ZenColors.darkBrush.withValues(alpha: 0.08),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Icon(
-                  LucideIcons.music,
-                  color: ZenColors.darkBrush,
-                  size: 21,
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  track.label,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: ZenColors.darkBrush,
-                    fontSize: 15,
-                    height: 1.1,
-                    letterSpacing: 0,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-              if (selected)
-                const Icon(
-                  LucideIcons.check,
-                  color: ZenColors.darkBrush,
-                  size: 18,
-                ),
-            ],
-          ),
-        ),
-      ),
+    return PreviewRow(
+      label: track.label,
+      selected: selected,
+      onTap: onTap,
+      preview: const TrackWavePreview(),
     );
   }
 }
 
-class ColorDot extends StatelessWidget {
-  const ColorDot({required this.color, super.key});
-
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 42,
-      height: 42,
-      decoration: BoxDecoration(
-        color: color,
-        shape: BoxShape.circle,
-        border: Border.all(
-          color: color == ZenColors.paper
-              ? ZenColors.darkBrush.withValues(alpha: 0.28)
-              : Colors.transparent,
-        ),
-      ),
-    );
-  }
-}
-
-class BrushSizePreview extends StatelessWidget {
-  const BrushSizePreview({required this.size, super.key});
+class BrushStrokePreview extends StatelessWidget {
+  const BrushStrokePreview({required this.size, super.key});
 
   final BrushSize size;
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        width: size.previewDiameter,
-        height: size.previewDiameter,
-        decoration: const BoxDecoration(
-          color: ZenColors.darkBrush,
-          shape: BoxShape.circle,
-        ),
-      ),
+    return CustomPaint(
+      size: const Size(92, 28),
+      painter: _StrokePreviewPainter(size.radius / 16),
     );
+  }
+}
+
+class TrackWavePreview extends StatelessWidget {
+  const TrackWavePreview({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(size: const Size(92, 28), painter: _TrackWavePainter());
   }
 }
 
@@ -328,17 +414,75 @@ class FlowerPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (flower.previewAsset == null) {
-      return const Icon(
+      return Icon(
         LucideIcons.flower,
-        color: ZenColors.darkBrush,
-        size: 30,
+        color: ZenColors.darkBrush.withValues(alpha: 0.72),
+        size: 28,
       );
     }
-    return Image.asset(
-      flower.previewAsset!,
-      width: 46,
-      height: 46,
-      fit: BoxFit.contain,
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Image.asset(
+        flower.previewAsset!,
+        width: 46,
+        height: 46,
+        fit: BoxFit.contain,
+      ),
     );
   }
+}
+
+class _StrokePreviewPainter extends CustomPainter {
+  const _StrokePreviewPainter(this.weight);
+
+  final double weight;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = ZenColors.darkBrush.withValues(alpha: 0.84)
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = weight.clamp(3, 9).toDouble()
+      ..style = PaintingStyle.stroke;
+    final path = Path()
+      ..moveTo(4, size.height * 0.52)
+      ..cubicTo(
+        size.width * 0.26,
+        size.height * 0.18,
+        size.width * 0.54,
+        size.height * 0.86,
+        size.width - 4,
+        size.height * 0.44,
+      );
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(_StrokePreviewPainter oldDelegate) {
+    return oldDelegate.weight != weight;
+  }
+}
+
+class _TrackWavePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = ZenColors.darkBrush.withValues(alpha: 0.72)
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = 2;
+    final heights = [8.0, 16.0, 11.0, 22.0, 13.0, 18.0, 9.0];
+    final gap = size.width / (heights.length + 1);
+    for (var i = 0; i < heights.length; i++) {
+      final x = gap * (i + 1);
+      final half = heights[i] / 2;
+      canvas.drawLine(
+        Offset(x, size.height / 2 - half),
+        Offset(x, size.height / 2 + half),
+        paint,
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
