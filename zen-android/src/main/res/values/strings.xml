@@ -1,19 +1,18 @@
 <resources>
   <string name="app_name">Zen</string>
 
-  <string name="option_ink_color">Ink color</string>
-  <string name="option_brush_size">Brush size</string>
-  <string name="option_flower">Flower</string>
-  <string name="save_sketch">Screenshot taken.</string>
-  <string name="flower_options_title">Flower options</string>
-  <string name="option_done">Done</string>
-  <string name="option_cancel">Cancel</string>
-  <string name="brush_options_title">Brush options</string>
-  <string name="screenshot_name">Zen Sketch Screenshot.png</string>
-  <string name="share_with_friends">Zen! to your friends</string>
-  <string name="share_subjet">My Zen! Sketch</string>
-  <string name="share_text">I tried Zen! for Android. It\'s relaxing!\nCheck it out at http://www.juankysoriano.com/zen</string>
-
+  <string name="option_ink_color">Couleur de l'encre</string>
+  <string name="option_brush_size">Taille du pinceau</string>
+  <string name="option_flower">Fleur</string>
+  <string name="save_sketch">Capture d'écran effectuée.</string>
+  <string name="flower_options_title">Options des fleurs</string>
+  <string name="option_done">Effectué</string>
+  <string name="option_cancel">Annulé</string>
+  <string name="brush_options_title">Options du pinceau</string>
+  <string name="screenshot_name">Capture d'écran Zen Sketch.png</string>
+  <string name="share_with_friends">Zen! à vos amis</string>
+  <string name="share_subjet">Mon esquisse Zen!</string>
+  <string name="share_text">J'ai essayé Zen! pour Android. C'est apaisant!\Jette-y un œil à http://www.juankysoriano.com/zen</string>
   <string name="file_provider">"zenproject.meditation.android.fileprovider"</string>
 
 </resources>
